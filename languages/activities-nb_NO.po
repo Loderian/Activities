@@ -1,0 +1,2350 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: activities\n"
+"POT-Creation-Date: 2018-10-04 15:53+0200\n"
+"PO-Revision-Date: 2018-10-04 15:55+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/activities-admin-activities.php:26
+#: admin/activities-admin-archive.php:22 admin/activities-admin-export.php:14
+#: admin/activities-admin-import.php:12 admin/activities-admin-locations.php:14
+#: admin/activities-admin-options.php:12
+msgid "Access Denied"
+msgstr "Tilgang Nektet"
+
+#: admin/activities-admin-activities.php:36
+#: admin/activities-admin-activities.php:68
+#: admin/activities-admin-activities.php:80
+msgid "Create New Activity"
+msgstr "Opprett Ny Aktivitet"
+
+#: admin/activities-admin-activities.php:42
+#: admin/activities-admin-activities.php:95
+#: admin/activities-admin-activities.php:112
+msgid "Edit Activity"
+msgstr "Rediger Aktivitet"
+
+#: admin/activities-admin-activities.php:45
+msgid "You do not have permission to edit this activity."
+msgstr "Du har ikke tillatelse til å redigere denne aktiviteten."
+
+#: admin/activities-admin-activities.php:56
+msgid "You do not have permission to view this activity."
+msgstr "Du har ikke tillatelse til å se denne aktiviteten."
+
+#: admin/activities-admin-activities.php:67
+#: admin/activities-admin-activities.php:94
+msgid "The activity must have a name."
+msgstr "Aktiviteten må ha et navn."
+
+#: admin/activities-admin-activities.php:75
+#, php-format
+msgid "An error occured creating activity: %s"
+msgstr "Det oppstod en feil under opprettelse av aktivitet: %s"
+
+#: admin/activities-admin-activities.php:79
+#: admin/activities-admin-activities.php:110
+#, php-format
+msgid "An activity with name: %s already exists."
+msgstr "Det finnes allerede en aktivitet med navn: %s."
+
+#: admin/activities-admin-activities.php:80
+#: admin/activities-admin-activity.php:128
+#: admin/activities-admin-location.php:63
+msgid "Create"
+msgstr "Opprett"
+
+#: admin/activities-admin-activities.php:84
+msgid "You do not have permission to create activities."
+msgstr "Du har ikke tillatelse til å opprette aktiviteter."
+
+#: admin/activities-admin-activities.php:98
+#: admin/activities-admin-activities.php:106
+#, php-format
+msgid "An error occured updating activity: %s "
+msgstr "Det oppstod en feil under oppdatering av aktivitet: %s "
+
+#: admin/activities-admin-activities.php:116
+msgid "You do not have permission to update this activity."
+msgstr "Du har ikke tillatelse til å oppdatere denne aktiviteten."
+
+#: admin/activities-admin-activities.php:122
+#: admin/activities-admin-import.php:275
+msgid "Archive Activities"
+msgstr "Arkiver Aktiviteter"
+
+#: admin/activities-admin-activities.php:126
+#: includes/class-activities-list-table.php:234
+msgid "Change Location"
+msgstr "Endre sted"
+
+#: admin/activities-admin-activities.php:130
+#: includes/class-activities-list-table.php:235
+msgid "Change Responsible"
+msgstr "Endre ansvarlig"
+
+#: admin/activities-admin-activities.php:134
+#: includes/class-activities-list-table.php:236
+msgid "Change Members"
+msgstr "Endre medlemmer"
+
+#: admin/activities-admin-activities.php:168
+#, php-format
+msgid "%d activities has been archived"
+msgstr "%d aktiviteter har blitt arkivert"
+
+#: admin/activities-admin-activities.php:181
+#, php-format
+msgid "%d activities had their location changed."
+msgstr "%d aktiviteter fikk endret sted."
+
+#: admin/activities-admin-activities.php:195
+#, php-format
+msgid "%d activities had their responsible person changed."
+msgstr "%d aktiviteter fikk sin ansvarlige person endret."
+
+#: admin/activities-admin-activities.php:250
+msgid "Select a save method."
+msgstr "Velg en lagringsmetode."
+
+#: admin/activities-admin-activities.php:265
+#, php-format
+msgid "%d activities had their members changed."
+msgstr "%d aktiviteter fikk sine medlemmer endret."
+
+#. Plugin Name of the plugin/theme
+#: admin/activities-admin-activities.php:272
+#: admin/activities-admin-import.php:25 admin/activities-admin-import.php:258
+#: admin/class-activities-admin.php:103 admin/class-activities-admin.php:105
+#: admin/class-activities-admin.php:173 admin/class-activities-admin.php:383
+#: includes/class-activities-woocommerce.php:50
+msgid "Activities"
+msgstr "Aktiviteter"
+
+#: admin/activities-admin-activities.php:274
+msgid "Create new activity"
+msgstr "Opprett ny aktivitet"
+
+#: admin/activities-admin-activity-nice.php:22
+#, php-format
+msgid "Report settings updated for %s."
+msgstr "Rapportinnstillinger er oppdatert for %s."
+
+#: admin/activities-admin-activity-nice.php:27
+#, php-format
+msgid "Report settings has been reset for %s."
+msgstr "Rapportinnstillingene er tilbakestilt for %s."
+
+#: admin/activities-admin-activity-nice.php:43
+msgid "Activity Report Management"
+msgstr "Aktivitetsrapport Behandling"
+
+#: admin/activities-admin-activity-nice.php:48
+#: admin/class-activities-admin.php:650
+msgid "Report"
+msgstr "Rapport"
+
+#: admin/activities-admin-activity-nice.php:60
+#: admin/activities-admin-archive.php:55
+msgid "Activity"
+msgstr "Aktivitet"
+
+#: admin/activities-admin-activity-nice.php:98
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: admin/activities-admin-activity-nice.php:100
+msgid "default"
+msgstr "standard"
+
+#: admin/activities-admin-activity-nice.php:100
+msgid "custom"
+msgstr "egendefinert"
+
+#: admin/activities-admin-activity-nice.php:111
+msgid "Header"
+msgstr "Toppfelt"
+
+#: admin/activities-admin-activity-nice.php:113
+msgid "Logo"
+msgstr "Logo"
+
+#: admin/activities-admin-activity-nice.php:114
+msgid "Select Logo"
+msgstr "Velg Logo"
+
+#: admin/activities-admin-activity-nice.php:115
+msgid "Remove Logo"
+msgstr "Fjern Logo"
+
+#: admin/activities-admin-activity-nice.php:121
+#: admin/activities-admin-activity.php:50
+msgid "Activity Info"
+msgstr "Aktivitetsinformasjon"
+
+#: admin/activities-admin-activity-nice.php:124
+#: admin/activities-admin-activity-nice.php:272
+msgid "Start"
+msgstr "Start"
+
+#: admin/activities-admin-activity-nice.php:125
+#: admin/activities-admin-activity-nice.php:277
+msgid "End"
+msgstr "Slutt"
+
+#: admin/activities-admin-activity-nice.php:126
+#: admin/activities-admin-activity.php:55
+#: admin/class-activities-admin-utility.php:315
+msgid "Short Description"
+msgstr "Kort Beskrivelse"
+
+#: admin/activities-admin-activity-nice.php:127
+msgid "Location Address"
+msgstr "Stedsadresse"
+
+#: admin/activities-admin-activity-nice.php:128
+msgid "Responsible User"
+msgstr "Ansvarlig Bruker"
+
+#: admin/activities-admin-activity-nice.php:129
+#: admin/activities-admin-activity.php:57
+#: admin/class-activities-admin-utility.php:319
+msgid "Long Description"
+msgstr "Lang Beskrivelse"
+
+#: admin/activities-admin-activity-nice.php:132
+#: admin/activities-admin-activity-nice.php:331
+msgid "Sessions"
+msgstr "Økter"
+
+#: admin/activities-admin-activity-nice.php:137
+msgid "Participant Info"
+msgstr "Deltaker info"
+
+#: admin/activities-admin-activity-nice.php:138
+msgid "Reload Info"
+msgstr "Oppdater info"
+
+#: admin/activities-admin-activity-nice.php:141
+msgid "Prepared Setups"
+msgstr "Klargjorte oppsett"
+
+#: admin/activities-admin-activity-nice.php:144
+msgid "Wordpress User Info"
+msgstr "WordPress Bruker Info"
+
+#: admin/activities-admin-activity-nice.php:146
+msgid "Woocommerce Billing Info"
+msgstr "Woocommerce Fakturerings Info"
+
+#: admin/activities-admin-activity-nice.php:147
+msgid "Woocommerce Shipping Info"
+msgstr "Woocommerce Sendings Info"
+
+#: admin/activities-admin-activity-nice.php:152
+msgid "Custom Fields"
+msgstr "Egendefinerte felter"
+
+#: admin/activities-admin-activity-nice.php:153
+msgid "Type in usermeta key, then press reload info."
+msgstr "Skriv inn en bruker-meta felt, også trykk på Oppdater info."
+
+#: admin/activities-admin-activity-nice.php:154
+msgid "Seperate multiple fields in one line by a comma."
+msgstr "Skill flere felt på en linje med et komma."
+
+#: admin/activities-admin-activity-nice.php:169
+msgid "Color Fields"
+msgstr "Fargefelt"
+
+#: admin/activities-admin-activity-nice.php:170
+msgid "Colorize usermeta data for quicker identification."
+msgstr "Fargelegg bruker data for raskere identifikasjon."
+
+#: admin/activities-admin-activity-nice.php:183
+#: admin/activities-admin-activity.php:132
+#: admin/activities-admin-location.php:67
+#: admin/activities-admin-options.php:179 admin/class-activities-admin.php:524
+msgid "Save"
+msgstr "Lagre"
+
+#: admin/activities-admin-activity-nice.php:185
+msgid "Print"
+msgstr "Print"
+
+#: admin/activities-admin-activity-nice.php:186
+msgid "Folder Print"
+msgstr "Mappe Print"
+
+#: admin/activities-admin-activity-nice.php:189
+#: admin/activities-admin-import.php:227 admin/activities-admin-import.php:283
+#: admin/activities-admin-import.php:401 admin/activities-admin-import.php:523
+#: includes/class-activities-woocommerce.php:303
+#: includes/class-activities-woocommerce.php:456
+msgid "Return"
+msgstr "Retuner"
+
+#: admin/activities-admin-activity-nice.php:190
+msgid "Reset to default"
+msgstr "Reset til standard"
+
+#: admin/activities-admin-activity-nice.php:267
+msgid "Activity Participants List"
+msgstr "Aktivitetsdeltakere Liste"
+
+#: admin/activities-admin-activity-nice.php:290
+#: admin/activities-admin-activity.php:82 admin/activities-admin-generic.php:47
+#: admin/activities-admin-locations.php:50
+#: admin/activities-admin-locations.php:77
+#: admin/activities-admin-locations.php:85
+#: admin/class-activities-admin-utility.php:337
+msgid "Location"
+msgstr "Sted"
+
+#: admin/activities-admin-activity-nice.php:307
+#: admin/activities-admin-activity.php:67 admin/activities-admin-generic.php:70
+#: admin/class-activities-admin-utility.php:332
+msgid "Responsible"
+msgstr "Ansvarlig"
+
+#: admin/activities-admin-activity-nice.php:323
+msgid "Participant"
+msgstr "Deltaker"
+
+#: admin/activities-admin-activity-nice.php:326
+#: admin/activities-admin-generic.php:94 admin/activities-admin-import.php:30
+msgid "Participants"
+msgstr "Deltakere"
+
+#: admin/activities-admin-activity-nice.php:330
+msgid "Additional Info"
+msgstr "Tillegg Info"
+
+#: admin/activities-admin-activity-nice.php:394
+msgid "This activity has no participants."
+msgstr "Denne aktiviteten har ingen deltakere."
+
+#: admin/activities-admin-activity.php:53 admin/activities-admin-export.php:269
+#: admin/activities-admin-location.php:40
+#: admin/class-activities-admin-utility.php:311
+#: admin/class-activities-admin.php:507
+msgid "Name"
+msgstr "Navn"
+
+#: admin/activities-admin-activity.php:63
+msgid "Start date"
+msgstr "Startdato"
+
+#: admin/activities-admin-activity.php:65
+msgid "End date"
+msgstr "Sluttdato"
+
+#: admin/activities-admin-activity.php:105
+msgid "Activity Participants"
+msgstr "Aktivitetsdeltakere"
+
+#: admin/activities-admin-activity.php:139
+#: includes/class-activities-list-table.php:253
+#: includes/class-activities-list-table.php:515
+msgid "Activate"
+msgstr "Aktiver"
+
+#: admin/activities-admin-activity.php:141
+#: admin/activities-admin-generic.php:135
+#: admin/activities-admin-generic.php:167
+#: admin/activities-admin-location.php:71
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: admin/activities-admin-archive.php:34
+msgid "Archived Activity"
+msgstr "Arkivert Aktivitet"
+
+#: admin/activities-admin-archive.php:48
+#, php-format
+msgid "%s has been activated."
+msgstr "%s er blitt aktivert."
+
+#: admin/activities-admin-archive.php:68
+msgid "Activate Activities"
+msgstr "Aktiver Aktiviteter"
+
+#: admin/activities-admin-archive.php:72
+msgid "Delete Activities"
+msgstr "Slett Aktiviteter"
+
+#: admin/activities-admin-archive.php:103
+#, php-format
+msgid "%d activites has been activated."
+msgstr "%d aktiviteter har blitt aktivert."
+
+#: admin/activities-admin-archive.php:113
+#, php-format
+msgid "%d activites has been deleted."
+msgstr "%d aktiviteter er slettet."
+
+#: admin/activities-admin-archive.php:124 admin/class-activities-admin.php:110
+msgid "Activities Archive"
+msgstr "Aktivitetsarkiv"
+
+#: admin/activities-admin-export.php:24
+msgid "Select an activity."
+msgstr "Velg en aktivitet."
+
+#: admin/activities-admin-export.php:27
+msgid "Select user data to export."
+msgstr "Velg brukerdata for eksport."
+
+#: admin/activities-admin-export.php:59
+#, php-format
+msgid "User data found for %s:"
+msgstr "Bruker data funnet for %s:"
+
+#: admin/activities-admin-export.php:60
+msgid "Copied!"
+msgstr "Kopiert!"
+
+#: admin/activities-admin-export.php:62
+msgid "No data found."
+msgstr "Ingen data funnet."
+
+#: admin/activities-admin-export.php:77
+msgid "Notice:"
+msgstr "Legge merke til:"
+
+#: admin/activities-admin-export.php:77
+#, php-format
+msgid "%d users missing data"
+msgstr "%d brukere mangler data"
+
+#: admin/activities-admin-export.php:115
+msgid "You are not allowed to export this activity."
+msgstr "Du har ikke lov til å eksportere denne aktiviteten."
+
+#: admin/activities-admin-export.php:120 admin/class-activities-admin.php:108
+msgid "Activities Export"
+msgstr "Aktiviteter Eksport"
+
+#: admin/activities-admin-export.php:125
+msgid "Export Activity Participant Data"
+msgstr "Eksporter Aktivitet Deltaker Data"
+
+#: admin/activities-admin-export.php:126
+msgid "Select Activity"
+msgstr "Velg Aktivitet"
+
+#: admin/activities-admin-export.php:159
+msgid "Select User Data"
+msgstr "Velg Bruker Data"
+
+#: admin/activities-admin-export.php:177
+msgid "Select Delimiter"
+msgstr "Velg Skilletegn"
+
+#: admin/activities-admin-export.php:185 admin/class-activities-admin.php:108
+#: includes/class-activities-list-table.php:504
+#: includes/class-activities-list-table.php:514
+msgid "Export"
+msgstr "Eksporter"
+
+#: admin/activities-admin-export.php:267
+msgid "Email"
+msgstr "E-post"
+
+#: admin/activities-admin-export.php:268
+msgid "Phone"
+msgstr "Mobilnummer"
+
+#: admin/activities-admin-export.php:275
+#, php-format
+msgid "Comma (%s)"
+msgstr "Komma (%s)"
+
+#: admin/activities-admin-export.php:276
+#, php-format
+msgid "Semicolon (%s)"
+msgstr "Semikolon (%s)"
+
+#: admin/activities-admin-export.php:277
+msgid "Newline"
+msgstr "Linjeskift"
+
+#: admin/activities-admin-generic.php:33
+msgid "Selected Locations"
+msgstr "Valgte Steder"
+
+#: admin/activities-admin-generic.php:36
+msgid "Selected Activities"
+msgstr "Valgte Aktiviteter"
+
+#: admin/activities-admin-generic.php:40
+msgid "Bulk Action"
+msgstr "Massehandling"
+
+#: admin/activities-admin-generic.php:43
+#, php-format
+msgid "Are you sure you want to archive %d activities?"
+msgstr "Er du sikker på at du vil arkivere %d aktiviteter?"
+
+#: admin/activities-admin-generic.php:87
+msgid "Select a Save Method"
+msgstr "Velg en Lagringsmetode"
+
+#: admin/activities-admin-generic.php:89
+msgid "Method"
+msgstr "Lagringsmetode"
+
+#: admin/activities-admin-generic.php:90
+msgid "Replace"
+msgstr "Erstatt"
+
+#: admin/activities-admin-generic.php:91
+msgid "Add"
+msgstr "Legg til"
+
+#: admin/activities-admin-generic.php:92
+msgid "Remove"
+msgstr "Fjern"
+
+#: admin/activities-admin-generic.php:112
+#, php-format
+msgid "Are you sure you want to activate %d activities?"
+msgstr "Er du sikker på at du vil aktivere %d aktiviteter?"
+
+#: admin/activities-admin-generic.php:116
+#, php-format
+msgid "Are you sure you want to delete %d activities?"
+msgstr "Er du sikker på at du vil slette %d aktiviteter?"
+
+#: admin/activities-admin-generic.php:117
+msgid "Warning: Activities cannot be recovered after deletion."
+msgstr "Advarsel: Aktiviteter kan ikke gjenopprettes etter sletting."
+
+#: admin/activities-admin-generic.php:121
+#: admin/activities-admin-location.php:42
+#: admin/class-activities-admin-utility.php:341
+msgid "Address"
+msgstr "Adresse"
+
+#: admin/activities-admin-generic.php:126
+#, php-format
+msgid "Are you sure you want to delete %d locations?"
+msgstr "Er du sikker på at du vil slette %d steder?"
+
+#: admin/activities-admin-generic.php:127
+msgid "Warning: Locations cannot be recovered after deletion."
+msgstr "Advarsel: Steder kan ikke gjenopprettes etter sletting."
+
+#: admin/activities-admin-generic.php:134
+#: admin/activities-admin-generic.php:166
+msgid "Confirm"
+msgstr "Bekreft"
+
+#: admin/activities-admin-generic.php:156
+#, php-format
+msgid "Delete %s"
+msgstr "Slett %s"
+
+#: admin/activities-admin-generic.php:159
+#, php-format
+msgid "Selected %s"
+msgstr "Valgte %s"
+
+#: admin/activities-admin-generic.php:161
+#, php-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Er du sikker på at du vil slette denne %s?"
+
+#: admin/activities-admin-generic.php:162
+#, php-format
+msgid "Warning: %s cannot be recovered after deletion."
+msgstr "Advarsel: %s kan ikke gjenopprettes etter sletting."
+
+#: admin/activities-admin-import.php:19
+msgid "Select Importer"
+msgstr "Velg Importer"
+
+#: admin/activities-admin-import.php:26 admin/activities-admin-import.php:31
+msgid "Run Importer"
+msgstr "Kjør Importeren"
+
+#: admin/activities-admin-import.php:27
+msgid "Import activities from a CSV file."
+msgstr "Importer aktiviteter fra en CSV-fil."
+
+#: admin/activities-admin-import.php:32
+msgid "Import activities and participants from a CSV file."
+msgstr "Importer aktiviteter og deltakere fra en CSV-fil."
+
+#: admin/activities-admin-import.php:46 admin/class-activities-admin.php:107
+msgid "Activities Import"
+msgstr "Aktiviteter Import"
+
+#: admin/activities-admin-import.php:49
+msgid "Participants Import"
+msgstr "Deltakere Import"
+
+#: admin/activities-admin-import.php:52
+msgid "No Importer Selected"
+msgstr "Ingen importør er valgt"
+
+#: admin/activities-admin-import.php:75
+msgid "Could not validate file."
+msgstr "Kan ikke validere filen."
+
+#: admin/activities-admin-import.php:84
+msgid "Two headers cannot be mapped to the same column."
+msgstr "To felter kan ikke tilordnes til samme kolonne."
+
+#: admin/activities-admin-import.php:114
+#, php-format
+msgid "To import activities the file has to have one header called %s or %s."
+msgstr ""
+"For å importere aktiviteter, må filen ha ett felt med navnet %s eller %s."
+
+#: admin/activities-admin-import.php:115
+msgid ""
+"Other headers can be called whatever you want, you get to map them in the "
+"next step."
+msgstr "Andre felt kan kalles hva du vil, du kan kartlegge dem i neste trinn."
+
+#: admin/activities-admin-import.php:116 admin/activities-admin-import.php:130
+#, php-format
+msgid ""
+"The data is expected to be delimited by a semicolon %s. Order does not "
+"matter."
+msgstr ""
+"Dataene forventes å bli avgrenset med semikolon %s. Rekkefølgen spiller "
+"ingen rolle."
+
+#: admin/activities-admin-import.php:117
+msgid ""
+"You can archive imported activities by selecting the option for it during "
+"the next step."
+msgstr ""
+"Du kan arkivere importerte aktiviteter ved å velge alternativet for det i "
+"neste trinn."
+
+#: admin/activities-admin-import.php:118 admin/activities-admin-import.php:133
+msgid "Example CSV data"
+msgstr "Eksempel CSV-data"
+
+#: admin/activities-admin-import.php:123 admin/activities-admin-import.php:139
+msgid "Next"
+msgstr "Neste"
+
+#: admin/activities-admin-import.php:128
+msgid ""
+"To import participants and activities the file must have exactly two headers."
+msgstr ""
+"For å importere deltakere og aktiviteter, må filen ha nøyaktig to felter."
+
+#: admin/activities-admin-import.php:129
+msgid ""
+"Headers can be called whatever you want, you get to map them in the next "
+"step."
+msgstr ""
+"Feltene kan kalles hva du vil, får du til å kartlegge dem i neste trinn."
+
+#: admin/activities-admin-import.php:131
+msgid "You can have multiple activities and participants in the two columns."
+msgstr "Du kan ha flere aktiviteter og deltakere i hver av de to kolonnene."
+
+#: admin/activities-admin-import.php:132
+msgid ""
+"You can create and archive imported activities by selecting the option for "
+"it during the next step."
+msgstr ""
+"Du kan opprette og arkivere importerte aktiviteter ved å velge alternativet "
+"for det i neste trinn."
+
+#: admin/activities-admin-import.php:143
+msgid "No importer selected."
+msgstr "Ingen importør er valgt."
+
+#: admin/activities-admin-import.php:154
+msgid "Upload File"
+msgstr "Last opp fil"
+
+#: admin/activities-admin-import.php:191 admin/activities-admin-import.php:253
+msgid "Select fields mapping"
+msgstr "Velg felttilordning"
+
+#: admin/activities-admin-import.php:202
+msgid "Don't Import"
+msgstr "Ikke Importer"
+
+#: admin/activities-admin-import.php:217
+msgid "Update Existing Activities"
+msgstr "Oppdater Eksisterende Aktiviteter"
+
+#: admin/activities-admin-import.php:219
+msgid "Archive Imported Activities"
+msgstr "Arkiver Importerte Aktiviteter"
+
+#: admin/activities-admin-import.php:221 admin/activities-admin-import.php:277
+msgid "Archived activities cannot be changed."
+msgstr "Arkiverte aktiviteter kan ikke endres."
+
+#: admin/activities-admin-import.php:226 admin/activities-admin-import.php:282
+#: admin/class-activities-admin.php:107
+msgid "Import"
+msgstr "Importer"
+
+#: admin/activities-admin-import.php:233
+#, php-format
+msgid "No header called %s or %s found."
+msgstr "Ingen felt kalt %s eller %s ble funnet."
+
+#: admin/activities-admin-import.php:248
+msgid "Expected exactly two headers."
+msgstr "Forventet nøyaktig to felter."
+
+#: admin/activities-admin-import.php:257
+msgid "Users"
+msgstr "Brukere"
+
+#: admin/activities-admin-import.php:273
+msgid "Create Activities That Dosn't Exist"
+msgstr "Opprett aktiviteter som dosn't finnes"
+
+#: admin/activities-admin-import.php:305
+msgid "Importing activities"
+msgstr "Importerer aktiviteter"
+
+#: admin/activities-admin-import.php:366
+msgid "Created activity: "
+msgstr "Opprettet aktivitet: "
+
+#: admin/activities-admin-import.php:375
+msgid "Updated activity: "
+msgstr "Oppdatert aktivitet: "
+
+#: admin/activities-admin-import.php:381
+msgid "Could not create activity"
+msgstr "Kan ikke opprette aktivitet"
+
+#: admin/activities-admin-import.php:385
+msgid "Invalid name."
+msgstr "Ugyldig navn."
+
+#: admin/activities-admin-import.php:396
+#, php-format
+msgid "Created %d activities!"
+msgstr "Opprettet %d aktiviteter!"
+
+#: admin/activities-admin-import.php:398
+#, php-format
+msgid "Updated %d activities!"
+msgstr "Oppdaterte %d aktiviteter!"
+
+#: admin/activities-admin-import.php:422
+msgid "Importing participants"
+msgstr "Importerer deltakere"
+
+#: admin/activities-admin-import.php:494
+#, php-format
+msgid "Created %d activities."
+msgstr "Opprettet %d aktiviteter."
+
+#: admin/activities-admin-import.php:497
+#, php-format
+msgid "Added %d participants."
+msgstr "La til %d deltakere."
+
+#: admin/activities-admin-import.php:501
+msgid "No Changes."
+msgstr "Ingen endringer."
+
+#: admin/activities-admin-import.php:520
+#, php-format
+msgid "Archived %d activities!"
+msgstr "Arkiverte %d aktiviteter!"
+
+#: admin/activities-admin-location.php:36
+msgid "Location Info"
+msgstr "Sted Info"
+
+#: admin/activities-admin-location.php:44
+#: admin/class-activities-admin-utility.php:353
+msgid "Postcode"
+msgstr "Postnummer"
+
+#: admin/activities-admin-location.php:46
+#: admin/class-activities-admin-utility.php:349
+msgid "City"
+msgstr "By"
+
+#: admin/activities-admin-location.php:48
+#: admin/class-activities-admin-utility.php:357
+msgid "Country"
+msgstr "Land"
+
+#: admin/activities-admin-location.php:58
+#: admin/class-activities-admin-utility.php:345
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: admin/activities-admin-locations.php:24
+#: admin/activities-admin-locations.php:39
+#: admin/activities-admin-locations.php:52
+msgid "Create New Location"
+msgstr "Opprett nytt sted"
+
+#: admin/activities-admin-locations.php:27
+#: admin/activities-admin-locations.php:73
+#: admin/activities-admin-locations.php:79
+msgid "Edit Location"
+msgstr "Rediger Sted"
+
+#: admin/activities-admin-locations.php:37
+#: admin/activities-admin-locations.php:71
+#, php-format
+msgid "A location with name %s already exists."
+msgstr "Det finnes allerede en sted med navnet %s."
+
+#: admin/activities-admin-locations.php:46
+#, php-format
+msgid "An error occured creating location: %s"
+msgstr "Det oppstod en feil under oppretting av sted: %s"
+
+#: admin/activities-admin-locations.php:67
+#, php-format
+msgid "An error occured updating location: %s"
+msgstr "Det oppstod en feil under oppdatering av sted: %s"
+
+#: admin/activities-admin-locations.php:98
+#: includes/class-activities-list-table.php:246
+msgid "Change Address"
+msgstr "Endre adresse"
+
+#: admin/activities-admin-locations.php:102
+msgid "Delete Locations"
+msgstr "Slett Steder"
+
+#: admin/activities-admin-locations.php:136
+#, php-format
+msgid "%d locations had their address changed."
+msgstr "%d steder fikk adressen endret."
+
+#: admin/activities-admin-locations.php:146
+#, php-format
+msgid "%d locations has been deleted."
+msgstr "%d steder er slettet."
+
+#: admin/activities-admin-locations.php:156
+#: admin/class-activities-admin.php:106
+msgid "Locations"
+msgstr "Steder"
+
+#: admin/activities-admin-locations.php:157
+msgid "Create new location"
+msgstr "Opprett nytt sted"
+
+#: admin/activities-admin-options.php:126
+msgid "Options has been updated."
+msgstr "Innstillingene er oppdatert."
+
+#: admin/activities-admin-options.php:143 admin/class-activities-admin.php:109
+msgid "Activities Options"
+msgstr "Aktiviteter Innstillinger"
+
+#: admin/activities-admin-options.php:149
+msgid "General"
+msgstr "Generell"
+
+#: admin/activities-admin-options.php:150
+msgid "Activity Report"
+msgstr "Aktivitetsrapport"
+
+#: admin/activities-admin-options.php:191
+msgid "View Activities"
+msgstr "Se Aktiviteter"
+
+#: admin/activities-admin-options.php:192
+msgid "Administer Activities"
+msgstr "Administrere Aktiviteter"
+
+#: admin/activities-admin-options.php:193
+msgid "Administer Activities Options"
+msgstr "Administrere Aktiviteter Innstillinger"
+
+#: admin/activities-admin-options.php:196
+msgid "Can be Member"
+msgstr "Kan være Medlem"
+
+#: admin/activities-admin-options.php:197
+msgid "Can be Responsible"
+msgstr "Kan være Ansvarlig"
+
+#: admin/activities-admin-options.php:203
+msgid "Permissions"
+msgstr "Tillgang"
+
+#: admin/activities-admin-options.php:207
+#: admin/activities-admin-options.php:252
+msgid "Roles"
+msgstr "Roller"
+
+#: admin/activities-admin-options.php:231
+msgid "Responsible Users"
+msgstr "Ansvarlige Brukere"
+
+#: admin/activities-admin-options.php:232
+msgid "Allow responsible users to:"
+msgstr "Tillat ansvarlige brukere å:"
+
+#: admin/activities-admin-options.php:235
+msgid "Same as their role permissions"
+msgstr "Samme som rolle tillatelsene"
+
+#: admin/activities-admin-options.php:236
+msgid "View assigned activities"
+msgstr "Se tilordnede aktiviteter"
+
+#: admin/activities-admin-options.php:237
+msgid "View and edit assigned activities"
+msgstr "Se og redigere tilordnede aktiviteter"
+
+#: admin/activities-admin-options.php:239
+msgid ""
+"This will be in addtion to role permissions.\n"
+"An admin will always be able to view and edit their assigned activities,\n"
+"whatever the responsible permission setting is set to."
+msgstr ""
+"Dette vil være i tillegg til Rolletillatelser.\n"
+"En administrator vil alltid kunne vise og redigere tilordnede aktivitetene,\n"
+"uansett hva den ansvarlige tillatelsesinnstillingen er satt til."
+
+#: admin/activities-admin-options.php:248
+msgid "Activity Roles"
+msgstr "Aktivitetsroller"
+
+#: admin/activities-admin-options.php:277
+msgid "Activities Deletion"
+msgstr "Aktiviteter Avinstallering"
+
+#: admin/activities-admin-options.php:278
+msgid "Delete plugin data on uninstall"
+msgstr "Slett plugin data når den avinstalleres"
+
+#: admin/activities-admin-options.php:280
+msgid ""
+"Makes the plugin delete all off it's data on uninstall, only the current "
+"blog."
+msgstr ""
+"Gjør at plugin-en vil slette all dens data når den avinstalleres, bare den "
+"aktuelle bloggen."
+
+#: admin/activities-admin-options.php:282
+#, php-format
+msgid "With the exception of user created from %s guest customers."
+msgstr "Med unntak av brukeren som er opprettet fra %s gjeste kunder."
+
+#: admin/activities-admin-options.php:282
+#, php-format
+msgid "You can delete those with the button in the %s tab."
+msgstr "Du kan slette dem med en knapp i %s fanen."
+
+#: admin/activities-admin-options.php:288
+msgid "Better user search"
+msgstr "Bedre bruker søk"
+
+#: admin/activities-admin-options.php:289
+msgid "Improve user search"
+msgstr "Forbedre bruker søk"
+
+#: admin/activities-admin-options.php:291
+msgid ""
+"Allows you to search users by their first name and last name.\n"
+"Might make searching slower."
+msgstr ""
+"Lar deg å søke blant brukere etter fornavn og etter navn.\n"
+"Kan gjøre søket tregere."
+
+#: admin/activities-admin-options.php:303
+msgid "Activity Report Default Settings"
+msgstr "Standardinnstillinger for aktivitetsrapport"
+
+#: admin/activities-admin-options.php:306
+msgid "Activity name"
+msgstr "Aktivitetsnavn"
+
+#: admin/activities-admin-options.php:309
+msgid ""
+"(short description)\n"
+"    This is a example activity"
+msgstr ""
+"(kort beskrivelse)\n"
+"    Dette er en eksempel aktivitet"
+
+#: admin/activities-admin-options.php:311
+msgid ""
+"(long description)\n"
+"    If a user does not some data, like an address, it will not be shown.\n"
+"    In this general example, all data is shown where it would be with real "
+"users."
+msgstr ""
+"(lang beskrivelse)\n"
+"    Hvis en bruker ikke noen data, som en adresse, vil den ikke bli vist.\n"
+"    I dette generelle eksempelet vises alle data der det ville vært med "
+"reelle brukere."
+
+#: admin/activities-admin-options.php:330
+msgid "WooCommerce Guest Customers"
+msgstr "WooCommerce gjeste kunder"
+
+#: admin/activities-admin-options.php:332
+msgid "Enable Guest Coversion"
+msgstr "Aktiver gjeste konvertering"
+
+#: admin/activities-admin-options.php:333
+msgid ""
+"Enables automatic conversion of guest customers to users.\n"
+"This allows guests to be added to activities."
+msgstr ""
+"Aktiverer automatisk konvertering av gjeste kunder til brukere.\n"
+"Dette gjør at gjestene kan bli lagt til aktiviteter."
+
+#: admin/activities-admin-options.php:346
+msgid "Coupons on activities report"
+msgstr "Kuponger på aktivitetsrapport"
+
+#: admin/activities-admin-options.php:350
+msgid "Coupons"
+msgstr "Kuponger"
+
+#: admin/activities-admin-options.php:350
+msgid "Display on activity report"
+msgstr "Vis på aktivitetsrapport"
+
+#: admin/activities-admin-options.php:365
+msgid "Actions"
+msgstr "Handlinger"
+
+#: admin/activities-admin-options.php:366
+msgid "Convert Guests Customers"
+msgstr "Konverter gjester kunder"
+
+#: admin/activities-admin-options.php:369
+msgid "Delete All Converted Users"
+msgstr "Slett alle konverterte brukere"
+
+#: admin/activities-admin-options.php:387
+msgid "Could not verify options."
+msgstr "Kan ikke bekrefte innstillinger."
+
+#: admin/class-activities-admin-utility.php:21
+msgid "Could not verify activity report data integrity."
+msgstr "Kan ikke bekrefte dataintegritet for aktivitetsrapport."
+
+#: admin/class-activities-admin-utility.php:323
+msgid "Start Date"
+msgstr "Startdato"
+
+#: admin/class-activities-admin-utility.php:327
+msgid "End Date"
+msgstr "Sluttdato"
+
+#: admin/class-activities-admin.php:81
+msgid "Select a logo for the activity report"
+msgstr "Velg en logo for aktivitetsrapporten"
+
+#: admin/class-activities-admin.php:103
+msgid "Activities Admin Page"
+msgstr "Aktiviteter Admin Side"
+
+#: admin/class-activities-admin.php:106
+msgid "Activities Locations"
+msgstr "Aktiviteter Steder"
+
+#: admin/class-activities-admin.php:109
+msgid "Options"
+msgstr "Innstillinger"
+
+#: admin/class-activities-admin.php:110
+msgctxt "Noun"
+msgid "Archive"
+msgstr "Arkiv"
+
+#: admin/class-activities-admin.php:216
+msgid "Archived Activites"
+msgstr "Arkiverte Aktiviteter"
+
+#: admin/class-activities-admin.php:269
+#, php-format
+msgid "%s has been created."
+msgstr "%s er opprettet."
+
+#: admin/class-activities-admin.php:278
+#, php-format
+msgid "%s has been updated."
+msgstr "%s er oppdatert."
+
+#: admin/class-activities-admin.php:287
+#, php-format
+msgid "%s must have a name."
+msgstr "%s må ha et navn."
+
+#: admin/class-activities-admin.php:296
+#, php-format
+msgid "%s has been deleted."
+msgstr "%s er slettet."
+
+#: admin/class-activities-admin.php:426
+msgid "activities"
+msgstr "aktiviteter"
+
+#: admin/class-activities-admin.php:430
+msgid "locations"
+msgstr "steder"
+
+#: admin/class-activities-admin.php:434
+msgid "archived activities"
+msgstr "arkiverte aktiviteter"
+
+#: admin/class-activities-admin.php:439
+#, php-format
+msgid "This screen allows you to edit your %s."
+msgstr "Dette skjermbildet lar deg redigere %s."
+
+#: admin/class-activities-admin.php:442
+msgid ""
+"This is the activity report screen where you customize and print/save your "
+"reports."
+msgstr ""
+"Dette er aktivitetsrapport skjermbildet der du tilpasser og skriver ut/"
+"lagrer rapportene."
+
+#: admin/class-activities-admin.php:446
+#, php-format
+msgid "This screen gives you access to all your %s."
+msgstr "Dette skjermbildet gir deg tilgang til alle dine %s."
+
+#: admin/class-activities-admin.php:451
+msgid ""
+"This screen gives you the options to either import activities or "
+"participants."
+msgstr ""
+"Dette skjermbildet gir deg alternativer til enten å importere aktiviteter "
+"eller deltakere."
+
+#: admin/class-activities-admin.php:455
+msgid "Export activity participant data to send email, sms and more."
+msgstr "Eksportere aktivitet deltaker data til å sende e-post, SMS og mer."
+
+#: admin/class-activities-admin.php:461
+msgid "This is where you can edit the standard settings for activity reports."
+msgstr "Her kan du redigere standardinnstillingene for aktivitetsrapporter."
+
+#: admin/class-activities-admin.php:464
+msgid "Settings related to the WooCommerce plugin."
+msgstr "Innstillinger knyttet til WooCommerce pluginen."
+
+#: admin/class-activities-admin.php:469
+msgid "This general settings page for this plugin."
+msgstr "Dette er innstillings siden for denne utvidelsen."
+
+#: admin/class-activities-admin.php:470
+msgid ""
+"If you are using a mulitisite, the settings here is only set for the current "
+"blog."
+msgstr ""
+"Hvis du bruker en mulitisite, er innstillingene her bare angitt for "
+"gjeldende blogg."
+
+#: admin/class-activities-admin.php:471
+msgid "The WooCommerce tab will only show if the plugin is active."
+msgstr "WooCommerce fanen ville bare vises hvis utvidelsen er aktiv."
+
+#: admin/class-activities-admin.php:478
+msgid "Overview"
+msgstr "Oversikt"
+
+#: admin/class-activities-admin.php:479
+msgid "A documentation page will be available soon!"
+msgstr "En dokumentasjon side vil snart være tilgjengelig!"
+
+#: admin/class-activities-admin.php:502
+msgid "Show Columns"
+msgstr "Vis kolonner"
+
+#: admin/class-activities-admin.php:518
+#: includes/class-activities-pagination.php:124
+msgid "Results Per Page"
+msgstr "Resultater pr. side"
+
+#: admin/class-activities-admin.php:705
+msgid "Archived"
+msgstr "Arkivert"
+
+#: admin/class-activities-admin.php:708
+msgid "Active"
+msgstr "Aktiv"
+
+#: admin/class-activities-admin.php:728
+msgid "You have to login to join."
+msgstr "Du må logge inn for å delta."
+
+#: admin/class-activities-admin.php:731
+msgid "You can no longer join this activity."
+msgstr "Du kan ikke lenger bli med på denne aktiviteten."
+
+#: admin/class-activities-admin.php:742 public/class-activities-public.php:81
+msgid "Join"
+msgstr "Meld deg på"
+
+#: admin/class-activities-admin.php:744 public/class-activities-public.php:77
+msgid "Unjoin"
+msgstr "Meld deg ut"
+
+#: includes/class-activities-list-table.php:239
+msgctxt "To archive"
+msgid "Archive"
+msgstr "Arkiver"
+
+#: includes/class-activities-list-table.php:247
+#: includes/class-activities-list-table.php:254
+#: includes/class-activities-list-table.php:509
+#: includes/class-activities-list-table.php:516
+msgid "Delete"
+msgstr "Slett"
+
+#: includes/class-activities-list-table.php:355
+msgid "Select All"
+msgstr "Velg Alle"
+
+#: includes/class-activities-list-table.php:498
+#: includes/class-activities-list-table.php:513
+msgid "View"
+msgstr "Vis"
+
+#: includes/class-activities-list-table.php:501
+#: includes/class-activities-list-table.php:508
+msgid "Edit"
+msgstr "Rediger"
+
+#: includes/class-activities-list-table.php:525
+msgid "Show more details"
+msgstr "Vis flere detaljer"
+
+#: includes/class-activities-list-table.php:571
+msgid "Filters"
+msgstr "Filtre"
+
+#: includes/class-activities-list-table.php:577
+#, php-format
+msgid "Filter %s"
+msgstr "Filtrer %s"
+
+#: includes/class-activities-list-table.php:581
+#: includes/class-activities-list-table.php:602
+#: includes/class-activities-pagination.php:126
+msgid "Apply"
+msgstr "Bruk"
+
+#: includes/class-activities-list-table.php:582
+msgid "Clear"
+msgstr "Tøm"
+
+#: includes/class-activities-list-table.php:597
+msgid "Bulk Actions"
+msgstr "Massehandlinger"
+
+#: includes/class-activities-pagination.php:147
+#, php-format
+msgid "%d locations"
+msgstr "%d steder"
+
+#: includes/class-activities-pagination.php:147
+#, php-format
+msgid "%d activities"
+msgstr "%d aktiviteter"
+
+#: includes/class-activities-utility.php:51
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+#: includes/class-activities-utility.php:52
+msgid "Albania"
+msgstr "Albania"
+
+#: includes/class-activities-utility.php:53
+msgid "Algeria"
+msgstr "Algerie"
+
+#: includes/class-activities-utility.php:54
+msgid "American Samoa"
+msgstr "Amerikansk Samoa"
+
+#: includes/class-activities-utility.php:55
+msgid "Andorra"
+msgstr "Andorra"
+
+#: includes/class-activities-utility.php:56
+msgid "Angola"
+msgstr "Angola"
+
+#: includes/class-activities-utility.php:57
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: includes/class-activities-utility.php:58
+msgid "Antarctica"
+msgstr "Antarktis"
+
+#: includes/class-activities-utility.php:59
+msgid "Antigua and Barbuda"
+msgstr "Antigua og Barbuda"
+
+#: includes/class-activities-utility.php:60
+msgid "Argentina"
+msgstr "Argentina"
+
+#: includes/class-activities-utility.php:61
+msgid "Armenia"
+msgstr "Armenia"
+
+#: includes/class-activities-utility.php:62
+msgid "Aruba"
+msgstr "Aruba"
+
+#: includes/class-activities-utility.php:63
+msgid "Australia"
+msgstr "Australia"
+
+#: includes/class-activities-utility.php:64
+msgid "Austria"
+msgstr "Østerrike"
+
+#: includes/class-activities-utility.php:65
+msgid "Azerbaijan"
+msgstr "Aserbajdsjan"
+
+#: includes/class-activities-utility.php:66
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: includes/class-activities-utility.php:67
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: includes/class-activities-utility.php:68
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: includes/class-activities-utility.php:69
+msgid "Barbados"
+msgstr "Barbados"
+
+#: includes/class-activities-utility.php:70
+msgid "Belarus"
+msgstr "Hviterussland"
+
+#: includes/class-activities-utility.php:71
+msgid "Belgium"
+msgstr "Belgia"
+
+#: includes/class-activities-utility.php:72
+msgid "Belize"
+msgstr "Belize"
+
+#: includes/class-activities-utility.php:73
+msgid "Benin"
+msgstr "Benin"
+
+#: includes/class-activities-utility.php:74
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: includes/class-activities-utility.php:75
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: includes/class-activities-utility.php:76
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: includes/class-activities-utility.php:77
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia-Hercegovina"
+
+#: includes/class-activities-utility.php:78
+msgid "Botswana"
+msgstr "Botswana"
+
+#: includes/class-activities-utility.php:79
+msgid "Bouvet Island"
+msgstr "Bouvet-øya"
+
+#: includes/class-activities-utility.php:80
+msgid "Brazil"
+msgstr "Brasil"
+
+#: includes/class-activities-utility.php:81
+msgid "British Indian Ocean Territory"
+msgstr "Det britiske territoriet i Indiahavet"
+
+#: includes/class-activities-utility.php:82
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: includes/class-activities-utility.php:83
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: includes/class-activities-utility.php:84
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: includes/class-activities-utility.php:85
+msgid "Burundi"
+msgstr "Burundi"
+
+#: includes/class-activities-utility.php:86
+msgid "Cambodia"
+msgstr "Kambodsja"
+
+#: includes/class-activities-utility.php:87
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: includes/class-activities-utility.php:88
+msgid "Canada"
+msgstr "Canada"
+
+#: includes/class-activities-utility.php:89
+msgid "Cape Verde"
+msgstr "Kapp Verde"
+
+#: includes/class-activities-utility.php:90
+msgid "Cayman Islands"
+msgstr "Cayman-øyene"
+
+#: includes/class-activities-utility.php:91
+msgid "Central African Republic"
+msgstr "Den Sentralafrikanske Republikken"
+
+#: includes/class-activities-utility.php:92
+msgid "Chad"
+msgstr "Tsjad"
+
+#: includes/class-activities-utility.php:93
+msgid "Chile"
+msgstr "Chile"
+
+#: includes/class-activities-utility.php:94
+msgid "China"
+msgstr "Kina"
+
+#: includes/class-activities-utility.php:95
+msgid "Christmas Island"
+msgstr "Juleøya"
+
+#: includes/class-activities-utility.php:96
+msgid "Cocos (Keeling) Islands"
+msgstr "Kokosøyene"
+
+#: includes/class-activities-utility.php:97
+msgid "Colombia"
+msgstr "Colombia"
+
+#: includes/class-activities-utility.php:98
+msgid "Comoros"
+msgstr "Komorene"
+
+#: includes/class-activities-utility.php:99
+msgid "Congo"
+msgstr "Kongo"
+
+#: includes/class-activities-utility.php:100
+msgid "Congo, the Democratic Republic of the"
+msgstr "Kongo den Demokratiske Republikk"
+
+#: includes/class-activities-utility.php:101
+msgid "Cook Islands"
+msgstr "Cook-øyene"
+
+#: includes/class-activities-utility.php:102
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: includes/class-activities-utility.php:103
+msgid "Cote D'Ivoire"
+msgstr "Cote d'Ivoire"
+
+#: includes/class-activities-utility.php:104
+msgid "Croatia"
+msgstr "Kroatia"
+
+#: includes/class-activities-utility.php:105
+msgid "Cuba"
+msgstr "Cuba"
+
+#: includes/class-activities-utility.php:106
+msgid "Cyprus"
+msgstr "Kypros"
+
+#: includes/class-activities-utility.php:107
+msgid "Czech Republic"
+msgstr "Tsjekkia"
+
+#: includes/class-activities-utility.php:108
+msgid "Denmark"
+msgstr "Danmark"
+
+#: includes/class-activities-utility.php:109
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: includes/class-activities-utility.php:110
+msgid "Dominica"
+msgstr "Dominica"
+
+#: includes/class-activities-utility.php:111
+msgid "Dominican Republic"
+msgstr "Den Dominikanske Republikken"
+
+#: includes/class-activities-utility.php:112
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: includes/class-activities-utility.php:113
+msgid "Egypt"
+msgstr "Egypt"
+
+#: includes/class-activities-utility.php:114
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: includes/class-activities-utility.php:115
+msgid "Equatorial Guinea"
+msgstr "Ekvatorial Guinea"
+
+#: includes/class-activities-utility.php:116
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: includes/class-activities-utility.php:117
+msgid "Estonia"
+msgstr "Estland"
+
+#: includes/class-activities-utility.php:118
+msgid "Ethiopia"
+msgstr "Etiopia"
+
+#: includes/class-activities-utility.php:119
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandsøyene"
+
+#: includes/class-activities-utility.php:120
+msgid "Faroe Islands"
+msgstr "Færøyene"
+
+#: includes/class-activities-utility.php:121
+msgid "Fiji"
+msgstr "Fiji"
+
+#: includes/class-activities-utility.php:122
+msgid "Finland"
+msgstr "Finland"
+
+#: includes/class-activities-utility.php:123
+msgid "France"
+msgstr "Frankrike"
+
+#: includes/class-activities-utility.php:124
+msgid "French Guiana"
+msgstr "Fransk Guiana"
+
+#: includes/class-activities-utility.php:125
+msgid "French Polynesia"
+msgstr "Fransk Polynesia"
+
+#: includes/class-activities-utility.php:126
+msgid "French Southern Territories"
+msgstr "Fransk Sørterritorier"
+
+#: includes/class-activities-utility.php:127
+msgid "Gabon"
+msgstr "Gabon"
+
+#: includes/class-activities-utility.php:128
+msgid "Gambia"
+msgstr "Gambia"
+
+#: includes/class-activities-utility.php:129
+msgid "Georgia"
+msgstr "Georgia"
+
+#: includes/class-activities-utility.php:130
+msgid "Germany"
+msgstr "Tyskland"
+
+#: includes/class-activities-utility.php:131
+msgid "Ghana"
+msgstr "Ghana"
+
+#: includes/class-activities-utility.php:132
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: includes/class-activities-utility.php:133
+msgid "Greece"
+msgstr "Hellas"
+
+#: includes/class-activities-utility.php:134
+msgid "Greenland"
+msgstr "Grønland"
+
+#: includes/class-activities-utility.php:135
+msgid "Grenada"
+msgstr "Grenada"
+
+#: includes/class-activities-utility.php:136
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: includes/class-activities-utility.php:137
+msgid "Guam"
+msgstr "Guam"
+
+#: includes/class-activities-utility.php:138
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: includes/class-activities-utility.php:139
+msgid "Guinea"
+msgstr "Guinea"
+
+#: includes/class-activities-utility.php:140
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: includes/class-activities-utility.php:141
+msgid "Guyana"
+msgstr "Guyana"
+
+#: includes/class-activities-utility.php:142
+msgid "Haiti"
+msgstr "Haiti"
+
+#: includes/class-activities-utility.php:143
+msgid "Heard Island and Mcdonald Islands"
+msgstr "Heard-øya og McDonald-øyene"
+
+#: includes/class-activities-utility.php:144
+msgid "Holy See (Vatican City State)"
+msgstr "Vatikanstaten"
+
+#: includes/class-activities-utility.php:145
+msgid "Honduras"
+msgstr "Honduras"
+
+#: includes/class-activities-utility.php:146
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: includes/class-activities-utility.php:147
+msgid "Hungary"
+msgstr "Ungarn"
+
+#: includes/class-activities-utility.php:148
+msgid "Iceland"
+msgstr "Island"
+
+#: includes/class-activities-utility.php:149
+msgid "India"
+msgstr "India"
+
+#: includes/class-activities-utility.php:150
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: includes/class-activities-utility.php:151
+msgid "Iran, Islamic Republic of"
+msgstr "Iran"
+
+#: includes/class-activities-utility.php:152
+msgid "Iraq"
+msgstr "Irak"
+
+#: includes/class-activities-utility.php:153
+msgid "Ireland"
+msgstr "Irland"
+
+#: includes/class-activities-utility.php:154
+msgid "Israel"
+msgstr "Israel"
+
+#: includes/class-activities-utility.php:155
+msgid "Italy"
+msgstr "Italia"
+
+#: includes/class-activities-utility.php:156
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: includes/class-activities-utility.php:157
+msgid "Japan"
+msgstr "Japan"
+
+#: includes/class-activities-utility.php:158
+msgid "Jordan"
+msgstr "Jordan"
+
+#: includes/class-activities-utility.php:159
+msgid "Kazakhstan"
+msgstr "Kasakhstan"
+
+#: includes/class-activities-utility.php:160
+msgid "Kenya"
+msgstr "Kenya"
+
+#: includes/class-activities-utility.php:161
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: includes/class-activities-utility.php:162
+msgid "Korea, Democratic People's Republic of"
+msgstr "Nord-Korea"
+
+#: includes/class-activities-utility.php:163
+msgid "Korea, Republic of"
+msgstr "Sør-Korea"
+
+#: includes/class-activities-utility.php:164
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: includes/class-activities-utility.php:165
+msgid "Kyrgyzstan"
+msgstr "Kirgisistan"
+
+#: includes/class-activities-utility.php:166
+msgid "Lao People's Democratic Republic"
+msgstr "Lao People's Democratic Republic"
+
+#: includes/class-activities-utility.php:167
+msgid "Latvia"
+msgstr "Latvia"
+
+#: includes/class-activities-utility.php:168
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: includes/class-activities-utility.php:169
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: includes/class-activities-utility.php:170
+msgid "Liberia"
+msgstr "Liberia"
+
+#: includes/class-activities-utility.php:171
+msgid "Libyan Arab Jamahiriya"
+msgstr "Libyan Arab Jamahiriya"
+
+#: includes/class-activities-utility.php:172
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: includes/class-activities-utility.php:173
+msgid "Lithuania"
+msgstr "Litauen"
+
+#: includes/class-activities-utility.php:174
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+#: includes/class-activities-utility.php:175
+msgid "Macao"
+msgstr "Macao"
+
+#: includes/class-activities-utility.php:176
+msgid "Macedonia, the Former Yugoslav Republic of"
+msgstr "Makedonia, den tidligere jugoslaviske republikken"
+
+#: includes/class-activities-utility.php:177
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: includes/class-activities-utility.php:178
+msgid "Malawi"
+msgstr "Malawi"
+
+#: includes/class-activities-utility.php:179
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: includes/class-activities-utility.php:180
+msgid "Maldives"
+msgstr "Maldivene"
+
+#: includes/class-activities-utility.php:181
+msgid "Mali"
+msgstr "Mali"
+
+#: includes/class-activities-utility.php:182
+msgid "Malta"
+msgstr "Malta"
+
+#: includes/class-activities-utility.php:183
+msgid "Marshall Islands"
+msgstr "Marshall-øyene"
+
+#: includes/class-activities-utility.php:184
+msgid "Martinique"
+msgstr "Martinique"
+
+#: includes/class-activities-utility.php:185
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: includes/class-activities-utility.php:186
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: includes/class-activities-utility.php:187
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: includes/class-activities-utility.php:188
+msgid "Mexico"
+msgstr "Mexico"
+
+#: includes/class-activities-utility.php:189
+msgid "Micronesia, Federated States of"
+msgstr "Mikronesiaføderasjonen"
+
+#: includes/class-activities-utility.php:190
+msgid "Moldova, Republic of"
+msgstr "Moldova"
+
+#: includes/class-activities-utility.php:191
+msgid "Monaco"
+msgstr "Monaco"
+
+#: includes/class-activities-utility.php:192
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: includes/class-activities-utility.php:193
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: includes/class-activities-utility.php:194
+msgid "Morocco"
+msgstr "Marokko"
+
+#: includes/class-activities-utility.php:195
+msgid "Mozambique"
+msgstr "Mosambik"
+
+#: includes/class-activities-utility.php:196
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: includes/class-activities-utility.php:197
+msgid "Namibia"
+msgstr "Namibia"
+
+#: includes/class-activities-utility.php:198
+msgid "Nauru"
+msgstr "Nauru"
+
+#: includes/class-activities-utility.php:199
+msgid "Nepal"
+msgstr "Nepal"
+
+#: includes/class-activities-utility.php:200
+msgid "Netherlands"
+msgstr "Nederland"
+
+#: includes/class-activities-utility.php:201
+msgid "Netherlands Antilles"
+msgstr "Nederlandsk Karibia"
+
+#: includes/class-activities-utility.php:202
+msgid "New Caledonia"
+msgstr "Ny-Caledonia"
+
+#: includes/class-activities-utility.php:203
+msgid "New Zealand"
+msgstr "Newzealand"
+
+#: includes/class-activities-utility.php:204
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: includes/class-activities-utility.php:205
+msgid "Niger"
+msgstr "Niger"
+
+#: includes/class-activities-utility.php:206
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: includes/class-activities-utility.php:207
+msgid "Niue"
+msgstr "Niue"
+
+#: includes/class-activities-utility.php:208
+msgid "Norfolk Island"
+msgstr "Norfolkøya"
+
+#: includes/class-activities-utility.php:209
+msgid "Northern Mariana Islands"
+msgstr "Nord-Marianene"
+
+#: includes/class-activities-utility.php:210
+msgid "Norway"
+msgstr "Norge"
+
+#: includes/class-activities-utility.php:211
+msgid "Oman"
+msgstr "Oman"
+
+#: includes/class-activities-utility.php:212
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: includes/class-activities-utility.php:213
+msgid "Palau"
+msgstr "Palau"
+
+#: includes/class-activities-utility.php:214
+msgid "Palestinian Territory, Occupied"
+msgstr "Palestina"
+
+#: includes/class-activities-utility.php:215
+msgid "Panama"
+msgstr "Panama"
+
+#: includes/class-activities-utility.php:216
+msgid "Papua New Guinea"
+msgstr "Papua Ny-Guinea"
+
+#: includes/class-activities-utility.php:217
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: includes/class-activities-utility.php:218
+msgid "Peru"
+msgstr "Peru"
+
+#: includes/class-activities-utility.php:219
+msgid "Philippines"
+msgstr "Filipinene"
+
+#: includes/class-activities-utility.php:220
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: includes/class-activities-utility.php:221
+msgid "Poland"
+msgstr "Polen"
+
+#: includes/class-activities-utility.php:222
+msgid "Portugal"
+msgstr "Portugal"
+
+#: includes/class-activities-utility.php:223
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: includes/class-activities-utility.php:224
+msgid "Qatar"
+msgstr "Qatar"
+
+#: includes/class-activities-utility.php:225
+msgid "Reunion"
+msgstr "Reunion"
+
+#: includes/class-activities-utility.php:226
+msgid "Romania"
+msgstr "Romania"
+
+#: includes/class-activities-utility.php:227
+msgid "Russian Federation"
+msgstr "Russland"
+
+#: includes/class-activities-utility.php:228
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: includes/class-activities-utility.php:229
+msgid "Saint Helena"
+msgstr "St. Helena"
+
+#: includes/class-activities-utility.php:230
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts and Nevis"
+
+#: includes/class-activities-utility.php:231
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: includes/class-activities-utility.php:232
+msgid "Saint Pierre and Miquelon"
+msgstr "Saint Pierre og Miquelon"
+
+#: includes/class-activities-utility.php:233
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent og Grenadinene"
+
+#: includes/class-activities-utility.php:234
+msgid "Samoa"
+msgstr "Samoa"
+
+#: includes/class-activities-utility.php:235
+msgid "San Marino"
+msgstr "San Marino"
+
+#: includes/class-activities-utility.php:236
+msgid "Sao Tome and Principe"
+msgstr "São Tome og Principe"
+
+#: includes/class-activities-utility.php:237
+msgid "Saudi Arabia"
+msgstr "Saudi-Arabia"
+
+#: includes/class-activities-utility.php:238
+msgid "Senegal"
+msgstr "Senegal"
+
+#: includes/class-activities-utility.php:239
+msgid "Serbia and Montenegro"
+msgstr "Serbia og Montenegro"
+
+#: includes/class-activities-utility.php:240
+msgid "Seychelles"
+msgstr "Seychellene"
+
+#: includes/class-activities-utility.php:241
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: includes/class-activities-utility.php:242
+msgid "Singapore"
+msgstr "Singapore"
+
+#: includes/class-activities-utility.php:243
+msgid "Slovakia"
+msgstr "Slovakia"
+
+#: includes/class-activities-utility.php:244
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: includes/class-activities-utility.php:245
+msgid "Solomon Islands"
+msgstr "Solomon-øyene"
+
+#: includes/class-activities-utility.php:246
+msgid "Somalia"
+msgstr "Somalia"
+
+#: includes/class-activities-utility.php:247
+msgid "South Africa"
+msgstr "Sør-Afrika"
+
+#: includes/class-activities-utility.php:248
+msgid "South Georgia and the South Sandwich Islands"
+msgstr "Sør-Georgia og Sør-Sandwich-øyene"
+
+#: includes/class-activities-utility.php:249
+msgid "Spain"
+msgstr "Spania"
+
+#: includes/class-activities-utility.php:250
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: includes/class-activities-utility.php:251
+msgid "Sudan"
+msgstr "Sudan"
+
+#: includes/class-activities-utility.php:252
+msgid "Suriname"
+msgstr "Surinam"
+
+#: includes/class-activities-utility.php:253
+msgid "Svalbard and Jan Mayen"
+msgstr "Svalbard og Jan Mayen"
+
+#: includes/class-activities-utility.php:254
+msgid "Swaziland"
+msgstr "Swaziland"
+
+#: includes/class-activities-utility.php:255
+msgid "Sweden"
+msgstr "Sverige"
+
+#: includes/class-activities-utility.php:256
+msgid "Switzerland"
+msgstr "Sveits"
+
+#: includes/class-activities-utility.php:257
+msgid "Syrian Arab Republic"
+msgstr "Syria"
+
+#: includes/class-activities-utility.php:258
+msgid "Taiwan, Province of China"
+msgstr "Taiwan, provinsen i Kina"
+
+#: includes/class-activities-utility.php:259
+msgid "Tajikistan"
+msgstr "Tadsjikistan"
+
+#: includes/class-activities-utility.php:260
+msgid "Tanzania, United Republic of"
+msgstr "Tanzania"
+
+#: includes/class-activities-utility.php:261
+msgid "Thailand"
+msgstr "Thailand"
+
+#: includes/class-activities-utility.php:262
+msgid "Timor-Leste"
+msgstr "Øst-Timor"
+
+#: includes/class-activities-utility.php:263
+msgid "Togo"
+msgstr "Togo"
+
+#: includes/class-activities-utility.php:264
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: includes/class-activities-utility.php:265
+msgid "Tonga"
+msgstr "Tonga"
+
+#: includes/class-activities-utility.php:266
+msgid "Trinidad and Tobago"
+msgstr "Trinidad og Tobago"
+
+#: includes/class-activities-utility.php:267
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: includes/class-activities-utility.php:268
+msgid "Turkey"
+msgstr "Tyrkia"
+
+#: includes/class-activities-utility.php:269
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: includes/class-activities-utility.php:270
+msgid "Turks and Caicos Islands"
+msgstr "Turks og Caicos-øyene"
+
+#: includes/class-activities-utility.php:271
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: includes/class-activities-utility.php:272
+msgid "Uganda"
+msgstr "Uganda"
+
+#: includes/class-activities-utility.php:273
+msgid "Ukraine"
+msgstr "Ukraina"
+
+#: includes/class-activities-utility.php:274
+msgid "United Arab Emirates"
+msgstr "Forente Arabiske Emirater"
+
+#: includes/class-activities-utility.php:275
+msgid "United Kingdom"
+msgstr "Storbritannia (UK)"
+
+#: includes/class-activities-utility.php:276
+msgid "United States"
+msgstr "USA"
+
+#: includes/class-activities-utility.php:277
+msgid "United States Minor Outlying Islands"
+msgstr "United States Minor Outlying Islands"
+
+#: includes/class-activities-utility.php:278
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: includes/class-activities-utility.php:279
+msgid "Uzbekistan"
+msgstr "Usbekistan"
+
+#: includes/class-activities-utility.php:280
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: includes/class-activities-utility.php:281
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: includes/class-activities-utility.php:282
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: includes/class-activities-utility.php:283
+msgid "Virgin Islands, British"
+msgstr "De britiske Jomfruøyer"
+
+#: includes/class-activities-utility.php:284
+msgid "Virgin Islands, U.s."
+msgstr "De amerikanske Jomfruøyer."
+
+#: includes/class-activities-utility.php:285
+msgid "Wallis and Futuna"
+msgstr "Wallis- og Futunaøyene"
+
+#: includes/class-activities-utility.php:286
+msgid "Western Sahara"
+msgstr "Vest-Sahara"
+
+#: includes/class-activities-utility.php:287
+msgid "Yemen"
+msgstr "Jemen"
+
+#: includes/class-activities-utility.php:288
+msgid "Zambia"
+msgstr "Zambia"
+
+#: includes/class-activities-utility.php:289
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: includes/class-activities-woocommerce.php:68
+#: includes/class-activities-woocommerce.php:70
+msgid "Select Activities"
+msgstr "Velg Aktiviteter"
+
+#: includes/class-activities-woocommerce.php:72
+msgid "Users who orders this product will be added to the selected activities."
+msgstr ""
+"Brukere som bestiller dette produktet vil bli lagt til de valgte "
+"aktivitetene."
+
+#: includes/class-activities-woocommerce.php:265
+msgid "Converting guest customers"
+msgstr "Konverterer gjeste kunder"
+
+#: includes/class-activities-woocommerce.php:275
+msgid "Order"
+msgstr "Ordre"
+
+#: includes/class-activities-woocommerce.php:279
+msgid "Guest already converted or user orders already updated."
+msgstr ""
+"Gjesten er allerede konvertert, eller bruker ordrer som allerede er "
+"oppdatert."
+
+#: includes/class-activities-woocommerce.php:286
+#, php-format
+msgid "Created User: %s"
+msgstr "Opprettet bruker: %s"
+
+#: includes/class-activities-woocommerce.php:290
+#, php-format
+msgid "Updated Orders For: %s"
+msgstr "Oppdaterte ordrer for: %s"
+
+#: includes/class-activities-woocommerce.php:294
+msgid "Could not create user (no email found)"
+msgstr "Kan ikke opprette bruker (ingen e-post funnet)"
+
+#: includes/class-activities-woocommerce.php:302
+#, php-format
+msgid "Created %s users."
+msgstr "Opprettet %s brukere."
+
+#: includes/class-activities-woocommerce.php:406
+msgid "You are not allowed to delete users!"
+msgstr "Du har ikke lov til å slette brukere!"
+
+#: includes/class-activities-woocommerce.php:410
+msgid "Deleting guest users"
+msgstr "Sletter gjestebrukere"
+
+#: includes/class-activities-woocommerce.php:444
+msgid "Deleted user"
+msgstr "Slettet bruker"
+
+#: includes/class-activities-woocommerce.php:447
+msgid "An error occured deleting"
+msgstr "Det oppstod en feil under sletting"
+
+#: includes/class-activities-woocommerce.php:455
+#, php-format
+msgid "Deleted %d users."
+msgstr "Slettet %d brukere."
+
+#. Plugin URI of the plugin/theme
+msgid "https://profiles.wordpress.org/loderian"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A plugin for administering activities, printing reports and exporting user "
+"data."
+msgstr ""
+"En plugin for å administrere aktiviteter, skrive ut rapporter og eksportere "
+"bruker data."
+
+#. Author of the plugin/theme
+msgid "Mikal Naustdal"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/Loderian"
+msgstr ""
+
+#~ msgid "Name "
+#~ msgstr "Navn "
+
+#~ msgid "Short Description "
+#~ msgstr "Kort Beskrivelse "
+
+#~ msgid "Long Description "
+#~ msgstr "Lang Beskrivelse "
+
+#~ msgid "Load Logo"
+#~ msgstr "Last Logo"
+
+#~ msgid "%s Deletion"
+#~ msgstr "%s Sletting"
+
+#~ msgid "Created"
+#~ msgstr "Opprettet"
+
+#~ msgid "Added"
+#~ msgstr "La til"
+
+#~ msgid "Are you sure you want to delete "
+#~ msgstr "Er du sikker på at du vil slette "
+
+#~ msgid "Warning: "
+#~ msgstr "Advarsel: "
+
+#~ msgid "Created "
+#~ msgstr "Opprettet "
+
+#~ msgid "Deleted "
+#~ msgstr "Slettet "
+
+#~ msgid "Activites"
+#~ msgstr "Aktiviteter"

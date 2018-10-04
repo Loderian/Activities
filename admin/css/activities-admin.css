@@ -1,0 +1,583 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.wrap a {
+  text-decoration: none;
+}
+
+.acts-grey {
+  color: grey;
+  white-space: pre-line;
+}
+
+.activities-box-wrap {
+  background-color: #fff;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+.activities-box-padding {
+  padding: 5px 15px 10px;
+}
+
+#activities-title a {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.activities-admin-message {
+  background-color: #fff;
+  width: 100%;
+}
+
+.activities-admin-message p {
+  padding: 5px;
+}
+
+.activities-success {
+  border-left: 5px solid green;
+}
+
+.activities-error {
+  border-left: 5px solid red;
+}
+
+#activities-filter-wrap {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.activities-filter-field-wrap {
+  display: inline-block;
+}
+
+.activities-filter-field {
+  height: 31px;
+  margin-right: 10px;
+}
+
+#activities-filter-wrap .button {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+#activities-bulk-wrap{
+  padding-bottom: 7px;
+  display: inline-block;
+}
+
+#activities-results-control,
+#activities-items-num {
+  vertical-align: middle;
+  margin-right: 7px;
+}
+
+#activities-filter-wrap .button {
+  vertical-align: bottom;
+}
+
+#activities-filter-wrap b {
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+#activities-results-control,
+#activities-page-control {
+  display: inline-block;
+}
+
+#activities-page-control .tablenav-pages {
+  float: none;
+}
+
+#activities-items-num {
+  margin-left: 10px;
+  width: 50px;
+}
+
+#activities-all {
+  background-color: #FFFFFF;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+}
+
+#activities-top-row {
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 7px;
+  font-size: 14px;
+}
+
+.activities-row ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  word-wrap: break-word;
+  padding-top: 2px;
+}
+
+.activities-row li {
+  margin-left: 1%;
+}
+
+.activities-name {
+  /* width: 20%; */
+  min-width: 100px;
+}
+
+.activities-quick-action {
+  visibility: hidden;
+  margin-top: 5px;
+}
+
+.activities-row:hover .activities-quick-action {
+  visibility: visible;
+}
+
+.activities-archive {
+  color: black;
+}
+
+.activities-archive:hover {
+  color: grey;
+}
+
+.activities-name-wrap {
+  display: inline-block;
+  width: calc(100% - 30px);
+}
+
+.activities-nice-link {
+  float: right;
+  vertical-align: top;
+}
+
+.activities-activate {
+  color: #009933;
+}
+
+.activities-activate:hover {
+  color: #00b33c;
+}
+
+.activities-delete {
+  color: #cc0000;
+  cursor: pointer;
+}
+
+.acts-req-mark,
+.activities-delete:hover {
+  color: red;
+}
+
+.activities-short-desc {
+  min-width: 80px;
+}
+
+.activities-start, .activities-end {
+  min-width: 80px;
+}
+
+#activities-options {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+#activities-options div {
+  margin-right: 10px;
+}
+
+.activities-table tr :not(:last-child) {
+  padding-right: 5px;
+}
+
+.activities-table tbody tr :not(:first-child) {
+  /*border-left: 1px dotted darkgrey;*/
+}
+
+.activities-table .activities-table-d {
+  text-align: center;
+}
+
+.activities-table thead {
+  font-weight: bold;
+}
+
+#acts-location-create-wrap {
+  width: 70%;
+}
+
+#acts-location-name,
+#acts-location-address,
+#acts-location-city,
+#acts-location-postcode,
+#acts-location-country {
+  width: 100%;
+}
+
+#acts-location-desc {
+  width: 100%;
+  height: 265px;
+}
+
+#acts-activity-create-wrap {
+  width: 70%;
+  display: inline-block;
+}
+
+#acts-activity-name,
+#acts-activity-long-desc,
+#acts-activity-short-desc {
+  width: 100%;
+}
+
+#acts-activity-long-desc {
+  height: 177px;
+}
+
+#acts-activity-start,
+#acts-activity-end {
+
+}
+
+#acts-activity-form-columns {
+  display: flex;
+  flex-direction: row;
+}
+
+#acts-activity-left-column {
+  width: 50%;
+  margin-right: 10px;
+}
+
+#acts-activity-right-column {
+  width: 50%;
+}
+
+#acts-import-table {
+  border-spacing: 0;
+}
+
+#acts-import-table > tbody > :nth-child(2n+1) {
+  background-color: #f9f9f9;
+}
+
+#acts-import-table td {
+  padding: 8px 10px;
+  height: 4em;
+  vertical-align: top;
+}
+
+#acts-import-table tbody tr > :first-child  {
+  max-width: 250px;
+}
+
+#acts-import-table tbody tr > :nth-child(2) {
+  max-width: 500px;
+}
+
+.wrap .acts-progress-row:nth-child(2n+1) {
+  background-color: #f9f9f9;
+}
+
+.acts-progress-row {
+  overflow: hidden;
+  background-color: white;
+  margin: 0;
+  padding: 5px 0px;
+}
+
+.acts-progress-row li {
+  float: left;
+  margin-right: 10px;
+}
+
+.acts-progress-row li:first-child {
+  width: 100px;
+  padding-left: 20px;
+}
+
+.acts-export-label {
+  display: block;
+  padding-bottom: 5px;
+}
+
+.acts-export-select {
+  width: 50%;
+}
+
+#acts-export-copied {
+  color: green;
+  visibility: hidden;
+}
+
+#acts-export-results {
+  padding: 7px;
+  white-space: pre-line;
+}
+
+#acts-nice-preview {
+  border: 1px solid lightgrey;
+  background-color: #fff;
+  width: 210mm;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#acts-nice-preview h1 {
+  font-size: 20px;
+}
+
+#acts-nice-settings {
+  display: inline-block;
+}
+
+#acts-nice-settings input[name=header],
+#acts-nice-settings #time-slots  {
+  width: 100%;
+}
+
+#acts-nice-settings h3 #acts-reload-members {
+  vertical-align: baseline;
+  font-weight: normal;
+}
+
+#acts-nice-settings table,
+#acts-nice-settings #acts-nice-settings-form div {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#acts-nice-logo-setting .button,
+#acts-nice-logo-setting b {
+  margin-bottom: 5px;
+}
+
+#acts-nice-logo-setting b {
+  display: block;
+}
+
+#acts-nice-members-setting h3 {
+  margin: 10px 0px 15px;
+}
+
+.acts-nice-loader-wrap {
+  float: right;
+  margin: 0 !important;
+  vertical-align: middle;
+}
+
+.acts-nice-loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #3498db;
+  width: 15px;
+  height: 15px;
+  animation: acts-loader-spin 2s linear infinite;
+  z-index: 2;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes acts-loader-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#acts-nice-custom li input[type=text],
+#acts-nice-color li input[type=text] {
+  height: 28px;
+}
+
+#acts-nice-custom li input[type=text] {
+  width: 55%;
+}
+
+#acts-nice-custom li #add-custom,
+#acts-nice-custom li .delete-custom,
+#acts-nice-color li #add-color,
+#acts-nice-color li .delete-color {
+  font-size: 20px;
+  line-height: 0;
+}
+
+#acts-nice-custom li input[type=text],
+#acts-nice-custom li input[type=submit],
+#acts-nice-color li input[type=text] {
+  vertical-align: middle;
+}
+
+#acts-nice-color li input[type=text] {
+  width: 85%;
+}
+
+#acts-nice-color li:not(:first-child):not(:nth-child(2)):not(:last-child) {
+  padding-bottom: 5px;
+  border-bottom: 1px dashed grey;
+}
+
+.acts-nice-splitter {
+  border-top: 1px dashed grey;
+}
+
+#acts-nice-buttons {
+  padding-top: 10px;
+}
+
+#acts-nice-wrap {
+  padding: 3mm 7mm 10mm 7mm;
+  position: relative;
+}
+
+#acts-nice-info {
+  min-height: 200px;
+}
+
+#acts-nice-info p {
+  white-space: pre-line;
+  margin: 7px 0;
+}
+
+#acts-nice-header {
+  height: 7mm;
+  width: 100%;
+  line-height: 7mm;
+  text-align: right;
+  white-space: nowrap;
+}
+
+#acts-nice-logo {
+  max-width: 400px;
+  max-height: 200px;
+  float: right;
+}
+
+#acts-nice-members {
+
+}
+
+.acts-nice-members-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.acts-nice-members-row .acts-nice-members-info,
+.acts-nice-members-row .acts-nice-members-head {
+  width: 36%;
+}
+
+.acts-nice-members-info a {
+  color: #0073aa;
+}
+.acts-nice-members-info a:hover {
+  color: #0085ba;
+}
+
+.acts-nice-members-row .acts-nice-members-time,
+.acts-nice-members-row .acts-nice-members-head-time {
+  width: 29%;
+}
+
+.acts-nice-members-head,
+.acts-nice-members-head-time {
+  border-bottom: 2px solid black;
+  vertical-align: bottom;
+  padding: 5px;
+}
+
+.acts-nice-members-info,
+.acts-nice-members-time {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  padding: 3px 5px;
+}
+
+.acts-nice-members-info ul,
+.acts-nice-members-info ul li {
+  margin: 0;
+}
+
+.acts-nice-members-info ul li:not(.acts-nice-member-name) {
+  font-size: 10px;
+}
+
+.acts-nice-compressed-info {
+  width: 75%;
+  display: inline-block;
+}
+
+.acts-nice-coupons {
+  display: inline-block;
+  float: right;
+  vertical-align: top;
+  width: 25%;
+  text-align: right;
+}
+
+@media print {
+  @page :first {
+    margin: 0 0 10mm 0;
+  }
+
+  @page {
+    margin: 10mm 0 10mm 0;
+  }
+
+  html.wp-toolbar {
+    padding-top: 0;
+    background-color: #fff;
+  }
+
+  .notice,
+  .button,
+  .button-primary,
+  #wpfooter,
+  #adminmenumain,
+  #wpadminbar,
+  #activities-title,
+  #acts-nice-settings,
+  #acts-nice-preview-title {
+    display: none !important;
+  }
+
+  .wrap,
+  #wpcontent,
+  #screen-meta,
+  #wpbody-content {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+  }
+
+  #acts-nice-preview {
+    display: block;
+    width: 100%;
+    border: none;
+  }
+
+  #acts-nice-wrap {
+    margin: 0;
+  }
+
+  #acts-nice-preview,
+  #acts-nice-wrap {
+    page-break-inside: auto;
+  }
+
+  .acts-nice-members-info a {
+    color: black;
+  }
+
+  .acts-nice-members-row,
+  .acts-nice-members-head,
+  .acts-nice-members-info,
+  .acts-nice-members-time {
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}

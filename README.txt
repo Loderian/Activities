@@ -15,10 +15,10 @@ A plugin for administering activities, printing reports and exporting user data.
 
 Activities is a free, light-weight plugin for administering activities.
 It provides an easy to use interface to manage your sites activities and who is participating.
+This plugin supports multisite installations. Each site has their own activities, locations, activity archive and their own plugin settings.
 
 The heart of the plugin is the Activity Report. It is designed for printing, but through the printing driver the reports can easily be saved as PDFs.
 When using the Activity Report it is easy to manage different recurring activities like yoga courses, football training and a lot of similar group oriented activities.
-
 The plugin integrates beautifully with WooCommerce Products.
 For example, when a customer is buying participation on a yoga retreat the customer are at the same time assigned the Activity list for this particular retreat.
 

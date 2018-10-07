@@ -127,11 +127,11 @@ function activities_admin_activities_page() {
         break;
 
       case 'change_responsible':
-        $title = esc_html__( 'Change Responsible', 'activities' );
+        $title = esc_html__( 'Change Responsible User', 'activities' );
         break;
 
       case 'change_members':
-        $title = esc_html__( 'Change Members', 'activities' );
+        $title = esc_html__( 'Change Participants', 'activities' );
         break;
 
       default:
@@ -139,8 +139,6 @@ function activities_admin_activities_page() {
     }
 
     if ( isset( $title ) ) {
-      $activity_table = Activities::get_table_name( 'activity' );
-
       $names = array();
 
       foreach ($_POST['selected_activities'] as $id) {
@@ -155,44 +153,19 @@ function activities_admin_activities_page() {
   }
   elseif ( isset( $_POST['confirm_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) && isset( $_POST[ACTIVITIES_BULK_NONCE] ) ) {
     if ( wp_nonce_field( $_POST[ACTIVITIES_BULK_NONCE], 'activities_bulk_action' ) ) {
-      $succ = 0;
-      $activities = explode( ',', $_POST['selected_activities'] );
+      $acts = explode( ',', $_POST['selected_activities'] );
+      $bulk = new Activities_Bulk_Action();
       switch ($_POST['bulk']) {
         case 'archive';
-          foreach ($activities as $id) {
-            if ( Activities_Activity::archive( $id ) ) {
-              $succ++;
-            }
-          }
-
-          Activities_Admin::add_success_message( sprintf( esc_html__( '%d activities has been archived' ), $succ ) );
+          $bulk->archive_activities( $acts );
           break;
 
         case 'change_location':
-          if( !isset( $_POST['location'] ) ) {
-            break;
-          }
-          foreach ($activities as $id) {
-            if ( Activities_Activity::update( array( 'activity_id' => $id, 'location_id' => ( is_numeric( $_POST['location'] ) ?  $_POST['location'] : null ) ) ) ) {
-              $succ++;
-            }
-          }
-
-          Activities_Admin::add_success_message( sprintf( esc_html__( '%d activities had their location changed.', 'activities' ), $succ ) );
+          $bulk->change_locations( $acts, $_POST['location'] );
           break;
 
         case 'change_responsible':
-          if ( !isset( $_POST['responsible'] ) ){
-            break;
-          }
-
-          foreach ($activities as $id) {
-            if ( Activities_Activity::update( array( 'activity_id' => $id, 'responsible_id' => ( is_numeric( $_POST['responsible'] ) ?  $_POST['responsible'] : null ) ) ) ) {
-              $succ++;
-            }
-          }
-
-          Activities_Admin::add_success_message( sprintf( esc_html__( '%d activities had their responsible person changed.', 'activities' ), $succ ) );
+          $bulk->change_responsible_users( $acts, $_POST['responsible'] );
           break;
 
         case 'change_members':
@@ -200,69 +173,21 @@ function activities_admin_activities_page() {
             break;
           }
 
-          $table_name = Activities::get_table_name( 'user_activity' );
+          if ( $_POST['method'] === 'null' ) {
+            Activities_Admin::add_error_message( esc_html__( 'Select a save method.', 'activities' ) );
 
-          switch ( $_POST['save_method']) {
-            case 'replace':
-              foreach ($activities as $id) {
-                if ( Activities_User_Activity::insert_delete( $_POST['members'], $id, 'activity_id') ) {
-                  $succ++;
-                }
+            $names = array();
+            foreach ($acts as $id) {
+              $act = new Activities_Activity( $id );
+              if ( $act->name != '' ) {
+                $names[] = $act->name;
               }
-              break;
+            }
 
-            case 'add':
-              if ( $_POST['members'] == '' ) {
-                break;
-              }
-              foreach ($activities as $a_id) {
-                $changed = false;
-                foreach (explode( ',', $_POST['members'] ) as $u_id) {
-                  if ( Activities_User_Activity::insert( $u_id, $a_id ) ) {
-                    $changed = true;
-                  }
-                }
-                if ( $changed ) {
-                  $succ++;
-                }
-              }
-              break;
-
-            case 'remove':
-              if ( $_POST['members'] == '' ) {
-                break;
-              }
-              foreach ($activities as $a_id) {
-                $changed = false;
-                foreach (explode( ',', $_POST['members'] ) as $u_id) {
-                  if ( Activities_User_Activity::delete( $u_id, $a_id ) ) {
-                    $changed = true;
-                  }
-                }
-                if ( $changed ) {
-                  $succ++;
-                }
-              }
-
-              break;
-
-            default:
-              Activities_Admin::add_error_message( esc_html__( 'Select a save method.', 'activities' ) );
-
-              $activity_table = Activities::get_table_name( 'activity' );
-              $names = array();
-              foreach ($activities as $id) {
-                $act = new Activities_Activity( $id );
-                if ( $act->name != '' ) {
-                  $names[] = $act->name;
-                }
-              }
-
-              return activities_bulk_action_page( $activities, $_POST['bulk'], 'Change Memebers', $names, $_POST['members'] );
-              break;
+            return activities_bulk_action_page( $acts, $_POST['bulk'], esc_html__( 'Change Participants' ), $names, $_POST['members'] );
           }
 
-          Activities_Admin::add_success_message( sprintf( esc_html__( '%d activities had their members changed.', 'activities' ), $succ ) );
+          $bulk->change_members( $acts, explode( ',', $_POST['members'] ), $_POST['method'] );
           break;
       }
     }

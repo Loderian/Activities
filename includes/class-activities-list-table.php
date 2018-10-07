@@ -233,7 +233,7 @@ class Activities_List_Table {
   				$actions = array(
   					'change_location' => esc_html__( 'Change Location', 'activities' ),
   					'change_responsible' => esc_html__( 'Change Responsible', 'activities' ),
-  					'change_members' => esc_html__( 'Change Members', 'activities' )
+  					'change_members' => esc_html__( 'Change Participants', 'activities' )
   				);
           if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
             $actions['archive'] = esc_html_x( 'Archive', 'To archive', 'activities' );

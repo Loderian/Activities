@@ -85,8 +85,8 @@ function activities_bulk_action_page( $ids, $type, $display, $names, $value = ''
 
 		case 'change_members':
 			$output .= '<label for="save_method"><b>' . esc_html__( 'Select a Save Method', 'activities' ) . '</b></label></br>';
-			$output .= '<select name="save_method">';
-			$output .= '<option value="0" selected>' . esc_html__( 'Method', 'activities' ) . '</option>';
+			$output .= '<select name="method">';
+			$output .= '<option value="null" selected>' . esc_html__( 'Method', 'activities' ) . '</option>';
 			$output .= '<option value="replace">' . esc_html__( 'Replace', 'activities' ) . '</option>';
 			$output .= '<option value="add">' . esc_html__( 'Add', 'activities' ) . '</option>';
 			$output .= '<option value="remove">' . esc_html__( 'Remove', 'activities' ) . '</option>';

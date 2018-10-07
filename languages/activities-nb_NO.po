@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: activities\n"
-"POT-Creation-Date: 2018-10-04 15:53+0200\n"
-"PO-Revision-Date: 2018-10-04 15:55+0200\n"
+"POT-Creation-Date: 2018-10-07 17:35+0200\n"
+"PO-Revision-Date: 2018-10-07 17:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -90,41 +90,21 @@ msgid "Change Location"
 msgstr "Endre sted"
 
 #: admin/activities-admin-activities.php:130
-#: includes/class-activities-list-table.php:235
-msgid "Change Responsible"
-msgstr "Endre ansvarlig"
+msgid "Change Responsible User"
+msgstr "Endre ansvarlig bruker"
 
 #: admin/activities-admin-activities.php:134
+#: admin/activities-admin-activities.php:187
 #: includes/class-activities-list-table.php:236
-msgid "Change Members"
-msgstr "Endre medlemmer"
+msgid "Change Participants"
+msgstr "Endre deltakere"
 
-#: admin/activities-admin-activities.php:168
-#, php-format
-msgid "%d activities has been archived"
-msgstr "%d aktiviteter har blitt arkivert"
-
-#: admin/activities-admin-activities.php:181
-#, php-format
-msgid "%d activities had their location changed."
-msgstr "%d aktiviteter fikk endret sted."
-
-#: admin/activities-admin-activities.php:195
-#, php-format
-msgid "%d activities had their responsible person changed."
-msgstr "%d aktiviteter fikk sin ansvarlige person endret."
-
-#: admin/activities-admin-activities.php:250
+#: admin/activities-admin-activities.php:177
 msgid "Select a save method."
 msgstr "Velg en lagringsmetode."
 
-#: admin/activities-admin-activities.php:265
-#, php-format
-msgid "%d activities had their members changed."
-msgstr "%d aktiviteter fikk sine medlemmer endret."
-
 #. Plugin Name of the plugin/theme
-#: admin/activities-admin-activities.php:272
+#: admin/activities-admin-activities.php:197
 #: admin/activities-admin-import.php:25 admin/activities-admin-import.php:258
 #: admin/class-activities-admin.php:103 admin/class-activities-admin.php:105
 #: admin/class-activities-admin.php:173 admin/class-activities-admin.php:383
@@ -132,7 +112,7 @@ msgstr "%d aktiviteter fikk sine medlemmer endret."
 msgid "Activities"
 msgstr "Aktiviteter"
 
-#: admin/activities-admin-activities.php:274
+#: admin/activities-admin-activities.php:199
 msgid "Create new activity"
 msgstr "Opprett ny aktivitet"
 
@@ -384,17 +364,7 @@ msgstr "Aktiver Aktiviteter"
 msgid "Delete Activities"
 msgstr "Slett Aktiviteter"
 
-#: admin/activities-admin-archive.php:103
-#, php-format
-msgid "%d activites has been activated."
-msgstr "%d aktiviteter har blitt aktivert."
-
-#: admin/activities-admin-archive.php:113
-#, php-format
-msgid "%d activites has been deleted."
-msgstr "%d aktiviteter er slettet."
-
-#: admin/activities-admin-archive.php:124 admin/class-activities-admin.php:110
+#: admin/activities-admin-archive.php:112 admin/class-activities-admin.php:110
 msgid "Activities Archive"
 msgstr "Aktivitetsarkiv"
 
@@ -833,22 +803,12 @@ msgstr "Endre adresse"
 msgid "Delete Locations"
 msgstr "Slett Steder"
 
-#: admin/activities-admin-locations.php:136
-#, php-format
-msgid "%d locations had their address changed."
-msgstr "%d steder fikk adressen endret."
-
-#: admin/activities-admin-locations.php:146
-#, php-format
-msgid "%d locations has been deleted."
-msgstr "%d steder er slettet."
-
-#: admin/activities-admin-locations.php:156
+#: admin/activities-admin-locations.php:140
 #: admin/class-activities-admin.php:106
 msgid "Locations"
 msgstr "Steder"
 
-#: admin/activities-admin-locations.php:157
+#: admin/activities-admin-locations.php:141
 msgid "Create new location"
 msgstr "Opprett nytt sted"
 
@@ -1208,6 +1168,50 @@ msgstr "Meld deg på"
 #: admin/class-activities-admin.php:744 public/class-activities-public.php:77
 msgid "Unjoin"
 msgstr "Meld deg ut"
+
+#: admin/class-activities-bulk-action.php:22
+#, php-format
+msgid "%d activities has been archived"
+msgstr "%d aktiviteter har blitt arkivert"
+
+#: admin/class-activities-bulk-action.php:32
+#, php-format
+msgid "%d activities had their location changed."
+msgstr "%d aktiviteter fikk endret sted."
+
+#: admin/class-activities-bulk-action.php:42
+#, php-format
+msgid "%d activities had their responsible person changed."
+msgstr "%d aktiviteter fikk sin ansvarlige person endret."
+
+#: admin/class-activities-bulk-action.php:84
+#, php-format
+msgid "%d activities had their members changed."
+msgstr "%d aktiviteter fikk sine medlemmer endret."
+
+#: admin/class-activities-bulk-action.php:94
+#, php-format
+msgid "%d activites has been activated."
+msgstr "%d aktiviteter har blitt aktivert."
+
+#: admin/class-activities-bulk-action.php:104
+#, php-format
+msgid "%d activites has been deleted."
+msgstr "%d aktiviteter er slettet."
+
+#: admin/class-activities-bulk-action.php:114
+#, php-format
+msgid "%d locations had their address changed."
+msgstr "%d steder fikk adressen endret."
+
+#: admin/class-activities-bulk-action.php:124
+#, php-format
+msgid "%d locations has been deleted."
+msgstr "%d steder er slettet."
+
+#: includes/class-activities-list-table.php:235
+msgid "Change Responsible"
+msgstr "Endre ansvarlig"
 
 #: includes/class-activities-list-table.php:239
 msgctxt "To archive"
@@ -2312,6 +2316,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://github.com/Loderian"
 msgstr ""
+
+#~ msgid "Change Members"
+#~ msgstr "Endre medlemmer"
 
 #~ msgid "Name "
 #~ msgstr "Navn "

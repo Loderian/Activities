@@ -122,31 +122,15 @@ function activities_admin_locations_page() {
     }
     else if ( isset( $_POST['confirm_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) && isset( $_POST[ACTIVITIES_BULK_NONCE] ) ) {
       if ( wp_nonce_field( $_POST[ACTIVITIES_BULK_NONCE], 'activities_bulk_action' ) ) {
-        $succ = 0;
-        $locations = explode( ',', $_POST['selected_activities'] );
+        $locs = explode( ',', $_POST['selected_activities'] );
+        $bulk = new Activities_Bulk_Action();
         switch ($_POST['bulk']) {
           case 'address':
-            $addr = sanitize_text_field( $_POST['address'] );
-            foreach ($locations as $location_id) {
-              if ( Activities_Location::update( array( 'location_id' => $location_id, 'address' => $addr ) ) ){
-                $succ++;
-              }
-            }
-
-            Activities_Admin::add_success_message( sprintf( esc_html__( '%d locations had their address changed.', 'activities' ), $succ ) );
+            $bulk->change_address( $locs, sanitize_text_field( $_POST['address'] ) );
             break;
 
           case 'delete_l':
-            foreach ($locations as $id) {
-              if ( Activities_Location::delete( $id ) ) {
-                $succ++;
-              }
-            }
-
-            Activities_Admin::add_success_message( sprintf( esc_html__( '%d locations has been deleted.', 'activities' ), $succ ) );
-            break;
-
-          default:
+            $bulk->delete_locations( $locs );
             break;
         }
       }

@@ -133,6 +133,7 @@ class Activities {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-export.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-import.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin-utility.php';
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-bulk-action.php';
 		}
 
 		$this->loader = new Activities_Loader();

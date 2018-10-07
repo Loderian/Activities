@@ -90,27 +90,15 @@ function activities_admin_archive_page() {
     }
     else if ( isset( $_POST['confirm_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) && isset( $_POST[ACTIVITIES_BULK_NONCE] ) ) {
       if ( wp_nonce_field( $_POST[ACTIVITIES_BULK_NONCE], 'activities_bulk_action' ) ) {
-        $succ = 0;
-        $activities = explode( ',', $_POST['selected_activities'] );
+        $acts = explode( ',', $_POST['selected_activities'] );
+        $bulk = new Activities_Bulk_Action();
         switch ($_POST['bulk']) {
           case 'activate':
-            foreach ($activities as $id) {
-              if ( Activities_Activity::archive( $id, 'reverse' ) ) {
-                $succ++;
-              }
-            }
-
-            Activities_Admin::add_success_message( sprintf( esc_html__( '%d activites has been activated.', 'activities' ), $succ ) );
+            $bulk->activate_activities( $acts );
             break;
 
           case 'delete_a':
-            foreach ($activities as $id) {
-              if ( Activities_Activity::delete( $id ) ) {
-                $succ++;
-              }
-            }
-
-            Activities_Admin::add_success_message( sprintf( esc_html__( '%d activites has been deleted.', 'activities' ), $succ ) );
+            $bulk->delete_activities( $acts );
             break;
 
           default:

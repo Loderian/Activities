@@ -27,13 +27,13 @@ if ( !defined( 'WPINC' ) ) {
 /**
  * Current plugin version.
  */
-define( 'PLUGIN_NAME_VERSION', '1.0.0' );
-define( 'PLUGIN_DB_VERSION', '1.0.0' );
+define( 'ACTIVITIES_VERSION', '1.0.1' );
+define( 'ACTIVITIES_DB_VERSION', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
  */
-function activate_activities( $nerwork_wide ) {
+function activities_activate( $nerwork_wide ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-activator.php';
 	if ( is_multisite() && $nerwork_wide ) {
 		$sites = get_sites();
@@ -51,15 +51,15 @@ function activate_activities( $nerwork_wide ) {
 /**
  * The code that runs during plugin deactivation.
  */
-function deactivate_activities() {
+function activities_deactivate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-deactivator.php';
 	Activities_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_activities' );
-register_deactivation_hook( __FILE__, 'deactivate_activities' );
+register_activation_hook( __FILE__, 'activities_activate' );
+register_deactivation_hook( __FILE__, 'activities_deactivate' );
 
-function install_activities_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
+function activities_install_on_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 	if ( is_plugin_active_for_network( 'activities/activities.php' ) ) {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-activator.php';
 		switch_to_blog( $blog_id );
@@ -71,7 +71,7 @@ function install_activities_new_blog( $blog_id, $user_id, $domain, $path, $site_
 /**
  * New blog installation
  */
-add_action( 'wpmu_new_blog', 'install_activities_new_blog', 10, 6 );
+add_action( 'wpmu_new_blog', 'activities_install_on_new_blog', 10, 6 );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -88,8 +88,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-activities.php';
  *
  * @since    1.0.0
  */
-function run_activities() {
+function activities_run() {
 	$plugin = new Activities();
 	$plugin->run();
 }
-run_activities();
+activities_run();

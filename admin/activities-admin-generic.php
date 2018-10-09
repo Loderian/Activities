@@ -9,12 +9,12 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @param 	array 	$ids Ids of activities selected
  * @param 	string 	$type The type of bulk action
- * @param 	string 	$display Title for the bulk action
+ * @param 	string 	$header Header for the bulk action page
  * @param 	array 	$names Names of the selected activities
  * @param 	string 	$value Values for input fields
  * @return 	string 	Page for doing bulk actions
  */
-function activities_bulk_action_page( $ids, $type, $display, $names, $value = '' ) {
+function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' ) {
 	global $wpdb;
 
 	$all_selectize = array();
@@ -23,7 +23,7 @@ function activities_bulk_action_page( $ids, $type, $display, $names, $value = ''
 	$current_url = remove_query_arg( 'action', $current_url );
 	$current_url = remove_query_arg( 'item_id', $current_url );
 
-	$output = '<h1>' . $display . '</h1>';
+	$output = '<h1>' . $header . '</h1>';
 
 	$output .= Activities_Admin::get_messages();
 

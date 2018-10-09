@@ -30,7 +30,7 @@ define( 'ACTIVITIES_RESPONSIBLE_KEY', 'responsible_permission' );
 
 define( 'ACTIVITIES_NICE_SETTINGS_KEY', 'nice_settings');
 
-define( 'ACTIVITIES_ARCHIVE_NONCE_GET', '_aan' );
+define( 'ACTIVITIES_ARCHIVE_NONCE_GET', 'acts_aan' );
 
 define( 'ACTIVITIES_BULK_NONCE', 'activities-bulk-nonce' );
 

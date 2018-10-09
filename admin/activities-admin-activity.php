@@ -136,11 +136,11 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 		$output .= '<input type="submit" value="' . esc_attr( $button ) . '" name="' . esc_attr( $action ) . '_act" class="button button-primary" />';
 	}
 	else if ( $archive == 'archive' ){
-		$output .= '<a href="' . esc_url( $current_url . '&action=activate&item_id=' . esc_attr( $_GET['item_id'] ) ) . '" class="button button-primary" >' . esc_html__( 'Activate', 'activities' ) . '</a>';
+		$output .= '<a href="' . esc_url( $current_url . '&action=activate&item_id=' . esc_attr( acts_validate_id( $_GET['item_id'] ) ) ) . '" class="button button-primary" >' . esc_html__( 'Activate', 'activities' ) . '</a>';
 	}
 	$output .= ' <a href="' . esc_url( $current_url ) . '" class="button" >' . esc_html__( 'Cancel', 'activities' ) . '</a>';
 	if ( isset( $_GET['item_id'] ) || isset( $map['activity_id'] ) ) {
-		$activity_id = isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['activity_id'];
+		$activity_id = acts_validate_id( isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['activity_id'] );
 		$output .= '<input type="hidden" name="item_id" value="' . esc_attr( $activity_id ) . '" />';
 	}
 	$output .= '</li></ul>';

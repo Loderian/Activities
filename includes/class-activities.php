@@ -54,8 +54,8 @@ class Activities {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
-			$this->version = PLUGIN_NAME_VERSION;
+		if ( defined( 'ACTIVITIES_VERSION' ) ) {
+			$this->version = ACTIVITIES_VERSION;
 		}
 		else {
 			$this->version = '1.0.0';
@@ -116,6 +116,7 @@ class Activities {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-pagination.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-options.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/activities-constants.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/activities-functions.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-woocommerce.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-csv-importer.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-utility.php';

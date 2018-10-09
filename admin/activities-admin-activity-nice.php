@@ -17,14 +17,25 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	wp_enqueue_media();
 
 	if ( isset( $_POST['save_nice_settings'] ) && $current_url != null ) {
-		Activities_Activity::save_nice_settings( Activities_Admin_Utility::get_activity_nice_settings() );
-
-		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings updated for %s.', 'activities' ), $activity['name'] ) );
+    $settings = Activities_Admin_Utility::get_activity_nice_settings();
+    if ( isset( $settings['activity_id'] ) ) {
+  		Activities_Activity::save_nice_settings( $settings );
+  		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings updated for %s.', 'activities' ), $activity['name'] ) );
+    }
+    else {
+      Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occured during saving report setting for %s.', 'activities' ), $activity['name'] ) );
+    }
 	}
 	else if ( isset( $_POST['reset_nice_settings'] ) && isset( $_POST['item_id'] ) ) {
-		Activities_Activity::delete_meta( $_POST['item_id'], 'nice_settings' );
+    $id = acts_validate_id( $_POST['item_id'] );
+    if ( $id ) {
+  		Activities_Activity::delete_meta( $id, ACTIVITIES_NICE_SETTINGS_KEY );
 
-		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings has been reset for %s.', 'activities' ), $activity['name'] ) );
+  		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings has been reset for %s.', 'activities' ), $activity['name'] ) );
+    }
+    else {
+      Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occured during resetting report setting for %s.', 'activities' ), $activity['name'] ) );
+    }
 	}
 
 	$nice_settings = Activities_Activity::get_nice_settings( $activity['activity_id'] );
@@ -184,7 +195,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 		//$output .= '<input type="submit" name="download" class="button" value="Download PDF"/> ';
 		$output .= '<a href="javascript:window.print()" class="button">' . esc_html__( 'Print', 'activities' ) . '</a> ';
     $output .= '<input id="folder_print" type="button" class="button" value="' . esc_html__( 'Folder Print', 'activities' ) . '" /> ';
-		$output .= '<input type="hidden" value="' . esc_attr($_GET['item_id']) . '" id="item-id" name="item_id" />';
+		$output .= '<input type="hidden" value="' . esc_attr( acts_validate_id( $_GET['item_id'] ) ) . '" id="item-id" name="item_id" />';
     $output .= wp_nonce_field( 'activities_nice', ACTIVITIES_ADMIN_NICE_NONCE, true, false );
 		$output .= '<a href="' . esc_url( $current_url ) . '" class="button">' . esc_html__( 'Return', 'activities' ) . '</a></br></br>';
 		$output .= '<input type="submit" class="button right" name="reset_nice_settings" value="' . esc_html__( 'Reset to default', 'activities' ) . '" />';

@@ -107,6 +107,7 @@ class Activities_List_Table {
   	$current_url = ( isset($_SERVER['HTTPS'] ) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   	$current_url = remove_query_arg( 'action', $current_url );
   	$current_url = remove_query_arg( 'item_id', $current_url );
+    $current_url = remove_query_arg( ACTIVITIES_ARCHIVE_NONCE_GET, $current_url );
 
   	$output .= Activities_Admin::get_messages();
 

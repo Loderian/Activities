@@ -20,7 +20,7 @@ class Activities_Admin_Utility {
       if ( isset( $_POST['save_nice_settings'] ) && isset( $_POST[ACTIVITIES_ADMIN_NICE_NONCE] ) && !wp_verify_nonce( $_POST[ACTIVITIES_ADMIN_NICE_NONCE], 'activities_nice' ) ) {
         die( esc_html__( 'Could not verify activity report data integrity.', 'activities' ) );
       }
-      if ( is_numeric( $_POST['item_id'] ) ) {
+      if ( acts_validate_id( $_POST['item_id'] ) ) {
         $nice_settings['activity_id'] = $_POST['item_id'];
       }
       if ( isset( $_POST['acts_nice_logo_id'] ) && is_numeric( $_POST['acts_nice_logo_id'] ) && $_POST['acts_nice_logo_id'] != '0' ) {
@@ -72,18 +72,20 @@ class Activities_Admin_Utility {
    * @return array Activity info
    */
   static function get_activity_post_values() {
+    $loc_id = acts_validate_id( $_POST['location'] );
+    $res_id = acts_validate_id( $_POST['responsible'] );
     $act_map = array(
       'name' => sanitize_text_field( $_POST['name'] ),
       'short_desc' => sanitize_text_field( $_POST['short_desc'] ),
       'long_desc' => sanitize_textarea_field( $_POST['long_desc'] ),
-      'start' => $_POST['start'],
-      'end' => $_POST['end'],
-      'location_id' => ( is_numeric( $_POST['location'] ) ? $_POST['location'] : null ),
-      'responsible_id' => ( is_numeric( $_POST['responsible'] ) ? $_POST['responsible'] : null ),
+      'start' => self::validate_date( $_POST['start'] ),
+      'end' => self::validate_date( $_POST['end'] ),
+      'location_id' => ( $loc_id ? $loc_id : null ),
+      'responsible_id' => ( $res_id ? $res_id : null ),
       'members' => sanitize_text_field( $_POST['member_list'] )
     );
     if ( isset( $_POST['item_id'] ) ) {
-      $act_map['activity_id'] = intval( $_POST['item_id'] );
+      $act_map['activity_id'] = acts_validate_id( $_POST['item_id'] );
     }
     return $act_map;
   }
@@ -104,7 +106,7 @@ class Activities_Admin_Utility {
     );
 
     if ( isset( $_POST['item_id'] ) ) {
-      $loc_map['location_id'] = $_POST['item_id'];
+      $loc_map['location_id'] = acts_validate_id( $_POST['item_id'] );
     }
 
     return $loc_map;
@@ -361,5 +363,33 @@ class Activities_Admin_Utility {
         return 'undefined';
         break;
     }
+  }
+
+  /**
+   * Validates a date input
+   *
+   * @param   string  $date Date input
+   * @return  string  Date to insert into database
+   */
+  static function validate_date( $date, $format = 'Y-m-d' ) {
+    $date = sanitize_text_field( $date );
+    $d = DateTime::createFromFormat( $format, $date );
+    if ( $d && $d->format( $format ) == $date ) {
+      return $date;
+    }
+    else {
+      return '0000-00-00 00:00:00';
+    }
+  }
+
+  /**
+   * Get names and ids for a list of items
+   *
+   * @param   array   $items List of items ids
+   * @param   string  $type Type of item
+   * @return  array   Nested list of names and ids
+   */
+  static function get_names_and_ids( $items, $type = 'activity' ) {
+
   }
 }

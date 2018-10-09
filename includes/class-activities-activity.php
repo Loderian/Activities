@@ -308,7 +308,7 @@ class Activities_Activity {
     ));
 
     if ( $act_id === null ) {
-      return false;
+      return null;
     }
 
     return new Activities_Activity( $act_id );

@@ -19,30 +19,52 @@ function activities_export_page() {
   $current_url = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   $current_url = remove_query_arg( 'item_id', $current_url );
 
-  if ( isset( $_POST['export_data'] ) && isset( $_POST['selected_activity'] ) && isset( $_POST['user_meta'] ) ) {
-    if ( $_POST['selected_activity'] === '' ) {
+  $act_id = 0;
+  if ( isset( $_POST['selected_activity'] ) ) {
+    $act_id = $_POST['selected_activity'];
+  }
+  elseif ( isset( $_GET['item_id'] ) ) {
+    $act_id = $_GET['item_id'];
+  }
+  $act_id = acts_validate_id( $act_id );
+  if ( !$act_id ) {
+    $act_id = '';
+  }
+
+  $user_meta = null;
+  if ( isset( $_POST['user_meta'] ) ) {
+    $user_meta = sanitize_text_field( $_POST['user_meta'] );
+    if ( !array_key_exists( $user_meta, acts_get_export_options() ) ) {
+      $user_meta = null;
+    }
+  }
+
+  $delimiter = null;
+  if ( isset( $_POST['delimiter'] ) ) {
+    $delimiter = sanitize_text_field( $_POST['delimiter'] );
+    if ( !array_key_exists( $delimiter, acts_get_export_delimiters() ) ) {
+      $delimiter = null;
+    }
+  }
+
+  if ( isset( $_POST['export_data'] ) ) {
+    if ( $act_id === '' ) {
       Activities_Admin::add_error_message( esc_html__( 'Select an activity.', 'activities' ) );
     }
-    elseif ( $_POST['user_meta'] === '' ) {
+    elseif ( $user_meta === null ) {
       Activities_Admin::add_error_message( esc_html__( 'Select user data to export.', 'activities' ) );
     }
     else {
       $export = '';
       $notice = '';
       $users = '';
-      Activities_Options::update_user_option( 'export', $_POST['user_meta'], $_POST['delimiter'] );
-      $user_activity_table = Activities::get_table_name( 'user_activity' );
-      $user_ids = $wpdb->get_col( $wpdb->prepare(
-        "SELECT user_id
-        FROM $user_activity_table
-        WHERE activity_id = %d
-        ",
-        array( $_POST['selected_activity'] )
-      ));
+      Activities_Options::update_user_option( 'export', $user_meta, $delimiter );
+      $act = new Activities_Activity( $act_id );
+      $user_ids = $act->members;
       $data = array();
       $user_count = count( $user_ids );
       foreach ($user_ids as $user_id) {
-        switch ($_POST['user_meta']) {
+        switch ($user_meta) {
           case 'email':
             $data[$user_id] = acts_get_user_email( $user_id );
             break;
@@ -56,7 +78,7 @@ function activities_export_page() {
             break;
         }
       }
-      $export .= '<h3>' . sprintf( esc_html__( 'User data found for %s:', 'activities' ), stripslashes( wp_filter_nohtml_kses( acts_get_export_options()[$_POST['user_meta']] ) ) );
+      $export .= '<h3>' . sprintf( esc_html__( 'User data found for %s:', 'activities' ), stripslashes( wp_filter_nohtml_kses( acts_get_export_options()[$user_meta] ) ) );
       $export .= ' <span id="acts-export-copied">' . esc_html__( 'Copied!', 'activities' ) . '<span class="dashicons dashicons-yes"></span></span></h3>';
       if ( count( $data ) === 0 ) {
         $export .= '<p>' . esc_html__( 'No data found.', 'activities' ) . '</p>';
@@ -67,34 +89,34 @@ function activities_export_page() {
           $value = trim($value);
           if ( $value === '' ) {
             unset( $data[$key] );
-            $users .= '<a href="' . get_edit_user_link( $key ) . '" >' . Activities_Utility::get_user_name( $key ) . '</a></br>';
+            $users .= '<a href="' . get_edit_user_link( $key ) . '" >' . esc_html( Activities_Utility::get_user_name( $key ) ) . '</a></br>';
           }
           else {
-            $data[$key] = stripslashes( wp_filter_nohtml_kses( $value ) );
+            $data[$key] = esc_html( $value );
           }
         }
         if ( count( $data ) < $user_count ) {
           $notice .= '</br><b>' . esc_html__( 'Notice:', 'activities' ) . ' </b>' . sprintf( esc_html__( '%d users missing data', 'activities' ), ($user_count - count( $data )) ). '</br>';
         }
-        switch ($_POST['delimiter']) {
+        switch ($delimiter) {
           case 'comma':
-            $delimiter = ', ';
+            $delimiter_char = ', ';
             break;
 
           case 'semicolon':
-            $delimiter = '; ';
+            $delimiter_char = '; ';
             break;
 
           case 'newline':
-            $delimiter = "\n";
+            $delimiter_char = "\n";
             break;
 
           default:
-            $delimiter = ', ';
+            $delimiter_char = ', ';
             break;
         }
 
-        $export .= implode( $delimiter, $data );
+        $export .= implode( $delimiter_char, $data );
         $export .= '</div>';
       }
       $export .= $notice;
@@ -102,18 +124,11 @@ function activities_export_page() {
     }
   }
 
-  $value = '';
-  if ( isset( $_POST['selected_activity'] ) ) {
-    $value = $_POST['selected_activity'];
-  }
-  elseif ( isset( $_GET['item_id'] ) ) {
-    $value = $_GET['item_id'];
-  }
-  if ( $value != '' && Activities_Responsible::current_user_restricted_view() ) {
-    $act = new Activities_Activity( $value );
+  if ( $act_id && Activities_Responsible::current_user_restricted_view() ) {
+    $act = new Activities_Activity( $act_id );
     if ( $act->responsible_id != get_current_user_id() ) {
       Activities_Admin::add_error_message( esc_html__( 'You are not allowed to export this activity.', 'activities' ) );
-      $value = '';
+      $act_id = '';
     }
   }
 
@@ -125,7 +140,7 @@ function activities_export_page() {
   echo '<h3>' . esc_html__( 'Export Activity Participant Data', 'activities' ) . '</h3>';
   echo '<label for="acts_select_activity" class="acts-export-label">' . esc_html__( 'Select Activity', 'activities' ) . '</label>';
 
-  echo '<input type="text" id="acts_select_activity" name="selected_activity" class="acts-export-select" value="' . esc_attr( $value ) . '" />';
+  echo '<input type="text" id="acts_select_activity" name="selected_activity" class="acts-export-select" value="' . esc_attr( $act_id ) . '" />';
   $activity_table = Activities::get_table_name( 'activity' );
   $activities = array();
   if ( Activities_Responsible::current_user_restricted_view() ) {
@@ -156,22 +171,20 @@ function activities_export_page() {
     'option_values' => $activities,
     'max_items' => '1'
   );
+
   echo '<label for="acts_select_user_meta" class="acts-export-label">' . esc_html__( 'Select User Data', 'activities' ) . '</label>';
   echo acts_build_select( acts_get_export_options(), array(
     'name' => 'user_meta',
     'id' => 'acts_select_user_meta',
     'class' => array( 'acts-export-select' ),
-    'selected' => (isset( $_POST['user_meta'] ) ? array( $_POST['user_meta'] ) : array()),
+    'selected' => ( $user_meta === null  ? array() : array( $user_meta ) ),
     'no_blank' => true
   ));
 
-  if ( isset( $_POST['user_meta'] ) ) {
-    $delimiter = Activities_Options::get_user_option( 'export', $_POST['user_meta'] );
+  if ( $user_meta !== null ) {
+    $delimiter = Activities_Options::get_user_option( 'export', $user_meta );
   }
-  elseif ( isset( $_POST['delimiter'] ) ) {
-    $delimiter = $_POST['delimiter'];
-  }
-  else {
+  elseif ( $delimiter === null ) {
     $delimiter = Activities_Options::get_user_option( 'export', 'email' );
   }
   echo '<label for="acts_select_delimiter" class="acts-export-label">' . esc_html__( 'Select Delimiter', 'activities' ) . '</label>';
@@ -179,7 +192,7 @@ function activities_export_page() {
     'name' => 'delimiter',
     'id' => 'acts_select_delimiter',
     'class' => array( 'acts-export-select' ),
-    'selected' => (isset( $delimiter ) ? array( $delimiter ) : array()),
+    'selected' => ( $delimiter === null ? array() : array( $delimiter ) ),
     'no_blank' => true
   ));
   echo get_submit_button( esc_html__( 'Export', 'activities' ), 'button-primary', 'export_data' );
@@ -192,7 +205,7 @@ function activities_export_page() {
 
   $mapping = array();
   foreach (acts_get_export_options() as $key => $value) {
-    $mapping[] = $key . ': "' . Activities_Options::get_user_option( 'export', $key ) . '"';
+    $mapping[] = $key . ': "' . wp_filter_nohtml_kses( Activities_Options::get_user_option( 'export', $key ) ) . '"';
   }
 
   $js_map = 'var defaults = {' . implode( ', ', $mapping ) . '};';
@@ -207,6 +220,7 @@ function activities_export_page() {
           }
         });';
   echo '</script>';
+
   echo activities_build_all_selectize( $selectize );
 }
 

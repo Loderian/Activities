@@ -146,7 +146,7 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
 /**
  * Builds page for confirming deletion
  *
- * @param 	string 	$display Part-title for item deletion
+ * @param 	string 	$display Name of item type (Activity or Location translated)
  * @param 	int 		$item_id Id of the item to delete
  * @param 	string 	$name Name of the item to delete
  * @param 	string 	$current_url Previous page

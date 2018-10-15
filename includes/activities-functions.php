@@ -7,9 +7,9 @@
  * @return  int $id if validated, otherwise 0
  */
 function acts_validate_id( $id ) {
-  $id = sanitize_text_field( $id );
+  $id = sanitize_key( $id );
   if ( is_numeric( $id ) ) {
-    return intval( $id);
+    return intval( $id );
   }
   else {
     return 0;

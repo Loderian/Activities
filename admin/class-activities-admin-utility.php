@@ -78,8 +78,8 @@ class Activities_Admin_Utility {
       'name' => sanitize_text_field( $_POST['name'] ),
       'short_desc' => sanitize_text_field( $_POST['short_desc'] ),
       'long_desc' => sanitize_textarea_field( $_POST['long_desc'] ),
-      'start' => self::validate_date( $_POST['start'] ),
-      'end' => self::validate_date( $_POST['end'] ),
+      'start' => self::validate_date( sanitize_text_field( $_POST['start'] ) ),
+      'end' => self::validate_date( sanitize_text_field( $_POST['end'] ) ),
       'location_id' => ( $loc_id ? $loc_id : null ),
       'responsible_id' => ( $res_id ? $res_id : null ),
       'members' => sanitize_text_field( $_POST['member_list'] )
@@ -372,10 +372,9 @@ class Activities_Admin_Utility {
    * @return  string  Date to insert into database
    */
   static function validate_date( $date, $format = 'Y-m-d' ) {
-    $date = sanitize_text_field( $date );
     $d = DateTime::createFromFormat( $format, $date );
     if ( $d && $d->format( $format ) == $date ) {
-      return $date;
+      return $d->format( 'Y-m-d H:i:s' );
     }
     else {
       return '0000-00-00 00:00:00';
@@ -383,13 +382,35 @@ class Activities_Admin_Utility {
   }
 
   /**
-   * Get names and ids for a list of items
+   * Get names and ids for a list of items, filters broken ids
    *
-   * @param   array   $items List of items ids
+   * @param   array   $items_ids List of items ids
    * @param   string  $type Type of item
    * @return  array   Nested list of names and ids
    */
-  static function get_names_and_ids( $items, $type = 'activity' ) {
+  static function get_item_names( $items_ids, $type = 'activity' ) {
+    $names = array();
+    $ids = array();
+    foreach ($items_ids as $id) {
+      $id = acts_validate_id( $id );
+      if ( !$id ) {
+        continue;
+      }
+      switch ($type) {
+        case 'activity':
+          $item = new Activities_Activity( $id );
+          break;
 
+        case 'location':
+          $item = new Activities_Location( $id );
+          break;
+      }
+      if ( isset( $item ) && acts_validate_id( $item->id ) === $id ) {
+        $names[] = esc_html( $item->name );
+        $ids[] = $id;
+      }
+    }
+
+    return array( 'names' => $names, 'ids' => $ids );
   }
 }

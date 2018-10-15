@@ -29,20 +29,20 @@ function activities_admin_archive_page() {
   $current_url = remove_query_arg( 'item_id', $current_url );
   $current_url = remove_query_arg( ACTIVITIES_ARCHIVE_NONCE_GET, $current_url );
 
-  if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' && isset( $_GET['item_id'] ) ) {
+  if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'edit' && isset( $_GET['item_id'] ) ) {
     $activity = Activities_Activity::load( acts_validate_id( $_GET['item_id'] ) );
     if ( $activity !== null && $activity['archive'] == 1 ) {
       return acts_activity_management( esc_html__( 'Archived Activity', 'activities' ), 'activate', $activity, 'archive' );
     }
   }
   else {
-    if ( isset( $_GET['action'] ) && $_GET['action'] == 'view' && isset( $_GET['item_id'] ) ) {
+    if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'view' && isset( $_GET['item_id'] ) ) {
       $activity = Activities_Activity::load( acts_validate_id( $_GET['item_id'] ) );
       if (  $activity !== null && $activity['archive'] == 1 ) {
         return acts_activity_nice_management( $activity, $current_url );
       }
     }
-    else if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['item_id'] ) && isset( $_GET[ACTIVITIES_ARCHIVE_NONCE_GET] ) ) {
+    else if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'activate' && isset( $_GET['item_id'] ) && isset( $_GET[ACTIVITIES_ARCHIVE_NONCE_GET] ) ) {
       if ( wp_verify_nonce( $_GET[ACTIVITIES_ARCHIVE_NONCE_GET], 'activities_activate_activity' ) ) {
         $id = acts_validate_id( $_GET['item_id'] );
         if ( Activities_Activity::archive( $id, 'reverse') ) {
@@ -51,7 +51,7 @@ function activities_admin_archive_page() {
         }
       }
     }
-    else if ( isset( $_GET['action'] ) && $_GET['action'] == 'delete' && isset( $_GET['item_id'] ) ) {
+    else if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'delete' && isset( $_GET['item_id'] ) ) {
       $act = new Activities_Activity( acts_validate_id( $_GET['item_id'] ) );
       if ( $act->name != '' ) {
         return acts_confirm_item_delete_page( esc_html__( 'Activity', 'activities') , $act->id, $act->name, $current_url );
@@ -65,7 +65,8 @@ function activities_admin_archive_page() {
       }
     }
     else if ( isset( $_POST['apply_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) ) {
-      switch ($_POST['bulk']) {
+      $action = sanitize_key( $_POST['bulk'] );
+      switch ($action) {
         case 'activate':
           $title = esc_html__( 'Activate Activities', 'activities' );
           break;
@@ -73,37 +74,24 @@ function activities_admin_archive_page() {
         case 'delete_a':
           $title = esc_html__( 'Delete Activities', 'activities' );
           break;
-
-        default:
-          break;
       }
-      if ( isset( $title ) ) {
-        $names = array();
+      if ( isset( $title ) && is_array( $_POST['selected_activities'] ) ) {
+        $names = Activities_Admin_Utility::get_item_names( $_POST['selected_activities'] );
 
-        foreach ($_POST['selected_activities'] as $id) {
-          $act = new Activities_Activity( $id );
-          if ( $act->name != '' ) {
-            $names[] = $act->name;
-          }
-        }
-
-        return activities_bulk_action_page( $_POST['selected_activities'], $_POST['bulk'], $title, $names );
+        return activities_bulk_action_page( $names['ids'], $action, $title, $names['names'] );
       }
     }
     else if ( isset( $_POST['confirm_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) && isset( $_POST[ACTIVITIES_BULK_NONCE] ) ) {
       if ( wp_nonce_field( $_POST[ACTIVITIES_BULK_NONCE], 'activities_bulk_action' ) ) {
-        $acts = explode( ',', $_POST['selected_activities'] );
+        $acts = explode( ',', sanitize_text_field( $_POST['selected_activities'] ) );
         $bulk = new Activities_Bulk_Action();
-        switch ($_POST['bulk']) {
+        switch (sanitize_key( $_POST['bulk'] )) {
           case 'activate':
             $bulk->activate_activities( $acts );
             break;
 
           case 'delete_a':
             $bulk->delete_activities( $acts );
-            break;
-
-          default:
             break;
         }
       }

@@ -33,7 +33,7 @@ function activities_export_page() {
 
   $user_meta = null;
   if ( isset( $_POST['user_meta'] ) ) {
-    $user_meta = sanitize_text_field( $_POST['user_meta'] );
+    $user_meta = sanitize_key( $_POST['user_meta'] );
     if ( !array_key_exists( $user_meta, acts_get_export_options() ) ) {
       $user_meta = null;
     }
@@ -41,7 +41,7 @@ function activities_export_page() {
 
   $delimiter = null;
   if ( isset( $_POST['delimiter'] ) ) {
-    $delimiter = sanitize_text_field( $_POST['delimiter'] );
+    $delimiter = sanitize_key( $_POST['delimiter'] );
     if ( !array_key_exists( $delimiter, acts_get_export_delimiters() ) ) {
       $delimiter = null;
     }

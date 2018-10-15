@@ -32,10 +32,10 @@ function activities_admin_activities_page() {
   $current_url = remove_query_arg( 'action', $current_url );
   $current_url = remove_query_arg( 'item_id', $current_url );
 
-  if ( isset( $_GET['action'] ) && $_GET['action'] == 'create' ) {
+  if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
     return acts_activity_management( esc_html__( 'Create New Activity', 'activities' ), 'create' );
   }
-  elseif ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' && isset( $_GET['item_id'] ) ) {
+  elseif ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'edit' && isset( $_GET['item_id'] ) ) {
     $activity = Activities_Activity::load( acts_validate_id( $_GET['item_id'] ) );
     if ( $activity !== null && $activity['archive'] == 0 ) {
       if ( Activities_Admin_Utility::can_access_act( 'edit', $activity['activity_id'] ) ) {
@@ -46,7 +46,7 @@ function activities_admin_activities_page() {
       }
     }
   }
-  elseif ( isset( $_GET['action'] ) && $_GET['action'] == 'view' && isset( $_GET['item_id'] ) ) {
+  elseif ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'view' && isset( $_GET['item_id'] ) ) {
     $activity = Activities_Activity::load( acts_validate_id( $_GET['item_id'] ) );
     if ( $activity !== null && $activity['archive'] == 0 ) {
       if ( Activities_Admin_Utility::can_access_act( 'view', $activity['activity_id'] ) ) {
@@ -117,7 +117,8 @@ function activities_admin_activities_page() {
     }
   }
   elseif ( isset( $_POST['apply_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) ) {
-    switch ($_POST['bulk']) {
+    $action = sanitize_key( $_POST['bulk'] );
+    switch ($action) {
       case 'archive':
         $header = esc_html__( 'Archive Activities', 'activities' );
         break;
@@ -133,30 +134,19 @@ function activities_admin_activities_page() {
       case 'change_members':
         $header = esc_html__( 'Change Participants', 'activities' );
         break;
-
-      default:
-        break;
     }
 
     if ( isset( $header ) && is_array( $_POST['selected_activities'] ) ) {
-      $names = array();
-      $ids_filtered = array();
-      foreach ($_POST['selected_activities'] as $id) {
-        $act = new Activities_Activity( acts_validate_id( $id ) );
-        if ( $act->name != '' ) {
-          $names[] = esc_html( $act->name );
-          $ids_filtered[] = $act->id;
-        }
-      }
+      $names = Activities_Admin_Utility::get_item_names( $_POST['selected_activities'] );
 
-      return activities_bulk_action_page( $ids_filtered, sanitize_text_field( $_POST['bulk'] ), $header, $names );
+      return activities_bulk_action_page( $names['ids'], $action, $header, $names['names'] );
     }
   }
   elseif ( isset( $_POST['confirm_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) && isset( $_POST[ACTIVITIES_BULK_NONCE] ) ) {
     if ( wp_nonce_field( $_POST[ACTIVITIES_BULK_NONCE], 'activities_bulk_action' ) ) {
       $acts = explode( ',', sanitize_text_field( $_POST['selected_activities'] ) );
       $bulk = new Activities_Bulk_Action();
-      switch ($_POST['bulk']) {
+      switch (sanitize_key( $_POST['bulk'] )) {
         case 'archive';
           $bulk->archive_activities( $acts );
           break;
@@ -170,27 +160,15 @@ function activities_admin_activities_page() {
           break;
 
         case 'change_members':
-          if ( !isset( $_POST['members'] ) ) {
-            break;
-          }
-
           $method = sanitize_text_field( $_POST['method'] );
           $members = sanitize_text_field( $_POST['members'] );
 
           if ( $method === 'null' ) {
             Activities_Admin::add_error_message( esc_html__( 'Select a save method.', 'activities' ) );
 
-            $names = array();
-            $ids_filtered = array();
-            foreach ($acts as $id) {
-              $act = new Activities_Activity( acts_validate_id( $id ) );
-              if ( $act->name != '' ) {
-                $names[] = esc_html( $act->name );
-                $ids_filtered[] = $act->id;
-              }
-            }
+            $names = Activities_Admin_Utility::get_item_names( $acts );
 
-            return activities_bulk_action_page( $acts, sanitize_text_field( $_POST['bulk'] ), esc_html__( 'Change Participants', 'activities' ), $names, $members );
+            return activities_bulk_action_page( $names['ids'], sanitize_text_field( $_POST['bulk'] ), esc_html__( 'Change Participants', 'activities' ), $names['names'], $members );
           }
 
           $bulk->change_members( $acts, explode( ',', $members ), $method );

@@ -140,7 +140,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 	}
 	$output .= ' <a href="' . esc_url( $current_url ) . '" class="button" >' . esc_html__( 'Cancel', 'activities' ) . '</a>';
 	if ( isset( $_GET['item_id'] ) || isset( $map['activity_id'] ) ) {
-		$activity_id = acts_validate_id( isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['activity_id'] );
+		$activity_id = acts_validate_id( (isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['activity_id']) );
 		$output .= '<input type="hidden" name="item_id" value="' . esc_attr( $activity_id ) . '" />';
 	}
 	$output .= '</li></ul>';

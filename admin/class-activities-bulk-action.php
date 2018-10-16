@@ -38,7 +38,7 @@ class Activities_Bulk_Action {
    */
   public function change_locations( $acts, $loc ) {
     $loc = acts_validate_id( $loc );
-    if ( $loc ) {
+    if ( !$loc ) {
       $loc = null;
     }
     foreach ($acts as $id) {
@@ -58,7 +58,7 @@ class Activities_Bulk_Action {
    */
   public function change_responsible_users( $acts, $res ) {
     $res = acts_validate_id( $res );
-    if ( $res ) {
+    if ( !$res ) {
       $res = null;
     }
     foreach ($acts as $id) {

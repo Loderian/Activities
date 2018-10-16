@@ -15,41 +15,22 @@ function activities_admin_options_page() {
   global $wpdb, $wp_roles;
 
   $tab = 'general';
-  $general = '';
-  $nice = '';
-  $woocommerce = '';
+  $all_tabs = acts_get_options_tabs();
   if ( isset( $_GET['tab'] ) ) {
-    $tab = $_GET['tab'];
-    if ( $tab === 'woocommerce' && !is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+    $tab = sanitize_key( $_GET['tab'] );
+    if ( !array_key_exists( $tab, $all_tabs ) ) {
       $tab = 'general';
     }
   }
-  switch ($tab) {
-    case 'general':
-      $general = 'nav-tab-active';
-      break;
-
-    case 'nice':
-      $nice = 'nav-tab-active';
-      break;
-
-    case 'woocommerce':
-      $woocommerce = 'nav-tab-active';
-      break;
-
-    default:
-      $general = 'nav-tab-active';
-      break;
-  }
 
   $permissions = array(
-    ACTIVITIES_ACCESS_ACTIVITIES => 'View Activities',
-    ACTIVITIES_ADMINISTER_ACTIVITIES => 'Administer Activities',
-    ACTIVITIES_ADMINISTER_OPTIONS => 'Administer Activities Options',
+    ACTIVITIES_ACCESS_ACTIVITIES => esc_html__( 'View Activities', 'activities' ),
+    ACTIVITIES_ADMINISTER_ACTIVITIES => esc_html__( 'Administer Activities', 'activities' ),
+    ACTIVITIES_ADMINISTER_OPTIONS => esc_html__( 'Administer Activities Options', 'activities' ),
   );
   $activity_roles = array(
-    ACTIVITIES_CAN_BE_MEMBER_KEY => 'Can be Member',
-    ACTIVITIES_CAN_BE_RESPONSIBLE_KEY => 'Can be Responsible'
+    ACTIVITIES_CAN_BE_MEMBER_KEY => esc_html__( 'Can be Member', 'activities' ),
+    ACTIVITIES_CAN_BE_RESPONSIBLE_KEY => esc_html__( 'Can be Responsible', 'activities' )
   );
   $roles = $wp_roles->get_names();
 
@@ -62,24 +43,33 @@ function activities_admin_options_page() {
               if ( $r_key === 'administrator' ) {
                 continue;
               }
-              if ( isset( $_POST[$p_key][$r_key] )) {
-                $wp_roles->get_role($r_key)->add_cap( $p_key );
+              if ( isset( $_POST[$p_key] ) && !is_array( $_POST[$p_key] ) ) {
+                continue;
+              }
+              if ( isset( $_POST[$p_key][$r_key] ) ) {
+                $wp_roles->get_role( $r_key )->add_cap( $p_key );
                 if ( $p_key === ACTIVITIES_ADMINISTER_ACTIVITIES && !isset( $_POST[ACTIVITIES_ACCESS_ACTIVITIES][$r_key] ) ) {
-                  $wp_roles->get_role($r_key)->add_cap( ACTIVITIES_ACCESS_ACTIVITIES );
+                  $wp_roles->get_role( $r_key )->add_cap( ACTIVITIES_ACCESS_ACTIVITIES );
                 }
               }
               else {
-                $wp_roles->get_role($r_key)->remove_cap( $p_key );
+                $wp_roles->get_role( $r_key )->remove_cap( $p_key );
               }
             }
           }
 
-          Activities_Options::update_option(
-            ACTIVITIES_RESPONSIBLE_KEY,
-            $_POST['responsible_permission']
-          );
+          $res_per = sanitize_key( $_POST['responsible_permission'] );
+          if ( array_key_exists( $res_per, acts_get_responsible_options() ) ) {
+            Activities_Options::update_option(
+              ACTIVITIES_RESPONSIBLE_KEY,
+              $res_per
+            );
+          }
 
           foreach ( array_keys( $activity_roles ) as $ar_key ) {
+            if ( !is_array( $_POST[$ar_key] ) ) {
+              continue;
+            }
             $roles_list = array();
             foreach ( array_keys( $roles ) as $r_key ) {
               if ( isset( $_POST[$ar_key][$r_key] ) ) {
@@ -95,6 +85,7 @@ function activities_admin_options_page() {
           Activities_Responsible::update_all_users_responsiblity();
 
           Activities_Options::update_option( ACTIVITIES_DELETE_DATA_KEY, isset( $_POST['delete_data'] ) );
+
           Activities_Options::update_option( ACTIVITIES_USER_SEARCH_KEY, isset( $_POST['bus'] ) );
 
           break;
@@ -111,7 +102,7 @@ function activities_admin_options_page() {
             isset( $_POST[ACTIVITIES_WOOCOMMERCE_CONVERT_KEY] )
           );
           $coupons_display = array();
-          if ( isset( $_POST[ACTIVITIES_NICE_WC_COUPONS_KEY] ) ) {
+          if ( isset( $_POST[ACTIVITIES_NICE_WC_COUPONS_KEY] ) && is_array( $_POST[ACTIVITIES_NICE_WC_COUPONS_KEY] ) ) {
             foreach ($_POST[ACTIVITIES_NICE_WC_COUPONS_KEY] as $coupon => $value) {
               $coupons_display[$coupon] = true;
             }
@@ -146,10 +137,8 @@ function activities_admin_options_page() {
   echo Activities_Admin::get_messages();
 
   echo '<nav class="nav-tab-wrapper">';
-  echo '<a href="' . esc_url( add_query_arg( 'tab', 'general', $current_url ) ) . '" class="nav-tab ' . $general . '">' . esc_html__( 'General', 'activities' ) . '</a>';
-  echo '<a href="' . esc_url( add_query_arg( 'tab', 'nice', $current_url ) ) . '" class="nav-tab ' . $nice . '">' . esc_html__( 'Activity Report', 'activities' ) . '</a>';
-  if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-    echo '<a href="' . esc_url( add_query_arg( 'tab', 'woocommerce', $current_url ) ) . '" class="nav-tab ' . $woocommerce . '">WooCommerce</a>';
+  foreach ($all_tabs as $tab_key => $tab_display) {
+    echo '<a href="' . esc_url( add_query_arg( 'tab', $tab_key, $current_url ) ) . '" class="nav-tab ' . ( $tab === $tab_key ? 'nav-tab-active' : '' ) . '">' . $tab_display . '</a>';
   }
   echo '</nav>';
 
@@ -231,10 +220,10 @@ function activities_options_general() {
   echo '<h3>' . esc_html__( 'Responsible Users', 'activities' ) . '</h3>';
   echo '<label for="responsible_permission">' . esc_html__( 'Allow responsible users to:', 'activities' ) . '</label></br>';
   echo '<select name="responsible_permission">';
-  $r = Activities_Options::get_option( ACTIVITIES_RESPONSIBLE_KEY );
-  echo '<option value="' . ACTIVITIES_RESPONSIBLE_SAME . '" ' . ($r === ACTIVITIES_RESPONSIBLE_SAME ? 'selected' : '') . '>' . esc_html__( 'Same as their role permissions', 'activities' ) . '</option>';
-  echo '<option value="' . ACTIVITIES_RESPONSIBLE_VIEW . '" ' . ($r === ACTIVITIES_RESPONSIBLE_VIEW ? 'selected' : '') . '>' . esc_html__( 'View assigned activities', 'activities' ) . '</option>';
-  echo '<option value="' . ACTIVITIES_RESPONSIBLE_EDIT . '" ' . ($r === ACTIVITIES_RESPONSIBLE_EDIT ? 'selected' : '') . '>' . esc_html__( 'View and edit assigned activities', 'activities' ) . '</option>';
+  $res_per = Activities_Options::get_option( ACTIVITIES_RESPONSIBLE_KEY );
+  foreach (acts_get_responsible_options() as $option_key => $option_display) {
+    echo '<option value="' . $option_key . '" ' . ($res_per === $option_key ? 'selected' : '') . '>' . $option_display . '</option>';
+  }
   echo '</select>';
   echo '<p class="acts-grey">' . esc_html__( "This will be in addtion to role permissions.\nAn admin will always be able to view and edit their assigned activities,\nwhatever the responsible permission setting is set to.", 'activities' ) . '</p>';
   echo '</div>';
@@ -387,4 +376,35 @@ function activities_options_verify() {
     Activities_Admin::add_error_message( esc_html__( 'Could not verify options.', 'activities' ) );
     return false;
   }
+}
+
+/**
+ * Gets all the tabs for the options page
+ *
+ * @return array
+ */
+function acts_get_options_tabs() {
+  $tabs = array(
+    'general' => esc_html__( 'General', 'activities' ),
+    'nice' => esc_html__( 'Activity Report', 'activities' )
+  );
+
+  if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+    $tabs['woocommerce'] = 'WooCommerce';
+  }
+
+  return $tabs;
+}
+
+/**
+ * Get all responsible options
+ *
+ * @return array
+ */
+function acts_get_responsible_options() {
+  return array(
+    ACTIVITIES_RESPONSIBLE_SAME => esc_html__( 'Same as their role permissions', 'activities' ),
+    ACTIVITIES_RESPONSIBLE_VIEW => esc_html__( 'View assigned activities', 'activities' ),
+    ACTIVITIES_RESPONSIBLE_EDIT => esc_html__( 'View and edit assigned activities', 'activities' )
+  );
 }

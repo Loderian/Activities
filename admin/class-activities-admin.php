@@ -255,8 +255,8 @@ class Activities_Admin {
 		if ( !current_user_can( 'edit_user', $user_id ) || !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
 			return false;
 		}
-		if ( isset($_POST['activities_select']) ) {
-			Activities_User_Activity::insert_delete( $_POST['activities_select'], $user_id, 'user_id' );
+		if ( isset( $_POST['activities_select'] ) ) {
+			Activities_User_Activity::insert_delete( sanitize_text_field( $_POST['activities_select'] ) , $user_id, 'user_id' );
 		}
 	}
 
@@ -348,29 +348,35 @@ class Activities_Admin {
 		*/
 	public function ajax_acts_get_member_info() {
 		if ( !isset( $_POST['item_id'] ) || !isset( $_POST['custom'] ) || !isset( $_POST['type'] ) ) {
-			echo json_encode( false );
-			wp_die();
+			wp_send_json_error();
 		}
 
     global $wpdb;
 
-		if ( $_POST['item_id'] < 0 ) {
-			$info = acts_get_member_info(array(-1, -2, -3, -4, -5), $_POST['type'], $_POST['custom']);
+		//Custom col sanitation is done by acts_get_member_info
+		$id = acts_validate_id( $_POST['item_id'] );
+		$type = sanitize_key( $_POST['type'] );
+		if ( $id === 0 || ( !is_array( $_POST['custom'] ) && $_POST['custom'] !== 'none'  ) ) {
+			wp_send_json_error();
 		}
-		else {
+		if ( $id < 0 ) {
+			$info = acts_get_member_info( array(-1, -2, -3, -4, -5), $type, $_POST['custom'] );
+		}
+		elseif ( $id > 0 ) {
 			$table_name = Activities::get_table_name( 'user_activity' );
 			$user_ids = $wpdb->get_col( $wpdb->prepare(
 				"SELECT user_id
 				FROM $table_name
 				WHERE activity_id = %d
 				",
-				$_POST['item_id']
+				$id
 			));
 
-			$info = acts_get_member_info($user_ids, $_POST['type'], $_POST['custom']);
+			$info = acts_get_member_info( $user_ids, $type, $_POST['custom'] );
 		}
-		echo json_encode($info);
-		wp_die();
+
+
+		wp_send_json_success( $info );
 	}
 
 	/**
@@ -456,28 +462,36 @@ class Activities_Admin {
 				break;
 
 			case 'options':
-				if ( isset( $_GET['tab'] ) && $_GET['tab'] != 'general' ) {
-					if ( $_GET['tab'] == 'nice' ) {
-						$overview_text = esc_html__( 'This is where you can edit the standard settings for activity reports.', 'activities' );
-					}
-					elseif ( $_GET['tab'] == 'woocommerce') {
-						$overview_text = esc_html__( 'Settings related to the WooCommerce plugin.', 'activities' );
-					}
+				$tab = sanitize_key( $_GET['tab'] );
+				if ( !array_key_exists( $tab, acts_get_options_tabs() ) ) {
+					break;
 				}
-				else {
-					$overview_text =
-						esc_html__( 'This general settings page for this plugin.', 'activities' ) . '</br>'
-						. esc_html__( 'If you are using a mulitisite, the settings here is only set for the current blog.', 'activities' ) . '</br>'
-						. esc_html__( 'The WooCommerce tab will only show if the plugin is active.', 'activities' );
+				switch ($tab) {
+					case 'nice':
+						$overview_text = esc_html__( 'This is where you can edit the standard settings for activity reports.', 'activities' );
+						break;
+
+					case 'woocommerce':
+						$overview_text = esc_html__( 'Settings related to the WooCommerce plugin.', 'activities' );
+						break;
+
+					default:
+						$overview_text =
+							esc_html__( 'This general settings page for this plugin.', 'activities' ) . '</br>'
+							. esc_html__( 'If you are using a mulitisite, the settings here is only set for the current blog.', 'activities' ) . '</br>'
+							. esc_html__( 'The WooCommerce tab will only show if the plugin is active.', 'activities' );
+						break;
 				}
 				break;
 		}
 
-		$screen->add_help_tab( array(
-			'id'	=> 'acts_overview',
-			'title'	=> __( 'Overview', 'activities' ),
-			'content'	=> '<p>' . $overview_text . '</br></br>' . esc_html__( 'A documentation page will be available soon!', 'activities' ) . '</p>'
-		) );
+		if ( isset( $overview_text ) ) {
+			$screen->add_help_tab( array(
+				'id'	=> 'acts_overview',
+				'title'	=> __( 'Overview', 'activities' ),
+				'content'	=> '<p>' . $overview_text . '</br></br>' . esc_html__( 'A documentation page will be available soon!', 'activities' ) . '</p>'
+			) );
+		}
 	}
 
 	/**
@@ -530,11 +544,11 @@ class Activities_Admin {
 		* @return bool True if screen options should be hidden, false if not
 		*/
 	private function hide_screen_options() {
-		$hide = isset( $_GET['action'] ) && $_GET['action'] != 'activate' && $_GET['action'] != 'archive';
+		$hide = isset( $_GET['action'] ) && sanitize_key( $_GET['action'] != 'activate' ) && sanitize_key( $_GET['action'] ) != 'archive';
 
 		$hide = $hide || isset( $_POST['apply_bulk'] );
 
-		$hide = $hide || isset( $_POST['confirm_bulk'] ) && isset( $_POST['bulk'] ) && $_POST['bulk'] === 'change_members' && isset( $_POST['save_method'] ) && $_POST['save_method'] == '0';
+		$hide = $hide || isset( $_POST['confirm_bulk'] ) && isset( $_POST['bulk'] ) && sanitize_key( $_POST['bulk'] ) === 'change_members' && isset( $_POST['save_method'] ) && sanitize_key( $_POST['save_method'] ) == 'null';
 
 		return $hide;
 	}
@@ -547,9 +561,9 @@ class Activities_Admin {
 		* @param 	string 	$page Page the setting where set on
 		* @return bool 		False
 		*/
-	public function set_screen_options($status, $option, $page) {
+	public function set_screen_options( $status, $option, $page ) {
 		if ( $option === 'acts_page_settings' && isset( $_POST['acts_columns'] ) ) {
-			if ( isset( $_POST['acts_columns'] ) ) {
+			if ( isset( $_POST['acts_columns'] ) && is_array( $_POST['acts_columns'] ) ) {
 				$columns = Activities_Options::get_user_option( $page, 'show_columns' );
 				foreach (array_keys( $columns ) as $key) {
 					$columns[$key] = isset( $_POST['acts_columns'][$key] );
@@ -558,7 +572,7 @@ class Activities_Admin {
 			}
 
 			if ( isset( $_POST['items_num'] ) ) {
-				$items_per_page = intval( $_POST['items_num'] );
+				$items_per_page = acts_validate_id( $_POST['items_num'] );
 				if ( $items_per_page > 500 ) {
 					$items_per_page = 500;
 				}
@@ -642,12 +656,18 @@ class Activities_Admin {
 		if ( !isset( $_GET['page'] ) || !isset( $_GET['action'] ) || !isset( $_GET['item_id'] ) ) {
 			return $admin_title;
 		}
-		if (( $_GET['page'] === 'activities-admin' || $_GET['page'] === 'activities-admin-archive' ) && $_GET['action'] === 'view' ) {
-			$act = new Activities_Activity( $_GET['item_id'] );
-			if ( $act->name === '' ) {
+		if (( sanitize_key( $_GET['page'] ) === 'activities-admin' || sanitize_key( $_GET['page'] ) === 'activities-admin-archive' ) && sanitize_key( $_GET['action'] ) === 'view' ) {
+			$id = acts_validate_id( $_GET['item_id'] );
+			if ( $id ) {
+				$act = new Activities_Activity( $id );
+				if ( $act->name === '' ) {
+					return $admin_title;
+				}
+				return $act->name . ' ' . esc_html__( 'Report', 'activities' );
+			}
+			else {
 				return $admin_title;
 			}
-			return $act->name . ' ' . esc_html__( 'Report', 'activities' );
 		}
 	}
 
@@ -665,9 +685,12 @@ class Activities_Admin {
 			$act = Activities_Activity::load_by_name( sanitize_text_field( $attr['name'] ) );
 		}
 		elseif ( isset( $_REQUEST['item_id'] ) ) {
-			$act = new Activities_Activity( $_REQUEST['item_id'] );
-			if ( $act->ID === '' ) {
-				$act = null;
+			$id = acts_validate_id( $_REQUEST['item_id'] );
+			if ( $id ) {
+				$act = new Activities_Activity( $id );
+				if ( $act->ID === '' ) {
+					$act = null;
+				}
 			}
 		}
 

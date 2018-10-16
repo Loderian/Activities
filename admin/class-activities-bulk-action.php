@@ -37,8 +37,12 @@ class Activities_Bulk_Action {
    * @param int     $loc New location id for activities
    */
   public function change_locations( $acts, $loc ) {
+    $loc = acts_validate_id( $loc );
+    if ( $loc ) {
+      $loc = null;
+    }
     foreach ($acts as $id) {
-      if ( Activities_Activity::update( array( 'activity_id' => $id, 'location_id' => ( is_numeric( $loc ) ?  $loc : null ) ) ) ) {
+      if ( Activities_Activity::update( array( 'activity_id' => $id, 'location_id' => $loc  ) ) ) {
         $this->succ++;
       }
     }
@@ -53,8 +57,12 @@ class Activities_Bulk_Action {
    * @param int     $res New responsible user id user for activities
    */
   public function change_responsible_users( $acts, $res ) {
+    $res = acts_validate_id( $res );
+    if ( $res ) {
+      $res = null;
+    }
     foreach ($acts as $id) {
-      if ( Activities_Activity::update( array( 'activity_id' => $id, 'responsible_id' => ( is_numeric( $res ) ?  $res : null ) ) ) ) {
+      if ( Activities_Activity::update( array( 'activity_id' => $id, 'responsible_id' => $res ) ) ) {
         $this->succ++;
       }
     }
@@ -70,6 +78,13 @@ class Activities_Bulk_Action {
    * @param string  $method How to save the members list to the activities
    */
   public function change_members( $acts, $members, $method ) {
+    $members_filtered = array();
+    foreach ($members as $id) {
+      $id = acts_validate_id( $id );
+      if ( $id ) {
+        $members_filtered[] = $id;
+      }
+    }
     switch ( $method) {
       case 'replace':
         foreach ($acts as $id) {

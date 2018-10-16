@@ -11,51 +11,66 @@ class Activities_Admin_Utility {
    * @return array Nice settings
    */
   static function get_activity_nice_settings() {
+    global $wpdb;
+
     $nice_settings = Activities_Options::get_option( ACTIVITIES_NICE_SETTINGS_KEY );
     if ( !is_array( $nice_settings ) ) {
       $nice_settings = unserialize( $nice_settings );
     }
 
     if ( ( isset( $_POST['save_options']) || isset( $_POST['save_nice_settings'] ) ) && isset( $_POST['item_id'] ) ) {
+      //The options page uses its own nonce
       if ( isset( $_POST['save_nice_settings'] ) && isset( $_POST[ACTIVITIES_ADMIN_NICE_NONCE] ) && !wp_verify_nonce( $_POST[ACTIVITIES_ADMIN_NICE_NONCE], 'activities_nice' ) ) {
         die( esc_html__( 'Could not verify activity report data integrity.', 'activities' ) );
       }
-      if ( acts_validate_id( $_POST['item_id'] ) ) {
-        $nice_settings['activity_id'] = $_POST['item_id'];
+      $id = acts_validate_id( $_POST['item_id'] );
+      if ( $id ) {
+        $nice_settings['activity_id'] = $id;
       }
-      if ( isset( $_POST['acts_nice_logo_id'] ) && is_numeric( $_POST['acts_nice_logo_id'] ) && $_POST['acts_nice_logo_id'] != '0' ) {
-        $nice_settings['logo'] = intval( $_POST['acts_nice_logo_id'] );
-      }
-      else {
-        $nice_settings['logo'] = 0;
+      if ( isset( $_POST['acts_nice_logo_id'] ) ) {
+        $nice_settings['logo'] = acts_validate_id( $_POST['acts_nice_logo_id'] );
       }
       if ( isset( $_POST['header'] ) ) {
         $nice_settings['header'] = sanitize_text_field( $_POST['header'] );
       }
-      if ( isset( $_POST['time_slots'] ) && is_numeric( $_POST['time_slots'] ) && $_POST['time_slots'] >= 0 ) {
-        $nice_settings['time_slots'] = intval( $_POST['time_slots'] );
+      if ( isset( $_POST['time_slots'] ) ) {
+        $time_slots = acts_validate_id( $_POST['time_slots'] ); //Time slots uses the same properies as an id
+        if ( $time_slots ) {
+          $nice_settings['time_slots'] = $time_slots;
+        }
       }
-      $nice_settings['member_info'] = sanitize_text_field( $_POST['member_info'] );
+      $nice_settings['member_info'] = sanitize_key( $_POST['member_info'] );
       foreach (array('start', 'end', 'short_desc', 'location', 'responsible', 'long_desc') as $a_key) {
         $nice_settings[$a_key] = isset( $_POST[$a_key] );
       }
+      $meta_fields = $wpdb->get_col(
+        "SELECT DISTINCT meta_key
+        FROM $wpdb->usermeta"
+      );
       $custom = array();
-      if ( isset( $_POST['nice_custom'] ) && isset( $_POST['nice_custom_col'] ) && count( $_POST['nice_custom'] ) == count( $_POST['nice_custom_col'] ) ) {
-
+      if (
+          isset( $_POST['nice_custom'] ) && isset( $_POST['nice_custom_col'] ) &&
+          is_array( $_POST['nice_custom'] ) && is_array( $_POST['nice_custom_col'] ) &&
+          count( $_POST['nice_custom'] ) == count( $_POST['nice_custom_col'] )) {
         for ($index=0; $index < count( $_POST['nice_custom'] ); $index++) {
-          $name = self::filter_meta_key_input( $_POST['nice_custom'][$index] );
-          if ( $name !== '' ) {
-            $custom[] = array( 'name' => $name, 'col' => intval( $_POST['nice_custom_col'][$index] ) );
+          $name = self::filter_meta_key_input( $meta_fields, $_POST['nice_custom'][$index] );
+          $col = acts_validate_id( $_POST['nice_custom_col'][$index] );
+          if ( $name !== '' && ( $col === 1 || $col === 2 ) ) {
+            $custom[] = array( 'name' => $name, 'col' => $col );
           }
         }
       }
       $nice_settings['custom'] = $custom;
       $colors = array();
-      if ( isset( $_POST['nice_color_key'] ) && isset( $_POST['nice_color'] ) && count( $_POST['nice_color_key'] ) == count( $_POST['nice_color'] ) ) {
+      if (
+          isset( $_POST['nice_color_key'] ) && isset( $_POST['nice_color'] ) &&
+          is_array( $_POST['nice_color_key'] ) && is_array( $_POST['nice_color'] ) &&
+          count( $_POST['nice_color_key'] ) == count( $_POST['nice_color'] )
+         ) {
         for ($index=0; $index < count( $_POST['nice_color_key'] ); $index++) {
-          $name = self::filter_meta_key_input( $_POST['nice_color_key'][$index] );
-          $color = sanitize_text_field( $_POST['nice_color'][$index] );
-          if ( $name !== '' && $color !== '' && !isset( $color[$name] ) && preg_match('/#(?:[0-9a-fA-F]{3}){1,2}/', $color ) ) {
+          $name = self::filter_meta_key_input( $meta_fields, $_POST['nice_color_key'][$index] );
+          $color = sanitize_hex_color( $_POST['nice_color'][$index] );
+          if ( $name !== '' && $color && !isset( $colors[$name] ) ) {
             $colors[$name] = $color;
           }
         }
@@ -165,22 +180,6 @@ class Activities_Admin_Utility {
   }
 
   /**
-   * Generates random activities for testing
-   */
-  static function generate_random_activities( $num = 100000 ) {
-    $chars = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    for ($i=0; $i < $num; $i++) {
-      $name = '';
-      for ($c=0; $c < 10; $c++) {
-        $name .= $chars[rand(0,strlen($chars)-1)];
-      }
-      Activities_Activity::insert( array( 'name' => $name, 'archive' => 1 ) );
-    }
-
-    echo "created $num activities";
-  }
-
-  /**
    * Checks if a user can access an activity
    *
    * @param   string  $action Action done by a user
@@ -260,22 +259,16 @@ class Activities_Admin_Utility {
   /**
    * Filters meta_key inputs from text fields
    *
+   * @param   array   $meta_fields
    * @param   string  $input Text input
    * @return  string  Filtered text with only existing meta_keys
    */
-  static function filter_meta_key_input( $input ) {
-    global $wpdb;
-
+  static function filter_meta_key_input( $meta_fields, $input ) {
     $input = sanitize_text_field( $input );
-
-    $meta_fields = $wpdb->get_col(
-      "SELECT DISTINCT meta_key
-      FROM $wpdb->usermeta"
-    );
 
     $input_list = explode( ',', $input );
     foreach ($input_list as $key => $single_input) {
-      $single_input = trim( $single_input );
+      $single_input = sanitize_key( $single_input );
       if ( activities_nice_filter_custom_field( $single_input ) || !in_array( $single_input, $meta_fields ) ) {
         unset( $input_list[$key] );
       }

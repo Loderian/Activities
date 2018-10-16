@@ -344,10 +344,10 @@
 					},
 					dataType: 'json',
 					success: function(member_info) {
-						if (!member_info) {
+						if (!member_info.success) {
 							return;
 						}
-						all_member_info[info_type] = member_info;
+						all_member_info[info_type] = member_info.data;
 						if ( write ) {
 							write_member_info();
 						}

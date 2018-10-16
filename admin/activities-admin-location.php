@@ -70,7 +70,7 @@ function acts_location_management( $title, $action, $map = null ) {
 	$output .= '<input type="submit" value="' . $button . '" name="' . esc_attr( $action ) . '_loc" class="button button-primary" />';
 	$output .= ' <a href="' . esc_url( $current_url ) . '" class="button">' . esc_html__( 'Cancel', 'activities' ) . '</a></li>';
 	if ( isset( $_GET['item_id'] ) || isset( $map['location_id'] ) ) {
-		$location_id = isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['location_id'];
+		$location_id = acts_validate_id( (isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['location_id']) );
 		$output .= '<input type="hidden" name="item_id" value="' . esc_attr( $location_id ) .'" />';
 	}
 	$output .= wp_nonce_field( 'activities_location', ACTIVITIES_LOCATION_NONCE, true, false );

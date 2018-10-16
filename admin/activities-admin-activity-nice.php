@@ -467,8 +467,8 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = 'none', $sort 
       if ( $custom_fields !== 'none' ) {
         foreach ($custom_fields as $custom) {
           $str = '<li>';
-          foreach (explode( ',', $custom['name'] ) as $c) {
-            $c = trim($c);
+          foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
+            $c = sanitize_key( $c );
             if ( activities_nice_filter_custom_field( $c ) ) {
               continue;
             }
@@ -476,10 +476,11 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = 'none', $sort 
           }
           $str .= '</li>';
 
-          if ( $custom['col'] == 1 ) {
+          $col = acts_validate_id( $custom['col'] );
+          if ( $col === 1 ) {
             $col1 .= $str;
           }
-          else if ( $custom['col'] == 2 ) {
+          else if ( $col === 2 ) {
             $col2 .= $str;
           }
         }
@@ -540,8 +541,8 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = 'none', $sort 
     if ( $custom_fields !== 'none' ) {
       foreach ($custom_fields as $custom) {
         $c_values = array();
-        foreach (explode( ',', $custom['name'] ) as $c) {
-          $c = trim($c);
+        foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
+          $c = sanitize_key( $c );
           if ( activities_nice_filter_custom_field( $c ) ) {
             continue;
           }
@@ -557,10 +558,11 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = 'none', $sort 
 
         $str = '<li>' . implode( ' ', $c_values ) . '</li>';
 
-        if ( $custom['col'] == 1 ) {
+        $col = acts_validate_id( $custom['col'] );
+        if ( $col === 1 ) {
           $col1 .= $str;
         }
-        else if ( $custom['col'] == 2 ) {
+        else if ( $col === 2 ) {
           $col2 .= $str;
         }
       }

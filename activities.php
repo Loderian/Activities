@@ -3,13 +3,13 @@
 /**
  * The plugin bootstrap file
  *
- * @link              https://profiles.wordpress.org/loderian
+ * @link              https://github.com/Loderian/Activities
  * @since             1.0.0
  * @package           Activities
  *
  * @wordpress-plugin
  * Plugin Name:       Activities
- * Plugin URI:        https://profiles.wordpress.org/loderian
+ * Plugin URI:        https://github.com/Loderian/Activities
  * Description:       A plugin for administering activities, printing reports and exporting user data.
  * Version:           1.0.0
  * Author:            Mikal Naustdal
@@ -25,13 +25,13 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 /**
- * Current plugin version.
+ * Current plugin version
  */
 define( 'ACTIVITIES_VERSION', '1.0.1' );
 define( 'ACTIVITIES_DB_VERSION', '1.0.0' );
 
 /**
- * The code that runs during plugin activation.
+ * Activities activation
  */
 function activities_activate( $nerwork_wide ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-activator.php';
@@ -49,7 +49,7 @@ function activities_activate( $nerwork_wide ) {
 }
 
 /**
- * The code that runs during plugin deactivation.
+ * Activities deactivation
  */
 function activities_deactivate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-deactivator.php';
@@ -81,10 +81,6 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-activities.php';
 
 /**
  * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
  *
  * @since    1.0.0
  */

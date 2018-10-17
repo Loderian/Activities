@@ -71,18 +71,25 @@ class Activities_Public {
 	}
 
 	public function ajax_join() {
-		if ( isset( $_POST['item_id'] ) && is_user_logged_in()) {
-			if ( !Activities_User_Activity::exists( get_current_user_id(), $_POST['item_id'] ) ) {
-				Activities_User_Activity::insert( get_current_user_id(), $_POST['item_id'] );
+		if ( isset( $_POST['item_id'] ) && is_user_logged_in() ) {
+			$id = acts_validate_id( $_POST['item_id'] );
+			if ( !$id ) {
+				wp_send_json_error();
+			}
+			if ( !Activities_User_Activity::exists( get_current_user_id(), $id ) ) {
+				Activities_User_Activity::insert( get_current_user_id(), $id );
 				$text = esc_html__( 'Unjoin', 'activities' );
 			}
 			else {
-				Activities_User_Activity::delete( get_current_user_id(), $_POST['item_id'] );
+				Activities_User_Activity::delete( get_current_user_id(), $id );
 				$text = esc_html__( 'Join', 'activities' );
 			}
-			$act = new Activities_Activity( $_POST['item_id'] );
+			$act = new Activities_Activity( $id );
 			$count = count( $act->members );
-			wp_send_json_success( array( 'text' => $text, 'count' => $count, 'id' => $_POST['item_id'] ) );
+			wp_send_json_success( array( 'text' => $text, 'count' => $count, 'id' => $id ) );
+		}
+		else {
+			wp_send_json_error();
 		}
 	}
 }

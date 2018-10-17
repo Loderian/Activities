@@ -115,9 +115,13 @@ class Activities_List_Table {
   	$items_per_page = Activities_Options::get_user_option( $this->type, 'items_per_page' );
 
   	$filters = array();
-  	if ( isset( $_POST['apply_filters'] ) && isset( $_POST['filters'] ) ) {
+  	if ( isset( $_POST['apply_filters'] ) && isset( $_POST['filters'] ) && is_array( $_POST['filters'] ) ) {
+      $default_filters = Activities_Options::get_default_user_option( $this->type, 'filters' );
   		foreach ($_POST['filters'] as $key => $value) {
-  			$filters[$key] = $value;
+        $key = sanitize_key( $key );
+        if ( array_key_exists( $key, $default_filters ) ) {
+    			$filters[$key] = sanitize_text_field( $value );
+        }
   		}
   		Activities_Options::update_user_option( $this->type, 'filters', $filters );
   	}
@@ -125,16 +129,7 @@ class Activities_List_Table {
   		Activities_Options::delete_user_option( $this->type, 'filters' );
   	}
   	if ( !isset( $_POST['apply_filters'] ) ) {
-  		switch ($this->type) {
-  			case 'activity':
-  			case 'activity_archive':
-  				$filters = Activities_Options::get_user_option( $this->type, 'filters' );
-  				break;
-
-  			default:
-  				$filters = Activities_Options::get_user_option( $this->type, 'filters' );
-  				break;
-  		}
+  		$filters = Activities_Options::get_user_option( $this->type, 'filters' );
   	}
     $filters_str = array();
     if ( $this->type == 'activity' ) {
@@ -266,19 +261,29 @@ class Activities_List_Table {
     $output .= '</div>';
 
   	if ( isset( $_GET['order'] ) ) {
-  		$this->order = $_GET['order'];
+  		$this->order = sanitize_key( $_GET['order'] );
   	}
   	if ( isset( $_GET['orderby'] ) ) {
-  		$this->orderby = $_GET['orderby'];
+  		$this->orderby = sanitize_key( $_GET['orderby'] );
   	}
-
   	$this->order_switch = $this->order == 'asc' ? 'desc' : 'asc';
 
+    $orderby = sanitize_sql_orderby( $this->orderby . ' ' . strtoupper( $this->order ) );
     $order_prefix = '';
-    if ($this->orderby != 'responsible' && $this->orderby != 'location') {
-      $order_prefix = 'i.';
+
+    if ( $orderby ) {
+      if ($this->orderby != 'responsible' && $this->orderby != 'location') {
+        $order_prefix = 'i.';
+      }
+
+      $sql_order = sprintf( 'ORDER BY %s%s', $order_prefix, $orderby );
     }
-    $sql_order = sprintf( 'ORDER BY %s%s %s', $order_prefix, $this->orderby , strtoupper( $this->order ) );
+    else {
+      $this->order = 'name';
+      $this->orderby = 'asc';
+
+      $sql_order = 'ORDER BY i.name ASC';
+    }
 
     $sql_limit_offset = $this->pagination->get_sql();
 

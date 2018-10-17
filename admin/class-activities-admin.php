@@ -462,7 +462,10 @@ class Activities_Admin {
 				break;
 
 			case 'options':
-				$tab = sanitize_key( $_GET['tab'] );
+				$tab = 'general';
+				if ( isset( $_GET['tab'] ) ) {
+					$tab = sanitize_key( $_GET['tab'] );
+				}
 				if ( !array_key_exists( $tab, acts_get_options_tabs() ) ) {
 					break;
 				}

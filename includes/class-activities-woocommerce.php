@@ -118,13 +118,16 @@ class Activities_WooCommerce {
       }
 
       if ( $_POST[self::selected_acts_key] !== '' ) {
-        foreach (explode( ',', $_POST[self::selected_acts_key] ) as $a_id) {
-          $key = array_search( $a_id, $existing );
-          if ( $key === false && Activities_Activity::exists( $a_id ) ) {
-            add_post_meta( $post_id, self::selected_acts_key, $a_id );
-          }
-          else {
-            unset( $existing[$key] );
+        foreach (explode( ',', sanitize_text_field( $_POST[self::selected_acts_key] ) ) as $a_id) {
+          $a_id = acts_validate_id( $a_id );
+          if ( $a_id ) {
+            $key = array_search( $a_id, $existing );
+            if ( $key === false && Activities_Activity::exists( $a_id ) ) {
+              add_post_meta( $post_id, self::selected_acts_key, $a_id );
+            }
+            else {
+              unset( $existing[$key] );
+            }
           }
         }
       }
@@ -312,11 +315,15 @@ class Activities_WooCommerce {
    * Otherwise it finds the user and adds the user to past orders
    * Adding a user to past orders also creates relations with activities on products ordered and user.
    *
-   * @param   string      $email Email of the guest customer
-   * @param   WC_Order    $order The order
-   * @return  int         Returns the new user_id or 0 if it where an existing user
+   * @param   string              $email Email of the guest customer
+   * @param   WC_Order            $order The order
+   * @return  int|WP_User|bool    Returns the new user_id, WP_User if it where an existing user or false on error
    */
   static function handle_guest_customer( $email, $order ) {
+    $email = sanitize_email( $email );
+    if ( !is_email( $email ) ) {
+      return false;
+    }
     if ( email_exists( $email ) === false && username_exists( $email ) === false ) {
       $password = wp_generate_password();
 
@@ -473,22 +480,6 @@ class Activities_WooCommerce {
       ",
       array( self::selected_acts_key, $activity_id )
     ));
-  }
-
-  /**
-   * Adds an order to a user for activity nice display
-   *
-   * @param  int        $user_id Activity id
-   * @param  int        $activity_id Activity memebers
-   * @param  WC_Order   Array of user_id mapped to order_ids
-   */
-  static function add_activity_nice_order( $user_id, $activity_id, $order ) {
-    if ( !Activities_Activity::exists( $activity_id ) ) {
-      return;
-    }
-    $coupons_display = self::get_activity_orders( $activity_id );
-    $coupons_display[$user_id][intval( $order->get_id() )] = intval( $order->get_id() );
-    Activities_Activity::update_meta( $activity_id, 'nice_wc_orders', $coupons_display );
   }
 
   /**

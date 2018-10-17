@@ -152,11 +152,9 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	$output .= '<tr><td><b>' . esc_html__( 'Prepared Setups', 'activities' ) . '</b></td><td></td></tr>';
 	$output .= '</thead>';
 	$output .= '<tbody>';
-	$output .= '<tr><td>' . esc_html__( 'Wordpress User Info', 'activities' ) . '&#8193;</td><td><input type="radio" id="use_wp_info" name="member_info" value="wp" ' . ($nice_settings['member_info'] === 'wp' ? 'checked' : '') . ' /></td></tr>';
-	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-		$output .= '<tr><td>' . esc_html__( 'Woocommerce Billing Info', 'activities' ) . '&#8193;</td><td><input type="radio" id="use_wc_bill_info" name="member_info" value="bill" ' . ($nice_settings['member_info'] === 'bill' ? 'checked' : '') . ' /></td></tr>';
-		$output .= '<tr><td>' . esc_html__( 'Woocommerce Shipping Info', 'activities' ) . '&#8193;</td><td><input type="radio" id="use_wc_ship_info" name="member_info" value="ship" ' . ($nice_settings['member_info'] === 'ship' ? 'checked' : '') . ' /></td></tr>';
-	}
+  foreach (acts_get_nice_setups( $nice_settings['member_info'] ) as $setup => $display) {
+    $output .= '<tr><td>' . $display . '&#8193;</td><td><input type="radio" id="use_wp_info" name="member_info" value="' . $setup . '" ' . ($nice_settings['member_info'] === $setup ? 'checked' : '') . ' /></td></tr>';
+  }
 	$output .= '</tbody>';
 	$output .= '</table>';
 	$output .= '<ul id="acts-nice-custom">';
@@ -593,4 +591,25 @@ function activities_nice_filter_custom_field( $field ) {
   else {
     return is_protected_meta( $field );
   }
+}
+
+/**
+ * Get activity nice prepared setups options
+ *
+ * @return array List of options
+ */
+function acts_get_nice_setups( $selected = 'wp' ) {
+  $return = array(
+    'wp' => esc_html__( 'Wordpress User Info', 'activities' )
+  );
+  $woocommerce = array(
+    'bill' => esc_html__( 'Woocommerce Billing Info', 'activities' ),
+    'ship' => esc_html__( 'Woocommerce Shipping Info', 'activities' )
+  );
+
+  if ( is_plugin_active( 'woocommerce/woocommerce.php' ) || array_key_exists( $selected, $woocommerce ) ) {
+    $return = array_merge( $return, $woocommerce );
+  }
+
+  return $return;
 }

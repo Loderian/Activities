@@ -23,26 +23,36 @@ class Activities_Admin_Utility {
       if ( isset( $_POST['save_nice_settings'] ) && isset( $_POST[ACTIVITIES_ADMIN_NICE_NONCE] ) && !wp_verify_nonce( $_POST[ACTIVITIES_ADMIN_NICE_NONCE], 'activities_nice' ) ) {
         die( esc_html__( 'Could not verify activity report data integrity.', 'activities' ) );
       }
+
       $id = acts_validate_id( $_POST['item_id'] );
       if ( $id ) {
         $nice_settings['activity_id'] = $id;
       }
+
       if ( isset( $_POST['acts_nice_logo_id'] ) ) {
         $nice_settings['logo'] = acts_validate_id( $_POST['acts_nice_logo_id'] );
       }
+
       if ( isset( $_POST['header'] ) ) {
         $nice_settings['header'] = sanitize_text_field( $_POST['header'] );
       }
+
       if ( isset( $_POST['time_slots'] ) ) {
         $time_slots = acts_validate_id( $_POST['time_slots'] ); //Time slots uses the same properies as an id
-        if ( $time_slots ) {
+        if ( $time_slots >= 0 ) {
           $nice_settings['time_slots'] = $time_slots;
         }
       }
-      $nice_settings['member_info'] = sanitize_key( $_POST['member_info'] );
+
+      $setup = sanitize_key( $_POST['member_info'] );
+      if ( array_key_exists( $setup, acts_get_nice_setups( $setup ) ) ) {
+        $nice_settings['member_info'] = $setup;
+      }
+
       foreach (array('start', 'end', 'short_desc', 'location', 'responsible', 'long_desc') as $a_key) {
         $nice_settings[$a_key] = isset( $_POST[$a_key] );
       }
+
       $meta_fields = $wpdb->get_col(
         "SELECT DISTINCT meta_key
         FROM $wpdb->usermeta"
@@ -61,6 +71,7 @@ class Activities_Admin_Utility {
         }
       }
       $nice_settings['custom'] = $custom;
+
       $colors = array();
       if (
           isset( $_POST['nice_color_key'] ) && isset( $_POST['nice_color'] ) &&

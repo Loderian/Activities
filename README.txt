@@ -164,11 +164,19 @@ This plugin also includes and option to get a better user search in the admin us
 
 == Changelog ==
 
+= 1.0.1 =
+
+* Updated security
+
 = 1.0 =
 
 * Release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+
+* Should be a lot safer to use
 
 = 1.0 =
 
@@ -177,7 +185,7 @@ This plugin also includes and option to get a better user search in the admin us
 == Arbitrary section ==
 
 This plugin was made for a specific purpose, the Activity Report.
-After a lot of searching for plugins with a similar feature and no results, I was set on the task of creating this plugin.
-Mainly the features in this extension was made as they where needed or as a part of the foundation for Activity Report.
+After we did a lot of searching for plugins with a similar feature, but with no results, I was set on the task of creating this plugin.
+Mainly the features in this extension was made as they where needed or as a part of the foundation for the Activity Report.
 And I made some things that I thought where good to have, like the use of responsibility as a sudo role.
 As my first PHP and released project I hope you enjoy it even though it might not be a very polished thing.

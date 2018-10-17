@@ -9,7 +9,13 @@
 function acts_validate_id( $id ) {
   $id = sanitize_key( $id );
   if ( is_numeric( $id ) ) {
-    return intval( $id );
+    $id = intval( $id );
+    if ( $id < 0 ) {
+      return 0;
+    }
+    else {
+      return $id;
+    }
   }
   else {
     return 0;

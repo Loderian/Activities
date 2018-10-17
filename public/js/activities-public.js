@@ -50,7 +50,9 @@
 			}
 			toggle_button(true);
 			$.post( $(this).attr('action'), $(this).serialize(), function(response) {
-					toggle_button(false, response.data);
+					if (response.success) {
+						toggle_button(false, response.data);
+					}
 				}, 'json' );
 		});
 	});

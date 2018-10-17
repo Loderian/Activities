@@ -70,7 +70,7 @@ class Activities_Pagination {
    */
   function get_pagenum() {
     if ( isset( $_REQUEST['paged'] ) ) {
-      $page = intval( $_REQUEST['paged'] );
+      $page = acts_validate_id( $_REQUEST['paged'] );
       if ( $page < 1 ) {
         return 1;
       }
@@ -92,7 +92,7 @@ class Activities_Pagination {
    */
   function check_if_paged() {
     if ( isset( $_REQUEST['paged'] ) ) {
-      return $this->total_pages == 1;
+      return $this->total_pages === 1;
     }
 
     return false;

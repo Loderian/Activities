@@ -1,6 +1,15 @@
 <?php
 
-if ( !defined('WPINC') ) {
+/**
+ * Activities location management
+ *
+ * @since      1.0.0
+ * @package    Activities
+ * @subpackage Activities/admin
+ * @author     Mikal Naustdal <miknau94@gmail.com>
+ */
+
+if ( !defined( 'WPINC' ) ) {
 	die;
 }
 

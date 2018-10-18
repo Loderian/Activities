@@ -1,7 +1,17 @@
 <?php
-/*
-* Installs DB tables for activities
-*/
+
+if ( !defined( 'WPINC' ) ) {
+  die;
+}
+
+/**
+ * Installs everything the plugin needs to run
+ *
+ * @since      1.0.0
+ * @package    Activities
+ * @subpackage Activities/admin
+ * @author     Mikal Naustdal <miknau94@gmail.com>
+ */
 class Activities_Installer {
 
   /**
@@ -34,7 +44,7 @@ class Activities_Installer {
    */
   public function add_capabilities() {
     global $wp_roles;
-    
+
 		$wp_roles->add_cap( 'administrator', ACTIVITIES_ACCESS_ACTIVITIES );
 		$wp_roles->add_cap( 'administrator', ACTIVITIES_ADMINISTER_ACTIVITIES );
 		$wp_roles->add_cap( 'administrator', ACTIVITIES_ADMINISTER_OPTIONS );

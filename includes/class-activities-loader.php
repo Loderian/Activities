@@ -1,14 +1,8 @@
 <?php
 
-/**
- * Register all actions and filters for the plugin
- *
- * @link       mikal.bindu.no
- * @since      1.0.0
- *
- * @package    Activities
- * @subpackage Activities/includes
- */
+if ( !defined( 'WPINC' ) ) {
+  die;
+}
 
 /**
  * Register all actions and filters for the plugin.
@@ -17,6 +11,7 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
+ * @since      1.0.0
  * @package    Activities
  * @subpackage Activities/includes
  * @author     Mikal Naustdal <miknau94@gmail.com>

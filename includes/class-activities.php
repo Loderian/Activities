@@ -1,13 +1,11 @@
 <?php
 
+if ( !defined( 'WPINC' ) ) {
+  die;
+}
+
 /**
  * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
  *
  * @since      1.0.0
  * @package    Activities

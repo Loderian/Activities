@@ -1,15 +1,12 @@
 <?php
 
 /**
- * Provide a admin area view for the plugin
+ * Activities main page
  *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       mikal.bindu.no
  * @since      1.0.0
- *
  * @package    Activities
  * @subpackage Activities/admin
+ * @author     Mikal Naustdal <miknau94@gmail.com>
  */
 
 if ( !defined( 'WPINC' ) ) {

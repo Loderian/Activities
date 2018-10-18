@@ -59,6 +59,9 @@ function activities_deactivate() {
 register_activation_hook( __FILE__, 'activities_activate' );
 register_deactivation_hook( __FILE__, 'activities_deactivate' );
 
+/**
+ * Installs a the plugin on a new blog
+ */
 function activities_install_on_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 	if ( is_plugin_active_for_network( 'activities/activities.php' ) ) {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-activator.php';
@@ -67,10 +70,6 @@ function activities_install_on_new_blog( $blog_id, $user_id, $domain, $path, $si
 		restore_current_blog();
 	}
 }
-
-/**
- * New blog installation
- */
 add_action( 'wpmu_new_blog', 'activities_install_on_new_blog', 10, 6 );
 
 /**

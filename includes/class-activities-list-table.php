@@ -1,8 +1,15 @@
 <?php
 
+if ( !defined( 'WPINC' ) ) {
+  die;
+}
+
 /**
  * Class for getting table display for admin areas
  *
+ * //TODO Improve code structure
+ *
+ * @since      1.0.0
  * @package    Activities
  * @subpackage Activities/includes
  * @author     Mikal Naustdal <miknau94@gmail.com>

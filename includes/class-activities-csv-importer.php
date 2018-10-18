@@ -1,8 +1,13 @@
 <?php
 
+if ( !defined( 'WPINC' ) ) {
+  die;
+}
+
 /**
  * Handles reading of CSV files
  *
+ * @since      1.0.0
  * @package    Activities
  * @subpackage Activities/includes
  * @author     Mikal Naustdal <miknau94@gmail.com>

@@ -1,11 +1,13 @@
 <?php
 
+if ( !defined( 'WPINC' ) ) {
+  die;
+}
+
 /**
  * The admin-specific functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
- *
+ * @since 		 1.0.0
  * @package    Activities
  * @subpackage Activities/admin
  * @author     Mikal Naustdal <miknau94@gmail.com>

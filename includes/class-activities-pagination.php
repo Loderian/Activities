@@ -1,12 +1,13 @@
 <?php
 
-if ( !defined( 'WPINC') ) {
+if ( !defined( 'WPINC' ) ) {
   die;
 }
 
 /**
  * Class for creating pagination for table pages
  *
+ * @since      1.0.0
  * @package    Activities
  * @subpackage Activities/includes
  * @author     Mikal Naustdal <miknau94@gmail.com>

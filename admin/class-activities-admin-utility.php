@@ -4,6 +4,14 @@ if ( !defined( 'WPINC' ) ) {
   die;
 }
 
+/**
+ * A collection on functions used in admin context
+ *
+ * @since      1.0.0
+ * @package    Activities
+ * @subpackage Activities/admin
+ * @author     Mikal Naustdal <miknau94@gmail.com>
+ */
 class Activities_Admin_Utility {
   /**
    * Get nice setting from options and post values

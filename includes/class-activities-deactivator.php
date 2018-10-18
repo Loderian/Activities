@@ -1,14 +1,8 @@
 <?php
 
-/**
- * Fired during plugin deactivation
- *
- * @link       mikal.bindu.no
- * @since      1.0.0
- *
- * @package    Activities
- * @subpackage Activities/includes
- */
+if ( !defined( 'WPINC' ) ) {
+  die;
+}
 
 /**
  * Fired during plugin deactivation.

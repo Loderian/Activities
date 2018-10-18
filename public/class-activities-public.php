@@ -1,21 +1,13 @@
 <?php
 
-/**
- * The public-facing functionality of the plugin.
- *
- * @link       mikal.bindu.no
- * @since      1.0.0
- *
- * @package    Activities
- * @subpackage Activities/public
- */
+if ( !defined( 'WPINC' ) ) {
+	die;
+}
 
 /**
  * The public-facing functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
- *
+ * @since 		 1.0.0
  * @package    Activities
  * @subpackage Activities/public
  * @author     Mikal Naustdal <miknau94@gmail.com>

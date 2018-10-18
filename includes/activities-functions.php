@@ -1,6 +1,19 @@
 <?php
 
 /**
+ * Functions
+ *
+ * @since      1.0.1
+ * @package    Activities
+ * @subpackage Activities/includes
+ * @author     Mikal Naustdal <miknau94@gmail.com>
+ */
+
+if ( !defined( 'WPINC' ) ) {
+  die;
+}
+
+/**
  * Sanitizes and validates an item id
  *
  * @param   int $id Id

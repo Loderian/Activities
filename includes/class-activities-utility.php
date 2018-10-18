@@ -1,11 +1,16 @@
 <?php
 
-if ( !defined( 'WPINC') ) {
+if ( !defined( 'WPINC' ) ) {
   die;
 }
 
 /**
  * Class containing misc functions
+ *
+ * @since      1.0.0
+ * @package    Activities
+ * @subpackage Activities/includes
+ * @author     Mikal Naustdal <miknau94@gmail.com>
  */
 class Activities_Utility {
   /**

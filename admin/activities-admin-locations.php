@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Locations page
+ *
+ * @since      1.0.0
+ * @package    Activities
+ * @subpackage Activities/admin
+ * @author     Mikal Naustdal <miknau94@gmail.com>
+ */
+
 if ( !defined( 'WPINC' ) ) {
   die;
 }
@@ -63,7 +72,7 @@ function activities_admin_locations_page() {
       if ( $loc_map['name'] != '' ) {
         $loc = new Activities_Location( acts_validate_id( $_POST['item_id'] ) );
         if ( $loc->id === '' ) {
-          Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating location: %s ', 'activities' ), $loc_map['name'] ) );
+          Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating location: %s', 'activities' ), $loc_map['name'] ) );
         }
         elseif ( $loc->name === $loc_map['name'] || !Activities_Location::exists( $loc_map['name'], 'name' ) ) {
           if ( Activities_Location::update( $loc_map ) !== false ) {

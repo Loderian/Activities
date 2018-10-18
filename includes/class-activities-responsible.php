@@ -7,6 +7,7 @@ if ( !defined( 'WPINC' ) ) {
 /**
  * Responsible control class
  *
+ * @since      1.0.0
  * @package    Activities
  * @subpackage Activities/includes
  * @author     Mikal Naustdal <miknau94@gmail.com>

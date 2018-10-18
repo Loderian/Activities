@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Activitiy nice
+ * Activity nice page
+ *
+ * Activity nice is the development name for Activity Report.
  *
  * @since      1.0.0
  * @package    Activities
@@ -10,15 +12,15 @@
  */
 
 if ( !defined( 'WPINC' ) ) {
- die;
+  die;
 }
 
 /**
  * Builds the page for activity nice management
  *
- * @param activity Information about the activity to display
- * @param current_url The current admin area to return to, null to remove settings buttons
- * @return string Management page for nice activity display
+ * @param   array   $activity Information about the activity to display
+ * @param   string  $current_url The current admin area to return to, null to remove settings buttons
+ * @return  string  Management page for nice activity display
  */
 function acts_activity_nice_management( $activity, $current_url = null ) {
 	global $wpdb;
@@ -246,9 +248,9 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 /**
  * Generate the printable version of and activity
  *
- * @param activity Information about the activity to display
- * @param nice_settings Display settings for the activity
- * @return string Printable page
+ * @param   array   $activity Information about the activity to display
+ * @param   array   $nice_settings Display settings for the activity
+ * @return  string  Printable page
  */
 function acts_activity_nice_page( $activity, $nice_settings ) {
 	global $wpdb;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Activitiy management
+ * Activity management page
  *
  * @since      1.0.0
  * @package    Activities

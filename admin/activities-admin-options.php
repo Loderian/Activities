@@ -338,26 +338,28 @@ function activities_options_woocommerce() {
     )
   );
 
-  $coupons_display = Activities_Options::get_option( ACTIVITIES_NICE_WC_COUPONS_KEY );
+  if ( count( $coupons ) ) {
+    $coupons_display = Activities_Options::get_option( ACTIVITIES_NICE_WC_COUPONS_KEY );
 
-  echo '<div>';
-  echo '<h2>' . esc_html__( 'Coupons on activities report', 'activities' ) . '</h2>';
-  echo '<table class="activities-table">';
-  echo '<thead>';
-  echo '<tr>';
-  echo '<td>' . esc_html__( 'Coupons', 'activities' ) . '</td><td>' . esc_html__( 'Display on activity report', 'activities' ) . '</td>';
-  echo '</tr>';
-  echo '</thead>';
-  echo '<tbody>';
-  foreach ($coupons as $coupon) {
+    echo '<div>';
+    echo '<h2>' . esc_html__( 'Coupons on activities report', 'activities' ) . '</h2>';
+    echo '<table class="activities-table">';
+    echo '<thead>';
     echo '<tr>';
-    $checked = isset( $coupons_display[$coupon->post_title] ) ? 'checked' : '';
-    echo '<td>' . stripslashes( wp_filter_nohtml_kses( ucfirst( $coupon->post_title ) ) ) . '</td><td class="activities-table-d"><input type="checkbox" name="' . esc_attr( ACTIVITIES_NICE_WC_COUPONS_KEY . '[' . $coupon->post_title ) . ']" ' . $checked . ' /></td>';
+    echo '<td>' . esc_html__( 'Coupons', 'activities' ) . '</td><td>' . esc_html__( 'Display on activity report', 'activities' ) . '</td>';
     echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
+    foreach ($coupons as $coupon) {
+      echo '<tr>';
+      $checked = isset( $coupons_display[$coupon->post_title] ) ? 'checked' : '';
+      echo '<td>' . stripslashes( wp_filter_nohtml_kses( ucfirst( $coupon->post_title ) ) ) . '</td><td class="activities-table-d"><input type="checkbox" name="' . esc_attr( ACTIVITIES_NICE_WC_COUPONS_KEY . '[' . $coupon->post_title ) . ']" ' . $checked . ' /></td>';
+      echo '</tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
+    echo '</div>';
   }
-  echo '</tbody>';
-  echo '</table>';
-  echo '</div>';
 
   echo '<div>';
   echo '<h2>' . esc_html__( 'Actions', 'activities' ) . '</h2>';

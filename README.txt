@@ -161,6 +161,10 @@ This plugin also includes and option to get a better user search in the admin us
 == Screenshots ==
 
 1. Activity Report
+2. Activity Report with custom fields
+3. Exporting participant emails for Yoga Starters
+4. An activity connected to a product
+5. The Activities general options screen
 
 == Changelog ==
 

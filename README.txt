@@ -1,6 +1,6 @@
 === Activities ===
 Contributors: loderian
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Activities%20Donations&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: activities, events, courses, classes, reports
 Requires at least: 4.6
 Tested up to: 4.9.8
@@ -9,11 +9,11 @@ Requires PHP: 7.0.32
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
-A plugin for administering activities, printing reports and exporting user data.
+A plugin for managing activities, printing reports and exporting user data.
 
 == Description ==
 
-Activities is a free, light-weight plugin for administering activities.
+Activities is a free, light-weight plugin for managing activities.
 It provides an easy to use interface to manage your sites activities and who is participating.
 This plugin supports multisite installations. Each site has their own activities, locations, activity archive and their own plugin settings.
 

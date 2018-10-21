@@ -321,7 +321,7 @@ class Activities_WooCommerce {
    */
   static function handle_guest_customer( $email, $order ) {
     $email = sanitize_email( $email );
-    if ( !is_email( $email ) ) {
+    if ( $email === '' ) {
       return false;
     }
     if ( email_exists( $email ) === false && username_exists( $email ) === false ) {

@@ -1,5 +1,5 @@
-Activities, a plugin for administering activities, printing reports and exporting user data.
-Copyright (C) 2018 "Loderian" (Mikal Naustdal)
+Activities, a plugin for managing activities, printing reports and exporting user data.
+Copyright (C) 2018 Loderian (Mikal Naustdal)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

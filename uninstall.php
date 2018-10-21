@@ -13,10 +13,11 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-responsible.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-options.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-woocommerce.php';
+// Get some required files for uninstalling
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-woocommerce.php'; // Archive actions and delete actions
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-responsible.php'; // Remove responsibility
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities-options.php'; 		// Delete all options
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-activities.php'; 						// Get table names
 require_once plugin_dir_path( __FILE__ ) . 'includes/activities-constants.php';
 
 if ( !is_multisite() ) {
@@ -76,7 +77,7 @@ function activtities_uninstall_site() {
 	);
 
 	foreach ($tables as $table_name) {
-		$wpdb->query("DROP TABLE IF EXISTS $table_name");
+		$wpdb->query( "DROP TABLE IF EXISTS $table_name" );
 	}
 
 	Activities_Options::flush_options();

@@ -774,7 +774,7 @@ class Activities_Admin {
 							return '<form class="acts-join-form" action="' . admin_url( 'admin-ajax.php' ) . '" method="post">
 											<input type="hidden" name="item_id" value="' . esc_attr( $obj->ID ) . '" />
 											<input type="hidden" name="action" value="acts_join" />
-											<button>' . $text . '</button>
+											<button class="acts-join-button">' . $text . '</button>
 											</form>';
 						}
 						else {

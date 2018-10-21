@@ -58,8 +58,8 @@ class Activities_Admin {
 	 * @since    1.0.0
 	 */
 	public function register_styles() {
-		wp_register_style( 'admin-page', plugin_dir_url( __FILE__ ) . 'css/activities-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize/selectize.css', array(), $this->version, 'all' );
+		wp_register_style( $this->plugin_name . '-admin-css', plugin_dir_url( __FILE__ ) . 'css/activities-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name . '-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize/selectize.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Activities_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( 'admin-page' );
+		wp_enqueue_style( $this->plugin_name . '-admin-css' );
 		wp_enqueue_style( 'wp-color-picker' );
 	}
 
@@ -78,11 +78,11 @@ class Activities_Admin {
 	 * @since    1.0.0
 	 */
 	public function register_scripts() {
-		wp_register_script( 'activities-admin-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
-		wp_localize_script( 'activities-admin-js', 'acts_i18n', array(
+		wp_register_script( $this->plugin_name . '-admin-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
+		wp_localize_script( $this->plugin_name . '-admin-js', 'acts_i18n', array(
 			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' )
 		) );
-		wp_enqueue_script( 'selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize/selectize.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize/selectize.js', array( 'jquery' ), $this->version, false );
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Activities_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'activities-admin-js' );
+		wp_enqueue_script( $this->plugin_name . '-admin-js' );
 		wp_enqueue_script( 'imagesloaded' );
 		wp_enqueue_script( 'wp-color-picker' );
 	}

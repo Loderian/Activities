@@ -191,8 +191,8 @@ class Activities_Activity {
   	$act = $wpdb->insert( $table_name, $values, $formats );
     $act_id = $wpdb->insert_id;
 
-    if ( $act && isset( $act_map['members'] ) && $act_map['members'] != '') {
-      foreach (explode( ',', $act_map['members'] ) as $u_id) {
+    if ( $act && isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
+      foreach ($act_map['members'] as $u_id) {
         Activities_User_Activity::insert( $u_id, $act_id );
       }
     }
@@ -246,7 +246,7 @@ class Activities_Activity {
       array( '%d' )
     );
 
-    if ( $update !== false && isset( $act_map['members'] ) ) {
+    if ( $update !== false && isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
       Activities_User_Activity::insert_delete( $act_map['members'], $act_map['activity_id'], 'activity_id' );
     }
 

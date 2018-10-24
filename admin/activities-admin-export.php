@@ -148,37 +148,16 @@ function activities_export_page() {
   echo '<form action="' . esc_url( $current_url ) . '" method="post">';
   echo '<h3>' . esc_html__( 'Export Activity Participant Data', 'activities' ) . '</h3>';
   echo '<label for="acts_select_activity" class="acts-export-label">' . esc_html__( 'Select Activity', 'activities' ) . '</label>';
-
-  echo '<input type="text" id="acts_select_activity" name="selected_activity" class="acts-export-select" value="' . esc_attr( $act_id ) . '" />';
-  $activity_table = Activities::get_table_name( 'activity' );
-  $activities = array();
-  if ( Activities_Responsible::current_user_restricted_view() ) {
-    $activities = $wpdb->get_results( $wpdb->prepare(
-        "SELECT activity_id, name
-        FROM $activity_table
-        WHERE responsible_id = %d AND archive = 0
-        ",
-        get_current_user_id()
-      ),
-      ARRAY_A
-    );
-  }
-  else {
-    $activities = $wpdb->get_results(
-      "SELECT activity_id, name
-      FROM $activity_table
-      ",
-      ARRAY_A
-    );
-  }
-  $selectize = array();
-  $selectize[] = array(
-    'name' => 'acts_select_activity',
-    'value' => 'activity_id',
-    'label' => 'name',
-    'search' => array( 'name' ),
-    'option_values' => $activities,
-    'max_items' => '1'
+  echo acts_build_select_items(
+    'all_activities',
+    array(
+      'name' => 'selected_activity',
+      'id' => 'acts_select_activity_export',
+      'class' => array( 'acts-export-select' ),
+      'selected' => array( $act_id ),
+      'no_blank' => true,
+    ),
+    Activities_Responsible::current_user_restricted_view()
   );
 
   echo '<label for="acts_select_user_meta" class="acts-export-label">' . esc_html__( 'Select User Data', 'activities' ) . '</label>';
@@ -229,8 +208,6 @@ function activities_export_page() {
           }
         });';
   echo '</script>';
-
-  echo activities_build_all_selectize( $selectize );
 }
 
 /**

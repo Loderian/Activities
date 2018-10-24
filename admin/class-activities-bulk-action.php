@@ -90,14 +90,7 @@ class Activities_Bulk_Action {
    * @param string  $method How to save the members list to the activities
    */
   public function change_members( $acts, $members, $method ) {
-    $members_filtered = array();
-    foreach ($members as $id) {
-      $id = acts_validate_id( $id );
-      if ( $id ) {
-        $members_filtered[] = $id;
-      }
-    }
-    switch ( $method) {
+    switch ( $method ) {
       case 'replace':
         foreach ($acts as $id) {
           if ( Activities_User_Activity::insert_delete( $members, $id, 'activity_id') ) {

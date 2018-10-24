@@ -56,6 +56,8 @@ class Activities_WooCommerce {
 
   /**
    * Callback for adding tab content
+   *
+   * //TODO use new selectize functions
    */
   static function product_tab_panel() {
     global $wpdb, $thepostid;

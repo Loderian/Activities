@@ -158,17 +158,24 @@ function activities_admin_activities_page() {
 
         case 'change_members':
           $method = sanitize_text_field( $_POST['method'] );
-          $members = sanitize_text_field( $_POST['members'] );
+          $members = array();
+          if ( is_array( $_POST['members'] ) ) {
+            foreach ($_POST['members'] as $id) {
+              if ( acts_validate_id( $id ) ) {
+                $members[] = $id;
+              }
+            }
+          }
 
           if ( $method === 'null' ) {
             Activities_Admin::add_error_message( esc_html__( 'Select a save method.', 'activities' ) );
 
             $names = Activities_Admin_Utility::get_item_names( $acts );
 
-            return activities_bulk_action_page( $names['ids'], sanitize_text_field( $_POST['bulk'] ), esc_html__( 'Change Participants', 'activities' ), $names['names'], $members );
+            return activities_bulk_action_page( $names['ids'], sanitize_key( $_POST['bulk'] ), esc_html__( 'Change Participants', 'activities' ), $names['names'], $members );
           }
 
-          $bulk->change_members( $acts, explode( ',', $members ), $method );
+          $bulk->change_members( $acts, $members, $method );
           break;
       }
     }

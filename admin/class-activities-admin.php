@@ -174,77 +174,41 @@ class Activities_Admin {
 	public function activities_add_user_option( $user ) {
 		echo '<h3>' . esc_html__( 'Activities', 'activities' ) . '</h3>';
 
-		global $wpdb;
-
-		$table_name_activity = Activities::get_table_name( 'activity' );
-
-		$activity_names = $wpdb->get_results(
-			"SELECT activity_id, name
-			FROM $table_name_activity
-			WHERE archive = 0
-			",
-			ARRAY_A
-		);
-
-		$selected_activities = Activities_User_Activity::get_user_activities( $user->ID );
-
-		$value = implode(',', $selected_activities);
-
-		$disabled = '';
-
-		if ( !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
-			$disabled = 'disabled';
-		}
-
-		echo '<input type="text" name="activities_select" value="' . esc_attr( $value ) . '" id="activities-select" ' . $disabled . ' />';
-
-		$extra = array();
-		if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
-			$extra[] = 'plugins: ["remove_button"]';
-		}
-
-		$selectize = array();
-		$selectize[] = array(
-			'name' => 'activities-select',
-			'value' => 'activity_id',
-			'label' => 'name',
-			'search' => array( 'name' ),
-			'option_values' => $activity_names,
-			'max_items' => 'null',
-			'extra' => $extra
-		);
+    echo acts_build_select_items(
+      'activity',
+      array(
+        'name' => 'activities_selected[]',
+        'id' => 'acts_user_acts',
+        'selected' => Activities_User_Activity::get_user_activities( $user->ID ),
+        'multiple' => true,
+        'disabled' => !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES )
+      )
+    );
 
 		if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
 			echo '<h4>' . esc_html__( 'Archived Activites', 'activities' ) . '</h4>';
-
-			$selected_archived_activities = Activities_User_Activity::get_user_activities( $user->ID, 'archive');
-
-			$a_value = implode(',', $selected_archived_activities);
-
-			$activity_archive_names = array();
-			if ( count( $selected_archived_activities ) > 0 ) {
-				$activity_archive_names = $wpdb->get_results(
-					"SELECT activity_id, name
-					FROM $table_name_activity
-					WHERE archive = 1 AND activity_id IN ( $a_value )
-					",
-					ARRAY_A
-				);
-			}
-
-			echo '<input type="text" name="archived_activities" value="' . esc_attr( $a_value ) . '" id="archived-activities" disabled />';
-
-			$selectize[] = array(
-				'name' => 'archived-activities',
-				'value' => 'activity_id',
-				'label' => 'name',
-				'search' => array( 'name' ),
-				'option_values' => $activity_archive_names,
-				'max_items' => 'null',
-			);
+      echo acts_build_select_items(
+        'activity_archive',
+        array(
+          'id' => 'acts_user_archived_acts',
+          'selected' => Activities_User_Activity::get_user_activities( $user->ID, 'archive' ),
+          'multiple' => true,
+          'disabled' => true
+        )
+      );
 		}
 
-		echo activities_build_all_selectize( $selectize );
+    echo '
+    <script>
+      jQuery("#acts_user_acts").selectize({
+        ';
+    if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
+      echo 'plugins: ["remove_button"]';
+    }
+    echo '
+      });
+      jQuery("#acts_user_archived_acts").selectize({});
+    </script>';
 	}
 
 	/**
@@ -257,8 +221,14 @@ class Activities_Admin {
 		if ( !current_user_can( 'edit_user', $user_id ) || !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
 			return false;
 		}
-		if ( isset( $_POST['activities_select'] ) ) {
-			Activities_User_Activity::insert_delete( sanitize_text_field( $_POST['activities_select'] ) , $user_id, 'user_id' );
+		if ( isset( $_POST['activities_selected'] ) && is_array( $_POST['activities_selected'] ) ) {
+      $acts = array();
+      foreach ($_POST['activities_selected'] as $key => $id) {
+        if ( acts_validate_id( $id ) ) {
+          $acts[] = $id;
+        }
+      }
+			Activities_User_Activity::insert_delete( $acts, $user_id, 'user_id' );
 		}
 	}
 
@@ -387,7 +357,7 @@ class Activities_Admin {
 	 * @param 	bool 		$table_pages Return only pages with table view
 	 * @return 	string 	Page name
 	 */
-	public function get_page_name( $screen, $table_pages = false ) {
+	static function get_page_name( $screen, $table_pages = false ) {
 		$prefix = sanitize_title( esc_html__( 'Activities', 'activities' ) );
 		if ( $screen->id == 'toplevel_page_activities-admin' ) {
 			return 'activity';
@@ -422,7 +392,7 @@ class Activities_Admin {
 	public function show_help() {
 		$screen = get_current_screen();
 
-		$page = $this->get_page_name( $screen );
+		$page = self::get_page_name( $screen );
 
 		$overview_text = '';
 		switch ($page) {

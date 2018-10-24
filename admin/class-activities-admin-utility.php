@@ -108,6 +108,14 @@ class Activities_Admin_Utility {
   static function get_activity_post_values() {
     $loc_id = acts_validate_id( $_POST['location'] );
     $res_id = acts_validate_id( $_POST['responsible'] );
+    $members = array();
+    if ( is_array( $_POST['member_list'] ) ) {
+      foreach ($_POST['member_list'] as $id) {
+        if ( acts_validate_id( $id ) ) {
+          $members[] = $id;
+        }
+      }
+    }
     $act_map = array(
       'name' => sanitize_text_field( $_POST['name'] ),
       'short_desc' => sanitize_text_field( $_POST['short_desc'] ),
@@ -116,7 +124,7 @@ class Activities_Admin_Utility {
       'end' => self::validate_date( sanitize_text_field( $_POST['end'] ) ),
       'location_id' => ( $loc_id ? $loc_id : null ),
       'responsible_id' => ( $res_id ? $res_id : null ),
-      'members' => sanitize_text_field( $_POST['member_list'] )
+      'members' => $members
     );
     if ( isset( $_POST['item_id'] ) ) {
       $act_map['activity_id'] = acts_validate_id( $_POST['item_id'] );
@@ -225,9 +233,9 @@ class Activities_Admin_Utility {
   }
 
   /**
-   * Gets user for responsible or member input/display
+   * Gets users for responsible or member input/display
    *
-   * @param   string  $role Activity role, 'responsible' or 'members'
+   * @param   string  $role Activity role, 'responsible' or 'member'
    * @param   array   $current_value Current users stored, used i case they are filtered by options but still needs to be displayed
    * @return  array   'ID' for user id, 'display_name' for name to display
    */
@@ -254,7 +262,7 @@ class Activities_Admin_Utility {
     }
 
     foreach ( $users as $user ) {
-      $user_names[] = array( 'ID' => $user->ID, 'display_name' => Activities_Utility::get_user_name( $user ) );
+      $user_names[$user->ID] = Activities_Utility::get_user_name( $user );
       if ( count( $current_value ) > 0 ) {
         $key = array_search( $user->ID, $current_value );
         if ( $key !== false ) {
@@ -267,7 +275,7 @@ class Activities_Admin_Utility {
       foreach ($current_value as $user_id) {
         $user = get_user_by( 'ID', $user_id );
         if ( $user !== false ) {
-          $user_names[] = array( 'ID' => $user_id, 'display_name' => Activities_Utility::get_user_name( $user ) );
+          $user_names[$user->ID] = Activities_Utility::get_user_name( $user );
         }
       }
     }

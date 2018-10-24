@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Activities\n"
-"POT-Creation-Date: 2018-10-21 17:22+0200\n"
+"POT-Creation-Date: 2018-10-24 19:07+0200\n"
 "PO-Revision-Date: 2018-09-05 18:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -93,25 +93,25 @@ msgid "Change Responsible User"
 msgstr ""
 
 #: admin/activities-admin-activities.php:132
-#: admin/activities-admin-activities.php:168
+#: admin/activities-admin-activities.php:175
 #: includes/class-activities-list-table.php:239
 msgid "Change Participants"
 msgstr ""
 
-#: admin/activities-admin-activities.php:164
+#: admin/activities-admin-activities.php:171
 msgid "Select a save method."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-#: admin/activities-admin-activities.php:178
+#: admin/activities-admin-activities.php:185
 #: admin/activities-admin-import.php:40 admin/activities-admin-import.php:280
 #: admin/class-activities-admin.php:105 admin/class-activities-admin.php:107
-#: admin/class-activities-admin.php:175 admin/class-activities-admin.php:391
+#: admin/class-activities-admin.php:175 admin/class-activities-admin.php:361
 #: includes/class-activities-woocommerce.php:50
 msgid "Activities"
 msgstr ""
 
-#: admin/activities-admin-activities.php:180
+#: admin/activities-admin-activities.php:187
 msgid "Create new activity"
 msgstr ""
 
@@ -140,224 +140,224 @@ msgid "Activity Report Management"
 msgstr ""
 
 #: admin/activities-admin-activity-nice.php:70
-#: admin/class-activities-admin.php:671
+#: admin/class-activities-admin.php:641
 msgid "Report"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:82
+#: admin/activities-admin-activity-nice.php:81
 #: admin/activities-admin-archive.php:58
 msgid "Activity"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:120
+#: admin/activities-admin-activity-nice.php:108
 msgid "Settings"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:122
+#: admin/activities-admin-activity-nice.php:110
 msgid "default"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:122
+#: admin/activities-admin-activity-nice.php:110
 msgid "custom"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:133
+#: admin/activities-admin-activity-nice.php:121
 msgid "Header"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:135
+#: admin/activities-admin-activity-nice.php:123
 msgid "Logo"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:136
+#: admin/activities-admin-activity-nice.php:124
 msgid "Select Logo"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:137
+#: admin/activities-admin-activity-nice.php:125
 msgid "Remove Logo"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:143
-#: admin/activities-admin-activity.php:59
+#: admin/activities-admin-activity-nice.php:131
+#: admin/activities-admin-activity.php:55
 msgid "Activity Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:146
-#: admin/activities-admin-activity-nice.php:292
+#: admin/activities-admin-activity-nice.php:134
+#: admin/activities-admin-activity-nice.php:278
 msgid "Start"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:147
-#: admin/activities-admin-activity-nice.php:297
+#: admin/activities-admin-activity-nice.php:135
+#: admin/activities-admin-activity-nice.php:283
 msgid "End"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:148
-#: admin/activities-admin-activity.php:64
-#: admin/class-activities-admin-utility.php:329
+#: admin/activities-admin-activity-nice.php:136
+#: admin/activities-admin-activity.php:60
+#: admin/class-activities-admin-utility.php:337
 msgid "Short Description"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:149
+#: admin/activities-admin-activity-nice.php:137
 msgid "Location Address"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:150
+#: admin/activities-admin-activity-nice.php:138
 msgid "Responsible User"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:151
-#: admin/activities-admin-activity.php:66
-#: admin/class-activities-admin-utility.php:333
+#: admin/activities-admin-activity-nice.php:139
+#: admin/activities-admin-activity.php:62
+#: admin/class-activities-admin-utility.php:341
 msgid "Long Description"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:154
-#: admin/activities-admin-activity-nice.php:351
+#: admin/activities-admin-activity-nice.php:142
+#: admin/activities-admin-activity-nice.php:337
 msgid "Sessions"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:159
+#: admin/activities-admin-activity-nice.php:147
 msgid "Participant Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:160
+#: admin/activities-admin-activity-nice.php:148
 msgid "Reload Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:163
+#: admin/activities-admin-activity-nice.php:151
 msgid "Prepared Setups"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:172
+#: admin/activities-admin-activity-nice.php:160
 msgid "Custom Fields"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:173
+#: admin/activities-admin-activity-nice.php:161
 msgid "Type in usermeta key, then press reload info."
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:174
+#: admin/activities-admin-activity-nice.php:162
 msgid "Seperate multiple fields in one line by a comma."
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:189
+#: admin/activities-admin-activity-nice.php:177
 msgid "Color Fields"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:190
+#: admin/activities-admin-activity-nice.php:178
 msgid "Colorize usermeta data for quicker identification."
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:203
-#: admin/activities-admin-activity.php:141
-#: admin/activities-admin-location.php:76
-#: admin/activities-admin-options.php:177 admin/class-activities-admin.php:543
+#: admin/activities-admin-activity-nice.php:191
+#: admin/activities-admin-activity.php:124
+#: admin/activities-admin-location.php:79
+#: admin/activities-admin-options.php:177 admin/class-activities-admin.php:513
 msgid "Save"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:205
+#: admin/activities-admin-activity-nice.php:193
 msgid "Print"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:206
+#: admin/activities-admin-activity-nice.php:194
 msgid "Folder Print"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:209
+#: admin/activities-admin-activity-nice.php:197
 #: admin/activities-admin-import.php:249 admin/activities-admin-import.php:305
 #: admin/activities-admin-import.php:420 admin/activities-admin-import.php:543
-#: includes/class-activities-woocommerce.php:306
-#: includes/class-activities-woocommerce.php:463
+#: includes/class-activities-woocommerce.php:308
+#: includes/class-activities-woocommerce.php:465
 msgid "Return"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:210
+#: admin/activities-admin-activity-nice.php:198
 msgid "Reset to default"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:287
+#: admin/activities-admin-activity-nice.php:273
 msgid "Activity Participants List"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:310
-#: admin/activities-admin-activity.php:91 admin/activities-admin-generic.php:56
+#: admin/activities-admin-activity-nice.php:296
+#: admin/activities-admin-activity.php:87 admin/activities-admin-generic.php:54
 #: admin/activities-admin-locations.php:62
 #: admin/activities-admin-locations.php:92
 #: admin/activities-admin-locations.php:100
-#: admin/class-activities-admin-utility.php:351
+#: admin/class-activities-admin-utility.php:359
 msgid "Location"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:327
-#: admin/activities-admin-activity.php:76 admin/activities-admin-generic.php:79
-#: admin/class-activities-admin-utility.php:346
+#: admin/activities-admin-activity-nice.php:313
+#: admin/activities-admin-activity.php:70 admin/activities-admin-generic.php:67
+#: admin/class-activities-admin-utility.php:354
 msgid "Responsible"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:343
+#: admin/activities-admin-activity-nice.php:329
 msgid "Participant"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:346
-#: admin/activities-admin-generic.php:103 admin/activities-admin-import.php:45
+#: admin/activities-admin-activity-nice.php:332
+#: admin/activities-admin-generic.php:87 admin/activities-admin-import.php:45
 msgid "Participants"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:350
+#: admin/activities-admin-activity-nice.php:336
 msgid "Additional Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:414
+#: admin/activities-admin-activity-nice.php:400
 msgid "This activity has no participants."
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:614
+#: admin/activities-admin-activity-nice.php:600
 msgid "Wordpress User Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:617
+#: admin/activities-admin-activity-nice.php:603
 msgid "Woocommerce Billing Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:618
+#: admin/activities-admin-activity-nice.php:604
 msgid "Woocommerce Shipping Info"
 msgstr ""
 
-#: admin/activities-admin-activity.php:62 admin/activities-admin-export.php:292
+#: admin/activities-admin-activity.php:58 admin/activities-admin-export.php:269
 #: admin/activities-admin-location.php:49
-#: admin/class-activities-admin-utility.php:325
-#: admin/class-activities-admin.php:526
+#: admin/class-activities-admin-utility.php:333
+#: admin/class-activities-admin.php:496
 msgid "Name"
 msgstr ""
 
-#: admin/activities-admin-activity.php:72
+#: admin/activities-admin-activity.php:66
 msgid "Start date"
 msgstr ""
 
-#: admin/activities-admin-activity.php:74
+#: admin/activities-admin-activity.php:68
 msgid "End date"
 msgstr ""
 
-#: admin/activities-admin-activity.php:114
+#: admin/activities-admin-activity.php:102
 msgid "Activity Participants"
 msgstr ""
 
-#: admin/activities-admin-activity.php:137
-#: admin/activities-admin-location.php:72
+#: admin/activities-admin-activity.php:120
+#: admin/activities-admin-location.php:75
 msgid "Create"
 msgstr ""
 
-#: admin/activities-admin-activity.php:148
+#: admin/activities-admin-activity.php:131
 #: includes/class-activities-list-table.php:256
 #: includes/class-activities-list-table.php:528
 msgid "Activate"
 msgstr ""
 
-#: admin/activities-admin-activity.php:150
-#: admin/activities-admin-generic.php:144
-#: admin/activities-admin-generic.php:176
-#: admin/activities-admin-location.php:80
+#: admin/activities-admin-activity.php:133
+#: admin/activities-admin-generic.php:124
+#: admin/activities-admin-generic.php:154
+#: admin/activities-admin-location.php:83
 msgid "Cancel"
 msgstr ""
 
@@ -428,129 +428,129 @@ msgstr ""
 msgid "Select Activity"
 msgstr ""
 
-#: admin/activities-admin-export.php:184
+#: admin/activities-admin-export.php:163
 msgid "Select User Data"
 msgstr ""
 
-#: admin/activities-admin-export.php:199
+#: admin/activities-admin-export.php:178
 msgid "Select Delimiter"
 msgstr ""
 
-#: admin/activities-admin-export.php:207 admin/class-activities-admin.php:110
+#: admin/activities-admin-export.php:186 admin/class-activities-admin.php:110
 #: includes/class-activities-list-table.php:517
 #: includes/class-activities-list-table.php:527
 msgid "Export"
 msgstr ""
 
-#: admin/activities-admin-export.php:290
+#: admin/activities-admin-export.php:267
 msgid "Email"
 msgstr ""
 
-#: admin/activities-admin-export.php:291
+#: admin/activities-admin-export.php:268
 msgid "Phone"
 msgstr ""
 
-#: admin/activities-admin-export.php:298
+#: admin/activities-admin-export.php:275
 #, php-format
 msgid "Comma (%s)"
 msgstr ""
 
-#: admin/activities-admin-export.php:299
+#: admin/activities-admin-export.php:276
 #, php-format
 msgid "Semicolon (%s)"
 msgstr ""
 
-#: admin/activities-admin-export.php:300
+#: admin/activities-admin-export.php:277
 msgid "Newline"
 msgstr ""
 
-#: admin/activities-admin-generic.php:42
+#: admin/activities-admin-generic.php:40
 msgid "Selected Locations"
 msgstr ""
 
-#: admin/activities-admin-generic.php:45
+#: admin/activities-admin-generic.php:43
 msgid "Selected Activities"
 msgstr ""
 
-#: admin/activities-admin-generic.php:49
+#: admin/activities-admin-generic.php:47
 msgid "Bulk Action"
 msgstr ""
 
-#: admin/activities-admin-generic.php:52
+#: admin/activities-admin-generic.php:50
 #, php-format
 msgid "Are you sure you want to archive %d activities?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:96
+#: admin/activities-admin-generic.php:80
 msgid "Select a Save Method"
 msgstr ""
 
-#: admin/activities-admin-generic.php:98
+#: admin/activities-admin-generic.php:82
 msgid "Method"
 msgstr ""
 
-#: admin/activities-admin-generic.php:99
+#: admin/activities-admin-generic.php:83
 msgid "Replace"
 msgstr ""
 
-#: admin/activities-admin-generic.php:100
+#: admin/activities-admin-generic.php:84
 msgid "Add"
 msgstr ""
 
-#: admin/activities-admin-generic.php:101
+#: admin/activities-admin-generic.php:85
 msgid "Remove"
 msgstr ""
 
-#: admin/activities-admin-generic.php:121
+#: admin/activities-admin-generic.php:101
 #, php-format
 msgid "Are you sure you want to activate %d activities?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:125
+#: admin/activities-admin-generic.php:105
 #, php-format
 msgid "Are you sure you want to delete %d activities?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:126
+#: admin/activities-admin-generic.php:106
 msgid "Warning: Activities cannot be recovered after deletion."
 msgstr ""
 
-#: admin/activities-admin-generic.php:130
+#: admin/activities-admin-generic.php:110
 #: admin/activities-admin-location.php:51
-#: admin/class-activities-admin-utility.php:355
+#: admin/class-activities-admin-utility.php:363
 msgid "Address"
 msgstr ""
 
-#: admin/activities-admin-generic.php:135
+#: admin/activities-admin-generic.php:115
 #, php-format
 msgid "Are you sure you want to delete %d locations?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:136
+#: admin/activities-admin-generic.php:116
 msgid "Warning: Locations cannot be recovered after deletion."
 msgstr ""
 
-#: admin/activities-admin-generic.php:143
-#: admin/activities-admin-generic.php:175
+#: admin/activities-admin-generic.php:123
+#: admin/activities-admin-generic.php:153
 msgid "Confirm"
 msgstr ""
 
-#: admin/activities-admin-generic.php:165
+#: admin/activities-admin-generic.php:143
 #, php-format
 msgid "Delete %s"
 msgstr ""
 
-#: admin/activities-admin-generic.php:168
+#: admin/activities-admin-generic.php:146
 #, php-format
 msgid "Selected %s"
 msgstr ""
 
-#: admin/activities-admin-generic.php:170
+#: admin/activities-admin-generic.php:148
 #, php-format
 msgid "Are you sure you want to delete this %s?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:171
+#: admin/activities-admin-generic.php:149
 #, php-format
 msgid "Warning: %s cannot be recovered after deletion."
 msgstr ""
@@ -756,22 +756,22 @@ msgid "Location Info"
 msgstr ""
 
 #: admin/activities-admin-location.php:53
-#: admin/class-activities-admin-utility.php:367
+#: admin/class-activities-admin-utility.php:375
 msgid "Postcode"
 msgstr ""
 
 #: admin/activities-admin-location.php:55
-#: admin/class-activities-admin-utility.php:363
+#: admin/class-activities-admin-utility.php:371
 msgid "City"
 msgstr ""
 
 #: admin/activities-admin-location.php:57
-#: admin/class-activities-admin-utility.php:371
+#: admin/class-activities-admin-utility.php:379
 msgid "Country"
 msgstr ""
 
-#: admin/activities-admin-location.php:67
-#: admin/class-activities-admin-utility.php:359
+#: admin/activities-admin-location.php:70
+#: admin/class-activities-admin-utility.php:367
 msgid "Description"
 msgstr ""
 
@@ -834,7 +834,7 @@ msgstr ""
 msgid "Administer Activities Options"
 msgstr ""
 
-#: admin/activities-admin-options.php:41 admin/activities-admin-options.php:194
+#: admin/activities-admin-options.php:41
 msgid "Can be Member"
 msgstr ""
 
@@ -848,6 +848,10 @@ msgstr ""
 
 #: admin/activities-admin-options.php:143 admin/class-activities-admin.php:111
 msgid "Activities Options"
+msgstr ""
+
+#: admin/activities-admin-options.php:194
+msgid "Can be Participant"
 msgstr ""
 
 #: admin/activities-admin-options.php:201
@@ -1004,11 +1008,11 @@ msgstr ""
 msgid "Could not verify activity report data integrity."
 msgstr ""
 
-#: admin/class-activities-admin-utility.php:337
+#: admin/class-activities-admin-utility.php:345
 msgid "Start Date"
 msgstr ""
 
-#: admin/class-activities-admin-utility.php:341
+#: admin/class-activities-admin-utility.php:349
 msgid "End Date"
 msgstr ""
 
@@ -1033,128 +1037,128 @@ msgctxt "Noun"
 msgid "Archive"
 msgstr ""
 
-#: admin/class-activities-admin.php:218
+#: admin/class-activities-admin.php:189
 msgid "Archived Activites"
 msgstr ""
 
-#: admin/class-activities-admin.php:271
+#: admin/class-activities-admin.php:241
 #, php-format
 msgid "%s has been created."
 msgstr ""
 
-#: admin/class-activities-admin.php:280
+#: admin/class-activities-admin.php:250
 #, php-format
 msgid "%s has been updated."
 msgstr ""
 
-#: admin/class-activities-admin.php:289
+#: admin/class-activities-admin.php:259
 #, php-format
 msgid "%s must have a name."
 msgstr ""
 
-#: admin/class-activities-admin.php:298
+#: admin/class-activities-admin.php:268
 #, php-format
 msgid "%s has been deleted."
 msgstr ""
 
-#: admin/class-activities-admin.php:434
+#: admin/class-activities-admin.php:404
 msgid "activities"
 msgstr ""
 
-#: admin/class-activities-admin.php:438
+#: admin/class-activities-admin.php:408
 msgid "locations"
 msgstr ""
 
-#: admin/class-activities-admin.php:442
+#: admin/class-activities-admin.php:412
 msgid "archived activities"
 msgstr ""
 
-#: admin/class-activities-admin.php:447
+#: admin/class-activities-admin.php:417
 #, php-format
 msgid "This screen allows you to edit your %s."
 msgstr ""
 
-#: admin/class-activities-admin.php:450
+#: admin/class-activities-admin.php:420
 msgid ""
 "This is the activity report screen where you customize and print/save your "
 "reports."
 msgstr ""
 
-#: admin/class-activities-admin.php:454
+#: admin/class-activities-admin.php:424
 #, php-format
 msgid "This screen gives you access to all your %s."
 msgstr ""
 
-#: admin/class-activities-admin.php:459
+#: admin/class-activities-admin.php:429
 msgid ""
 "This screen gives you the options to either import activities or "
 "participants."
 msgstr ""
 
-#: admin/class-activities-admin.php:463
+#: admin/class-activities-admin.php:433
 msgid "Export activity participant data to send email, sms and more."
 msgstr ""
 
-#: admin/class-activities-admin.php:476
+#: admin/class-activities-admin.php:446
 msgid "This is where you can edit the standard settings for activity reports."
 msgstr ""
 
-#: admin/class-activities-admin.php:480
+#: admin/class-activities-admin.php:450
 msgid "Settings related to the WooCommerce plugin."
 msgstr ""
 
-#: admin/class-activities-admin.php:485
+#: admin/class-activities-admin.php:455
 msgid "This general settings page for this plugin."
 msgstr ""
 
-#: admin/class-activities-admin.php:486
+#: admin/class-activities-admin.php:456
 msgid ""
 "If you are using a mulitisite, the settings here is only set for the current "
 "blog."
 msgstr ""
 
-#: admin/class-activities-admin.php:487
+#: admin/class-activities-admin.php:457
 msgid "The WooCommerce tab will only show if the plugin is active."
 msgstr ""
 
-#: admin/class-activities-admin.php:496
+#: admin/class-activities-admin.php:466
 msgid "Overview"
 msgstr ""
 
-#: admin/class-activities-admin.php:497
+#: admin/class-activities-admin.php:467
 msgid "A documentation page will be available soon!"
 msgstr ""
 
-#: admin/class-activities-admin.php:521
+#: admin/class-activities-admin.php:491
 msgid "Show Columns"
 msgstr ""
 
-#: admin/class-activities-admin.php:537
+#: admin/class-activities-admin.php:507
 #: includes/class-activities-pagination.php:125
 msgid "Results Per Page"
 msgstr ""
 
-#: admin/class-activities-admin.php:733
+#: admin/class-activities-admin.php:703
 msgid "Archived"
 msgstr ""
 
-#: admin/class-activities-admin.php:736
+#: admin/class-activities-admin.php:706
 msgid "Active"
 msgstr ""
 
-#: admin/class-activities-admin.php:756
+#: admin/class-activities-admin.php:726
 msgid "You have to login to join."
 msgstr ""
 
-#: admin/class-activities-admin.php:759
+#: admin/class-activities-admin.php:729
 msgid "You can no longer join this activity."
 msgstr ""
 
-#: admin/class-activities-admin.php:770 public/class-activities-public.php:77
+#: admin/class-activities-admin.php:740 public/class-activities-public.php:77
 msgid "Join"
 msgstr ""
 
-#: admin/class-activities-admin.php:772 public/class-activities-public.php:73
+#: admin/class-activities-admin.php:742 public/class-activities-public.php:73
 msgid "Unjoin"
 msgstr ""
 
@@ -1173,27 +1177,27 @@ msgstr ""
 msgid "%d activities had their responsible person changed."
 msgstr ""
 
-#: admin/class-activities-bulk-action.php:138
+#: admin/class-activities-bulk-action.php:131
 #, php-format
 msgid "%d activities had their members changed."
 msgstr ""
 
-#: admin/class-activities-bulk-action.php:153
+#: admin/class-activities-bulk-action.php:146
 #, php-format
 msgid "%d activites has been activated."
 msgstr ""
 
-#: admin/class-activities-bulk-action.php:168
+#: admin/class-activities-bulk-action.php:161
 #, php-format
 msgid "%d activites has been deleted."
 msgstr ""
 
-#: admin/class-activities-bulk-action.php:184
+#: admin/class-activities-bulk-action.php:177
 #, php-format
 msgid "%d locations had their address changed."
 msgstr ""
 
-#: admin/class-activities-bulk-action.php:199
+#: admin/class-activities-bulk-action.php:192
 #, php-format
 msgid "%d locations has been deleted."
 msgstr ""
@@ -2221,63 +2225,63 @@ msgstr ""
 msgid "Zimbabwe"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:68
 #: includes/class-activities-woocommerce.php:70
+#: includes/class-activities-woocommerce.php:72
 msgid "Select Activities"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:72
+#: includes/class-activities-woocommerce.php:74
 msgid "Users who orders this product will be added to the selected activities."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:268
+#: includes/class-activities-woocommerce.php:270
 msgid "Converting guest customers"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:278
+#: includes/class-activities-woocommerce.php:280
 msgid "Order"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:282
+#: includes/class-activities-woocommerce.php:284
 msgid "Guest already converted or user orders already updated."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:289
+#: includes/class-activities-woocommerce.php:291
 #, php-format
 msgid "Created User: %s"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:293
+#: includes/class-activities-woocommerce.php:295
 #, php-format
 msgid "Updated Orders For: %s"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:297
+#: includes/class-activities-woocommerce.php:299
 msgid "Could not create user (no email found)"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:305
+#: includes/class-activities-woocommerce.php:307
 #, php-format
 msgid "Created %s users."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:413
+#: includes/class-activities-woocommerce.php:415
 msgid "You are not allowed to delete users!"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:417
+#: includes/class-activities-woocommerce.php:419
 msgid "Deleting guest users"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:451
+#: includes/class-activities-woocommerce.php:453
 msgid "Deleted user"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:454
+#: includes/class-activities-woocommerce.php:456
 msgid "An error occured deleting"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:462
+#: includes/class-activities-woocommerce.php:464
 #, php-format
 msgid "Deleted %d users."
 msgstr ""

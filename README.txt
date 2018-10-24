@@ -118,24 +118,24 @@ This plugin also includes and option to get a better user search in the admin us
 
 = How do I use the shortcode? =
 
-### Posts ###
+Posts
 
 1. Type `[acts name="" data=""]` where you want the activity information
 1. Write the name of the activity you want information from between the quotes (example: `[acts name="Yoga Starters" data=""]`)
 1. Add the data you want to print (example: `[acts name="Yoga Starters" data="button"]`)
 
-### Activity Report Header ###
+Activity Report Header
 
 1. Type `[acts data=""]` where in the header field of the Activity Report control panel
 1. Add the data you want to print (example: `[acts data="loc_address"]`)
 1. Click the save button to see the results
 
-#### Notes: ####
+Notes:
+
 - The generic settings for Activity Report will not show any results from shortcodes
 - Not all options are available Activity Report, for example the `button` option
 
-
-### List of data options ###
+List of data options
 
 - Activity:
   * `name` = Name

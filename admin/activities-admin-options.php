@@ -191,7 +191,7 @@ function activities_options_general() {
     ACTIVITIES_ADMINISTER_OPTIONS => esc_html__( 'Administer Activities Options', 'activities' )
   );
   $activity_roles = array(
-    ACTIVITIES_CAN_BE_MEMBER_KEY => esc_html__( 'Can be Member', 'activities' ),
+    ACTIVITIES_CAN_BE_MEMBER_KEY => esc_html__( 'Can be Participant', 'activities' ),
     ACTIVITIES_CAN_BE_RESPONSIBLE_KEY => esc_html__( 'Can be Responsible', 'activities' )
   );
 

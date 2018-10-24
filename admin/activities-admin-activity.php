@@ -46,11 +46,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 	if ( $archive == 'archive' || ( !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) && !Activities_Responsible::current_user_restricted_edit() ) ) {
 		$disabled = 'disabled';
 	}
-
-	$all_selectize = array();
-
 	$output = '<h2 id="activities-title">' . $title . '</h2>';
-
 
 	$output .= Activities_Admin::get_messages();
 
@@ -66,71 +62,58 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 	$output .= '<li>' . esc_html__( 'Long Description', 'activities' ) . '</li>';
 	$output .= '<li><textarea name="long_desc" maxlength="65535" id="acts-activity-long-desc" ' . $disabled . ' >' . stripslashes( wp_filter_nohtml_kses ( $map['long_desc'] ) ) . '</textarea></li></ul></li>';
 
-	$wp_users = Activities_Admin_Utility::get_users( 'responsible', $map['responsible_id'] );
-
 	$output .= '<li id="acts-activity-right-column"><ul>';
 	$output .= '<li>' . esc_html__( 'Start date', 'activities' ) . '</li>';
 	$output .= '<li><input type="date" name="start" value="' . esc_attr( explode( " ", $map["start"] )[0] ) . '" id="acts-activity-start" ' . $disabled . ' /></li>';
 	$output .= '<li>' . esc_html__( 'End date', 'activities' ) . '</li>';
 	$output .= '<li><input type="date" name="end" value="' . esc_attr( explode( " ", $map["end"] )[0] ) . '" id="acts-activity-end" ' . $disabled . ' /></li>';
 	$output .= '<li>' . esc_html__( 'Responsible', 'activities' ) . '</li>';
-	$output .= '<li><input type="text" name="responsible" value="' . esc_attr( $map['responsible_id'] ) . '" id="acts-activity-responsible" ' . ( Activities_Responsible::current_user_restricted_edit() ? 'disabled' : $disabled ) . ' /></li>';
-	if ( Activities_Responsible::current_user_restricted_edit() ) {
-		$output .= '<input type="hidden" name="responsible" value="' . esc_attr( $map['responsible_id'] ) . '" />';
-	}
 
-	$all_selectize[] = array(
-		'name' => 'acts-activity-responsible',
-		'value' => 'ID',
-		'label' => 'display_name',
-		'search' => array( 'display_name' ),
-		'option_values' => $wp_users,
-		'max_items' => '1'
-	);
+  $output .= '<li>';
+  $output .= acts_build_select_items(
+    'responsible',
+    array(
+      'name' => 'responsible',
+      'id' => 'acts-activity-responsible',
+      'selected' => array( $map['responsible_id'] ),
+      'disabled' => Activities_Responsible::current_user_restricted_edit() || ( $disabled !== '' )
+    )
+  );
+  if ( Activities_Responsible::current_user_restricted_edit() ) {
+    $output .= '<input type="hidden" name="responsible" value="' . esc_attr( $map['responsible_id'] ) . '" />';
+  }
+  $output .= '</li>';
 
 	$output .= '<li>' . esc_html__( 'Location', 'activities' ) . '</li>';
-	$output .= '<li><input type="text" name="location" value="' . esc_attr( $map['location_id'] ) . '" id="acts-activity-location" ' . $disabled . ' /></li>';
-
-	$location_table = Activities::get_table_name( 'location' );
-
-	$locations = $wpdb->get_results(
-		"SELECT location_id, name
-		FROM $location_table
-		",
-		ARRAY_A
-	);
-
- 	$all_selectize[] = array(
-		'name' => 'acts-activity-location',
-		'value' => 'location_id',
-		'label' => 'name',
-		'search' => array( 'name' ),
-		'option_values' => $locations,
-		'max_items' => '1'
-	);
+  $output .= '<li>';
+  $output .= acts_build_select_items(
+    'location',
+    array(
+      'name' => 'location',
+      'id' => 'acts-activity-location',
+      'selected' => array( $map['location_id'] ),
+      'disabled' => $disabled !== ''
+    )
+  );
+  $output .= '</li>';
 
 	$output .= '</ul></li></ul><ul>';
 
 	$output .= '<li>' . esc_html__( 'Activity Participants', 'activities' ) . ' (<span id="member_count"></span>)' . ' </li>';
-  $members = is_array( $map['members'] ) ? implode( ',', $map['members'] ) : $map['members'];
-	$output .= '<li><input type="text" name="member_list" id="acts-activity-member-list" value="' . esc_attr ( $members ) . '" ' . $disabled . ' />';
+  $output .= '<li>';
+  $output .= acts_build_select_items(
+    'members',
+    array(
+      'name' => 'member_list[]',
+      'id' => 'acts-activity-member-list',
+      'selected' => is_string( $map['members'] ) ? explode( ',', $map['members'] ) : $map['members'],
+      'multiple' => true,
+      'disabled' => $disabled !== ''
+    )
+  );
+  $output .= '</li>';
 
-	$extra = array('onChange : function() { if (jQuery("#acts-activity-member-list").attr("value") == "") { jQuery("#member_count").text("0"); } else { jQuery("#member_count").text(jQuery("#acts-activity-member-list").attr("value").split(",").length); } }');
-	if ( $disabled === '' ) {
-		$extra[] = 'plugins: ["remove_button"]';
-	}
-
- 	$all_selectize[] = array(
-		'name' => 'acts-activity-member-list',
-		'value' => 'ID',
-		'label' => 'display_name',
-		'search' => array( 'display_name' ),
-		'option_values' => Activities_Admin_Utility::get_users( 'member', $map['members'] ),
-		'max_items' => 'null',
-		'extra' => $extra
-	);
-
-	$output .= '</li><li>';
+	$output .= '<li>';
   $button = '';
   switch ($action) {
     case 'create':
@@ -156,8 +139,6 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 	$output .= wp_nonce_field( 'activities_activity', ACTIVITIES_ACTIVITY_NONCE, true, false );
 	$output .= '</div>';
   $output .= '</form>';
-
-	$output .= activities_build_all_selectize( $all_selectize );
 
 	return $output;
 }

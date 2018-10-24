@@ -76,44 +76,32 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 
 	$output .= '<div id="acts-nice-settings" class="activities-box-wrap activities-box-padding">';
 
-  $selectize = array();
   if ( $current_url != null ) {
     $output .= '<div id="acts-nice-quick-wrap">';
     $output .= '<h3>' . esc_html__( 'Activity', 'activities' ) . '</h3>';
-    $output .= '<input type="text" id="acts_nice_quick_change" value="' . esc_attr( $activity['activity_id'] ) . '" />';
-    $where = 'WHERE archive = %d';
-    $values = array( $activity['archive'] );
-    if ( $activity['archive'] == 0 && Activities_Responsible::current_user_restricted_view() ) {
-      $where .= ' AND responsible_id = %d';
-      $values[] = get_current_user_id();
-    }
-    $table_name = Activities::get_table_name( 'activity' );
-    $acts = $wpdb->get_results( $wpdb->prepare(
-      "SELECT activity_id, name
-      FROM $table_name
-      $where
-      ",
-      $values
-    ),
-      ARRAY_A
+    $type = Activities_Admin::get_page_name( get_current_screen() );
+    $output .= acts_build_select_items(
+      $type,
+      array(
+        'id' => 'acts_nice_quick_change',
+        'selected' => array( $activity['activity_id']  ),
+        'no_blank' => true
+      ),
+      Activities_Responsible::current_user_restricted_view()
     );
-    $extra = array( 'onChange : function() {
-        var url = "' . esc_url( $current_url ) . '";
-        var id = jQuery("#acts_nice_quick_change").val();
-        if ( id != "" ) {
-          url += "&action=view&item_id=" + id;
-          window.location.assign(url);
-        }
-      }' );
-    $selectize[] = array(
-      'name' => 'acts_nice_quick_change',
-      'value' => 'activity_id',
-      'label' => 'name',
-      'search' => array( 'name' ),
-      'option_values' => $acts,
-      'max_items' => '1',
-      'extra' => $extra
-    );
+    $output .= '<script>';
+    $output .= '
+  		if (jQuery("#acts_nice_quick_change").length) {
+        jQuery("#acts_nice_quick_change").on( "change", function() {
+          var url = "' . esc_url( $current_url ) . '";
+          var id = jQuery("#acts_nice_quick_change").val();
+          if ( id != "" ) {
+            url += "&action=view&item_id=" + id;
+            window.location.assign(url);
+          }
+        });
+  		}';
+    $output .= '</script>';
     $output .= '</div>';
   }
 
@@ -239,8 +227,6 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   $custom_wl_display .= '</script>';
 
   $output .= $custom_wl_display;
-
-  $output .= activities_build_all_selectize( $selectize );
 
 	return $output;
 }

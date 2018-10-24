@@ -56,11 +56,14 @@ function acts_location_management( $title, $action, $map = null ) {
 	$output .= '<li><input type="text" name="city" maxlength="100" value="' . esc_attr( stripslashes( $map['city'] ) ) . '" id="acts-location-city"/></li>';
 	$output .= '<li>' . esc_html__( 'Country', 'activities' ) . '</li>';
 	$output .= '<li>';
-	$output .= acts_build_select( Activities_Utility::get_countries(), array(
-		'name' => 'country',
-		'id' => 'acts-location-country',
-		'selected' => array( $map['country'] )
-	));
+	$output .= acts_build_select(
+		Activities_Utility::get_countries(),
+		array(
+			'name' => 'country',
+			'id' => 'acts-location-country',
+			'selected' => array( $map['country'] )
+		)
+	);
 	$output .= '</li>';
 	$output .= '</ul></li>';
 	$output .= '<li id="acts-activity-right-column"><ul>';

@@ -26,8 +26,6 @@ if ( !defined( 'WPINC' ) ) {
 function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' ) {
 	global $wpdb;
 
-	$all_selectize = array();
-
 	$current_url = ( isset($_SERVER['HTTPS'] ) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	$current_url = remove_query_arg( 'action', $current_url );
 	$current_url = remove_query_arg( 'item_id', $current_url );
@@ -54,41 +52,27 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
 
 		case 'change_location':
 			$output .= '<p><b>' . esc_html__( 'Location', 'activities' ) . '</b></p>';
-			$output .= '<input type="text" name="location" id="acts-location" value="' . esc_attr( $value ) . '" />';
-
-			$location_table = Activities::get_table_name( 'location' );
-			$locations = $wpdb->get_results(
-				"SELECT location_id, name
-				FROM $location_table
-				",
-				ARRAY_A
-			);
-
-			$all_selectize[] = array(
-				'name' => 'acts-location',
-				'value' => 'location_id',
-				'label' => 'name',
-				'search' => array( 'name' ),
-				'option_values' => $locations,
-				'max_items' => '1'
-			);
+      $output .= acts_build_select_items(
+        'location',
+        array(
+          'name' => 'location',
+          'id' => 'acts_bulk_selectize',
+          'selected' => array( $value )
+        )
+      );
 
 			break;
 
 		case 'change_responsible':
 			$output .= '<p><b>' . esc_html__( 'Responsible', 'activities' ) . '</b></p>';
-			$output .= '<input type="text" name="responsible" id="acts-responsible" value="' . esc_attr( $value ) . '" />';
-
-			$users = Activities_Admin_Utility::get_users( 'responsible' );
-
-			$all_selectize[] = array(
-				'name' => 'acts-responsible',
-				'value' => 'ID',
-				'label' => 'display_name',
-				'search' => array( 'display_name' ),
-				'option_values' => $users,
-				'max_items' => '1'
-			);
+      $output .= acts_build_select_items(
+        'responsible',
+        array(
+          'name' => 'responsible',
+          'id' => 'acts_bulk_selectize',
+          'selected' => array( $value )
+        )
+      );
 
 			break;
 
@@ -101,19 +85,15 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
 			$output .= '<option value="remove">' . esc_html__( 'Remove', 'activities' ) . '</option>';
 			$output .= '</select>';
 			$output .= '<p><b>' . esc_html__( 'Participants', 'activities' ) . '</b></p>';
-			$output .= '<input type="text" name="members" id="acts-members" value="' . esc_attr( $value ) . '" />';
-
-			$users = Activities_Admin_Utility::get_users( 'member' );
-
-			$all_selectize[] = array(
-				'name' => 'acts-members',
-				'value' => 'ID',
-				'label' => 'display_name',
-				'search' => array( 'display_name' ),
-				'option_values' => $users,
-				'max_items' => 'null',
-				'extra' => array( 'plugins: ["remove_button"]' )
-			);
+      $output .= acts_build_select_items(
+        'members',
+        array(
+          'name' => 'members[]',
+          'id' => 'acts_bulk_selectize',
+          'selected' => ( $value === '' ) ? array() : $value ,
+          'multiple' => true
+        )
+      );
 
 			break;
 
@@ -146,8 +126,6 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
 	$output .= wp_nonce_field( 'activities_bulk_action', ACTIVITIES_BULK_NONCE );
 	$output .= '</form>';
 	$output .= '</div>';
-
-	$output .= activities_build_all_selectize( $all_selectize );
 
 	return $output;
 }
@@ -189,8 +167,9 @@ function acts_confirm_item_delete_page( $display, $item_id, $name, $current_url 
  *    - string id => Select id
  *    - array class => Select classes
  *    - array selected => Values selected
- *    - string multiple => 'multiple' for multiple select
- *		- no_blank => true to remove the blank choice (forces a selection)
+ *    - bool multiple => true for multiple select
+ *		- bool no_blank => true to remove the blank choice (forces a selection)
+ *    - bool disabled => true to disable
  *
  * @return string Select html
  */
@@ -204,12 +183,19 @@ function acts_build_select( $data, $settings ) {
 			'id' => '',
 			'class' => array(),
 			'selected' => array(),
-			'multiple' => '',
-			'no_blank' => false
+			'multiple' => false,
+			'no_blank' => false,
+      'disabled' => false
 		),
 		$settings
 	);
-	$output = '<select name="' . esc_attr( $settings['name'] ) .  '" id="' . esc_attr( $settings['id'] ) . '" class="' . esc_attr( implode( ' ', $settings['class'] ) ) . '" ' . $settings['multiple'] . '>';
+  $multiple = $settings['multiple'] ? 'multiple' : '';
+  $disabled = $settings['disabled'] ? 'disabled' : '';
+	$output = '<select name="' . esc_attr( $settings['name'] ) .
+            '" id="' . esc_attr( $settings['id'] ) .
+            '" class="' . esc_attr( implode( ' ', $settings['class'] ) ) .
+            '" ' . $multiple . '
+               ' . $disabled . '>';
 	if ( !$settings['no_blank'] ) {
 		$output .= '<option default value=""></option>';
 	}
@@ -223,6 +209,46 @@ function acts_build_select( $data, $settings ) {
 	$output .= '</select>';
 
 	return $output;
+}
+
+/**
+ * Loads items and builds a select dropdown
+ *
+ * @param   string  $type Type of item
+ * @param   array   $settings Setting for the select input
+ *      - string name => The select name
+ *      - string id => Select id
+ *      - array class => Select classes
+ *      - array selected => Values selected
+ *      - string multiple => 'multiple' for multiple select
+ *		  - no_blank => true to remove the blank choice (forces a selection)
+ *
+ * @param   bool    $responsible_filter Filter activities by current user id, if they cant view activities the list will be empty
+ * @return  string  Select html
+ */
+function acts_build_select_items( $type, $settings, $responsible_filter = false ) {
+  global $wpdb;
+
+  $data = array();
+  switch ($type) {
+    case 'activity':
+    case 'location':
+    case 'activity_archive':
+    case 'all_activities':
+      $data = acts_get_items_map( $type, 'name', $responsible_filter );
+      break;
+
+    case 'responsible':
+    case 'members':
+    case 'member':
+      if ( !array_key_exists( 'selected', $settings ) ) {
+        $settings['selected'] = array();
+      }
+      $data = Activities_Admin_Utility::get_users( $type, $settings['selected'] );
+      break;
+  }
+
+  return acts_build_select( $data, $settings );
 }
 
 /**

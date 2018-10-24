@@ -2,19 +2,53 @@
 	'use strict';
 
 	$(document).ready( function() {
-		//Activity member count change
-		if ($('#acts-activity-member-list').length) {
-			if ($('#acts-activity-member-list').val() == '') {
-				$('#member_count').text('0');
-			}
-			else {
-				$('#member_count').text($('#acts-activity-member-list').val().split(',').length);
-			}
-		}
-
 		//Location Country selectize
 		if ($('#acts-location-country').length) {
 			$('#acts-location-country').selectize({});
+		}
+
+		//Activity nice quick change selectize
+		if ($('#acts_nice_quick_change').length) {
+			$('#acts_nice_quick_change').selectize({});
+		}
+
+		//Activity responsible options
+		if ($('#acts-activity-responsible').length) {
+			$('#acts-activity-responsible').selectize({});
+		}
+
+		//Activity location options
+		if ($('#acts-activity-location').length) {
+			$('#acts-activity-location').selectize({});
+		}
+
+		//Activity member options
+		if ($('#acts-activity-member-list').length) {
+			set_member_count();
+
+			function set_member_count() {
+				if ( $('#acts-activity-member-list').val() != null ) {
+					$('#member_count').html($('#acts-activity-member-list').val().length);
+				}
+				else {
+					$('#member_count').html('0');
+				}
+			}
+
+			$('#acts-activity-member-list').selectize({
+				plugins: ['remove_button'],
+				onChange: function() { set_member_count() }
+			});
+		}
+
+		//Activity export select activity
+		if ($('#acts_select_activity_export').length) {
+			$('#acts_select_activity_export').selectize({});
+		}
+
+		//Activity bulk selectize
+		if ($('#acts_bulk_selectize').length) {
+			$('#acts_bulk_selectize').selectize({});
 		}
 
 		//Activity nice logo control
@@ -433,6 +467,7 @@
 				$('#acts-nice-wrap').css('padding-left', '7mm');
 			});
 		}
+
 		//Show/hide columns in list tables
 		if ($('#acts_name').length) {
 			var columns = ['short_desc', 'long_desc', 'start', 'end', 'responsible', 'location', 'address', 'description', 'city', 'postcode', 'country'];

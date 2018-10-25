@@ -84,7 +84,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
       $type,
       array(
         'id' => 'acts_nice_quick_change',
-        'selected' => array( $activity['activity_id']  ),
+        'selected' => $activity['activity_id'],
         'no_blank' => true
       ),
       Activities_Responsible::current_user_restricted_view()

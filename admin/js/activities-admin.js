@@ -48,7 +48,9 @@
 
 		//Activity bulk selectize
 		if ($('#acts_bulk_selectize').length) {
-			$('#acts_bulk_selectize').selectize({});
+			$('#acts_bulk_selectize').selectize({
+				plugins: ['remove_button']
+			});
 		}
 
 		//Activity nice logo control

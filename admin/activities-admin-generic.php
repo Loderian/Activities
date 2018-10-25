@@ -57,7 +57,7 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
         array(
           'name' => 'location',
           'id' => 'acts_bulk_selectize',
-          'selected' => array( $value )
+          'selected' => $value
         )
       );
 
@@ -70,7 +70,7 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
         array(
           'name' => 'responsible',
           'id' => 'acts_bulk_selectize',
-          'selected' => array( $value )
+          'selected' => $value
         )
       );
 
@@ -90,7 +90,7 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
         array(
           'name' => 'members[]',
           'id' => 'acts_bulk_selectize',
-          'selected' => ( $value === '' ) ? array() : $value ,
+          'selected' => $value,
           'multiple' => true
         )
       );
@@ -201,7 +201,7 @@ function acts_build_select( $data, $settings ) {
 	}
 	foreach ($data as $key => $name) {
 		$selected = '';
-		if ( in_array( trim( $key ), $settings['selected'] ) ) {
+		if ( ( is_array( $settings['selected'] ) && in_array( $key, $settings['selected'] ) ) || $key == $settings['selected'] ) {
 			$selected = 'selected';
 		}
 		$output .= '<option value="' . esc_attr( $key ) . '" ' . $selected . '>' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</option>';
@@ -249,40 +249,4 @@ function acts_build_select_items( $type, $settings, $responsible_filter = false 
   }
 
   return acts_build_select( $data, $settings );
-}
-
-/**
- * Builds scripts for selectize inputs
- *
- * @param 	array 	$all_selectize All selectize inputs to build
- * @return 	string 	Scrips for seletize input
- */
-function activities_build_all_selectize( $all_selectize ) {
-  $output = '<script>';
-
-	foreach ($all_selectize as $selectize) {
-		$output .= 'jQuery("#' . $selectize['name']. '").selectize({';
-		$output .=  'persist: false,';
-		$output .=  'maxItems: ' . $selectize['max_items'] . ',';
-		//$output .=  'closeAfterSelect: true,';
-		$output .=  'valueField: "' . $selectize['value'] . '",';
-		$output .=  'labelField: "' . $selectize['label'] . '",';
-		$output .=  'searchField: ["' . implode( ',', $selectize['search'] ) . '"],';
-		$output .=  'options: [';
-		$options = array();
-		foreach ($selectize['option_values'] as $opt) {
-			$options[] = '{' . $selectize['value'] . ': "' . wp_filter_nohtml_kses( $opt[$selectize['value']] ) . '", ' . $selectize['label'] . ': "' . wp_filter_nohtml_kses( $opt[$selectize['label']] ) . '"}';
-		}
-		$output .= implode( ',', $options);
-		$output .=  '],';
-		$output .= 	'create: false';
-		if ( isset( $selectize['extra'] ) && !empty( $selectize['extra'] ) ) {
-			$output .= ',' . implode( ',', $selectize['extra']);
-		}
-		$output .='});';
-	}
-
-  $output .='</script>';
-
-  return $output;
 }

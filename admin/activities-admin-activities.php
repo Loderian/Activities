@@ -159,7 +159,7 @@ function activities_admin_activities_page() {
         case 'change_members':
           $method = sanitize_text_field( $_POST['method'] );
           $members = array();
-          if ( is_array( $_POST['members'] ) ) {
+          if ( isset( $_POST['members'] ) && is_array( $_POST['members'] ) ) {
             foreach ($_POST['members'] as $id) {
               if ( acts_validate_id( $id ) ) {
                 $members[] = $id;

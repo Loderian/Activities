@@ -221,15 +221,15 @@ class Activities_Admin {
 		if ( !current_user_can( 'edit_user', $user_id ) || !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
 			return false;
 		}
+    $acts = array();
 		if ( isset( $_POST['activities_selected'] ) && is_array( $_POST['activities_selected'] ) ) {
-      $acts = array();
       foreach ($_POST['activities_selected'] as $key => $id) {
         if ( acts_validate_id( $id ) ) {
           $acts[] = $id;
         }
       }
-			Activities_User_Activity::insert_delete( $acts, $user_id, 'user_id' );
 		}
+    Activities_User_Activity::insert_delete( $acts, $user_id, 'user_id' );
 	}
 
 	/**
@@ -728,6 +728,18 @@ class Activities_Admin {
 						if ( $obj->archive || ( $obj->end != '0000-00-00 00:00:00' && date( 'U' ) > strtotime( $obj->end ) ) ) {
 							return '<i>' . esc_html__( 'You can no longer join this activity.', 'activities' )  . '</i>';
 						}
+            $roles = wp_get_current_user()->roles;
+            $member_list = Activities_Options::get_option( ACTIVITIES_CAN_BE_MEMBER_KEY );
+            $can_join = false;
+            foreach ($roles as $role) {
+              if ( in_array( $role, $member_list ) ) {
+                $can_join = true;
+                break;
+              }
+            }
+            if ( !$can_join ) {
+              return '<i>' . esc_html__( 'You are not allowed to join this activity.', 'activities' )  . '</i>';
+            }
 						$button_filter = apply_filters(
 							'activities_join_button',
 							array(

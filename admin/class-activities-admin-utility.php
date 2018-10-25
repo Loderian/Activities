@@ -109,7 +109,7 @@ class Activities_Admin_Utility {
     $loc_id = acts_validate_id( $_POST['location'] );
     $res_id = acts_validate_id( $_POST['responsible'] );
     $members = array();
-    if ( is_array( $_POST['member_list'] ) ) {
+    if ( isset( $_POST['member_list'] ) && is_array( $_POST['member_list'] ) ) {
       foreach ($_POST['member_list'] as $id) {
         if ( acts_validate_id( $id ) ) {
           $members[] = $id;

@@ -75,7 +75,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
     array(
       'name' => 'responsible',
       'id' => 'acts-activity-responsible',
-      'selected' => array( $map['responsible_id'] ),
+      'selected' => $map['responsible_id'],
       'disabled' => Activities_Responsible::current_user_restricted_edit() || ( $disabled !== '' )
     )
   );
@@ -91,7 +91,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
     array(
       'name' => 'location',
       'id' => 'acts-activity-location',
-      'selected' => array( $map['location_id'] ),
+      'selected' => $map['location_id'],
       'disabled' => $disabled !== ''
     )
   );

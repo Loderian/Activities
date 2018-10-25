@@ -1,6 +1,6 @@
 # Installation
 This is the development repository for Activities, it may be unstable or not work at all.
-If you want use the plugin, I recommend downloading it from the [plugin page](https://wordpress.org/plugins/activities/)
+If you want use the plugin, I recommend downloading it from the [plugin page](https://wordpress.org/plugins/activities/).
 
 ## Short description of Activities
 Activities is a free, light-weight plugin for managing activities.

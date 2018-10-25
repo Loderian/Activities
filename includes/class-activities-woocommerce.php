@@ -56,46 +56,35 @@ class Activities_WooCommerce {
 
   /**
    * Callback for adding tab content
-   *
-   * //TODO use new selectize functions
    */
   static function product_tab_panel() {
     global $wpdb, $thepostid;
 
   	echo '<div id="activities_woocommerce_tab" class="panel woocommerce_options_panel">';
-    woocommerce_wp_text_input(
+    woocommerce_wp_select(
       array(
-        'id' => self::selected_acts_key,
-        'value' => implode( ',', get_post_meta( $thepostid, (self::selected_acts_key) ) ),
+        'name' => self::selected_acts_key . '[]',
+        'id' => 'acts_select_activities',
+        'options' => acts_get_items_map( 'activity' ),
+        'value' => get_post_meta( $thepostid, self::selected_acts_key ),
         'label' => esc_html__( 'Select Activities', 'activities' ),
         'class' => 'long',
         'placeholder' => esc_html__( 'Select Activities', 'activities' ),
         'desc_tip' => false,
-        'description' => esc_html__( 'Users who orders this product will be added to the selected activities.', 'activities' )
+        'description' => esc_html__( 'Users who orders this product will be added to the selected activities.', 'activities' ),
+        'custom_attributes' => array( 'multiple' => 'multiple' )
       )
     );
 
-    $activity_table = Activities::get_table_name( 'activity' );
-    $activities = $wpdb->get_results(
-      "SELECT activity_id, name
-      FROM $activity_table
-      WHERE archive = 0
-      ",
-      ARRAY_A
-    );
-
-    $all_selectize = array();
-    $all_selectize[] = array(
-      'name' => self::selected_acts_key,
-      'value' => 'activity_id',
-      'label' => 'name',
-      'search' => array( 'name' ),
-      'option_values' => $activities,
-      'max_items' => 'null',
-      'extra' => array( 'plugins: ["remove_button"]', 'closeAfterSelect: true' )
-    );
-
-    echo activities_build_all_selectize( $all_selectize );
+    echo '
+    <script>
+      if (jQuery("#acts_select_activities").length) {
+        jQuery("#acts_select_activities").selectize({
+          closeAfterSelect: true,
+          plugins: ["remove_button"]
+        });
+      }
+    </script>';
   	echo '</div>';
   }
 
@@ -113,14 +102,14 @@ class Activities_WooCommerce {
       return;
     }
 
+    $existing = get_post_meta( $post_id, self::selected_acts_key );
     if ( isset( $_POST[self::selected_acts_key] ) ) {
-      $existing = get_post_meta( $post_id, self::selected_acts_key );
       if ( !is_array( $existing ) ) {
         $existing = array( $existing );
       }
 
-      if ( $_POST[self::selected_acts_key] !== '' ) {
-        foreach (explode( ',', sanitize_text_field( $_POST[self::selected_acts_key] ) ) as $a_id) {
+      if ( is_array( $_POST[self::selected_acts_key] ) ) {
+        foreach ($_POST[self::selected_acts_key] as $a_id) {
           $a_id = acts_validate_id( $a_id );
           if ( $a_id ) {
             $key = array_search( $a_id, $existing );
@@ -133,11 +122,13 @@ class Activities_WooCommerce {
           }
         }
       }
+    }
 
-      foreach ($existing as $a_id) {
-        delete_post_meta( $post_id, self::selected_acts_key, $a_id );
-      }
+    foreach ($existing as $a_id) {
+      delete_post_meta( $post_id, self::selected_acts_key, $a_id );
+    }
 
+    if ( !empty( get_post_meta( $post_id, self::selected_acts_key ) ) ) {
       foreach (self::get_orders_by_product_ids( array( $post_id ) ) as $order_id) {
         self::order_complete( $order_id );
       }

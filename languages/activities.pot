@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Activities\n"
-"POT-Creation-Date: 2018-10-24 19:07+0200\n"
+"POT-Creation-Date: 2018-10-25 17:16+0200\n"
 "PO-Revision-Date: 2018-09-05 18:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -267,8 +267,8 @@ msgstr ""
 #: admin/activities-admin-activity-nice.php:197
 #: admin/activities-admin-import.php:249 admin/activities-admin-import.php:305
 #: admin/activities-admin-import.php:420 admin/activities-admin-import.php:543
-#: includes/class-activities-woocommerce.php:308
-#: includes/class-activities-woocommerce.php:465
+#: includes/class-activities-woocommerce.php:299
+#: includes/class-activities-woocommerce.php:456
 msgid "Return"
 msgstr ""
 
@@ -1154,11 +1154,15 @@ msgstr ""
 msgid "You can no longer join this activity."
 msgstr ""
 
-#: admin/class-activities-admin.php:740 public/class-activities-public.php:77
+#: admin/class-activities-admin.php:741
+msgid "You are not allowed to join this activity."
+msgstr ""
+
+#: admin/class-activities-admin.php:752 public/class-activities-public.php:77
 msgid "Join"
 msgstr ""
 
-#: admin/class-activities-admin.php:742 public/class-activities-public.php:73
+#: admin/class-activities-admin.php:754 public/class-activities-public.php:73
 msgid "Unjoin"
 msgstr ""
 
@@ -2234,54 +2238,54 @@ msgstr ""
 msgid "Users who orders this product will be added to the selected activities."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:270
+#: includes/class-activities-woocommerce.php:261
 msgid "Converting guest customers"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:280
+#: includes/class-activities-woocommerce.php:271
 msgid "Order"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:284
+#: includes/class-activities-woocommerce.php:275
 msgid "Guest already converted or user orders already updated."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:291
+#: includes/class-activities-woocommerce.php:282
 #, php-format
 msgid "Created User: %s"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:295
+#: includes/class-activities-woocommerce.php:286
 #, php-format
 msgid "Updated Orders For: %s"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:299
+#: includes/class-activities-woocommerce.php:290
 msgid "Could not create user (no email found)"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:307
+#: includes/class-activities-woocommerce.php:298
 #, php-format
 msgid "Created %s users."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:415
+#: includes/class-activities-woocommerce.php:406
 msgid "You are not allowed to delete users!"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:419
+#: includes/class-activities-woocommerce.php:410
 msgid "Deleting guest users"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:453
+#: includes/class-activities-woocommerce.php:444
 msgid "Deleted user"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:456
+#: includes/class-activities-woocommerce.php:447
 msgid "An error occured deleting"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:464
+#: includes/class-activities-woocommerce.php:455
 #, php-format
 msgid "Deleted %d users."
 msgstr ""

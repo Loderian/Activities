@@ -224,8 +224,9 @@ class Activities_User_Activity {
   /**
    * Gets all activities related to a user
    *
-   * @param int     $user_id User to find activities for
-   * @param string  $archive Set to 'archive' for archived activities, defaults to active activities
+   * @param   int     $user_id User to find activities for
+   * @param   string  $archive Set to 'archive' for archived activities, defaults to active activities
+   * @return  array   List of activity ids
    */
   static function get_user_activities( $user_id, $archive = '' ) {
     global $wpdb;
@@ -246,6 +247,29 @@ class Activities_User_Activity {
     );
 
     return $activities;
+  }
+
+  /**
+   * Gets all user related to an activity
+   *
+   * @param   int     $act_id Activity to find user for
+   * @return  array   List of user ids
+   */
+  static function get_activity_users( $act_id ) {
+    global $wpdb;
+
+    $user_activity_table = Activities::get_table_name( 'user_activity' );
+
+    $users = $wpdb->get_col( $wpdb->prepare(
+        "SELECT user_id
+        FROM $user_activity_table
+        WHERE activity_id = %d
+        ",
+        $act_id
+      )
+    );
+
+    return $users;
   }
 }
 Activities_User_Activity::init();

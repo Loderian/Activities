@@ -56,7 +56,7 @@ class Activities {
 			$this->version = ACTIVITIES_VERSION;
 		}
 		else {
-			$this->version = '1.0.2';
+			$this->version = '1.0.3';
 		}
 		$this->plugin_name = 'activities';
 
@@ -167,7 +167,8 @@ class Activities {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_scripts' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'init_woocommerce' );
 
-		$this->loader->add_action( 'wp_ajax_acts_get_member_info', $plugin_admin, 'ajax_acts_get_member_info' );
+		$this->loader->add_action( 'wp_ajax_acts_get_member_info', $plugin_admin, 'ajax_get_member_info' );
+    $this->loader->add_action( 'wp_ajax_acts_get_user_info', $plugin_admin, 'ajax_get_user_info' );
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'activities_admin_menu' );
 

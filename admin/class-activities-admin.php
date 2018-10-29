@@ -59,6 +59,8 @@ class Activities_Admin {
 	 */
 	public function register_styles() {
 		wp_register_style( $this->plugin_name . '-admin-css', plugin_dir_url( __FILE__ ) . 'css/activities-admin.css', array(), $this->version, 'all' );
+
+    //Enqueue such that selectize works on WooCommerce pages
 		wp_enqueue_style( $this->plugin_name . '-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize/selectize.css', array(), $this->version, 'all' );
 	}
 
@@ -78,10 +80,14 @@ class Activities_Admin {
 	 * @since    1.0.0
 	 */
 	public function register_scripts() {
-		wp_register_script( $this->plugin_name . '-admin-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
-		wp_localize_script( $this->plugin_name . '-admin-js', 'acts_i18n', array(
+		wp_register_script( $this->plugin_name . '-admin-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin.js', array( 'jquery' ), $this->version, false );
+
+    wp_register_script( $this->plugin_name . '-admin-nice-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-nice.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
+		wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n', array(
 			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' )
 		) );
+
+    //Enqueue such that selectize works on WooCommerce pages
 		wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize/selectize.js', array( 'jquery' ), $this->version, false );
 	}
 
@@ -92,6 +98,7 @@ class Activities_Admin {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->plugin_name . '-admin-js' );
+    wp_enqueue_script( $this->plugin_name . '-admin-nice-js' );
 		wp_enqueue_script( 'imagesloaded' );
 		wp_enqueue_script( 'wp-color-picker' );
 	}
@@ -312,13 +319,13 @@ class Activities_Admin {
 	}
 
 	/**
-		* Echoes member info mapped to 'col1' and 'col2'
+		* Returns member info mapped to 'col1' and 'col2'
 		* Expects these data in post:
 		* 	- item_id: id of selected activity
 		* 	- custom: custom fields to get for member data
 		* 	- type: what type of information to display
 		*/
-	public function ajax_acts_get_member_info() {
+	public function ajax_get_member_info() {
 		if ( !isset( $_POST['item_id'] ) || !isset( $_POST['custom'] ) || !isset( $_POST['type'] ) ) {
 			wp_send_json_error();
 		}
@@ -350,6 +357,25 @@ class Activities_Admin {
 
 		wp_send_json_success( $info );
 	}
+
+  /**
+   * Get singe user info
+   */
+  public function ajax_get_user_info() {
+    if ( !isset( $_POST['uid'] ) ) {
+      wp_send_json_error();
+    }
+
+    $id = acts_validate_id( $_POST['uid'] );
+
+    if ( $id ) {
+      $data = acts_get_user_nice_info( $id );
+      if ( $data ) {
+        wp_send_json_success( $data );
+      }
+    }
+    wp_send_json_error();
+  }
 
 	/**
 	 * Gets the name of the page

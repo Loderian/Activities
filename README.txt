@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL
 Tags: activities, events, courses, classes, reports
 Requires at least: 4.6
 Tested up to: 4.9.8
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 Requires PHP: 7.0.32
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
@@ -168,7 +168,7 @@ List of data options
 
 == Changelog ==
 
-= 1.0.2
+= 1.0.2 =
 
 * Select fields should now be useable if selectize does not load
 * Shorcode join button now filters users that has no roles that are allowed to be participants

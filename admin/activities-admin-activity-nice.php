@@ -29,7 +29,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 
 	if ( isset( $_POST['save_nice_settings'] ) && $current_url != null ) {
     $settings = Activities_Admin_Utility::get_activity_nice_settings();
-    if ( isset( $settings['activity_id'] ) ) {
+    if ( isset( $settings['activity_id'] ) && $settings['activity_id'] ) {
   		Activities_Activity::save_nice_settings( $settings );
   		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings updated for %s.', 'activities' ), $activity['name'] ) );
     }
@@ -60,6 +60,12 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	}
 
   $output = '';
+
+  add_thickbox();
+
+  $output .= '<div id="acts-quick-user-edit" style="display: none">';
+  $output .= '<p id="quick-name"></p>';
+  $output .= '</div>';
 
 	if ( $current_url != null ) {
     $output .= '<h1 id="activities-title">' . esc_html__( 'Activity Report Management', 'activities' ) . '</h1>';
@@ -152,7 +158,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	$output .= '</thead>';
 	$output .= '<tbody>';
   foreach (acts_get_nice_setups( $nice_settings['member_info'] ) as $setup => $display) {
-    $output .= '<tr><td>' . $display . '&#8193;</td><td><input type="radio" id="use_wp_info" name="member_info" value="' . $setup . '" ' . ($nice_settings['member_info'] === $setup ? 'checked' : '') . ' /></td></tr>';
+    $output .= '<tr><td>' . $display . '&#8193;</td><td><input type="radio" name="member_info" value="' . $setup . '" ' . ($nice_settings['member_info'] === $setup ? 'checked' : '') . ' /></td></tr>';
   }
 	$output .= '</tbody>';
 	$output .= '</table>';
@@ -496,7 +502,7 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = 'none', $sort 
   foreach ($sort_members as $id => $name) {
     $user = get_user_by( 'ID', $id );
 
-    $col1 = '<li class="acts-nice-member-name"><a href="' . get_edit_user_link( $id ) . '" target="_blank" ><b>' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</b></a></li>';
+    $col1 = '<li class="acts-nice-member-name"><a href="" class="acts-user-quick-edit" uid="' . $id . '"><b>' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</b></a></li>';
     $col2 = '<li class="acts-nice-member-name">' . stripslashes( wp_filter_nohtml_kses( $user->get( 'user_email' ) ) ) . '</li>';
 
     switch ($type) {
@@ -609,4 +615,82 @@ function acts_get_nice_setups( $selected = 'wp' ) {
   }
 
   return $return;
+}
+
+/**
+ * Get user nice info
+ *
+ * @param   int          $id User id
+ * @return  string|bool  HTML or false on error
+ */
+function acts_get_user_nice_info( $id, $custom_fields = array() ) {
+  $user = get_user_by( 'ID', $id );
+
+  if ( $user ) {
+    $user_info = array(
+      'wp' => array(
+        'name' => Activities_Utility::get_user_name( $id, false ),
+        'email' => $user->get( 'user_email' )
+      )
+    );
+
+    $user_info['wc_bill'] = array();
+    foreach (acts_get_woocommerce_nice_keys( 'bill' ) as $key) {
+      $info = $user->$key;
+      if ( $info != '' ) {
+        $user_info['wc_bill'][$key] = $info;
+      }
+    }
+    $user_info['wc_ship'] = array();
+    foreach (acts_get_woocommerce_nice_keys( 'ship' ) as $key) {
+      $info = $user->$key;
+      if ( $info != '' ) {
+        $user_info['wc_ship'][$key] = $info;
+      }
+    }
+
+    if ( !empty( $custom_fields ) ) {
+      $user_info['custom'] = array();
+      foreach ($custom_fields as $custom) {
+        foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
+          $c = sanitize_key( $c );
+          if ( activities_nice_filter_custom_field( $c ) ) {
+            continue;
+          }
+          $user_info['custom'][$c] = $user->$c;
+        }
+      }
+    }
+
+    return $user_info;
+  }
+  else {
+    return false;
+  }
+}
+
+/**
+ * Get activity nice WooCommerce meta keys
+ *
+ * @param   string  $type 'bill' or 'ship'
+ * @return  array   List of WooCommerce meta keys
+ */
+function acts_get_woocommerce_nice_keys( $type ) {
+  switch ($type) {
+    case 'bill':
+      $prefix = 'billing_';
+      break;
+
+    case 'ship':
+      $prefix = 'shipping_';
+      break;
+  }
+
+  return array(
+    $prefix . 'address_1',
+    $prefix . 'address_2',
+    $prefix . 'city',
+    $prefix . 'postcode',
+    $prefix . 'phone'
+  );
 }

@@ -22,7 +22,7 @@ class Activities_Utility {
    * @return  string        User name to display
    */
   static function get_user_name( $user, $email = true ) {
-    if ( is_numeric( $user) ) {
+    if ( is_numeric( $user ) ) {
       $user = new WP_User( $user );
     }
     $name = '';

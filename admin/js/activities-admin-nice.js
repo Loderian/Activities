@@ -271,12 +271,8 @@
         $('.acts-user-quick-edit').click( function( event ) {
           event.preventDefault();
 
-          $.post( ajaxurl, { action: 'acts_get_user_info', uid: $(this).attr('uid') }, function(response) {
-              if (response.success) {
-                $('#quick-name').html(response.data.wp.name);
-                tb_show('User Quick Edit', "#TB_inline?height=600&amp;width=500&amp;inlineId=acts-quick-user-edit");
-              }
-            }, 'json' );
+          $('#quick-name').html(all_member_info[$(this).attr('uid')].acts_full_name);
+          tb_show('User Quick Edit', "#TB_inline?height=600&amp;width=500&amp;inlineId=acts-quick-user-edit");
         });
       }
 
@@ -298,7 +294,7 @@
           return custom_fields;
         }
         else {
-          return 'none';
+          return {};
         }
       }
 
@@ -306,25 +302,13 @@
         $('#acts-reload-members').attr('disabled', disable);
         $('input[type=radio][name=member_info]').attr('disabled', disable);
         $('#add-custom').attr('disabled', disable);
-        $('input[type=text][name="nice_custom[]"]').each( function( index, element ) {
-          $(element).attr('disabled', disable);
-        });
-        $('select[name="nice_custom_col[]"]').each( function( index, element ) {
-          $(element).attr('disabled', disable);
-        });
-        $('input[type=submit][name=delete_custom]').each( function( index, element ) {
-          $(element).attr('disabled', disable);
-        });
+        $('input[type=text][name="nice_custom[]"]').attr('disabled', disable);
+        $('select[name="nice_custom_col[]"]').attr('disabled', disable);
+        $('input[type=submit][name=delete_custom]').attr('disabled', disable);
         $('#add-color').attr('disabled', disable);
-        $('input[type=text][name="nice_color_key[]"]').each( function( index, element ) {
-          $(element).attr('disabled', disable);
-        });
-        $('input[type=text][name="nice_color[]"]').each( function( index, element ) {
-          $(element).attr('disabled', disable);
-        });
-        $('input[type=submit][name=delete_color]').each( function( index, element ) {
-          $(element).attr('disabled', disable);
-        });
+        $('input[type=text][name="nice_color_key[]"]').attr('disabled', disable);
+        $('input[type=text][name="nice_color[]"]').attr('disabled', disable);
+        $('input[type=submit][name=delete_color]').attr('disabled', disable);
         $('.acts-nice-loader').toggle(disable);
       }
 
@@ -336,21 +320,21 @@
           type: 'POST',
           data: {
             action: 'acts_get_member_info',
-            type: info_type,
             item_id: id,
             custom: load_custom_fields()
           },
           dataType: 'json',
           success: function(member_info) {
             if (!member_info.success) {
+              console.log('Could not load user info');
               return;
             }
-            all_member_info[info_type] = member_info.data;
+            all_member_info = member_info.data;
             if ( write ) {
               write_member_info();
             }
             if ($('#acts-nice-color').length) {
-              reload_color();
+              //reload_color();
             }
           },
           error: function(jqXHR, text, error) {

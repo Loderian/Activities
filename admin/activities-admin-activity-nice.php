@@ -443,67 +443,22 @@ function acts_get_member_names( $user_ids ) {
  * @param   array   $custom_fields List of custom fields to display for users, 'none' if there are no custom fields
  * @return  array   A list of user info to display in coloumn 1 ('col1') and column 2 ('col2')
  */
-function acts_get_member_info( $user_ids, $type, $custom_fields = 'none', $sort = false ) {
+function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort = false ) {
   $member_info = array();
   $sort_members = acts_get_member_names( $user_ids );
-  if ( empty( $sort_members ) ) {
-    foreach ($user_ids as $id) {
-      $col1 = '<li class="acts-nice-member-name"><b>first_name last_name</b></li>';
-      $col2 = '<li class="acts-nice-member-name">' . 'user_email' . '</li>';
 
-      switch ($type) {
-        case 'wp':
-          break;
-
-        case 'bill':
-        case 'ship':
-          $prefix = $type == 'bill' ? 'billing' : 'shipping';
-          $col1 .= '<li>' . $prefix . '_address_1</li>';
-          $col1 .= '<li>' . $prefix . '_address_2</li>';
-          $col1 .= '<li>' . $prefix . '_postcode ' . $prefix . '_city</li>';
-          $col2 .= '<li>billing_phone</li>';
-          break;
-      }
-
-      if ( $custom_fields !== 'none' ) {
-        foreach ($custom_fields as $custom) {
-          $str = '<li>';
-          foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
-            $c = sanitize_key( $c );
-            if ( activities_nice_filter_custom_field( $c ) ) {
-              continue;
-            }
-            $str .= '<span class="acts-nice-custom-' . esc_attr( $c ) . '">' . stripslashes( wp_filter_nohtml_kses ( $c ) ) . ' ' . '</span>';
-          }
-          $str .= '</li>';
-
-          $col = acts_validate_id( $custom['col'] );
-          if ( $col === 1 ) {
-            $col1 .= $str;
-          }
-          else if ( $col === 2 ) {
-            $col2 .= $str;
-          }
-        }
-      }
-
-      $member_info[$id]['col1'] = $col1;
-      $member_info[$id]['col2'] = $col2;
-    }
-    return $member_info;
-  }
-
-  if ( $sort ) {
+  if ( $sort && !empty( $sort_members ) ) {
     if ( !asort( $sort_members, SORT_STRING ) ) {
       $sort_members = acts_get_member_names( $user_ids );
     }
   }
 
   foreach ($sort_members as $id => $name) {
-    $user = get_user_by( 'ID', $id );
+    $user_info = acts_get_user_nice_info( $id, $custom_fields );
 
-    $col1 = '<li class="acts-nice-member-name"><a href="" class="acts-user-quick-edit" uid="' . $id . '"><b>' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</b></a></li>';
-    $col2 = '<li class="acts-nice-member-name">' . stripslashes( wp_filter_nohtml_kses( $user->get( 'user_email' ) ) ) . '</li>';
+    $col1 = '<li class="acts-nice-member-name"><a href="" class="acts-user-quick-edit" uid="' . $id . '">';
+    $col1 .= '<b key="acts_full_name">' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</b></a></li>';
+    $col2 = '<li class="acts-nice-member-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</li>';
 
     switch ($type) {
       case 'wp':
@@ -512,60 +467,47 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = 'none', $sort 
       case 'bill':
       case 'ship':
         $prefix = $type == 'bill' ? 'billing' : 'shipping';
-        $address1 = $user->__get( $prefix . '_address_1' );
-        if ( $address1 != '' ) {
-          $col1 .= '<li>' . stripslashes( wp_filter_nohtml_kses( $address1 ) ) . '</li>';
-        }
-        $address2 = $user->__get( $prefix . '_address_2' );
-        if ( $address2 != '' ) {
-          $col1 .= '<li>' . stripslashes( wp_filter_nohtml_kses( $address2 ) ) . '</li>';
-        }
-        $city = $user->__get( $prefix . '_city' );
-        $postcode = $user->__get( $prefix . '_postcode' );
-        if ( $postcode || $city ) {
-          $col1 .= '<li>';
-          if ( $postcode) {
-            $col1 .= stripslashes( wp_filter_nohtml_kses( $postcode ) ) . ' ';
-          }
-          if ( $city ) {
-            $col1 .= stripslashes( wp_filter_nohtml_kses( $city ) );
-          }
-          $col1 .= '</li>';
-        }
-        $phone = $user->__get( 'billing_phone' );
-        if ( $phone != '' ) {
-          $col2 .= '<li>' . stripslashes( wp_filter_nohtml_kses( $phone ) ) . '</li>';
-        }
+
+        $address1 = $user_info[$prefix . '_address_1'];
+        $col1 .= '<li key="wc_1" class="' . acts_nice_hidden( $address1 ) . '">' . stripslashes( wp_filter_nohtml_kses( $address1 ) ) . '</li>';
+
+        $address2 = $user_info[$prefix . '_address_2'];
+        $col1 .= '<li key="wc_2" class="' . acts_nice_hidden( $address2 ) . '">' . stripslashes( wp_filter_nohtml_kses( $address2 ) ) . '</li>';
+
+        $city = $user_info[$prefix . '_city'];
+        $postcode = $user_info[$prefix . '_postcode'];
+        $col1 .= '<li key="wc_3" class="' . acts_nice_hidden( $city . $postcode ) . '">' . stripslashes( wp_filter_nohtml_kses( $city . ' ' . $postcode ) ) . '</li>';
+
+        $phone = $user_info['billing_phone'];
+        $col2 .= '<li key="wc_4" class="' . acts_nice_hidden( $phone ) . '">' . stripslashes( wp_filter_nohtml_kses( $phone ) ) . '</li>';
         break;
     }
 
-    if ( $custom_fields !== 'none' ) {
-      foreach ($custom_fields as $custom) {
-        $c_values = array();
-        foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
-          $c = sanitize_key( $c );
-          if ( activities_nice_filter_custom_field( $c ) ) {
-            continue;
-          }
-          $value = $user->__get( $c );
-          if ( $value != '' ) {
-            $c_values[] = '<span class="acts-nice-custom-' . esc_attr( $c ) . '">' . stripslashes( wp_filter_nohtml_kses( $value ) ) . '</span>';
-          }
-        }
-
-        if ( count( $c_values ) === 0 ) {
+    foreach ($custom_fields as $custom) {
+      $c_values = array();
+      foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
+        $c = sanitize_key( $c );
+        if ( activities_nice_filter_custom_field( $c ) ) {
           continue;
         }
-
-        $str = '<li>' . implode( ' ', $c_values ) . '</li>';
-
-        $col = acts_validate_id( $custom['col'] );
-        if ( $col === 1 ) {
-          $col1 .= $str;
+        $value = $user_info[$c];
+        if ( $value != '' ) {
+          $c_values[] = '<span class="acts-nice-custom-' . esc_attr( $c ) . '">' . stripslashes( wp_filter_nohtml_kses( $value ) ) . '</span>';
         }
-        else if ( $col === 2 ) {
-          $col2 .= $str;
-        }
+      }
+
+      if ( count( $c_values ) === 0 ) {
+        continue;
+      }
+
+      $str = '<li>' . implode( ' ', $c_values ) . '</li>';
+
+      $col = acts_validate_id( $custom['col'] );
+      if ( $col === 1 ) {
+        $col1 .= $str;
+      }
+      else if ( $col === 2 ) {
+        $col2 .= $str;
       }
     }
 
@@ -628,37 +570,48 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
 
   if ( $user ) {
     $user_info = array(
-      'wp' => array(
-        'name' => Activities_Utility::get_user_name( $id, false ),
-        'email' => $user->get( 'user_email' )
-      )
+      //Get first name and last name for quick edit
+      'first_name' => $user->first_name,
+      'last_name' => $user->last_name,
+      'user_email' => $user->get( 'user_email' ),
+      'acts_full_name' => Activities_Utility::get_user_name( $id, false )
+    );
+    foreach (acts_get_woocommerce_nice_keys() as $key) {
+      $user_info[$key] = $user->$key;
+    }
+
+    foreach ($custom_fields as $custom) {
+      foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
+        $c = sanitize_key( $c );
+        if ( activities_nice_filter_custom_field( $c ) || array_key_exists( $c, $user_info ) ) {
+          continue;
+        }
+
+        $user_info[$c] = $user->$c;
+      }
+    }
+
+    return $user_info;
+  }
+  elseif ( $id < 0 ) {
+    //Get sample user data
+    $user_info = array(
+      'user_email' => 'user_email',
+      'acts_full_name' => 'first_name last_name'
     );
 
-    $user_info['wc_bill'] = array();
-    foreach (acts_get_woocommerce_nice_keys( 'bill' ) as $key) {
-      $info = $user->$key;
-      if ( $info != '' ) {
-        $user_info['wc_bill'][$key] = $info;
-      }
-    }
-    $user_info['wc_ship'] = array();
-    foreach (acts_get_woocommerce_nice_keys( 'ship' ) as $key) {
-      $info = $user->$key;
-      if ( $info != '' ) {
-        $user_info['wc_ship'][$key] = $info;
-      }
+    foreach (acts_get_woocommerce_nice_keys() as $key) {
+      $user_info[$key] = $key;
     }
 
-    if ( !empty( $custom_fields ) ) {
-      $user_info['custom'] = array();
-      foreach ($custom_fields as $custom) {
-        foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
-          $c = sanitize_key( $c );
-          if ( activities_nice_filter_custom_field( $c ) ) {
-            continue;
-          }
-          $user_info['custom'][$c] = $user->$c;
+    foreach ($custom_fields as $custom) {
+      foreach (explode( ',', sanitize_text_field( $custom['name'] ) ) as $c) {
+        $c = sanitize_key( $c );
+        if ( activities_nice_filter_custom_field( $c ) || array_key_exists( $c, $user_info ) ) {
+          continue;
         }
+
+        $user_info[$c] = $c;
       }
     }
 
@@ -672,25 +625,30 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
 /**
  * Get activity nice WooCommerce meta keys
  *
- * @param   string  $type 'bill' or 'ship'
  * @return  array   List of WooCommerce meta keys
  */
-function acts_get_woocommerce_nice_keys( $type ) {
-  switch ($type) {
-    case 'bill':
-      $prefix = 'billing_';
-      break;
+function acts_get_woocommerce_nice_keys() {
+  return array(
+    'billing_address_1',
+    'billing_address_2',
+    'billing_city',
+    'billing_postcode',
+    'billing_phone',
+    'shipping_address_1',
+    'shipping_address_2',
+    'shipping_city',
+    'shipping_postcode'
+  );
+}
 
-    case 'ship':
-      $prefix = 'shipping_';
-      break;
+/**
+ * Get hidden class if string is empty
+ */
+function acts_nice_hidden( $string ) {
+  $string = trim( $string );
+  if ( $string != '' ) {
+    return 'acts-nice-hidden';
   }
 
-  return array(
-    $prefix . 'address_1',
-    $prefix . 'address_2',
-    $prefix . 'city',
-    $prefix . 'postcode',
-    $prefix . 'phone'
-  );
+  return '';
 }

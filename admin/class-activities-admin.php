@@ -326,34 +326,28 @@ class Activities_Admin {
 		* 	- type: what type of information to display
 		*/
 	public function ajax_get_member_info() {
-		if ( !isset( $_POST['item_id'] ) || !isset( $_POST['custom'] ) || !isset( $_POST['type'] ) ) {
+		if ( !isset( $_POST['item_id'] ) || !isset( $_POST['custom'] ) ) {
 			wp_send_json_error();
 		}
 
     global $wpdb;
 
-		//Custom col sanitation is done by acts_get_member_info
+		//Custom col sanitation is done by acts_get_user_info
 		$id = acts_validate_id( $_POST['item_id'] );
-		$type = sanitize_key( $_POST['type'] );
-		if ( $id === 0 || ( !is_array( $_POST['custom'] ) && $_POST['custom'] !== 'none'  ) ) {
+		if ( !is_array( $_POST['custom'] ) ) {
 			wp_send_json_error();
 		}
-		if ( $id < 0 ) {
-			$info = acts_get_member_info( array(-1, -2, -3, -4, -5), $type, $_POST['custom'] );
+    $info = array();
+		if ( $id === 0 ) {
+      $user_ids = array( -1, -2, -3, -4, -5 );
 		}
 		elseif ( $id > 0 ) {
-			$table_name = Activities::get_table_name( 'user_activity' );
-			$user_ids = $wpdb->get_col( $wpdb->prepare(
-				"SELECT user_id
-				FROM $table_name
-				WHERE activity_id = %d
-				",
-				$id
-			));
-
-			$info = acts_get_member_info( $user_ids, $type, $_POST['custom'] );
+			$user_ids = Activities_User_Activity::get_activity_users( $id );
 		}
 
+    foreach ($user_ids as $uid) {
+      $info[$uid] = acts_get_user_nice_info( $uid, $_POST['custom'] );
+    }
 
 		wp_send_json_success( $info );
 	}

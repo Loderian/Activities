@@ -236,15 +236,14 @@ class Activities_User_Activity {
     $user_activity_table = Activities::get_table_name( 'user_activity' );
 
     $activities = $wpdb->get_col( $wpdb->prepare(
-        "SELECT activity_id
-        FROM $activity_table
-        WHERE archive = %d AND activity_id IN (
-          SELECT activity_id FROM $user_activity_table WHERE user_id = %d
-        )
-        ",
-        array( $archive, $user_id )
+      "SELECT activity_id
+      FROM $activity_table
+      WHERE archive = %d AND activity_id IN (
+        SELECT activity_id FROM $user_activity_table WHERE user_id = %d
       )
-    );
+      ",
+      array( $archive, $user_id )
+    ));
 
     return $activities;
   }
@@ -261,13 +260,12 @@ class Activities_User_Activity {
     $user_activity_table = Activities::get_table_name( 'user_activity' );
 
     $users = $wpdb->get_col( $wpdb->prepare(
-        "SELECT user_id
-        FROM $user_activity_table
-        WHERE activity_id = %d
-        ",
-        $act_id
-      )
-    );
+      "SELECT user_id
+      FROM $user_activity_table
+      WHERE activity_id = %d
+      ",
+      $act_id
+    ));
 
     return $users;
   }

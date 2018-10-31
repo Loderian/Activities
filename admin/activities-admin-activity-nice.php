@@ -64,7 +64,13 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   add_thickbox();
 
   $output .= '<div id="acts-quick-user-edit" style="display: none">';
-  $output .= '<p id="quick-name"></p>';
+  $output .= '
+    <div class="acts-quick-edit-box">
+      <div class="acts-quick-edit-group">
+        <label for="acts-quick-first-name">' . esc_html__( 'First Name', 'activities' ) . '</label>
+        <input type="text" id="acts-quick-first-name" value="" />
+      </div>
+    </div>';
   $output .= '</div>';
 
 	if ( $current_url != null ) {
@@ -352,7 +358,7 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
 		foreach (acts_get_member_info( $activity['members'], $nice_settings['member_info'], $nice_settings['custom'], true ) as $id => $user) {
 			$output .= '<div class="acts-nice-members-row">';
 
-			$output .= '<div class="acts-nice-members-info"><ul id="col1-id' . esc_attr( $id ) . '"';
+			$output .= '<div class="acts-nice-members-info"><span id="col1-id' . esc_attr( $id ) . '"';
       if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
         if ( $id > 0 ) {
           $coupon_list = array();
@@ -378,22 +384,22 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
       }
       $output .= '>';
 			$output .= $user['col1'];
-      $output .= '</ul>';
+      $output .= '</span>';
 
       if ( isset( $coupon_list ) && !empty( $coupon_list ) ) {
-        $echo_list = '<ul class="acts-nice-coupons">';
+        $echo_list = '<span><ul class="acts-nice-coupons">';
         foreach ($coupon_list as $code) {
           $echo_list .= '<li>' . stripslashes( wp_filter_nohtml_kses( ucfirst( $code ) ) ) . '</li>';
         }
-        $echo_list .= '</ul>';
+        $echo_list .= '</ul></span>';
         $output .= $echo_list;
       }
 
 			$output .= '</div>';
 
-			$output .= '<div class="acts-nice-members-info"><ul id="col2-id' . esc_attr( $id )  . '">';
+			$output .= '<div class="acts-nice-members-info"><span id="col2-id' . esc_attr( $id )  . '">';
 			$output .= $user['col2'];
-			$output .= '</ul></div>';
+			$output .= '</span></div>';
 
 			$output .= '<div class="acts-nice-members-time">';
       $output .= $timeslots;
@@ -431,6 +437,9 @@ function acts_get_member_names( $user_ids ) {
       }
       $names[$id] = $name;
     }
+    else {
+      $names[$id] = 'first_name last_name';
+    }
   }
   return $names;
 }
@@ -456,9 +465,18 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
   foreach ($sort_members as $id => $name) {
     $user_info = acts_get_user_nice_info( $id, $custom_fields );
 
-    $col1 = '<li class="acts-nice-member-name"><a href="" class="acts-user-quick-edit" uid="' . $id . '">';
-    $col1 .= '<b key="acts_full_name">' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</b></a></li>';
-    $col2 = '<li class="acts-nice-member-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</li>';
+    $col1 = '';
+    $bold_name = '<b class="acts-nice-member-name"><span key="acts_full_name">' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</span></b>';
+    if ( $id > 0 ) {
+      $col1 .= '<a href="" class="acts-user-quick-edit" uid="' . $id . '">' . $bold_name . '</a>';
+    }
+    else {
+      $col1 .= $bold_name;
+    }
+    $col1 .= '<ul class="acts-nice-prepared">';
+
+    $col2 = '<span class="acts-nice-member-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</span>';
+    $col2 .= '<ul class="acts-nice-prepared">';
 
     switch ($type) {
       case 'wp':
@@ -468,20 +486,19 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
       case 'ship':
         $prefix = $type == 'bill' ? 'billing' : 'shipping';
 
-        $address1 = $user_info[$prefix . '_address_1'];
-        $col1 .= '<li key="wc_1" class="' . acts_nice_hidden( $address1 ) . '">' . stripslashes( wp_filter_nohtml_kses( $address1 ) ) . '</li>';
-
-        $address2 = $user_info[$prefix . '_address_2'];
-        $col1 .= '<li key="wc_2" class="' . acts_nice_hidden( $address2 ) . '">' . stripslashes( wp_filter_nohtml_kses( $address2 ) ) . '</li>';
-
-        $city = $user_info[$prefix . '_city'];
-        $postcode = $user_info[$prefix . '_postcode'];
-        $col1 .= '<li key="wc_3" class="' . acts_nice_hidden( $city . $postcode ) . '">' . stripslashes( wp_filter_nohtml_kses( $city . ' ' . $postcode ) ) . '</li>';
-
-        $phone = $user_info['billing_phone'];
-        $col2 .= '<li key="wc_4" class="' . acts_nice_hidden( $phone ) . '">' . stripslashes( wp_filter_nohtml_kses( $phone ) ) . '</li>';
+        $col1 .= acts_nice_listing( $user_info[$prefix . '_address_1'] );
+        $col1 .= acts_nice_listing( $user_info[$prefix . '_address_2'] );
+        $col1 .= acts_nice_listing( $user_info[$prefix . '_city'] . ' ' . $user_info[$prefix . '_postcode'] );
+        $col2 .= acts_nice_listing( $user_info['billing_phone'] );
         break;
     }
+
+    $col1 .= '</ul>';
+    $col1 .= '<ul class="acts-nice-custom-display">';
+
+    $col2 .= '</ul>';
+    $col2 .= '<ul class="acts-nice-custom-display">';
+
 
     foreach ($custom_fields as $custom) {
       $c_values = array();
@@ -510,6 +527,10 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
         $col2 .= $str;
       }
     }
+
+    $col1 .= '</ul>';
+
+    $col2 .= '</ul>';
 
     $member_info[$id]['col1'] = $col1;
     $member_info[$id]['col2'] = $col2;
@@ -642,12 +663,15 @@ function acts_get_woocommerce_nice_keys() {
 }
 
 /**
- * Get hidden class if string is empty
+ * Builds a list item for activity nice member info
+ *
+ * @param   string  $string Text to show in list
+ * @return  string  String nested in li tags or empty string
  */
-function acts_nice_hidden( $string ) {
+function acts_nice_listing( $string ) {
   $string = trim( $string );
   if ( $string != '' ) {
-    return 'acts-nice-hidden';
+    return '<li>' . stripslashes( wp_filter_nohtml_kses( $string ) ) . '</li>';
   }
 
   return '';

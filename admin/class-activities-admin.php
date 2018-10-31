@@ -326,7 +326,7 @@ class Activities_Admin {
 		* 	- type: what type of information to display
 		*/
 	public function ajax_get_member_info() {
-		if ( !isset( $_POST['item_id'] ) || !isset( $_POST['custom'] ) ) {
+		if ( !isset( $_POST['item_id'] ) ) {
 			wp_send_json_error();
 		}
 
@@ -334,8 +334,9 @@ class Activities_Admin {
 
 		//Custom col sanitation is done by acts_get_user_info
 		$id = acts_validate_id( $_POST['item_id'] );
-		if ( !is_array( $_POST['custom'] ) ) {
-			wp_send_json_error();
+    $custom = array();
+		if ( isset( $_POST['custom'] ) && is_array( $_POST['custom'] ) ) {
+			$custom = $_POST['custom'];
 		}
     $info = array();
 		if ( $id === 0 ) {
@@ -346,7 +347,7 @@ class Activities_Admin {
 		}
 
     foreach ($user_ids as $uid) {
-      $info[$uid] = acts_get_user_nice_info( $uid, $_POST['custom'] );
+      $info[$uid] = acts_get_user_nice_info( $uid, $custom );
     }
 
 		wp_send_json_success( $info );

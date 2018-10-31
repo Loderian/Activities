@@ -334,7 +334,7 @@
               write_member_info();
             }
             if ($('#acts-nice-color').length) {
-              //reload_color();
+              reload_color();
             }
           },
           error: function(jqXHR, text, error) {
@@ -350,17 +350,94 @@
 
       load_member_info(false);
 
-      function write_member_info() {
-        var type = $('input[name=member_info]:checked').val();
+      var prepared_keys_1 = {
+        wp: [],
+        bill: [
+          'billing_address_1',
+          'billing_address_2',
+          'billing_city',
+          'billing_postcode',
+        ],
+        ship: [
+          'shipping_address_1',
+          'shipping_address_2',
+          'shipping_city',
+          'shipping_postcode'
+        ]
+      };
+      var prepared_keys_2 = {
+        wp: [],
+        bill: [
+          'billing_phone'
+        ],
+        ship: []
+      };
 
-        for (var id in all_member_info[type]) {
-          if ( $('#col1-id' + id).length > 0 && $('#col2-id' + id).length > 0 ) {
-            $('#col1-id' + id).html(all_member_info[type][id]['col1']);
-            $('#col2-id' + id).html(all_member_info[type][id]['col2']);
+      function write_prep_col(user_info, col, list) {
+        col.html('');
+
+        for(var i in list) {
+          var val = user_info[list[i]];
+          if (val != '') {
+            col.append('<li>' + val + '</li>');
+          }
+        }
+      }
+
+      function write_custom_col(user_info, col, custom_fields) {
+        col.html('');
+
+        for(var i in custom_fields) {
+          var list = custom_fields[i];
+          var display_list = [];
+
+          for(var r in list) {
+            var key = list[r].trim();
+            if (user_info.hasOwnProperty(key)) {
+              var val = user_info[key];
+              if (val != '') {
+                display_list.push('<span class="acts-nice-custom-' + key + '">' + val + '</span>');
+              }
+            }
+          }
+          if (display_list.length > 0) {
+            col.append('<li>' + display_list.join(' ') + '</li>');
+          }
+        }
+      }
+
+      function write_member_info() {
+        if (all_member_info.length == 0) {
+          return;
+        }
+        var type = $('input[name=member_info]:checked').val();
+        var custom_input = load_custom_fields();
+        var custom_fields = {
+          1: [],
+          2: []
+        }
+        for(var i in custom_input) {
+          if (custom_input.hasOwnProperty(i)) {
+            custom_fields[custom_input[i]['col']].push(custom_input[i]['name'].split(','));
           }
         }
 
-        reload_color();
+        for(var id in all_member_info) {
+          if (all_member_info.hasOwnProperty(id)) {
+            var col1 = $('#col1-id' + id);
+            var col2 = $('#col2-id' + id);
+            var user_info = all_member_info[id];
+
+            col1.find('span[key=acts_full_name]').html(user_info.acts_full_name);
+            col2.find('span[key=user_email]').html(user_info.user_email);
+
+            write_prep_col(user_info, col1.find('.acts-nice-prepared'), prepared_keys_1[type]);
+            write_prep_col(user_info, col2.find('.acts-nice-prepared'), prepared_keys_2[type]);
+
+            write_custom_col(user_info, col1.find('.acts-nice-custom-display'), custom_fields[1]);
+            write_custom_col(user_info, col2.find('.acts-nice-custom-display'), custom_fields[2]);
+          }
+        }
       }
 
       $('input[type=radio][name=member_info]').on( 'change', function () {
@@ -376,15 +453,7 @@
       $('#acts-reload-members').on( 'click', function (event) {
         event.preventDefault();
 
-        var type = $('input[name=member_info]:checked').val();
-        for ( var all_types in all_member_info ) {
-          if ( all_types === type ) {
-            load_member_info( true );
-          }
-          else {
-            delete all_member_info[all_types];
-          }
-        }
+        load_member_info(true);
       });
     }
 

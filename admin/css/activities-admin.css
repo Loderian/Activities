@@ -496,12 +496,12 @@
   padding: 3px 5px;
 }
 
-.acts-nice-members-info ul,
-.acts-nice-members-info ul li {
+.acts-nice-members-info span ul,
+.acts-nice-members-info span ul li {
   margin: 0;
 }
 
-.acts-nice-members-info ul li:not(.acts-nice-member-name) {
+.acts-nice-members-info span ul li:not(.acts-nice-member-name) {
   font-size: 10px;
 }
 

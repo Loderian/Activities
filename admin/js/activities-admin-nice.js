@@ -271,8 +271,22 @@
         $('.acts-user-quick-edit').click( function( event ) {
           event.preventDefault();
 
-          $('#quick-name').html(all_member_info[$(this).attr('uid')].acts_full_name);
-          tb_show('User Quick Edit', "#TB_inline?height=600&amp;width=500&amp;inlineId=acts-quick-user-edit");
+          var h = window.innerHeight * 0.90;
+          var w = window.innerWidth * 0.90;
+          if ( w > 800 ) {
+            w = 800;
+          }
+
+          var id = $(this).attr('uid');
+          var user_info = all_member_info[id];
+
+          $('input[name=uid]').val(id);
+          for(var key in user_info) {
+            if ($('#acts-quick-' + key).length) {
+              $('#acts-quick-' + key).val(user_info[key]);
+            }
+          }
+          tb_show(all_member_info[id].acts_full_name, "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-quick-user-edit");
         });
       }
 

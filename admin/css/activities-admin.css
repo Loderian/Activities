@@ -496,6 +496,8 @@
   padding: 3px 5px;
 }
 
+.acts-quick-edit-type ul,
+.acts-quick-edit-type ul li,
 .acts-nice-members-info span ul,
 .acts-nice-members-info span ul li {
   margin: 0;
@@ -516,6 +518,38 @@
   vertical-align: top;
   width: 25%;
   text-align: right;
+}
+
+.acts-quick-edit-box > div {
+  padding: 7px 0px;
+}
+
+
+.acts-quick-edit-header {
+  display: block;
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.acts-quick-edit-group .acts-quick-edit-header {
+  font-size: 16px;
+}
+
+.acts-quick-edit-type {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.acts-quick-edit-group {
+  min-width: 300px;
+  width: 48%;
+  padding: 5px 0px;
+}
+
+.acts-quick-edit-group input {
+  width: 100%
 }
 
 @media print {

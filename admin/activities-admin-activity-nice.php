@@ -64,13 +64,31 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   add_thickbox();
 
   $output .= '<div id="acts-quick-user-edit" style="display: none">';
-  $output .= '
-    <div class="acts-quick-edit-box">
-      <div class="acts-quick-edit-group">
-        <label for="acts-quick-first-name">' . esc_html__( 'First Name', 'activities' ) . '</label>
-        <input type="text" id="acts-quick-first-name" value="" />
-      </div>
-    </div>';
+  $output .= '<form class="acts-quick-edit-box">';
+  //User info
+  $output .= '<div><b class="acts-quick-edit-header ">' . esc_html__( 'User Info', 'activities' ) . '</b>';
+  $output .= '<div class="acts-quick-edit-type">';
+  $output .= acts_nice_quick_inputs( array(
+    'first_name' => esc_html__( 'First Name', 'activities' ),
+    'last_name' => esc_html__( 'Last Name', 'activities' )
+  ));
+  $output .= acts_nice_quick_inputs( array(
+    'user_email' => esc_html__( 'Email', 'activities' )
+  ));
+
+  $output .= '</div></div>';
+
+  if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+    $output .= '<div><b class="acts-quick-edit-header ">WooCommerce</b>';
+    $output .= '<div class="acts-quick-edit-type">';
+    $output .= acts_nice_quick_inputs( acts_get_woocommerce_nice_keys( 'bill' ), esc_html__( 'Billing Info', 'activities' ) );
+    $output .= acts_nice_quick_inputs( acts_get_woocommerce_nice_keys( 'ship' ), esc_html__( 'Shipping Info', 'activities' )  );
+    $output .= '</div></div>';
+  }
+
+  $output .= '<input type="hidden" name="uid" />';
+  $output .= get_submit_button( esc_html__( 'Save', 'activities'), 'button-primary', 'acts_save_quick' );
+  $output .= '</form>';
   $output .= '</div>';
 
 	if ( $current_url != null ) {
@@ -597,7 +615,7 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
       'user_email' => $user->get( 'user_email' ),
       'acts_full_name' => Activities_Utility::get_user_name( $id, false )
     );
-    foreach (acts_get_woocommerce_nice_keys() as $key) {
+    foreach (acts_get_woocommerce_nice_keys() as $key => $name) {
       $user_info[$key] = $user->$key;
     }
 
@@ -621,7 +639,7 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
       'acts_full_name' => 'first_name last_name'
     );
 
-    foreach (acts_get_woocommerce_nice_keys() as $key) {
+    foreach (acts_get_woocommerce_nice_keys() as $key => $name) {
       $user_info[$key] = $key;
     }
 
@@ -646,20 +664,40 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
 /**
  * Get activity nice WooCommerce meta keys
  *
- * @return  array   List of WooCommerce meta keys
+ * @param   string  $type 'bill' for billing info or 'ship' for shipping, omit or 'both' for both
+ * @return  array   List of WooCommerce meta keys mapped to display
  */
-function acts_get_woocommerce_nice_keys() {
-  return array(
-    'billing_address_1',
-    'billing_address_2',
-    'billing_city',
-    'billing_postcode',
-    'billing_phone',
-    'shipping_address_1',
-    'shipping_address_2',
-    'shipping_city',
-    'shipping_postcode'
+function acts_get_woocommerce_nice_keys( $type = 'both') {
+  $billing = array(
+    'billing_address_1' => sprintf( esc_html__( 'Address %d', 'activities' ), 1 ),
+    'billing_address_2' => sprintf( esc_html__( 'Address %d', 'activities' ), 2 ),
+    'billing_city' => esc_html__( 'City', 'activities' ),
+    'billing_postcode' => esc_html__( 'Postcode', 'activities' ),
+    'billing_phone' => esc_html__( 'Phone', 'activities' )
   );
+  $shipping = array(
+    'shipping_address_1' => sprintf( esc_html__( 'Address %d', 'activities' ), 1 ),
+    'shipping_address_2' => sprintf( esc_html__( 'Address %d', 'activities' ), 2 ),
+    'shipping_city' => esc_html__( 'City', 'activities' ),
+    'shipping_postcode' => esc_html__( 'Postcode', 'activities' )
+  );
+  switch ($type) {
+    case 'bill':
+      return $billing;
+      break;
+
+    case 'ship':
+      return $shipping;
+      break;
+
+    case 'both':
+      return array_merge( $billing, $shipping );
+      break;
+
+    default:
+      return array();
+      break;
+  }
 }
 
 /**
@@ -675,4 +713,25 @@ function acts_nice_listing( $string ) {
   }
 
   return '';
+}
+
+/**
+ * Build input for quick editing
+ *
+ * @param   array   $input_list List of inputs
+ * @param   string  $header Optional header for list
+ * @return  string  Html
+ */
+function acts_nice_quick_inputs( $input_list, $header = '' ) {
+  $output = '<div class="acts-quick-edit-group"><ul>';
+  if ( $header != '' ) {
+    $output .= '<li class="acts-quick-edit-header "><b>' . $header . '</b></li>';
+  }
+  foreach ($input_list as $key => $display) {
+    $output .= '<li><label for="acts-quick-' . esc_attr( $key ) . '">' . $display . '</label></li>';
+    $output .= '<li><input type="text" id="acts-quick-' . esc_attr( $key ) . '" value="" name="' . esc_attr( $key ) . '" /></li>';
+  }
+  $output .= '</ul></div>';
+
+  return $output;
 }

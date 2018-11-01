@@ -818,4 +818,55 @@ class Activities_Admin {
 
 		return '';
 	}
+
+  /**
+   * Ajax callback for saving user using the quick edit
+   */
+  public function ajax_acts_quick_save() {
+    if ( !isset( $_POST['uid'] ) ) {
+      wp_send_json_error();
+    }
+
+    $id = acts_validate_id( $_POST['uid'] );
+    if ( !$id ) {
+      wp_send_json_error();
+    }
+
+    $user_data = array(
+      'ID' => $id,
+      'first_name' => sanitize_text_field( $_POST['first_name'] ),
+      'last_name' => sanitize_text_field( $_POST['last_name'] ),
+    );
+    $email = sanitize_email( $_POST['user_email'] );
+    if ( $email != '' ) {
+      $user_data['user_email'] = $email;
+    }
+
+    $ret_id = wp_update_user( $user_data );
+    if ( is_wp_error( $ret_id )) {
+      wp_send_json_error();
+    }
+    $user_data['acts_full_name'] = Activities_Utility::get_user_name( $id, false );
+
+    foreach (acts_get_woocommerce_nice_keys() as $key => $unused) {
+      if ( isset( $_POST[$key] ) ) {
+        $value = sanitize_text_field( $_POST[$key] );
+        update_user_meta( $id, $key, $value );
+        $user_data[$key] = $value;
+      }
+    }
+
+    if ( isset( $_POST['custom'] ) && is_array( $_POST['custom'] ) ) {
+      foreach ($_POST['custom'] as $key => $value) {
+        $key = sanitize_key( $key );
+        $value = sanitize_text_field( $value );
+        if ( $key != '' ) {
+          update_user_meta( $id, $key, $value );
+          $user_data[$key] = $value;
+        }
+      }
+    }
+
+    wp_send_json_success( $user_data );
+  }
 }

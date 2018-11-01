@@ -61,76 +61,79 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 
   $output = '';
 
-  add_thickbox();
+  if ( $current_url != null ) {
+    add_thickbox();
 
-  $output .= '<div id="acts-quick-user-edit" style="display: none">';
-  $output .= '<form class="acts-quick-edit-box">';
+    $output .= '<div id="acts-quick-user-edit" style="display: none">';
+    $output .= '<form action="' . admin_url( 'admin-ajax.php' ) . '" class="acts-quick-edit-box" method="post">';
 
-  //User info
-  $output .= '<div><b class="acts-quick-edit-header">' . esc_html__( 'User', 'activities' ) . '</b>';
-  $output .= '<div class="acts-quick-edit-type">';
-  $output .= acts_nice_quick_inputs( array(
-    'first_name' => esc_html__( 'First Name', 'activities' ),
-    'last_name' => esc_html__( 'Last Name', 'activities' )
-  ));
-  $output .= acts_nice_quick_inputs( array(
-    'user_email' => esc_html__( 'Email', 'activities' )
-  ));
-  $output .= '</div></div>';
-
-  //WooCommerce
-  if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-    $output .= '<div><b class="acts-quick-edit-header">WooCommerce</b>';
+    //User info
+    $output .= '<div><b class="acts-quick-edit-header">' . esc_html__( 'User', 'activities' ) . '</b>';
     $output .= '<div class="acts-quick-edit-type">';
-    $output .= acts_nice_quick_inputs( acts_get_woocommerce_nice_keys( 'bill' ), esc_html__( 'Billing', 'activities' ) );
-    $output .= acts_nice_quick_inputs( acts_get_woocommerce_nice_keys( 'ship' ), esc_html__( 'Shipping', 'activities' )  );
+    $output .= acts_nice_quick_inputs( array(
+      'first_name' => esc_html__( 'First Name', 'activities' ),
+      'last_name' => esc_html__( 'Last Name', 'activities' )
+    ));
+    $output .= acts_nice_quick_inputs( array(
+      'user_email' => esc_html__( 'Email', 'activities' )
+    ));
     $output .= '</div></div>';
-  }
 
-  //Custom fields
-  $non_custom = array_merge(
-    array(
-      'first_name',
-      'last_name',
-      'user_email'
-    ),
-    array_keys( acts_get_woocommerce_nice_keys() )
-  );
-  $custom_map = array();
-  foreach ($nice_settings['custom'] as $custom) {
-    $keys = explode( ',', $custom['name'] );
-    foreach ($keys as $key) {
-      $key = sanitize_key( $key );
-      if ( !in_array( $key, $non_custom ) && !array_key_exists( $key, $custom_map ) ) {
-        $custom_map[$key] = acts_nice_key_display( $key );
+    //WooCommerce
+    if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+      $output .= '<div><b class="acts-quick-edit-header">WooCommerce</b>';
+      $output .= '<div class="acts-quick-edit-type">';
+      $output .= acts_nice_quick_inputs( acts_get_woocommerce_nice_keys( 'bill' ), esc_html__( 'Billing', 'activities' ) );
+      $output .= acts_nice_quick_inputs( acts_get_woocommerce_nice_keys( 'ship' ), esc_html__( 'Shipping', 'activities' )  );
+      $output .= '</div></div>';
+    }
+
+    //Custom fields
+    $non_custom = array_merge(
+      array(
+        'first_name',
+        'last_name',
+        'user_email'
+      ),
+      array_keys( acts_get_woocommerce_nice_keys() )
+    );
+    $custom_map = array();
+    foreach ($nice_settings['custom'] as $custom) {
+      $keys = explode( ',', $custom['name'] );
+      foreach ($keys as $key) {
+        $key = sanitize_key( $key );
+        if ( !in_array( $key, $non_custom ) && !array_key_exists( $key, $custom_map ) ) {
+          $custom_map[$key] = acts_nice_key_display( $key );
+        }
       }
     }
-  }
 
-  $hidden = '';
-  $custom_input = '';
-  if ( empty( $custom_map ) ) {
-    $hidden = 'display: none;';
-  }
-  else {
-    if ( count( $custom_map ) == 1 ) {
-      $map1 = $custom_map;
-      $map2 = array();
+    $hidden = '';
+    $custom_input = '';
+    if ( empty( $custom_map ) ) {
+      $hidden = 'display: none;';
     }
     else {
-      list( $map1, $map2 ) = array_chunk( $custom_map, ceil( count( $custom_map )/2 ), true );
+      if ( count( $custom_map ) == 1 ) {
+        $map1 = $custom_map;
+        $map2 = array();
+      }
+      else {
+        list( $map1, $map2 ) = array_chunk( $custom_map, ceil( count( $custom_map )/2 ), true );
+      }
+      $custom_input = acts_nice_quick_inputs( $map1, '', 'custom' ) . acts_nice_quick_inputs( $map2, '', 'custom' );
     }
-    $custom_input = acts_nice_quick_inputs( $map1 ) . acts_nice_quick_inputs( $map2 );
-  }
-  $output .= '<div style="' . $hidden . '"><b class="acts-quick-edit-header">' . esc_html__( 'Custom Fields', 'activities' ) . '</b>';
-  $output .= '<div class="acts-quick-edit-type">';
-  $output .= $custom_input;
-  $output .= '</div></div>';
+    $output .= '<div style="' . $hidden . '"><b class="acts-quick-edit-header">' . esc_html__( 'Custom Fields', 'activities' ) . '</b>';
+    $output .= '<div class="acts-quick-edit-type">';
+    $output .= $custom_input;
+    $output .= '</div></div>';
 
-  $output .= '<input type="hidden" name="uid" />';
-  $output .= get_submit_button( esc_html__( 'Save', 'activities'), 'button-primary', 'acts_save_quick' );
-  $output .= '</form>';
-  $output .= '</div>';
+    $output .= '<input type="hidden" name="uid" />';
+    $output .= '<input type="hidden" name="action" value="acts_quick_save" />';
+    $output .= get_submit_button( esc_html__( 'Save', 'activities'), 'button-primary', 'acts_save_quick' );
+    $output .= '</form>';
+    $output .= '</div>';
+  }
 
 	if ( $current_url != null ) {
     $output .= '<h1 id="activities-title">' . esc_html__( 'Activity Report Management', 'activities' ) . '</h1>';
@@ -761,16 +764,21 @@ function acts_nice_listing( $string ) {
  *
  * @param   array   $input_list List of inputs
  * @param   string  $header Optional header for list
+ * @param   string  $list_name Add list syntax to input name
  * @return  string  Html
  */
-function acts_nice_quick_inputs( $input_list, $header = '' ) {
+function acts_nice_quick_inputs( $input_list, $header = '', $list_name = '' ) {
   $output = '<div class="acts-quick-edit-group"><ul>';
   if ( $header != '' ) {
     $output .= '<li><b class="acts-quick-edit-header">' . $header . '</b></li>';
   }
   foreach ($input_list as $key => $display) {
+    $name = '%s';
+    if ( $list_name != '' ) {
+      $name = $list_name . '[%s]';
+    }
     $output .= '<li><label for="acts-quick-' . esc_attr( $key ) . '">' . $display . '</label></li>';
-    $output .= '<li><input type="text" id="acts-quick-' . esc_attr( $key ) . '" value="" name="' . esc_attr( $key ) . '" /></li>';
+    $output .= '<li><input type="text" id="acts-quick-' . esc_attr( $key ) . '" value="" name="' . esc_attr( sprintf( $name, $key ) ) . '" /></li>';
   }
   $output .= '</ul></div> ';
 

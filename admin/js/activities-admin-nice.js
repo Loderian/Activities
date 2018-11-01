@@ -265,30 +265,54 @@
         });
       }
 
-      add_thickbox_action();
+      $('.acts-user-quick-edit').click( function( event ) {
+        event.preventDefault();
 
-      function add_thickbox_action() {
-        $('.acts-user-quick-edit').click( function( event ) {
-          event.preventDefault();
+        var id = $(this).attr('uid');
+        var user_info = all_member_info[id];
 
-          var h = window.innerHeight * 0.90;
-          var w = window.innerWidth * 0.90;
-          if ( w > 800 ) {
-            w = 800;
+        $('input[name=uid]').val(id);
+        for(var key in user_info) {
+          if (key == 'acts_full_name') {
+            continue;
           }
+          if ($('#acts-quick-' + key).length) {
+            $('#acts-quick-' + key).val(user_info[key]);
+          }
+        }
 
-          var id = $(this).attr('uid');
-          var user_info = all_member_info[id];
+        var h = window.innerHeight * 0.90;
+        var w = window.innerWidth * 0.90;
+        if ( w > 800 ) {
+          w = 800;
+        }
+        
+        tb_show(all_member_info[id].acts_full_name, "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-quick-user-edit");
 
-          $('input[name=uid]').val(id);
-          for(var key in user_info) {
-            if ($('#acts-quick-' + key).length) {
-              $('#acts-quick-' + key).val(user_info[key]);
+        var wh = $('.acts-quick-edit-box').height();
+        if ( wh < h ) {
+          $('#TB_ajaxContent').height(wh);
+        }
+      });
+
+      $('.acts-quick-edit-box').on( 'submit', function( event ) {
+        event.preventDefault();
+
+
+        $.post( $(this).attr('action'), $(this).serialize(), function(response) {
+            if (response.success) {
+              var user_info = response.data;
+              var id = user_info['ID'];
+              delete user_info['ID'];
+              all_member_info[id] = user_info;
+              write_member_info(new Set([id]));
+              tb_remove();
             }
-          }
-          tb_show(all_member_info[id].acts_full_name, "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-quick-user-edit");
-        });
-      }
+            else {
+              console.log('An error occured updating user.');
+            }
+          }, 'json' );
+      });
 
       var id = parseInt($('#item-id').val());
 
@@ -345,10 +369,7 @@
             }
             all_member_info = member_info.data;
             if ( write ) {
-              write_member_info();
-            }
-            if ($('#acts-nice-color').length) {
-              reload_color();
+              write_member_info(new Set());
             }
           },
           error: function(jqXHR, text, error) {
@@ -420,7 +441,7 @@
         }
       }
 
-      function write_member_info() {
+      function write_member_info(users) {
         if (all_member_info.length == 0) {
           return;
         }
@@ -437,6 +458,9 @@
         }
 
         for(var id in all_member_info) {
+          if (users.size > 0 && !users.has(parseInt(id))) {
+            continue;
+          }
           if (all_member_info.hasOwnProperty(id)) {
             var col1 = $('#col1-id' + id);
             var col2 = $('#col2-id' + id);
@@ -452,15 +476,19 @@
             write_custom_col(user_info, col2.find('.acts-nice-custom-display'), custom_fields[2]);
           }
         }
+
+        if ($('#acts-nice-color').length) {
+          reload_color();
+        }
       }
 
       $('input[type=radio][name=member_info]').on( 'change', function () {
         var type = $('input[name=member_info]:checked').val();
         if ( all_member_info[type] === undefined ) {
-          load_member_info( true );
+          load_member_info(true);
         }
         else {
-          write_member_info();
+          write_member_info(new Set());
         }
       });
 

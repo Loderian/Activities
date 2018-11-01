@@ -169,6 +169,7 @@ class Activities {
 
 		$this->loader->add_action( 'wp_ajax_acts_get_member_info', $plugin_admin, 'ajax_get_member_info' );
     $this->loader->add_action( 'wp_ajax_acts_get_user_info', $plugin_admin, 'ajax_get_user_info' );
+    $this->loader->add_action( 'wp_ajax_acts_quick_save', $plugin_admin, 'ajax_acts_quick_save' );
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'activities_admin_menu' );
 

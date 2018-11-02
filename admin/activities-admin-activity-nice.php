@@ -48,6 +48,19 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
       Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occured during resetting report setting for %s.', 'activities' ), $activity['name'] ) );
     }
 	}
+  else if ( isset( $_POST['default_nice_settings'] ) && $current_url != null  ) {
+    $settings = Activities_Admin_Utility::get_activity_nice_settings();
+    if ( isset( $settings['activity_id'] ) && $settings['activity_id'] ) {
+  		Activities_Activity::delete_meta( $settings['activity_id'], ACTIVITIES_NICE_SETTINGS_KEY );
+      unset( $settings['activity_id'] );
+      Activities_Options::update_option( ACTIVITIES_NICE_SETTINGS_KEY, $settings );
+
+  		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings updated for %s, and made default for all activities.', 'activities' ), $activity['name'] ) );
+    }
+    else {
+      Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occured during saving report setting for %s.', 'activities' ), $activity['name'] ) );
+    }
+  }
 
 	$nice_settings = Activities_Activity::get_nice_settings( $activity['activity_id'] );
 	$default = false;
@@ -177,6 +190,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   		}';
     $output .= '</script>';
     $output .= '</div>';
+    $output .= '<hr class="acts-nice-splitter">';
   }
 
 	$output .= '<h3>' . esc_html__( 'Settings', 'activities' );
@@ -199,7 +213,9 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	$output .= '<input id="acts_remove_nice_logo" type="submit" class="button" value="' . esc_html__( 'Remove Logo', 'activities' ) . '" /></div>';
 	$output .= '<input type="hidden" name="acts_nice_logo_id" id="acts_nice_logo_id" value="' . esc_attr( $nice_settings['logo'] ) . '" />';
 
-	$output .= '<div class="acts-nice-splitter">';
+  $output .= '<hr class="acts-nice-splitter">';
+
+	$output .= '<div>';
 	$output .= '<table>';
 	$output .= '<thead>';
 	$output .= '<tr><td><b>' . esc_html__( 'Activity Info', 'activities' ) . '</b></td><td></td></tr>';
@@ -216,8 +232,9 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   $output .= '<div><label for="timeslots"><b>' . esc_html__( 'Sessions', 'activities' ) . '</b> <span id="time-slots-max">(max: 50)</span></label></br><input type="number" name="time_slots" id="time-slots" value="' . esc_attr( $nice_settings['time_slots'] ) . '" min="0" max="50" /></div>';
 	$output .= '</div>';
 
-	$output .= '<div id="acts-nice-members-setting" class="acts-nice-splitter">';
+  $output .= '<hr class="acts-nice-splitter">';
 
+	$output .= '<div id="acts-nice-members-setting">';
 	$output .= '<h3>' . esc_html__( 'Participant Info', 'activities' ) . ' <div class="acts-nice-loader-wrap"><div class="acts-nice-loader"></div> ';
   $output .= '<input type="submit" id="acts-reload-members" value="' . esc_html__( 'Reload Info', 'activities' ) . '" class="button" /></div></h3>';
 	$output .= '<table>';
@@ -261,20 +278,22 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   $output .= '</ul>';
 	$output .= '</div>';
 	if ( $current_url != null ) {
-		$output .= '<div id="acts-nice-buttons" class="acts-nice-splitter">';
+    $output .= '<hr class="acts-nice-splitter">';
+		$output .= '<div id="acts-nice-buttons">';
+    $output .= '<span class="acts-nice-top-buttons">';
 		$output .= '<input type="submit" name="save_nice_settings" class="button button-primary" value="' . esc_html__( 'Save', 'activities' ) . '" /> ';
 		//$output .= '<input type="submit" name="download" class="button" value="Download PDF"/> ';
 		$output .= '<a href="javascript:window.print()" class="button">' . esc_html__( 'Print', 'activities' ) . '</a> ';
     $output .= '<input id="folder_print" type="button" class="button" value="' . esc_html__( 'Folder Print', 'activities' ) . '" /> ';
-		$output .= '<input type="hidden" value="' . esc_attr( acts_validate_id( $_GET['item_id'] ) ) . '" id="item-id" name="item_id" />';
     $output .= wp_nonce_field( 'activities_nice', ACTIVITIES_ADMIN_NICE_NONCE, true, false );
-		$output .= '<a href="' . esc_url( $current_url ) . '" class="button">' . esc_html__( 'Return', 'activities' ) . '</a></br></br>';
-		$output .= '<input type="submit" class="button right" name="reset_nice_settings" value="' . esc_html__( 'Reset to default', 'activities' ) . '" />';
+		$output .= '<a href="' . esc_url( $current_url ) . '" class="button">' . esc_html__( 'Return', 'activities' ) . '</a>';
+    $output .= '</span>';
+    $output .= '<hr class="acts-nice-splitter">';
+    $output .= get_submit_button( esc_html__( 'Make default', 'activities' ), 'button-primary',  'default_nice_settings', false );
+    $output .= get_submit_button( esc_html__( 'Reset to default', 'activities' ), 'button right',  'reset_nice_settings', false );
 		$output .= '</div>';
 	}
-	else {
-		$output .= '<input type="hidden" value="' . esc_attr( $activity['activity_id'] ) . '" id="item-id" name="item_id" />';
-	}
+	$output .= '<input type="hidden" value="' . esc_attr( $activity['activity_id'] ) . '" id="item-id" name="item_id" />';
 	if ( $current_url != null ) {
 		$output .= '</form>';
 	}

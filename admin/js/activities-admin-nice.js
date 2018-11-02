@@ -286,7 +286,7 @@
         if ( w > 800 ) {
           w = 800;
         }
-        
+
         tb_show(all_member_info[id].acts_full_name, "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-quick-user-edit");
 
         var wh = $('.acts-quick-edit-box').height();
@@ -304,12 +304,12 @@
               var user_info = response.data;
               var id = user_info['ID'];
               delete user_info['ID'];
-              all_member_info[id] = user_info;
+              update_user_info(id, user_info);
               write_member_info(new Set([id]));
               tb_remove();
             }
             else {
-              console.log('An error occured updating user.');
+              console.error('An error occured updating user.');
             }
           }, 'json' );
       });
@@ -350,6 +350,15 @@
         $('.acts-nice-loader').toggle(disable);
       }
 
+      function update_user_info(id, new_info) {
+        if (!all_member_info.hasOwnProperty(id)) {
+          all_member_info[id] = {};
+        }
+        for (key in new_info) {
+          all_member_info[id][key] = new_info[key];
+        }
+      }
+
       function load_member_info(write) {
         disable_member_info_controls(true);
         var info_type = $('input[name=member_info]:checked').val();
@@ -364,18 +373,18 @@
           dataType: 'json',
           success: function(member_info) {
             if (!member_info.success) {
-              console.log('Could not load user info');
+              console.error('Could not load user info');
               return;
             }
-            all_member_info = member_info.data;
+            for(var id in member_info.data) {
+              update_user_info(id, member_info.data[id]);
+            }
             if ( write ) {
               write_member_info(new Set());
             }
           },
           error: function(jqXHR, text, error) {
-            console.log(jqXHR);
-            console.log(text);
-            console.log(error);
+            console.error(text);
           },
           complete: function() {
             disable_member_info_controls(false);

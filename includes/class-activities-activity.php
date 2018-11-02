@@ -361,26 +361,33 @@ class Activities_Activity {
       return false;
     }
 
-    $user_activities_archive = Activities::get_table_name( 'user_activity' );
-
-    $uaa = $wpdb->delete(
-      $user_activities_archive,
-      array( 'activity_id' => $activity_id ),
-      array( '%d' )
-    );
-
-    $activities_archive = Activities::get_table_name( 'activity' );
+    $activities = Activities::get_table_name( 'activity' );
 
     $del = $wpdb->delete(
-      $activities_archive,
+      $activities,
       array( 'activity_id' => $activity_id ),
       array( '%d' )
     );
 
-    if ( $uaa ) {
+    if ( $del ) {
+      $user_activity = Activities::get_table_name( 'user_activity' );
+
+      $wpdb->delete(
+        $user_activity,
+        array( 'activity_id' => $activity_id ),
+        array( '%d' )
+      );
+
+      $activities_meta = Activities::get_table_name( 'activity_meta' );
+      $wpdb->delete(
+        $activities_meta,
+        array( 'activity_id' => $activity_id ),
+        array( '%d' )
+      );
+
       do_action( 'activities_delete_activity', $activity_id );
     }
-    return $uaa !== false && $del;
+    return $del;
   }
 
   /**

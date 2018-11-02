@@ -26,9 +26,9 @@ class Activities_Admin_Utility {
       $nice_settings = unserialize( $nice_settings );
     }
 
-    if ( ( isset( $_POST['save_options']) || isset( $_POST['save_nice_settings'] ) ) && isset( $_POST['item_id'] ) ) {
+    if ( ( isset( $_POST['save_options']) || isset( $_POST['save_nice_settings'] ) || isset( $_POST['default_nice_settings'] ) ) && isset( $_POST['item_id'] ) ) {
       //The options page uses its own nonce
-      if ( isset( $_POST['save_nice_settings'] ) && isset( $_POST[ACTIVITIES_ADMIN_NICE_NONCE] ) && !wp_verify_nonce( $_POST[ACTIVITIES_ADMIN_NICE_NONCE], 'activities_nice' ) ) {
+      if ( ( isset( $_POST['save_nice_settings'] ) || isset( $_POST['default_nice_settings'] ) ) && isset( $_POST[ACTIVITIES_ADMIN_NICE_NONCE] ) && !wp_verify_nonce( $_POST[ACTIVITIES_ADMIN_NICE_NONCE], 'activities_nice' ) ) {
         die( esc_html__( 'Could not verify activity report data integrity.', 'activities' ) );
       }
 

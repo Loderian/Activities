@@ -420,12 +420,21 @@
   border-bottom: 1px dashed grey;
 }
 
-.acts-nice-splitter {
-  border-top: 1px dashed grey;
+#acts-nice-buttons {
+  padding-top: 5px;
 }
 
-#acts-nice-buttons {
-  padding-top: 10px;
+#acts-nice-buttons .acts-nice-top-buttons {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  justify-content: space-between;
+}
+
+#acts-nice-buttons .acts-nice-splitter {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  border-style: dashed;
 }
 
 #acts-nice-wrap {

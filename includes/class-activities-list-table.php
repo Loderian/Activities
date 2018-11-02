@@ -582,17 +582,19 @@ class Activities_List_Table {
   function field_filters( $filters ) {
   	$output = '<div id="activities-filter-wrap" class="activities-box-wrap activities-box-padding">';
   	$output .= '<b>' . esc_html__( 'Filters', 'activities' ) . '</b>';
-  	$output .= '<form action="' . esc_url( $this->current_url ) . '" method="post">';
+  	$output .= '<form action="' . esc_url( $this->current_url ) . '" method="post" class="acts-form">';
 
   	foreach ($filters as $key => $value) {
-  		$output .= '<div class="activities-filter-field-wrap">';
+  		$output .= '<div>';
   		$output .= '<p>' . esc_html__( ucfirst( $key ), 'activities' ) . '</p>';
-  		$output .= '<input type="text" placeholder="' . sprintf( esc_html__( 'Filter %s', 'activities' ),  esc_html__( ucfirst( $key ), 'activities' ) ) . '" name="filters[' . esc_attr( $key ) . ']" class="activities-filter-field" value="' . esc_attr( $value ) . '" />';
+  		$output .= '<input type="text" placeholder="' . sprintf( esc_html__( 'Filter %s', 'activities' ),  esc_html__( ucfirst( $key ), 'activities' ) ) . '" name="filters[' . esc_attr( $key ) . ']" value="' . esc_attr( $value ) . '" />';
   		$output .= '</div>';
   	}
 
-  	$output .= '<input type="submit" name="apply_filters" class="button" value="' . esc_html__( 'Apply', 'activities' ) . '" />';
-  	$output .= '<input type="submit" name="clear_filters" class="button" value="' . esc_html__( 'Clear', 'activities' ) . '" />';
+    $output .= '<div class="acts-filter-buttons">';
+    $output .= get_submit_button( esc_html__( 'Apply', 'activities' ), 'button', 'apply_filters', false );
+    $output .= get_submit_button( esc_html__( 'Clear', 'activities' ), 'button', 'clear_filters', false );
+    $output .= '</div>';
   	$output .= '</form></div>';
 
   	return $output;

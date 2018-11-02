@@ -50,23 +50,24 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 
 	$output .= Activities_Admin::get_messages();
 
-	$output .= '<form action="' . esc_url( $current_url ) . '" method="post">';
-	$output .= '<div id="acts-activity-create-wrap" class="activities-box-wrap activities-box-padding">';
+	$output .= '<form action="' . esc_url( $current_url ) . '" method="post" class="acts-form">';
+	$output .= '<div class="acts-create-wrap activities-box-wrap activities-box-padding">';
 	$output .= '<h3>' . esc_html__( 'Activity Info', 'activities' ) . '</h3>';
-	$output .= '<ul id="acts-activity-form-columns">';
-	$output .= '<li id="acts-activity-left-column"><ul>';
+	$output .= '<div class="acts-form-columns">';
+	$output .= '<ul class="acts-single-column">';
 	$output .= '<li>' . esc_html__( 'Name', 'activities' ) . '<span class="acts-req-mark"> *</span></li>';
-	$output .= '<li><input type="text" name="name" maxlength="100" value="' . esc_attr( stripslashes( $map['name'] ) )  . '" id="acts-activity-name" ' . $disabled . ' /></li>';
+	$output .= '<li><input type="text" name="name" maxlength="100" value="' . esc_attr( stripslashes( $map['name'] ) )  . '" ' . $disabled . ' /></li>';
 	$output .= '<li>' . esc_html__( 'Short Description', 'activities' ) . '</li>';
-	$output .= '<li><input type="text" name="short_desc" maxlength="255" value="' . esc_attr( stripslashes( $map['short_desc'] ) )  . '" id="acts-activity-short-desc" ' . $disabled . ' /></li>';
+	$output .= '<li><input type="text" name="short_desc" maxlength="255" value="' . esc_attr( stripslashes( $map['short_desc'] ) )  . '" ' . $disabled . ' /></li>';
 	$output .= '<li>' . esc_html__( 'Long Description', 'activities' ) . '</li>';
-	$output .= '<li><textarea name="long_desc" maxlength="65535" id="acts-activity-long-desc" ' . $disabled . ' >' . stripslashes( wp_filter_nohtml_kses ( $map['long_desc'] ) ) . '</textarea></li></ul></li>';
+	$output .= '<li><textarea name="long_desc" maxlength="65535" id="acts-activity-ldesc" ' . $disabled . ' >' . stripslashes( wp_filter_nohtml_kses ( $map['long_desc'] ) ) . '</textarea>';
+  $output .= '</li></ul>';
 
-	$output .= '<li id="acts-activity-right-column"><ul>';
+	$output .= '<ul class="acts-single-column">';
 	$output .= '<li>' . esc_html__( 'Start date', 'activities' ) . '</li>';
-	$output .= '<li><input type="date" name="start" value="' . esc_attr( explode( " ", $map["start"] )[0] ) . '" id="acts-activity-start" ' . $disabled . ' /></li>';
+	$output .= '<li><input type="date" name="start" value="' . esc_attr( explode( " ", $map["start"] )[0] ) . '" ' . $disabled . ' /></li>';
 	$output .= '<li>' . esc_html__( 'End date', 'activities' ) . '</li>';
-	$output .= '<li><input type="date" name="end" value="' . esc_attr( explode( " ", $map["end"] )[0] ) . '" id="acts-activity-end" ' . $disabled . ' /></li>';
+	$output .= '<li><input type="date" name="end" value="' . esc_attr( explode( " ", $map["end"] )[0] ) . '" ' . $disabled . ' /></li>';
 	$output .= '<li>' . esc_html__( 'Responsible', 'activities' ) . '</li>';
 
   $output .= '<li>';
@@ -97,10 +98,10 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   );
   $output .= '</li>';
 
-	$output .= '</ul></li></ul><ul>';
+	$output .= '</ul></div>'; //acts-activity-form-columns
 
-	$output .= '<li>' . esc_html__( 'Activity Participants', 'activities' ) . ' (<span id="member_count"></span>)' . ' </li>';
-  $output .= '<li>';
+  $output .= '<div>';
+	$output .= '<p>' . esc_html__( 'Activity Participants', 'activities' ) . ' (<span id="member_count"></span>)' . ' </p>';
   $output .= acts_build_select_items(
     'members',
     array(
@@ -111,9 +112,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
       'disabled' => $disabled !== ''
     )
   );
-  $output .= '</li>';
 
-	$output .= '<li>';
   $button = '';
   switch ($action) {
     case 'create':
@@ -124,8 +123,9 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
       $button = esc_html__( 'Save', 'activities' );
       break;
   }
+  $output .= '<p>';
 	if ( $archive != 'archive' && ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) ) {
-		$output .= '<input type="submit" value="' . esc_attr( $button ) . '" name="' . esc_attr( $action ) . '_act" class="button button-primary" />';
+		$output .= get_submit_button( $button, 'button-primary', $action, false );
 	}
 	else if ( $archive == 'archive' ){
 		$output .= '<a href="' . esc_url( $current_url . '&action=activate&item_id=' . esc_attr( acts_validate_id( $_GET['item_id'] ) ) ) . '" class="button button-primary" >' . esc_html__( 'Activate', 'activities' ) . '</a>';
@@ -135,7 +135,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 		$activity_id = acts_validate_id( (isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['activity_id']) );
 		$output .= '<input type="hidden" name="item_id" value="' . esc_attr( $activity_id ) . '" />';
 	}
-	$output .= '</li></ul>';
+  $output .= '</p>';
+	$output .= '</div>';
 	$output .= wp_nonce_field( 'activities_activity', ACTIVITIES_ACTIVITY_NONCE, true, false );
 	$output .= '</div>';
   $output .= '</form>';

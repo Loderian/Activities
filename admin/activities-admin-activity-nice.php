@@ -78,7 +78,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     add_thickbox();
 
     $output .= '<div id="acts-quick-user-edit" style="display: none">';
-    $output .= '<form action="' . admin_url( 'admin-ajax.php' ) . '" class="acts-quick-edit-box" method="post">';
+    $output .= '<form action="' . admin_url( 'admin-ajax.php' ) . '" class="acts-quick-edit-box acts-form" method="post">';
 
     //User info
     $output .= '<div><b class="acts-quick-edit-header">' . esc_html__( 'User', 'activities' ) . '</b>';
@@ -200,7 +200,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	$output .= '</h3>';
 
 	if ( $current_url != null ) {
-		$output .= '<form id="acts-nice-settings-form" method="post" enctype="multipart/form-data">';
+		$output .= '<form id="acts-nice-settings-form" class="acts-form" method="post">';
 	}
   else {
     $output .= '<div id="acts-nice-settings-form">';
@@ -797,7 +797,7 @@ function acts_nice_quick_inputs( $input_list, $header = '', $list_name = '' ) {
       $name = $list_name . '[%s]';
     }
     $output .= '<li><label for="acts-quick-' . esc_attr( $key ) . '">' . $display . '</label></li>';
-    $output .= '<li><input type="text" id="acts-quick-' . esc_attr( $key ) . '" value="" name="' . esc_attr( sprintf( $name, $key ) ) . '" /></li>';
+    $output .= '<li><input type="text" id="acts-quick-' . esc_attr( $key ) . '" placeholder="' . esc_attr( $display ) . '" value="" name="' . esc_attr( sprintf( $name, $key ) ) . '" /></li>';
   }
   $output .= '</ul></div> ';
 

@@ -88,7 +88,10 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
       'last_name' => esc_html__( 'Last Name', 'activities' )
     ), esc_html__( 'User', 'activities' ));
     $output .= '<div class="acts-quick-edit-group">';
+    $output .= '<span class="acts-quick-img-wrap">';
     $output .= '<img src="" id="acts-user-avatar" />';
+    $output .= '<div class="acts-nice-loader"></div>';
+    $output .= '</span>';
     $output .= '</div>';
     $output .= '</div></div>';
 
@@ -734,15 +737,15 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
  */
 function acts_get_woocommerce_nice_keys( $type = 'both') {
   $billing = array(
-    'billing_address_1' => sprintf( esc_html__( 'Address %d', 'activities' ), 1 ),
-    'billing_address_2' => sprintf( esc_html__( 'Address %d', 'activities' ), 2 ),
+    'billing_address_1' => sprintf( esc_html__( 'Address %d', 'activities' ), '1' ),
+    'billing_address_2' => sprintf( esc_html__( 'Address %d', 'activities' ), '2' ),
     'billing_city' => esc_html__( 'City', 'activities' ),
     'billing_postcode' => esc_html__( 'Postcode', 'activities' ),
     'billing_phone' => esc_html__( 'Phone', 'activities' )
   );
   $shipping = array(
-    'shipping_address_1' => sprintf( esc_html__( 'Address %d', 'activities' ), 1 ),
-    'shipping_address_2' => sprintf( esc_html__( 'Address %d', 'activities' ), 2 ),
+    'shipping_address_1' => sprintf( esc_html__( 'Address %d', 'activities' ), '1' ),
+    'shipping_address_2' => sprintf( esc_html__( 'Address %d', 'activities' ), '2' ),
     'shipping_city' => esc_html__( 'City', 'activities' ),
     'shipping_postcode' => esc_html__( 'Postcode', 'activities' )
   );

@@ -837,10 +837,6 @@ class Activities_Admin {
       'first_name' => sanitize_text_field( $_POST['first_name'] ),
       'last_name' => sanitize_text_field( $_POST['last_name'] ),
     );
-    $email = sanitize_email( $_POST['user_email'] );
-    if ( $email != '' ) {
-      $user_data['user_email'] = $email;
-    }
 
     $ret_id = wp_update_user( $user_data );
     if ( is_wp_error( $ret_id )) {

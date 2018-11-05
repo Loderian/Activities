@@ -269,6 +269,9 @@
         event.preventDefault();
 
         var id = $(this).attr('uid');
+        if (!all_member_info.hasOwnProperty(id)) {
+          return;
+        }
         var user_info = all_member_info[id];
 
         $('input[name=uid]').val(id);
@@ -277,7 +280,12 @@
             continue;
           }
           else if (key == 'acts_user_avatar') {
+            $('#acts-user-avatar').attr('src', '');
+            $('.acts-quick-img-wrap .acts-nice-loader').show();
             $('#acts-user-avatar').attr('src', user_info[key]);
+            imagesLoaded( document.querySelector('#acts-user-avatar'), function() {
+              $('.acts-quick-img-wrap .acts-nice-loader').hide();
+            });
           }
           else if ($('#acts-quick-' + key).length) {
             $('#acts-quick-' + key).val(user_info[key]);
@@ -350,7 +358,7 @@
         $('input[type=text][name="nice_color_key[]"]').attr('disabled', disable);
         $('input[type=text][name="nice_color[]"]').attr('disabled', disable);
         $('input[type=submit][name=delete_color]').attr('disabled', disable);
-        $('.acts-nice-loader').toggle(disable);
+        $('#acts-nice-settings .acts-nice-loader').toggle(disable);
       }
 
       function update_user_info(id, new_info) {
@@ -397,6 +405,7 @@
 
       load_member_info(false);
 
+      //Column 1
       var prepared_keys_1 = {
         wp: [],
         bill: [
@@ -412,6 +421,8 @@
           'shipping_postcode'
         ]
       };
+
+      //Column 2
       var prepared_keys_2 = {
         wp: [],
         bill: [

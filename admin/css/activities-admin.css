@@ -272,8 +272,8 @@
   border: 2px solid #f3f3f3;
   border-radius: 50%;
   border-top: 2px solid #3498db;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   animation: acts-loader-spin 2s linear infinite;
   z-index: 2;
   display: inline-block;
@@ -463,11 +463,20 @@
   width: 100%
 }
 
-.acts-quick-edit-group img {
+.acts-quick-img-wrap {
   display: block;
+  width: 128px;
+  height: 128px;
   margin: auto;
   border: 1px solid darkgrey;
   border-radius: 3px;
+  position: relative;
+}
+
+.acts-quick-img-wrap .acts-nice-loader {
+  position: absolute;
+  top: 54px;
+  left: 54px;
 }
 
 @media print {

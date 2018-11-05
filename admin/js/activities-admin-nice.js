@@ -276,15 +276,18 @@
           if (key == 'acts_full_name') {
             continue;
           }
-          if ($('#acts-quick-' + key).length) {
+          else if (key == 'acts_user_avatar') {
+            $('#acts-user-avatar').attr('src', user_info[key]);
+          }
+          else if ($('#acts-quick-' + key).length) {
             $('#acts-quick-' + key).val(user_info[key]);
           }
         }
 
         var h = window.innerHeight * 0.90;
         var w = window.innerWidth * 0.90;
-        if ( w > 800 ) {
-          w = 800;
+        if ( w > 650 ) {
+          w = 650;
         }
 
         tb_show(all_member_info[id].acts_full_name, "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-quick-user-edit");

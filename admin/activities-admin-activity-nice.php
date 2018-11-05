@@ -81,20 +81,20 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     $output .= '<form action="' . admin_url( 'admin-ajax.php' ) . '" class="acts-quick-edit-box acts-form" method="post">';
 
     //User info
-    $output .= '<div><b class="acts-quick-edit-header">' . esc_html__( 'User', 'activities' ) . '</b>';
-    $output .= '<div class="acts-quick-edit-type">';
+    $output .= '<div>';
+    $output .= '<div class="acts-quick-edit-type" type="user">';
     $output .= acts_nice_quick_inputs( array(
       'first_name' => esc_html__( 'First Name', 'activities' ),
       'last_name' => esc_html__( 'Last Name', 'activities' )
-    ));
-    $output .= acts_nice_quick_inputs( array(
-      'user_email' => esc_html__( 'Email', 'activities' )
-    ));
+    ), esc_html__( 'User', 'activities' ));
+    $output .= '<div class="acts-quick-edit-group">';
+    $output .= '<img src="" id="acts-user-avatar" />';
+    $output .= '</div>';
     $output .= '</div></div>';
 
     //WooCommerce
     if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-      $output .= '<div><b class="acts-quick-edit-header">WooCommerce</b>';
+      $output .= '<div><b class="acts-quick-edit-header" type="woocommerce">WooCommerce</b>';
       $output .= '<div class="acts-quick-edit-type">';
       $output .= acts_nice_quick_inputs( acts_get_woocommerce_nice_keys( 'bill' ), esc_html__( 'Billing', 'activities' ) );
       $output .= acts_nice_quick_inputs( acts_get_woocommerce_nice_keys( 'ship' ), esc_html__( 'Shipping', 'activities' )  );
@@ -137,7 +137,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
       $custom_input = acts_nice_quick_inputs( $map1, '', 'custom' ) . acts_nice_quick_inputs( $map2, '', 'custom' );
     }
     $output .= '<div style="' . $hidden . '"><b class="acts-quick-edit-header">' . esc_html__( 'Custom Fields', 'activities' ) . '</b>';
-    $output .= '<div class="acts-quick-edit-type">';
+    $output .= '<div class="acts-quick-edit-type" type="custom">';
     $output .= $custom_input;
     $output .= '</div></div>';
 
@@ -676,7 +676,9 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
       'first_name' => $user->first_name,
       'last_name' => $user->last_name,
       'user_email' => $user->get( 'user_email' ),
-      'acts_full_name' => Activities_Utility::get_user_name( $id, false )
+      //Add acts as prefix to avoid any conflict with other meta keys
+      'acts_full_name' => Activities_Utility::get_user_name( $id, false ),
+      'acts_user_avatar' => get_avatar_url( $id, array( 'size' => 128 ) )
     );
     foreach (acts_get_woocommerce_nice_keys() as $key => $name) {
       $user_info[$key] = $user->$key;

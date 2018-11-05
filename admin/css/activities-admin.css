@@ -417,8 +417,12 @@
   text-align: right;
 }
 
+.acts-quick-edit-box {
+  margin-top: 7px;
+}
+
 .acts-quick-edit-box > div {
-  padding: 7px 0px;
+  padding: 0 0 7px 0;
 }
 
 .acts-quick-edit-box label {
@@ -431,6 +435,11 @@
   display: block;
   font-size: 18px;
   margin: 5px 0;
+}
+
+.acts-quick-edit-type[type=user] .acts-quick-edit-header {
+  font-size: 18px;
+  margin: 0 0 10px 0;
 }
 
 .acts-quick-edit-group .acts-quick-edit-header {
@@ -452,6 +461,13 @@
 
 .acts-quick-edit-group input {
   width: 100%
+}
+
+.acts-quick-edit-group img {
+  display: block;
+  margin: auto;
+  border: 1px solid darkgrey;
+  border-radius: 3px;
 }
 
 @media print {

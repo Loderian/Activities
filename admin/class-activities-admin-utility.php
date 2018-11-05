@@ -117,9 +117,9 @@ class Activities_Admin_Utility {
       }
     }
     $act_map = array(
-      'name' => sanitize_text_field( $_POST['name'] ),
-      'short_desc' => sanitize_text_field( $_POST['short_desc'] ),
-      'long_desc' => sanitize_textarea_field( $_POST['long_desc'] ),
+      'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 100 ),
+      'short_desc' => substr( sanitize_text_field( $_POST['short_desc'] ), 0, 255  ),
+      'long_desc' => substr( sanitize_textarea_field( $_POST['long_desc'] ), 0, 65535 ),
       'start' => self::validate_date( sanitize_text_field( $_POST['start'] ) ),
       'end' => self::validate_date( sanitize_text_field( $_POST['end'] ) ),
       'location_id' => ( $loc_id ? $loc_id : null ),
@@ -139,12 +139,12 @@ class Activities_Admin_Utility {
    */
   static function get_location_post_values() {
     $loc_map = array(
-      'name' => sanitize_text_field( $_POST['name'] ),
-      'address' => sanitize_text_field( $_POST['address'] ),
-      'description' => sanitize_textarea_field( $_POST['description'] ),
-      'city' => sanitize_text_field( $_POST['city'] ),
-      'postcode' => sanitize_text_field( $_POST['postcode'] ),
-      'country' => sanitize_text_field( $_POST['country'] )
+      'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 100 ),
+      'address' => substr( sanitize_text_field( $_POST['address'] ), 0, 255 ),
+      'description' => substr( sanitize_textarea_field( $_POST['description'] ), 0, 65535 ),
+      'city' => substr( sanitize_text_field( $_POST['city'] ), 0, 100 ),
+      'postcode' => substr( sanitize_text_field( $_POST['postcode'] ), 0, 12 ),
+      'country' => substr( sanitize_text_field( $_POST['country'] ), 0, 2 )
     );
 
     if ( isset( $_POST['item_id'] ) ) {

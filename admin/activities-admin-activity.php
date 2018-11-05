@@ -125,7 +125,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   }
   $output .= '<p>';
 	if ( $archive != 'archive' && ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) ) {
-		$output .= get_submit_button( $button, 'button-primary', $action, false );
+		$output .= get_submit_button( $button, 'button-primary', ($action . '_act'), false );
 	}
 	else if ( $archive == 'archive' ){
 		$output .= '<a href="' . esc_url( $current_url . '&action=activate&item_id=' . esc_attr( acts_validate_id( $_GET['item_id'] ) ) ) . '" class="button button-primary" >' . esc_html__( 'Activate', 'activities' ) . '</a>';

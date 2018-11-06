@@ -1,7 +1,7 @@
 === Activities ===
 Contributors: loderian
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
-Tags: activities, events, courses, classes, reports
+Tags: activities, events, courses, classes, report
 Requires at least: 4.6
 Tested up to: 4.9.8
 Stable tag: 1.0.3
@@ -9,7 +9,7 @@ Requires PHP: 7.0.32
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
-A plugin for managing activities, printing reports and exporting user data.
+A plugin for managing activities, printing/downloading reports and sending emails to participants. With WooCommerce integration.
 
 == Description ==
 
@@ -109,12 +109,17 @@ This plugin also includes and option to get a better user search in the admin us
 
 == Frequently Asked Questions ==
 
-= How do i create an activity? =
+= How do i send an email to participants? =
 
 1. Go to *Activities* page in the admin area.
-1. Click the *Create new activity* button at the top of the page.
-1. Give the activity a name and whatever else you want.
-1. Click the *Create* button.
+1. Find the activity with the participants you want to send emails to
+1. Click the export button under the activity name
+1. Select email from the *Select User Data* dropdown
+1. Click *Export*
+1. Click the box containing the emails as text
+1. Make a new email in your email webpage or program
+1. Paste the text in the *To* input
+1. If it doesn't separate the emails correctly, try exporting with `;` as delimiter instead
 
 = How do I use the shortcode? =
 
@@ -156,7 +161,7 @@ List of data options
 - Responsible:
   * `res_name` or `res` = Name
   * `res_name_email` = Name (email)
-  * `res_` + `user_meta_key` = Advanced! Custom user data, `***` if the `user_meta_key` is protected or " " if nothing was found
+  * `res_` + `user_meta_key` = Advanced! Custom user data, `***` if the `user_meta_key` is protected or `" "` if nothing was found
 
 == Screenshots ==
 
@@ -168,12 +173,18 @@ List of data options
 
 == Changelog ==
 
+= 1.0.3 =
+
+* Feature: Clicking names in the activity report will now show a box where you can edit user data
+* Feature: Added a *Make default* button to the report settings box
+* Enhancement: Report checkboxes are now saved
+* Fix: The reload info button on default report settings page should now work
+
 = 1.0.2 =
 
-* Select fields should now be useable if selectize does not load
-* Shorcode join button now filters users that has no roles that are allowed to be participants
-* Fixed a javascript compile bug that occurred in Internet Explorer
-* Fixed FAQ
+* Enhancement: Select fields should now be useable if selectize does not load
+* Enhancement: Shortcode join button now filters users that has no roles that are allowed to be participants
+* Fix: Javascript compile bug that occurred in Internet Explorer
 
 = 1.0.1 =
 

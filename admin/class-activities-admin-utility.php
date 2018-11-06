@@ -32,9 +32,34 @@ class Activities_Admin_Utility {
         die( esc_html__( 'Could not verify activity report data integrity.', 'activities' ) );
       }
 
+      if ( isset( $_POST['time_slots'] ) ) {
+        $time_slots = acts_validate_id( $_POST['time_slots'] ); //Time slots uses the same properies as an id
+        if ( $time_slots >= 0 ) {
+          $nice_settings['time_slots'] = $time_slots;
+        }
+      }
+
       $id = acts_validate_id( $_POST['item_id'] );
       if ( $id ) {
         $nice_settings['activity_id'] = $id;
+        
+        //Only get attended list if this not an example activity
+        $attended = array();
+        if ( isset( $_POST['time'] ) && is_array( $_POST['time'] ) && isset( $nice_settings['time_slots'] ) ) {
+          foreach ($_POST['time'] as $uid => $times) {
+            $uid = acts_validate_id( $uid );
+            if ( $uid ) {
+              $attended[$uid] = array();
+              foreach ($times as $t => $unused) {
+                //Time t must be less that time_slots since it starts at 0
+                if ( $t < $nice_settings['time_slots']) {
+                  $attended[$uid][$t] = true;
+                }
+              }
+            }
+          }
+        }
+        $nice_settings['attended'] = $attended;
       }
 
       if ( isset( $_POST['acts_nice_logo_id'] ) ) {
@@ -43,13 +68,6 @@ class Activities_Admin_Utility {
 
       if ( isset( $_POST['header'] ) ) {
         $nice_settings['header'] = sanitize_text_field( $_POST['header'] );
-      }
-
-      if ( isset( $_POST['time_slots'] ) ) {
-        $time_slots = acts_validate_id( $_POST['time_slots'] ); //Time slots uses the same properies as an id
-        if ( $time_slots >= 0 ) {
-          $nice_settings['time_slots'] = $time_slots;
-        }
       }
 
       $setup = sanitize_key( $_POST['member_info'] );

@@ -116,6 +116,7 @@
 .acts-form input[type=text],
 .acts-form input[type=date],
 .acts-form input[type=number],
+.acts-form input[type=checkbox],
 .acts-form textarea {
   border-radius: 3px;
 }
@@ -241,12 +242,6 @@
 #acts-nice-settings h3 #acts-reload-members {
   vertical-align: baseline;
   font-weight: normal;
-}
-
-#acts-nice-settings table,
-#acts-nice-settings #acts-nice-settings-form div {
-  margin-top: 5px;
-  margin-bottom: 5px;
 }
 
 #acts-nice-logo-setting .button,

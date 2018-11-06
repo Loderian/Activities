@@ -158,6 +158,11 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	}
 
 	$output .= '<h2 id="acts-nice-preview-title">' . esc_html__( 'Report', 'activities' ) . ':</h2>';
+
+  if ( $current_url != null ) {
+    $output .= '<form class="acts-form" method="post">';
+  }
+
 	$output .= '<div id="acts-nice-preview">';
 
 	$output .= acts_activity_nice_page( $activity, $nice_settings );
@@ -201,13 +206,6 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 		$output .= '<i <span class="acts-grey"> (' . ($default ? esc_html__( 'default', 'activities' ) : esc_html__( 'custom', 'activities' ) ) . ')</i>';
 	}
 	$output .= '</h3>';
-
-	if ( $current_url != null ) {
-		$output .= '<form id="acts-nice-settings-form" class="acts-form" method="post">';
-	}
-  else {
-    $output .= '<div id="acts-nice-settings-form">';
-  }
 
   $output .= '<b>' . esc_html__( 'Header', 'activities' ) . '</b></br>';
   $output .= '<input type="text" name="header" value="' . esc_attr( stripslashes( $nice_settings['header'] ) ) . '" />';
@@ -297,13 +295,12 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 		$output .= '</div>';
 	}
 	$output .= '<input type="hidden" value="' . esc_attr( $activity['activity_id'] ) . '" id="item-id" name="item_id" />';
-	if ( $current_url != null ) {
-		$output .= '</form>';
-	}
-  else {
-    $output .= '</div>';
+
+	$output .= '</div>'; //Nice settings wrap
+
+  if ( $current_url != null ) {
+    $output .= '</form>';
   }
-	$output .= '</div>';
 
   $meta_fields = $wpdb->get_col(
     "SELECT DISTINCT meta_key
@@ -353,10 +350,6 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
 		$location = array( 'address' => 'location address' );
 	}
 
-  $timeslots = '';
-  for ($time=0; $time < $nice_settings['time_slots']; $time++) {
-    $timeslots .= '<input type="checkbox" name="time' . ($time + 1) . '">';
-  }
 
 	$output =	'<div id="acts-nice-wrap">';
   $output .= '<div id="acts-nice-header">';
@@ -485,8 +478,22 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
 			$output .= $user['col2'];
 			$output .= '</span></div>';
 
-			$output .= '<div class="acts-nice-members-time">';
-      $output .= $timeslots;
+			$output .= '<div class="acts-nice-members-time" uid="' . esc_attr( $id ) . '">';
+      $attended = array();
+      if ( isset( $nice_settings['attended'] ) ) {
+        $attended = $nice_settings['attended'];
+      }
+      for ($time=0; $time < 50; $time++) {
+        $checked = '';
+        if ( isset( $attended[$id][$time] ) ) {
+          $checked = 'checked="checked"';
+        }
+        $hidden = '';
+        if ( $time >= $nice_settings['time_slots'] ) {
+          $hidden = 'style="display: none;"';
+        }
+        $output .= '<input ' . $hidden . ' type="checkbox" name="' . esc_attr( sprintf( 'time[%d][%d]', $id, $time ) ) . '" time="' . $time . '" ' . $checked . '>';
+      }
 			$output .= '</div>';
 
 			$output .= '</div>';

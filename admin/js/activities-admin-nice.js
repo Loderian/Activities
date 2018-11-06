@@ -110,45 +110,50 @@
     if ($('#acts-nice-settings').length) {
       var prev_times;
 
-      function update_html() {
-        var times = parseInt( $('#time-slots').val() );
-        var max = parseInt( $('#time-slots').attr('max') );
-        if ( times > max ) {
-          times = max;
-          $('#time-slots').val( times );
-        }
-        else if ( times < 0 ) {
+      function update_sessions() {
+        var times = parseInt($('#time-slots').val());
+        var max = parseInt($('#time-slots').attr('max'));
+        if (isNaN(times)) {
           times = 0;
-          $('#time-slots').val( times );
         }
+        else if (times > max) {
+          times = max;
+          $('#time-slots').val(times);
+        }
+        else if (times < 0) {
+          times = 0;
+          $('#time-slots').val(times);
+        }
+
         if ( prev_times == times ) {
           return;
         }
-        if ( times > prev_times ) {
-          for (var i = 0; i < times - prev_times; i++) {
-            $('div.acts-nice-members-time').append( '<input type="checkbox" name="time' + (prev_times + i + 1) + '" />' );
+        if (times > prev_times) {
+          for (var i = prev_times; i < times; i++) {
+            $('input[type="checkbox"][time='+i+']').show();
           }
         }
-        else if ( prev_times > times ) {
-          for (var i = prev_times; i > times; i--) {
-            $('input[type="checkbox"][name=time'+i+']').remove();
+        else if (prev_times > times) {
+          for (var i = prev_times - 1; i >= times; i--) {
+            $('input[type="checkbox"][time='+i+']').hide();
           }
         }
         else {
-          $('div.acts-nice-members-time').each( function( index, element ) {
-            $(element).html('');
-          });
+          //If prev_times is NaN (page refresh)
           for (var i = 0; i < times; i++) {
-            $('div.acts-nice-members-time').append( '<input type="checkbox" name="time' + (i + 1) + '" />' );
+            $('input[type="checkbox"][time='+i+']').show();
+          }
+          for (var i = times; i < 50; i++) {
+            $('input[type="checkbox"][time='+i+']').hide();
           }
         }
         prev_times = times;
       }
 
-      update_html();
+      update_sessions();
 
       $('#time-slots').on( 'input', function() {
-        update_html();
+        update_sessions();
       });
 
       function checkWl(elem) {
@@ -180,6 +185,8 @@
           }
         });
       }
+
+      reload_color();
 
       function reload_color() {
         $('input[name="nice_color[]"]').each( function(index, elem) {
@@ -436,8 +443,23 @@
 
         for(var i in list) {
           var val = user_info[list[i]];
-          if (val != '') {
-            col.append('<li>' + val + '</li>');
+          switch (list[i]) {
+            case 'billing_city':
+            case 'shipping_city':
+
+              val += ' ' + user_info[list[parseInt(i)+1]];
+              if (val.trim() != '') {
+                col.append('<li>' + val + '</li>');
+              }
+              break;
+
+            case 'billing_postcode':
+            case 'shipping_postcode':
+              break;
+              
+            default:
+              col.append('<li>' + val + '</li>');
+              break;
           }
         }
       }

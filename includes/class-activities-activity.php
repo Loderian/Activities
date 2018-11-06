@@ -422,6 +422,7 @@ class Activities_Activity {
    * @param   int       $activity_id Activity id
    * @param   string    $meta_key Meta key
    * @param   mixed     $meta_value Value to store
+   * @return  bool      False on error
    */
   static function update_meta( $activity_id, $meta_key, $meta_value ) {
     global $wpdb;
@@ -431,7 +432,7 @@ class Activities_Activity {
     $meta_value = maybe_serialize( $meta_value );
 
     if ( self::get_meta( $activity_id, $meta_key ) === null ) {
-      return  $wpdb->insert(
+      return $wpdb->insert(
         $meta_table,
         array( 'activity_id' => $activity_id, 'meta_key' => $meta_key, 'meta_value' => $meta_value ),
         array( '%d', '%s', '%s' )
@@ -444,7 +445,7 @@ class Activities_Activity {
         array( 'activity_id' => $activity_id, 'meta_key' => $meta_key ),
         array( '%s' ),
         array( '%d', '%s' )
-      );
+      ) !== false;
     }
   }
 
@@ -483,6 +484,9 @@ class Activities_Activity {
 
     $id = $settings['activity_id'];
     unset( $settings['activity_id'] );
+
+    self::update_meta( $id, 'attended', $settings['attended'] );
+    unset( $settings['attended'] );
 
     $default_settings = Activities_Options::get_option( ACTIVITIES_NICE_SETTINGS_KEY );
 
@@ -535,6 +539,8 @@ class Activities_Activity {
         $settings[$key] = $value;
       }
     }
+
+    $settings['attended'] = self::get_meta( $id, 'attended' );
 
     return $settings;
   }

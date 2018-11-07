@@ -42,18 +42,21 @@ class Activities_Admin_Utility {
       $id = acts_validate_id( $_POST['item_id'] );
       if ( $id ) {
         $nice_settings['activity_id'] = $id;
-        
+
         //Only get attended list if this not an example activity
         $attended = array();
         if ( isset( $_POST['time'] ) && is_array( $_POST['time'] ) && isset( $nice_settings['time_slots'] ) ) {
           foreach ($_POST['time'] as $uid => $times) {
             $uid = acts_validate_id( $uid );
             if ( $uid ) {
-              $attended[$uid] = array();
-              foreach ($times as $t => $unused) {
-                //Time t must be less that time_slots since it starts at 0
-                if ( $t < $nice_settings['time_slots']) {
-                  $attended[$uid][$t] = true;
+              //Stored as a string to make it easier to send to JavaScript and reduce size use when many boxes are checked
+              $attended[$uid] = '';
+              for ($t=0; $t < $nice_settings['time_slots']; $t++) {
+                if ( isset( $times[$t] ) ) {
+                  $attended[$uid] .= '1';
+                }
+                else {
+                  $attended[$uid] .= '0';
                 }
               }
             }

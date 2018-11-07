@@ -339,15 +339,26 @@ class Activities_Admin {
 			$custom = $_POST['custom'];
 		}
     $info = array();
+    $attended = array();
 		if ( $id === 0 ) {
       $user_ids = array( -1, -2, -3, -4, -5 );
 		}
 		elseif ( $id > 0 ) {
 			$user_ids = Activities_User_Activity::get_activity_users( $id );
+      $attended_meta = Activities_Activity::get_meta( $id, 'attended' );
+      if ( $attended_meta !== null ) {
+        $attended = $attended_meta;
+      }
 		}
 
     foreach ($user_ids as $uid) {
       $info[$uid] = acts_get_user_nice_info( $uid, $custom );
+      if ( array_key_exists( $uid, $attended ) ) {
+        $info[$uid]['acts_attended'] = $attended[$uid];
+      }
+      else {
+        $info[$uid]['acts_attended'] = array();
+      }
     }
 
 		wp_send_json_success( $info );

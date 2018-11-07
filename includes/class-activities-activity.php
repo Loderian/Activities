@@ -393,9 +393,9 @@ class Activities_Activity {
   /**
    * Get an activity meta value
    *
-   * @param   int       $activity_id Activity id
-   * @param   string    $meta_key Meta key
-   * @return  string    Meta value
+   * @param   int             $activity_id Activity id
+   * @param   string          $meta_key Meta key
+   * @return  string|null     Meta value, null on no value
    */
   static function get_meta( $activity_id, $meta_key ) {
     global $wpdb;

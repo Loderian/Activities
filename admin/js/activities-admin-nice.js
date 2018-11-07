@@ -110,6 +110,23 @@
     if ($('#acts-nice-settings').length) {
       var prev_times;
 
+      function append_checkbox_html(start, end) {
+        $('div.acts-nice-members-time').each( function(index, elem) {
+          var id = $(elem).attr('uid');
+          var attended = '';
+          if (all_member_info.hasOwnProperty(id)) {
+            attended = all_member_info[id]['acts_attended'];
+          }
+          for (var i = start; i < end; i++) {
+            var checked = '';
+            if (i < attended.length && attended.charAt(i) == '1') {
+              checked = 'checked="checked"';
+            }
+            $(elem).append('<input type="checkbox" name="time[' + id + '][' + i + ']" time=' + i + ' ' + checked + '/>')
+          }
+        });
+      }
+
       function update_sessions() {
         var times = parseInt($('#time-slots').val());
         var max = parseInt($('#time-slots').attr('max'));
@@ -129,28 +146,21 @@
           return;
         }
         if (times > prev_times) {
-          for (var i = prev_times; i < times; i++) {
-            $('input[type="checkbox"][time='+i+']').show();
-          }
+          append_checkbox_html(prev_times, times);
         }
         else if (prev_times > times) {
           for (var i = prev_times - 1; i >= times; i--) {
-            $('input[type="checkbox"][time='+i+']').hide();
+            $('input[type="checkbox"][time=' + i + ']').remove();
           }
         }
         else {
           //If prev_times is NaN (page refresh)
-          for (var i = 0; i < times; i++) {
-            $('input[type="checkbox"][time='+i+']').show();
-          }
-          for (var i = times; i < 50; i++) {
-            $('input[type="checkbox"][time='+i+']').hide();
-          }
+          $('div.acts-nice-members-time').html('');
+          append_checkbox_html(0, times);
         }
+
         prev_times = times;
       }
-
-      update_sessions();
 
       $('#time-slots').on( 'input', function() {
         update_sessions();
@@ -272,6 +282,8 @@
         });
       }
 
+      var link = $('#acts-nice-user-link').attr('href');
+
       $('.acts-user-quick-edit').click( function( event ) {
         event.preventDefault();
 
@@ -279,6 +291,7 @@
         if (!all_member_info.hasOwnProperty(id)) {
           return;
         }
+        $('#acts-nice-user-link').attr('href', link + '?user_id=' + id);
         var user_info = all_member_info[id];
 
         $('input[name=uid]').val(id);
@@ -315,7 +328,6 @@
 
       $('.acts-quick-edit-box').on( 'submit', function( event ) {
         event.preventDefault();
-
 
         $.post( $(this).attr('action'), $(this).serialize(), function(response) {
             if (response.success) {
@@ -356,6 +368,7 @@
 
       function disable_member_info_controls(disable) {
         $('#acts-reload-members').attr('disabled', disable);
+        $('#time-slots').attr('disabled', disable);
         $('input[type=radio][name=member_info]').attr('disabled', disable);
         $('#add-custom').attr('disabled', disable);
         $('input[type=text][name="nice_custom[]"]').attr('disabled', disable);
@@ -372,7 +385,7 @@
         if (!all_member_info.hasOwnProperty(id)) {
           all_member_info[id] = {};
         }
-        for (key in new_info) {
+        for (var key in new_info) {
           all_member_info[id][key] = new_info[key];
         }
       }
@@ -400,6 +413,8 @@
             if ( write ) {
               write_member_info(new Set());
             }
+
+            update_sessions();
           },
           error: function(jqXHR, text, error) {
             console.error(text);
@@ -456,7 +471,7 @@
             case 'billing_postcode':
             case 'shipping_postcode':
               break;
-              
+
             default:
               col.append('<li>' + val + '</li>');
               break;

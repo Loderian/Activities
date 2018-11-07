@@ -146,7 +146,11 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 
     $output .= '<input type="hidden" name="uid" />';
     $output .= '<input type="hidden" name="action" value="acts_quick_save" />';
-    $output .= get_submit_button( esc_html__( 'Save', 'activities'), 'button-primary', 'acts_save_quick' );
+    $output .= '<p>';
+    $output .= get_submit_button( esc_html__( 'Save', 'activities'), 'button-primary', 'acts_save_quick', false );
+
+    $output .= '<a id="acts-nice-user-link" href="' . self_admin_url( 'user-edit.php' ) .  '" target="_blank" class="button right">' . esc_html__( 'Open user page', 'activities' ) .  '</a>';
+    $output .= '</p>';
     $output .= '</form>';
     $output .= '</div>';
   }
@@ -483,16 +487,12 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
       if ( isset( $nice_settings['attended'] ) ) {
         $attended = $nice_settings['attended'];
       }
-      for ($time=0; $time < 50; $time++) {
+      for ($time=0; $time < $nice_settings['time_slots']; $time++) {
         $checked = '';
-        if ( isset( $attended[$id][$time] ) ) {
+        if ( isset( $attended[$id][$time] ) && $attended[$id][$time] == '1' ) {
           $checked = 'checked="checked"';
         }
-        $hidden = '';
-        if ( $time >= $nice_settings['time_slots'] ) {
-          $hidden = 'style="display: none;"';
-        }
-        $output .= '<input ' . $hidden . ' type="checkbox" name="' . esc_attr( sprintf( 'time[%d][%d]', $id, $time ) ) . '" time="' . $time . '" ' . $checked . '>';
+        $output .= '<input type="checkbox" name="' . esc_attr( sprintf( 'time[%d][%d]', $id, $time ) ) . '" time="' . $time . '" ' . $checked . '>';
       }
 			$output .= '</div>';
 
@@ -559,7 +559,7 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
     $col1 = '';
     $bold_name = '<b class="acts-nice-member-name"><span key="acts_full_name">' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</span></b>';
     if ( $id > 0 ) {
-      $col1 .= '<a href="" class="acts-user-quick-edit" uid="' . $id . '">' . $bold_name . '</a>';
+      $col1 .= '<a href="" class="acts-user-quick-edit" uid="' . $id . '">' . $bold_name . '<span class="dashicons dashicons-edit"></span></a>';
     }
     else {
       $col1 .= $bold_name;

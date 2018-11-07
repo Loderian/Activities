@@ -362,11 +362,22 @@
   width: 36%;
 }
 
-.acts-nice-members-info a {
+.acts-user-quick-edit {
   color: #0073aa;
 }
-.acts-nice-members-info a:hover {
+.acts-user-quick-edit .dashicons {
+  visibility: hidden;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+}
+
+.acts-user-quick-edit:hover {
   color: #0085ba;
+}
+
+.acts-user-quick-edit:hover .dashicons {
+  visibility: visible;
 }
 
 .acts-nice-members-row .acts-nice-members-time,
@@ -496,7 +507,8 @@
   #wpadminbar,
   #activities-title,
   #acts-nice-settings,
-  #acts-nice-preview-title {
+  #acts-nice-preview-title,
+  .acts-nice-print-hide {
     display: none !important;
   }
 

@@ -177,6 +177,7 @@ List of data options
 
 * Feature: Clicking names in the activity report will now show a box where you can edit user data
 * Feature: Added a *Make default* button to the report settings box
+* Feature: Added buttons to check and uncheck session boxes of a selected number
 * Enhancement: Report checkboxes are now saved
 * Fix: The reload info button on default report settings page should now work
 

@@ -84,9 +84,7 @@ class Activities_Admin {
 
     wp_register_script( $this->plugin_name . '-admin-nice-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-nice.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
 		wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n', array(
-			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' ),
-      'time_mode_on' => esc_html__( 'Mark session: On', 'activities' ),
-      'time_mode_off' => esc_html__( 'Mark session: Off', 'activities' )
+			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' )
 		) );
 
     //Enqueue such that selectize works on WooCommerce pages
@@ -866,12 +864,12 @@ class Activities_Admin {
     }
 
     if ( isset( $_POST['custom'] ) && is_array( $_POST['custom'] ) ) {
-      $types = apply_filters( 'acts_quick_edit_types', array() );
+      $types = apply_filters( 'acts_quick_edit_types', acts_nice_defualt_types() );
       foreach ($_POST['custom'] as $key => $value) {
         $key = sanitize_key( $key );
 
         $type = '';
-        if ( array_key_exists( $key, $types ) ) {
+        if ( isset( $types[$key] ) ) {
           $type = $types[$key];
         }
         switch ($type) {
@@ -885,6 +883,7 @@ class Activities_Admin {
               $value = '';
             }
             break;
+
           case 'input':
           default:
             $value = sanitize_text_field( $value );

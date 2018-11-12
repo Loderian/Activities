@@ -140,7 +140,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
       else {
         list( $map1, $map2 ) = array_chunk( $custom_map, ceil( count( $custom_map )/2 ), true );
       }
-      $types = apply_filters( 'acts_quick_edit_types', array() );
+      $types = apply_filters( 'acts_quick_edit_types', acts_nice_defualt_types() );
       $custom_input = acts_nice_quick_inputs( $map1, '', 'custom', $types ) . acts_nice_quick_inputs( $map2, '', 'custom', $types );
     }
     $output .= '<div style="' . $hidden . '"><b class="acts-quick-edit-header">' . esc_html__( 'Custom Fields', 'activities' ) . '</b>';
@@ -825,11 +825,8 @@ function acts_nice_quick_inputs( $input_list, $header = '', $list_name = '', $in
     $output .= '<li><label for="acts-quick-' . esc_attr( $key ) . '">' . $display . '</label></li>';
     $output .= '<li>';
     $type = '';
-    if ( array_key_exists( $key, $input_types ) ) {
+    if ( isset( $input_types[$key] ) ) {
       $type = $input_types[$key];
-    }
-    else if ( $key == 'billing_country' || $key == 'shipping_country' ) {
-      $type = 'country';
     }
     $id = 'id="acts-quick-' . esc_attr( $key ) . '" ';
     $placeholder = 'placeholder="' . esc_attr( $display ) . '" ';
@@ -877,4 +874,16 @@ function acts_nice_key_display( $key ) {
   }
 
   return implode( ' ', $display );
+}
+
+/**
+ * Get the default special field types
+ *
+ * @return array
+ */
+function acts_nice_defualt_types() {
+  return array(
+    'billing_country' => 'country',
+    'shipping_country' => 'country'
+  );
 }

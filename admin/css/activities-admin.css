@@ -280,6 +280,11 @@
   100% { transform: rotate(360deg); }
 }
 
+#acts-time-mark {
+  float: right;
+  width: 50px;
+}
+
 #acts-nice-custom li input[type=text] {
   width: 55%;
 }
@@ -465,8 +470,13 @@
   padding: 5px 0px;
 }
 
-.acts-quick-edit-group input {
-  width: 100%
+.acts-quick-edit-group input,
+.acts-quick-edit-group textarea {
+  width: 100%;
+}
+
+.acts-quick-edit-group textarea {
+  height: 150px;
 }
 
 .acts-quick-img-wrap {

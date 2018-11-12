@@ -130,6 +130,14 @@
       function update_sessions() {
         var times = parseInt($('#time-slots').val());
         var max = parseInt($('#time-slots').attr('max'));
+        var exist = -1;
+        if ($('.acts-nice-members-time').length) {
+          exist = $('input[time]:last').attr('time');
+        }
+        else {
+          return;
+        }
+
         if (isNaN(times)) {
           times = 0;
         }
@@ -142,7 +150,7 @@
           $('#time-slots').val(times);
         }
 
-        if ( prev_times == times ) {
+        if (prev_times == times || exist == times - 1) {
           return;
         }
         if (times > prev_times) {
@@ -164,6 +172,27 @@
 
       $('#time-slots').on( 'input', function() {
         update_sessions();
+      });
+
+      function mark_session(mark) {
+        var time = parseInt($('#acts-time-mark').val());
+        if (isNaN(time) || time < 1) {
+          time = 1;
+        }
+
+        $('input[time=' + (time - 1) + ']').attr('checked', mark);
+      }
+
+      $('#mark_session_on').on( 'click', function(event) {
+        event.preventDefault();
+
+        mark_session(true);
+      });
+
+      $('#mark_session_off').on( 'click', function(event) {
+        event.preventDefault();
+
+        mark_session(false);
       });
 
       function checkWl(elem) {
@@ -308,6 +337,14 @@
             });
           }
           else if ($('#acts-quick-' + key).length) {
+            if ($('#acts-quick-' + key).is('select') && $('#acts-quick-' + key).attr('class') === 'selectized') {
+              var sel = $('#acts-quick-' + key).eq(0).data('selectize');
+              if (sel) {
+                sel.setValue(user_info[key], true);
+                continue;
+              }
+            }
+
             $('#acts-quick-' + key).val(user_info[key]);
           }
         }

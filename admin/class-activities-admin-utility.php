@@ -159,13 +159,17 @@ class Activities_Admin_Utility {
    * @return array Location info
    */
   static function get_location_post_values() {
+    $country = substr( sanitize_text_field( $_POST['country'] ), 0, 2 );
+    if ( !array_key_exists( $country, Activities_Utility::get_countries() ) ) {
+      $country = '';
+    }
     $loc_map = array(
       'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 100 ),
       'address' => substr( sanitize_text_field( $_POST['address'] ), 0, 255 ),
       'description' => substr( sanitize_textarea_field( $_POST['description'] ), 0, 65535 ),
       'city' => substr( sanitize_text_field( $_POST['city'] ), 0, 100 ),
       'postcode' => substr( sanitize_text_field( $_POST['postcode'] ), 0, 12 ),
-      'country' => substr( sanitize_text_field( $_POST['country'] ), 0, 2 )
+      'country' => $country
     );
 
     if ( isset( $_POST['item_id'] ) ) {

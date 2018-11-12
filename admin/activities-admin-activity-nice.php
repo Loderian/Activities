@@ -53,6 +53,8 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     if ( isset( $settings['activity_id'] ) && $settings['activity_id'] ) {
   		Activities_Activity::delete_meta( $settings['activity_id'], ACTIVITIES_NICE_SETTINGS_KEY );
       unset( $settings['activity_id'] );
+      unset( $settings['attended'] );
+
       Activities_Options::update_option( ACTIVITIES_NICE_SETTINGS_KEY, $settings );
 
   		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings updated for %s, and made default for all activities.', 'activities' ), $activity['name'] ) );
@@ -70,6 +72,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 		if ( !is_array( $nice_settings ) ) {
 			$nice_settings = unserialize( $nice_settings );
 		}
+    $nice_settings['attended'] = Activities_Activity::get_meta( $activity['activity_id'], 'attended' );
 	}
 
   $output = '';
@@ -137,7 +140,8 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
       else {
         list( $map1, $map2 ) = array_chunk( $custom_map, ceil( count( $custom_map )/2 ), true );
       }
-      $custom_input = acts_nice_quick_inputs( $map1, '', 'custom' ) . acts_nice_quick_inputs( $map2, '', 'custom' );
+      $types = apply_filters( 'acts_quick_edit_types', array() );
+      $custom_input = acts_nice_quick_inputs( $map1, '', 'custom', $types ) . acts_nice_quick_inputs( $map2, '', 'custom', $types );
     }
     $output .= '<div style="' . $hidden . '"><b class="acts-quick-edit-header">' . esc_html__( 'Custom Fields', 'activities' ) . '</b>';
     $output .= '<div class="acts-quick-edit-type" type="custom">';
@@ -176,7 +180,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	$output .= '<div id="acts-nice-settings" class="activities-box-wrap activities-box-padding">';
 
   if ( $current_url != null ) {
-    $output .= '<div id="acts-nice-quick-wrap">';
+    $output .= '<div>';
     $output .= '<h3>' . esc_html__( 'Activity', 'activities' ) . '</h3>';
     $type = Activities_Admin::get_page_name( get_current_screen() );
     $output .= acts_build_select_items(
@@ -234,7 +238,16 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	$output .= '<tr><td>' . esc_html__( 'Long Description', 'activities' ) . '&#8193;</td><td><input type="checkbox" name="long_desc" id="long-desc" ' . ( $nice_settings['long_desc'] ? 'checked' : '') . '/></td></tr>';
 	$output .= '</tbody>';
 	$output .= '</table>';
-  $output .= '<div><label for="timeslots"><b>' . esc_html__( 'Sessions', 'activities' ) . '</b> <span id="time-slots-max">(max: 50)</span></label></br><input type="number" name="time_slots" id="time-slots" value="' . esc_attr( $nice_settings['time_slots'] ) . '" min="0" max="50" /></div>';
+
+  $output .= '<div>';
+  $output .= '<label for="timeslots"><b>' . esc_html__( 'Sessions', 'activities' ) . '</b> <span id="time-slots-max">(max: 50)</span></label></br>';
+  $output .= '<input type="number" name="time_slots" id="time-slots" placeholder="0" value="' . esc_attr( $nice_settings['time_slots'] ) . '" min="0" max="50" /></br></br>';
+  $output .= '<label><b>' . esc_html__( 'Mark Sessions', 'activities' ) . '</b></label></br>';
+  $output .= get_submit_button( esc_html__( 'Mark session: On', 'activities'), 'button', 'mark_session_on', false, 'mark="on"' ) . ' ';
+  $output .= get_submit_button( esc_html__( 'Mark session: Off', 'activities'), 'button', 'mark_session_off', false, 'mark="off"');
+  $output .= '<input type="number" min="1" placeholder="1" id="acts-time-mark" value="1" />';
+  $output .= '</div>';
+
 	$output .= '</div>';
 
   $output .= '<hr class="acts-nice-splitter">';
@@ -796,9 +809,10 @@ function acts_nice_listing( $string ) {
  * @param   array   $input_list List of inputs
  * @param   string  $header Optional header for list
  * @param   string  $list_name Add list syntax to input name
+ * @param   string  $input_types Map input keys to input types
  * @return  string  Html
  */
-function acts_nice_quick_inputs( $input_list, $header = '', $list_name = '' ) {
+function acts_nice_quick_inputs( $input_list, $header = '', $list_name = '', $input_types = array() ) {
   $output = '<div class="acts-quick-edit-group"><ul>';
   if ( $header != '' ) {
     $output .= '<li><b class="acts-quick-edit-header">' . $header . '</b></li>';
@@ -809,7 +823,40 @@ function acts_nice_quick_inputs( $input_list, $header = '', $list_name = '' ) {
       $name = $list_name . '[%s]';
     }
     $output .= '<li><label for="acts-quick-' . esc_attr( $key ) . '">' . $display . '</label></li>';
-    $output .= '<li><input type="text" id="acts-quick-' . esc_attr( $key ) . '" placeholder="' . esc_attr( $display ) . '" value="" name="' . esc_attr( sprintf( $name, $key ) ) . '" /></li>';
+    $output .= '<li>';
+    $type = '';
+    if ( array_key_exists( $key, $input_types ) ) {
+      $type = $input_types[$key];
+    }
+    else if ( $key == 'billing_country' || $key == 'shipping_country' ) {
+      $type = 'country';
+    }
+    $id = 'id="acts-quick-' . esc_attr( $key ) . '" ';
+    $placeholder = 'placeholder="' . esc_attr( $display ) . '" ';
+    $in_name = 'name="' . esc_attr( sprintf( $name, $key ) ) . '" ';
+
+    switch ($type) {
+      case 'textarea':
+        $output .= '<textarea ' . $id . $placeholder . $in_name . '></textarea>';
+        break;
+
+      case 'country':
+        $output .= acts_build_select(
+      		Activities_Utility::get_countries(),
+      		array(
+      			'name' => sprintf( $name, $key ),
+      			'id' => 'acts-quick-' . esc_attr( $key ),
+      		)
+      	);
+        $output .= '<script>jQuery("#' . 'acts-quick-' . esc_attr( $key ) . '").selectize({});</script>';
+        break;
+
+      case 'text':
+      default:
+        $output .= '<input type="text" ' . $id . $placeholder . $in_name . ' />';
+        break;
+    }
+    $output .= '</li>';
   }
   $output .= '</ul></div> ';
 

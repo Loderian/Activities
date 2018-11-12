@@ -84,7 +84,9 @@ class Activities_Admin {
 
     wp_register_script( $this->plugin_name . '-admin-nice-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-nice.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
 		wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n', array(
-			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' )
+			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' ),
+      'time_mode_on' => esc_html__( 'Mark session: On', 'activities' ),
+      'time_mode_off' => esc_html__( 'Mark session: Off', 'activities' )
 		) );
 
     //Enqueue such that selectize works on WooCommerce pages
@@ -864,9 +866,30 @@ class Activities_Admin {
     }
 
     if ( isset( $_POST['custom'] ) && is_array( $_POST['custom'] ) ) {
+      $types = apply_filters( 'acts_quick_edit_types', array() );
       foreach ($_POST['custom'] as $key => $value) {
         $key = sanitize_key( $key );
-        $value = sanitize_text_field( $value );
+
+        $type = '';
+        if ( array_key_exists( $key, $types ) ) {
+          $type = $types[$key];
+        }
+        switch ($type) {
+          case 'textarea':
+            $value = sanitize_textarea_field( $value );
+            break;
+
+          case 'country':
+            $value = sanitize_text_field( $value );
+            if ( !array_key_exists( $value, Activities_Utility::get_countries() ) ) {
+              $value = '';
+            }
+            break;
+          case 'input':
+          default:
+            $value = sanitize_text_field( $value );
+            break;
+        }
         if ( $key != '' ) {
           update_user_meta( $id, $key, $value );
           $user_data[$key] = $value;

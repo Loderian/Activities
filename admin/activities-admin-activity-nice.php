@@ -245,7 +245,26 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   $output .= '<label><b>' . esc_html__( 'Mark Sessions', 'activities' ) . '</b></label></br>';
   $output .= get_submit_button( esc_html__( 'Mark session: On', 'activities'), 'button', 'mark_session_on', false, 'mark="on"' ) . ' ';
   $output .= get_submit_button( esc_html__( 'Mark session: Off', 'activities'), 'button', 'mark_session_off', false, 'mark="off"');
-  $output .= '<input type="number" min="1" placeholder="1" id="acts-time-mark" value="1" />';
+
+  //Find the last session marked to make the mark session buttons more intelligent
+  $last_session = 1;
+  if ( isset( $nice_settings['attended'] ) ) {
+    foreach ($nice_settings['attended']  as $uid => $sessions) {
+      for ($t=$nice_settings['time_slots'] - 1; $t >= 0; $t--) {
+        if ( $sessions[$t] == '1' ) {
+          if ( $t + 2 > $last_session ) {
+            $last_session = $t + 2; //Add 1 for array offset and 1 for display of next session
+          }
+          break;
+        }
+      }
+    }
+  }
+  if ($last_session > $nice_settings['time_slots']) {
+    $last_session = $nice_settings['time_slots'];
+  }
+
+  $output .= '<input type="number" min="1" placeholder="1" id="acts-time-mark" value="' . $last_session . '" />';
   $output .= '</div>';
 
 	$output .= '</div>';

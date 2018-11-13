@@ -9,7 +9,7 @@ Requires PHP: 7.0.32
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
-A plugin for managing activities, printing/downloading reports and sending emails to participants. With WooCommerce integration.
+A plugin for managing activities, activity reports and communication with participants. Comes with WooCommerce integration.
 
 == Description ==
 
@@ -175,7 +175,7 @@ List of data options
 
 = 1.0.3 =
 
-* Feature: Clicking names in the activity report will now show a box where you can edit user data
+* Feature: Clicking names in the activity report will now show a box where you can edit user info
 * Feature: Added a *Make default* button to the report settings box
 * Feature: Added buttons to check and uncheck session boxes of a selected number
 * Enhancement: Report checkboxes are now saved
@@ -196,6 +196,12 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+
+* Makes editing participant info on reports easier
+* Report checkmarks can be used digitally (not adapted to phone use yet)
+* Easier to make default report settings
 
 = 1.0.2 =
 

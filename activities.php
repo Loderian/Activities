@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:       Activities
  * Plugin URI:        https://github.com/Loderian/Activities
- * Description:       A plugin for managing activities, printing reports and exporting user data.
+ * Description:       A plugin for managing activities, activity reports and communication with participants. Comes with WooCommerce integration.
  * Version:           1.0.3
  * Author:            Mikal Naustdal
  * Author URI:        https://github.com/Loderian

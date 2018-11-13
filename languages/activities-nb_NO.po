@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: activities\n"
-"POT-Creation-Date: 2018-11-12 17:05+0100\n"
-"PO-Revision-Date: 2018-11-12 17:06+0100\n"
+"POT-Creation-Date: 2018-11-13 14:45+0100\n"
+"PO-Revision-Date: 2018-11-13 14:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -160,12 +160,12 @@ msgid "Shipping"
 msgstr "Frakt"
 
 #: admin/activities-admin-activity-nice.php:146
-#: admin/activities-admin-activity-nice.php:269
+#: admin/activities-admin-activity-nice.php:288
 msgid "Custom Fields"
 msgstr "Egendefinerte felter"
 
 #: admin/activities-admin-activity-nice.php:154
-#: admin/activities-admin-activity-nice.php:302
+#: admin/activities-admin-activity-nice.php:321
 #: admin/activities-admin-activity.php:123
 #: admin/activities-admin-location.php:83
 #: admin/activities-admin-options.php:177 admin/class-activities-admin.php:545
@@ -224,12 +224,12 @@ msgid "Activity Info"
 msgstr "Aktivitetsinformasjon"
 
 #: admin/activities-admin-activity-nice.php:233
-#: admin/activities-admin-activity-nice.php:384
+#: admin/activities-admin-activity-nice.php:403
 msgid "Start"
 msgstr "Start"
 
 #: admin/activities-admin-activity-nice.php:234
-#: admin/activities-admin-activity-nice.php:389
+#: admin/activities-admin-activity-nice.php:408
 msgid "End"
 msgstr "Slutt"
 
@@ -254,7 +254,7 @@ msgid "Long Description"
 msgstr "Lang Beskrivelse"
 
 #: admin/activities-admin-activity-nice.php:243
-#: admin/activities-admin-activity-nice.php:443
+#: admin/activities-admin-activity-nice.php:462
 msgid "Sessions"
 msgstr "Økter"
 
@@ -270,43 +270,43 @@ msgstr "Merk økt: På"
 msgid "Mark session: Off"
 msgstr "Merk økt: Av"
 
-#: admin/activities-admin-activity-nice.php:256
+#: admin/activities-admin-activity-nice.php:275
 msgid "Participant Info"
 msgstr "Deltaker info"
 
-#: admin/activities-admin-activity-nice.php:257
+#: admin/activities-admin-activity-nice.php:276
 msgid "Reload Info"
 msgstr "Oppdater info"
 
-#: admin/activities-admin-activity-nice.php:260
+#: admin/activities-admin-activity-nice.php:279
 msgid "Prepared Setups"
 msgstr "Klargjorte oppsett"
 
-#: admin/activities-admin-activity-nice.php:270
+#: admin/activities-admin-activity-nice.php:289
 msgid "Type in usermeta key, then press reload info."
 msgstr "Skriv inn en bruker-meta felt, også trykk på Oppdater info."
 
-#: admin/activities-admin-activity-nice.php:271
+#: admin/activities-admin-activity-nice.php:290
 msgid "Seperate multiple fields in one line by a comma."
 msgstr "Skill flere felt på en linje med et komma."
 
-#: admin/activities-admin-activity-nice.php:286
+#: admin/activities-admin-activity-nice.php:305
 msgid "Color Fields"
 msgstr "Fargefelt"
 
-#: admin/activities-admin-activity-nice.php:287
+#: admin/activities-admin-activity-nice.php:306
 msgid "Colorize usermeta data for quicker identification."
 msgstr "Fargelegg bruker data for raskere identifikasjon."
 
-#: admin/activities-admin-activity-nice.php:304
+#: admin/activities-admin-activity-nice.php:323
 msgid "Print"
 msgstr "Print"
 
-#: admin/activities-admin-activity-nice.php:305
+#: admin/activities-admin-activity-nice.php:324
 msgid "Folder Print"
 msgstr "Mappe Print"
 
-#: admin/activities-admin-activity-nice.php:307
+#: admin/activities-admin-activity-nice.php:326
 #: admin/activities-admin-import.php:249 admin/activities-admin-import.php:305
 #: admin/activities-admin-import.php:420 admin/activities-admin-import.php:543
 #: includes/class-activities-woocommerce.php:299
@@ -314,19 +314,19 @@ msgstr "Mappe Print"
 msgid "Return"
 msgstr "Retuner"
 
-#: admin/activities-admin-activity-nice.php:310
+#: admin/activities-admin-activity-nice.php:329
 msgid "Make default"
 msgstr "Angi som standard"
 
-#: admin/activities-admin-activity-nice.php:311
+#: admin/activities-admin-activity-nice.php:330
 msgid "Reset to default"
 msgstr "Reset til standard"
 
-#: admin/activities-admin-activity-nice.php:379
+#: admin/activities-admin-activity-nice.php:398
 msgid "Activity Participants List"
 msgstr "Aktivitetsdeltakere Liste"
 
-#: admin/activities-admin-activity-nice.php:402
+#: admin/activities-admin-activity-nice.php:421
 #: admin/activities-admin-activity.php:88 admin/activities-admin-generic.php:54
 #: admin/activities-admin-locations.php:62
 #: admin/activities-admin-locations.php:92
@@ -335,64 +335,64 @@ msgstr "Aktivitetsdeltakere Liste"
 msgid "Location"
 msgstr "Sted"
 
-#: admin/activities-admin-activity-nice.php:419
+#: admin/activities-admin-activity-nice.php:438
 #: admin/activities-admin-activity.php:71 admin/activities-admin-generic.php:67
 #: admin/class-activities-admin-utility.php:379
 msgid "Responsible"
 msgstr "Ansvarlig"
 
-#: admin/activities-admin-activity-nice.php:435
+#: admin/activities-admin-activity-nice.php:454
 msgid "Participant"
 msgstr "Deltaker"
 
-#: admin/activities-admin-activity-nice.php:438
+#: admin/activities-admin-activity-nice.php:457
 #: admin/activities-admin-generic.php:87 admin/activities-admin-import.php:45
 msgid "Participants"
 msgstr "Deltakere"
 
-#: admin/activities-admin-activity-nice.php:442
+#: admin/activities-admin-activity-nice.php:461
 msgid "Additional Info"
 msgstr "Tillegg Info"
 
-#: admin/activities-admin-activity-nice.php:516
+#: admin/activities-admin-activity-nice.php:535
 msgid "This activity has no participants."
 msgstr "Denne aktiviteten har ingen deltakere."
 
-#: admin/activities-admin-activity-nice.php:673
+#: admin/activities-admin-activity-nice.php:692
 msgid "Wordpress User Info"
 msgstr "WordPress Bruker Info"
 
-#: admin/activities-admin-activity-nice.php:676
+#: admin/activities-admin-activity-nice.php:695
 msgid "Woocommerce Billing Info"
 msgstr "Woocommerce Fakturerings Info"
 
-#: admin/activities-admin-activity-nice.php:677
+#: admin/activities-admin-activity-nice.php:696
 msgid "Woocommerce Shipping Info"
 msgstr "Woocommerce Sendings Info"
 
-#: admin/activities-admin-activity-nice.php:760
-#: admin/activities-admin-activity-nice.php:761
-#: admin/activities-admin-activity-nice.php:767
-#: admin/activities-admin-activity-nice.php:768
+#: admin/activities-admin-activity-nice.php:779
+#: admin/activities-admin-activity-nice.php:780
+#: admin/activities-admin-activity-nice.php:786
+#: admin/activities-admin-activity-nice.php:787
 #, php-format
 msgid "Address %d"
 msgstr "Adresselinje %d"
 
-#: admin/activities-admin-activity-nice.php:762
-#: admin/activities-admin-activity-nice.php:769
+#: admin/activities-admin-activity-nice.php:781
+#: admin/activities-admin-activity-nice.php:788
 #: admin/activities-admin-location.php:55
 #: admin/class-activities-admin-utility.php:396
 msgid "City"
 msgstr "By"
 
-#: admin/activities-admin-activity-nice.php:763
-#: admin/activities-admin-activity-nice.php:770
+#: admin/activities-admin-activity-nice.php:782
+#: admin/activities-admin-activity-nice.php:789
 #: admin/activities-admin-location.php:53
 #: admin/class-activities-admin-utility.php:400
 msgid "Postcode"
 msgstr "Postnummer"
 
-#: admin/activities-admin-activity-nice.php:764
+#: admin/activities-admin-activity-nice.php:783
 #: admin/activities-admin-export.php:268
 msgid "Phone"
 msgstr "Mobilnummer"
@@ -2389,10 +2389,11 @@ msgstr "https://github.com/Loderian/Activities"
 
 #. Description of the plugin/theme
 msgid ""
-"A plugin for managing activities, printing reports and exporting user data."
+"A plugin for managing activities, activity reports and communication with "
+"participants. Comes with WooCommerce integration."
 msgstr ""
-"En plugin for å administrere aktiviteter, skrive ut rapporter og eksportere "
-"bruker data."
+"En plugin for administrering av aktiviteter, aktivitetsrapporter og "
+"kommunikasjon med deltakere. Leveres med WooCommerce integrering."
 
 #. Author of the plugin/theme
 msgid "Mikal Naustdal"

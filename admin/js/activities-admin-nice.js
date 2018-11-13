@@ -181,6 +181,15 @@
         }
 
         $('input[time=' + (time - 1) + ']').attr('checked', mark);
+        if (mark) {
+          time++;
+        }
+        else {
+          time--;
+        }
+        if ($('input[time=' + (time - 1) + ']').length) {
+          $('#acts-time-mark').val(time);
+        }
       }
 
       $('#mark_session_on').on( 'click', function(event) {

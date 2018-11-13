@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Activities\n"
-"POT-Creation-Date: 2018-11-12 17:05+0100\n"
+"POT-Creation-Date: 2018-11-13 14:45+0100\n"
 "PO-Revision-Date: 2018-09-05 18:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -162,12 +162,12 @@ msgid "Shipping"
 msgstr ""
 
 #: admin/activities-admin-activity-nice.php:146
-#: admin/activities-admin-activity-nice.php:269
+#: admin/activities-admin-activity-nice.php:288
 msgid "Custom Fields"
 msgstr ""
 
 #: admin/activities-admin-activity-nice.php:154
-#: admin/activities-admin-activity-nice.php:302
+#: admin/activities-admin-activity-nice.php:321
 #: admin/activities-admin-activity.php:123
 #: admin/activities-admin-location.php:83
 #: admin/activities-admin-options.php:177 admin/class-activities-admin.php:545
@@ -226,12 +226,12 @@ msgid "Activity Info"
 msgstr ""
 
 #: admin/activities-admin-activity-nice.php:233
-#: admin/activities-admin-activity-nice.php:384
+#: admin/activities-admin-activity-nice.php:403
 msgid "Start"
 msgstr ""
 
 #: admin/activities-admin-activity-nice.php:234
-#: admin/activities-admin-activity-nice.php:389
+#: admin/activities-admin-activity-nice.php:408
 msgid "End"
 msgstr ""
 
@@ -256,7 +256,7 @@ msgid "Long Description"
 msgstr ""
 
 #: admin/activities-admin-activity-nice.php:243
-#: admin/activities-admin-activity-nice.php:443
+#: admin/activities-admin-activity-nice.php:462
 msgid "Sessions"
 msgstr ""
 
@@ -272,43 +272,43 @@ msgstr ""
 msgid "Mark session: Off"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:256
+#: admin/activities-admin-activity-nice.php:275
 msgid "Participant Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:257
+#: admin/activities-admin-activity-nice.php:276
 msgid "Reload Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:260
+#: admin/activities-admin-activity-nice.php:279
 msgid "Prepared Setups"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:270
+#: admin/activities-admin-activity-nice.php:289
 msgid "Type in usermeta key, then press reload info."
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:271
+#: admin/activities-admin-activity-nice.php:290
 msgid "Seperate multiple fields in one line by a comma."
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:286
+#: admin/activities-admin-activity-nice.php:305
 msgid "Color Fields"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:287
+#: admin/activities-admin-activity-nice.php:306
 msgid "Colorize usermeta data for quicker identification."
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:304
+#: admin/activities-admin-activity-nice.php:323
 msgid "Print"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:305
+#: admin/activities-admin-activity-nice.php:324
 msgid "Folder Print"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:307
+#: admin/activities-admin-activity-nice.php:326
 #: admin/activities-admin-import.php:249 admin/activities-admin-import.php:305
 #: admin/activities-admin-import.php:420 admin/activities-admin-import.php:543
 #: includes/class-activities-woocommerce.php:299
@@ -316,19 +316,19 @@ msgstr ""
 msgid "Return"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:310
+#: admin/activities-admin-activity-nice.php:329
 msgid "Make default"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:311
+#: admin/activities-admin-activity-nice.php:330
 msgid "Reset to default"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:379
+#: admin/activities-admin-activity-nice.php:398
 msgid "Activity Participants List"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:402
+#: admin/activities-admin-activity-nice.php:421
 #: admin/activities-admin-activity.php:88 admin/activities-admin-generic.php:54
 #: admin/activities-admin-locations.php:62
 #: admin/activities-admin-locations.php:92
@@ -337,64 +337,64 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:419
+#: admin/activities-admin-activity-nice.php:438
 #: admin/activities-admin-activity.php:71 admin/activities-admin-generic.php:67
 #: admin/class-activities-admin-utility.php:379
 msgid "Responsible"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:435
+#: admin/activities-admin-activity-nice.php:454
 msgid "Participant"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:438
+#: admin/activities-admin-activity-nice.php:457
 #: admin/activities-admin-generic.php:87 admin/activities-admin-import.php:45
 msgid "Participants"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:442
+#: admin/activities-admin-activity-nice.php:461
 msgid "Additional Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:516
+#: admin/activities-admin-activity-nice.php:535
 msgid "This activity has no participants."
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:673
+#: admin/activities-admin-activity-nice.php:692
 msgid "Wordpress User Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:676
+#: admin/activities-admin-activity-nice.php:695
 msgid "Woocommerce Billing Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:677
+#: admin/activities-admin-activity-nice.php:696
 msgid "Woocommerce Shipping Info"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:760
-#: admin/activities-admin-activity-nice.php:761
-#: admin/activities-admin-activity-nice.php:767
-#: admin/activities-admin-activity-nice.php:768
+#: admin/activities-admin-activity-nice.php:779
+#: admin/activities-admin-activity-nice.php:780
+#: admin/activities-admin-activity-nice.php:786
+#: admin/activities-admin-activity-nice.php:787
 #, php-format
 msgid "Address %d"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:762
-#: admin/activities-admin-activity-nice.php:769
+#: admin/activities-admin-activity-nice.php:781
+#: admin/activities-admin-activity-nice.php:788
 #: admin/activities-admin-location.php:55
 #: admin/class-activities-admin-utility.php:396
 msgid "City"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:763
-#: admin/activities-admin-activity-nice.php:770
+#: admin/activities-admin-activity-nice.php:782
+#: admin/activities-admin-activity-nice.php:789
 #: admin/activities-admin-location.php:53
 #: admin/class-activities-admin-utility.php:400
 msgid "Postcode"
 msgstr ""
 
-#: admin/activities-admin-activity-nice.php:764
+#: admin/activities-admin-activity-nice.php:783
 #: admin/activities-admin-export.php:268
 msgid "Phone"
 msgstr ""
@@ -2357,7 +2357,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"A plugin for managing activities, printing reports and exporting user data."
+"A plugin for managing activities, activity reports and communication with "
+"participants. Comes with WooCommerce integration."
 msgstr ""
 
 #. Author of the plugin/theme

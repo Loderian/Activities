@@ -248,8 +248,8 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   $output .= '<label for="timeslots"><b>' . esc_html__( 'Sessions', 'activities' ) . '</b> <span id="time-slots-max">(max: 50)</span></label></br>';
   $output .= '<input type="number" name="time_slots" id="time-slots" placeholder="0" value="' . esc_attr( $nice_settings['time_slots'] ) . '" min="0" max="50" /></br></br>';
   $output .= '<label><b>' . esc_html__( 'Mark Sessions', 'activities' ) . '</b></label></br>';
-  $output .= get_submit_button( esc_html__( 'Mark session: On', 'activities'), 'button', 'mark_session_on', false, 'mark="on"' ) . ' ';
-  $output .= get_submit_button( esc_html__( 'Mark session: Off', 'activities'), 'button', 'mark_session_off', false, 'mark="off"');
+  $output .= get_submit_button( esc_html__( 'Mark: On', 'activities'), 'button', 'mark_session_on', false, 'mark="on"' ) . ' ';
+  $output .= get_submit_button( esc_html__( 'Mark: Off', 'activities'), 'button', 'mark_session_off', false, 'mark="off"');
 
   //Find the last session marked to make the mark session buttons more intelligent
   $last_session = 1;
@@ -269,7 +269,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     $last_session = $nice_settings['time_slots'];
   }
 
-  $output .= '<input type="number" min="1" placeholder="1" id="acts-time-mark" value="' . $last_session . '" />';
+  $output .= ' <input type="number" min="1" placeholder="1" id="acts-time-mark" value="' . $last_session . '" />';
   $output .= '</div>';
 
 	$output .= '</div>';
@@ -325,8 +325,8 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     $output .= '<span class="acts-nice-top-buttons">';
 		$output .= '<input type="submit" name="save_nice_settings" class="button button-primary" value="' . esc_html__( 'Save', 'activities' ) . '" /> ';
 		//$output .= '<input type="submit" name="download" class="button" value="Download PDF"/> ';
-		$output .= '<a href="javascript:window.print()" class="button">' . esc_html__( 'Print', 'activities' ) . '</a> ';
-    $output .= '<input id="folder_print" type="button" class="button" value="' . esc_html__( 'Folder Print', 'activities' ) . '" /> ';
+		$output .= '<a href="javascript:window.print()" class="acts-nice-print button">' . esc_html__( 'Print', 'activities' ) . '</a> ';
+    $output .= '<input id="folder_print" type="button" class="acts-nice-print button" value="' . esc_html__( 'Folder Print', 'activities' ) . '" /> ';
     $output .= wp_nonce_field( 'activities_nice', ACTIVITIES_ADMIN_NICE_NONCE, true, false );
 		$output .= '<a href="' . esc_url( $current_url ) . '" class="button">' . esc_html__( 'Return', 'activities' ) . '</a>';
     $output .= '</span>';
@@ -403,30 +403,31 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
 	$output .= '<img src="' . wp_get_attachment_url( $nice_settings['logo'] ) . '" alt="" id="acts-nice-logo" />';
 
 	$output .= '<b>' . esc_html__( 'Activity Participants List', 'activities' ) . '</b>';
+  $output .= '<hr class="acts-nice-phone-hr acts-nice-splitter">';
 	$output .= '<h1>' . stripslashes( wp_filter_nohtml_kses ( $activity['name'] ) ) . '</h1>';
 
 	$output .= '<div>';
-	$output .= '<span id="acts-nice-start" style="display: ' . ($nice_settings['start'] ? 'inline' : 'none' ) . ';">';
+	$output .= '<span id="acts-nice-start" class="acts-nice-sub-info">';
 	$output .= '<b>' . esc_html__( 'Start', 'activities' ) . ': </b>' . wp_filter_nohtml_kses( Activities_Utility::format_date( $activity['start'] ) ) . '</span> ';
 	if ( $nice_settings['start'] ) {
-		$output .= '<span id="acts_nice_start_spacing">&emsp;</span>';
+		$output .= '<span id="acts_nice_start_spacing" class="acts-nice-sub-del">&emsp;</span>';
 	}
-	$output .= '<span id="acts-nice-end" style="display: ' . ($nice_settings['end'] ? 'inline' : 'none' ) . ';">';
+	$output .= '<span id="acts-nice-end" class="acts-nice-sub-info">';
 	$output .= '<b>' . esc_html__( 'End', 'activities' ) . ': </b>' . wp_filter_nohtml_kses( Activities_Utility::format_date( $activity['end'] ) ) . '</span>';
 	$output .= '</div>';
 
-	$output .= '<p id="acts-nice-short-desc" style="display: ' . ($nice_settings['short_desc'] ? 'block' : 'none' ) . ';">';
+	$output .= '<p id="acts-nice-short-desc">';
 	$output .= stripslashes( wp_filter_nohtml_kses ( $activity['short_desc'] ) ) . '</p>';
 
 	$output .= '<div>';
 	if ( !is_null( $location ) ) {
-		$output .= '<span id="acts-nice-location" style="display: ' . ($nice_settings['location'] ? 'inline' : 'none' ) . ';">';
+		$output .= '<span id="acts-nice-location" class="acts-nice-sub-info">';
     $address = $location['address'];
     if ( $address == '' ) {
       $address = $location['name'];
     }
 		$output .= '<b>' . esc_html__( 'Location', 'activities' ) . ': </b>' . stripslashes( wp_filter_nohtml_kses ( $address ) ) . '</span>';
-    $output .= '<span id="acts_nice_location_spacing"> &bull; </span>';
+    $output .= '<span id="acts_nice_location_spacing" class="acts-nice-sub-del"> &bull; </span>';
 	}
 	if ( $activity['responsible_id'] != -1 ) {
 		$responsible = get_user_by( 'ID', $activity['responsible_id'] );
@@ -441,7 +442,7 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
 		$responsible_name = 'responsible name';
 	}
 	if ( isset( $responsible_name) ) {
-		$output .= '<span id="acts-nice-responsible" style="display: ' . ($nice_settings['responsible'] ? 'inline' : 'none' ) . ';">';
+		$output .= '<span id="acts-nice-responsible" class="acts-nice-sub-info">';
 		$output .= '<b>' . esc_html__( 'Responsible', 'activities' ) . ': </b>' . stripslashes( wp_filter_nohtml_kses ( $responsible_name ) ) . '</span>';
 	}
 	$output .= '</div>';

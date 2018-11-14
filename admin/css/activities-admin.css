@@ -3,7 +3,11 @@
  * included in this file.
  */
 
-.wrap a {
+.acts-wrap {
+  position: relative;
+}
+
+.acts-wrap a {
   text-decoration: none;
 }
 
@@ -178,7 +182,7 @@
   max-width: 500px;
 }
 
-.wrap .acts-progress-row:nth-child(2n+1) {
+.acts-wrap .acts-progress-row:nth-child(2n+1) {
   background-color: #f9f9f9;
 }
 
@@ -220,14 +224,16 @@
 
 #acts-nice-settings-wrap {
   display: inline-block;
+  height: 100%;
+  position: relative;
+  height: 0;
 }
 
 #acts-show-nice-settings {
   display: none;
   background-color: white;
   position: absolute;
-  top: 0;
-  right: 12px;
+  right: 19px;
   z-index: 2;
 }
 
@@ -236,6 +242,10 @@
   width: 50px;
   height: 50px;
   font-size: 50px;
+}
+
+#acts-nice-settings {
+  width: 300px;
 }
 
 #acts-nice-settings input[name=header],
@@ -285,11 +295,11 @@
 }
 
 #acts-time-mark {
-  width: 50px;
+  width: 80px;
 }
 
 #acts-nice-custom li input[type=text] {
-  width: 55%;
+  width: 50%;
 }
 
 #acts-nice-custom li #add-custom,
@@ -372,13 +382,17 @@
   float: right;
 }
 
+.acts-nice-phone-hr {
+  display: none;
+}
+
 .acts-nice-members-row {
   display: flex;
   flex-direction: row;
 }
 
-.acts-nice-members-row .acts-nice-members-info,
-.acts-nice-members-row .acts-nice-members-head {
+.acts-nice-members-info,
+.acts-nice-members-head {
   width: 36%;
 }
 
@@ -400,8 +414,8 @@
   visibility: visible;
 }
 
-.acts-nice-members-row .acts-nice-members-time,
-.acts-nice-members-row .acts-nice-members-head-time {
+.acts-nice-members-time,
+.acts-nice-members-head-time {
   width: 29%;
 }
 
@@ -512,28 +526,105 @@
 
 /* Small devices (portrait tablets and large phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  #acts-nice-header {
+    text-align: center;
+  }
 
+  #acts-nice-logo {
+    display: block;
+    max-width: 100%;
+    float: none;
+    margin: auto;
+  }
+
+  #acts-nice-info > h1 {
+    padding: 0 0 5px 0;
+  }
+
+  #acts-nice-info > b {
+    display: block;
+    text-align: center;
+  }
+
+  .acts-nice-phone-hr {
+    display: block;
+  }
+
+  .acts-nice-sub-del {
+    display: none !important;
+  }
+
+  .acts-nice-sub-info {
+    display: block;
+  }
+
+  .acts-nice-members-info {
+    border-bottom: none;
+  }
+
+  .acts-nice-members-info,
+  .acts-nice-members-time {
+    width: 100% !important;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and down) */
 @media only screen and (max-width: 768px) {
+  .acts-nice-members-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
+  .acts-nice-members-head-time,
+  .acts-nice-members-head {
+    display: none;
+  }
+
+  .acts-nice-members-head:first-child {
+    display: block;
+    width: 100%;
+  }
+
+  .acts-nice-members-info {
+    width: 40%;
+    flex-grow: 1;
+  }
+
+  .acts-nice-members-time {
+    width: 100%;
+  }
 }
 
-/* Around this width the report is about 210 mm */
+/* Around this width the report needs to be resized to fit */
 @media only screen and (max-width: 872px) {
   #acts-nice-preview {
-    width: 100%
+    width: 100%;
+  }
+
+  /*Since its no longer the a4 print size we remove the print buttons*/
+  .acts-nice-print {
+    display: none !important;
   }
 }
 
 /* Large devices (laptops/desktops, 992px and down) */
 @media only screen and (max-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+
+}
+
+@media only screen and (max-width: 1230px) {
+  body {
+    overflow-x: hidden;
+  }
   #acts-nice-settings-wrap {
-    z-index: 1;
     position: absolute;
-    right: 0;
-    top: 100px;
+    right: -20px;
+    top: 40px;
   }
 
   #acts-show-nice-settings {
@@ -541,17 +632,12 @@
   }
 
   #acts-nice-settings {
+    z-index: 1;
     transform-origin: 0% 0%;
     transform: translate(100%, 0);
 
     transition: transform 0.3s cubic-bezier(0.77,0.2,0.05,1.0);
   }
-
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (max-width: 1200px) {
-
 }
 
 @media print {

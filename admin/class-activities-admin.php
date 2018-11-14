@@ -129,21 +129,21 @@ class Activities_Admin {
 		* Echoes activities page
 		*/
 	public function activities_admin_activities() {
-		echo '<div class="wrap">' . activities_admin_activities_page() . '</div>';
+		echo '<div class="wrap acts-wrap">' . activities_admin_activities_page() . '</div>';
 	}
 
 	/**
 		* Echoes locations page
 		*/
 	public function activities_admin_locations() {
-		echo '<div class="wrap">' . activities_admin_locations_page() . '</div>';
+		echo '<div class="wrap acts-wrap">' . activities_admin_locations_page() . '</div>';
 	}
 
 	/**
 		* Echoes options page
 		*/
 	public function activities_admin_options() {
-		echo '<div class="wrap">';
+		echo '<div class="wrap acts-wrap">';
 		activities_admin_options_page();
 		echo '</div>';
 	}
@@ -152,7 +152,7 @@ class Activities_Admin {
 		* Echoes export page
 		*/
 	public function activities_admin_export() {
-		echo '<div class="wrap">';
+		echo '<div class="wrap acts-wrap">';
 		activities_export_page();
 		echo '</div>';
 	}
@@ -161,7 +161,7 @@ class Activities_Admin {
 		* Echoes import page
 		*/
 	public function activities_admin_import() {
-		echo '<div class="wrap">';
+		echo '<div class="wrap acts-wrap">';
 		activities_import_page();
 		echo '</div>';
 	}
@@ -170,7 +170,7 @@ class Activities_Admin {
 		* Echoes archive page
 		*/
 	public function activities_admin_archive() {
-		echo '<div class="wrap">' . activities_admin_archive_page() . '</div>';
+		echo '<div class="wrap acts-wrap">' . activities_admin_archive_page() . '</div>';
 	}
 
 	/**

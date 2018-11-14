@@ -4,12 +4,13 @@
   $(document).ready( function() {
     var show = true;
     $('#acts-show-nice-settings').on( 'click', function() {
-      console.log('click');
       if (show) {
         $('#acts-nice-settings').css('transform', 'none');
+        $('#acts-show-nice-settings > .dashicons').attr('class', 'dashicons dashicons-no');
       }
       else {
         $('#acts-nice-settings').css('transform', 'translate(100%, 0)');
+        $('#acts-show-nice-settings > .dashicons').attr('class', 'dashicons dashicons-menu');
       }
       show = !show;
     });
@@ -23,11 +24,9 @@
 
       function on_image_load() {
         imagesLoaded( document.querySelector('#acts-nice-logo'), function() {
-          $('#acts-nice-info').css('min-height', $('#acts-nice-logo').height());
+          $('#acts-nice-info').css('min-height', $('#acts-nice-logo').height() + 5);
         });
       }
-
-      on_image_load();
 
       var file_frame;
 
@@ -86,10 +85,8 @@
       $('input[name=header]').on( 'input', function() {
         $('#acts-nice-header').html( $('input[name=header]').val().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'));
       });
-    }
 
-    //Activity nice info control
-    if ($('#acts-nice-settings').length) {
+      //Activity nice info control
       var activity_fields = ['start', 'end', 'short-desc', 'location', 'responsible', 'long-desc'];
 
       function display_func(id) {
@@ -117,6 +114,9 @@
 
         $('#' + id).on( 'change', display_handler(id));
       }
+
+      //Do this after removing acitvity info
+      on_image_load();
     }
 
     //Activity nice members control

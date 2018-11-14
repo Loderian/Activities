@@ -218,20 +218,24 @@
   white-space: pre-line;
 }
 
-#acts-nice-preview {
-  border: 1px solid lightgrey;
-  background-color: #fff;
-  width: 210mm;
+#acts-nice-settings-wrap {
   display: inline-block;
-  vertical-align: top;
 }
 
-#acts-nice-preview h1 {
-  font-size: 20px;
+#acts-show-nice-settings {
+  display: none;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  right: 12px;
+  z-index: 2;
 }
 
-#acts-nice-settings {
-  display: inline-block;
+#acts-show-nice-settings,
+#acts-show-nice-settings > .dashicons  {
+  width: 50px;
+  height: 50px;
+  font-size: 50px;
 }
 
 #acts-nice-settings input[name=header],
@@ -281,7 +285,6 @@
 }
 
 #acts-time-mark {
-  float: right;
   width: 50px;
 }
 
@@ -329,6 +332,18 @@
   border-style: dashed;
 }
 
+#acts-nice-preview {
+  border: 1px solid lightgrey;
+  background-color: #fff;
+  width: 210mm;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#acts-nice-preview h1 {
+  font-size: 20px;
+}
+
 #acts-nice-wrap {
   padding: 3mm 7mm 10mm 7mm;
   position: relative;
@@ -352,7 +367,7 @@
 }
 
 #acts-nice-logo {
-  max-width: 400px;
+  max-width: 54%;
   max-height: 200px;
   float: right;
 }
@@ -493,6 +508,50 @@
   position: absolute;
   top: 54px;
   left: 54px;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and down) */
+@media only screen and (max-width: 768px) {
+
+}
+
+/* Around this width the report is about 210 mm */
+@media only screen and (max-width: 872px) {
+  #acts-nice-preview {
+    width: 100%
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and down) */
+@media only screen and (max-width: 992px) {
+  #acts-nice-settings-wrap {
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    top: 100px;
+  }
+
+  #acts-show-nice-settings {
+    display: block;
+  }
+
+  #acts-nice-settings {
+    transform-origin: 0% 0%;
+    transform: translate(100%, 0);
+
+    transition: transform 0.3s cubic-bezier(0.77,0.2,0.05,1.0);
+  }
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+
 }
 
 @media print {

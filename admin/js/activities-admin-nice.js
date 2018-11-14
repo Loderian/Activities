@@ -2,6 +2,19 @@
   'use strict';
 
   $(document).ready( function() {
+    var show = true;
+    $('#acts-show-nice-settings').on( 'click', function() {
+      console.log('click');
+      if (show) {
+        $('#acts-nice-settings').css('transform', 'none');
+      }
+      else {
+        $('#acts-nice-settings').css('transform', 'translate(100%, 0)');
+      }
+      show = !show;
+    });
+
+
     //Activity nice logo control
     if ( $('#acts-nice-settings').length ) {
       if ( $('#acts-nice-logo').attr( 'src' ) == '' ) {

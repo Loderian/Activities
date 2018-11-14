@@ -177,6 +177,11 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 
 	$output .= '</div> ';
 
+  $output .= '<div id="acts-nice-settings-wrap">';
+  $output .= '<div id="acts-show-nice-settings" class="activities-box-wrap">';
+  $output .= '<span class="dashicons dashicons-menu"></span>';
+  $output .= '</div>';
+
 	$output .= '<div id="acts-nice-settings" class="activities-box-wrap activities-box-padding">';
 
   if ( $current_url != null ) {
@@ -332,7 +337,9 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	}
 	$output .= '<input type="hidden" value="' . esc_attr( $activity['activity_id'] ) . '" id="item-id" name="item_id" />';
 
-	$output .= '</div>'; //Nice settings wrap
+	$output .= '</div>'; //Nice settings
+
+  $output .= '</div>'; //Nice settings wrap
 
   if ( $current_url != null ) {
     $output .= '</form>';

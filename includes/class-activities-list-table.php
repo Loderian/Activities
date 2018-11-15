@@ -592,7 +592,7 @@ class Activities_List_Table {
   	}
 
     $output .= '<div class="acts-filter-buttons">';
-    $output .= get_submit_button( esc_html__( 'Apply', 'activities' ), 'button', 'apply_filters', false );
+    $output .= get_submit_button( esc_html__( 'Apply', 'activities' ), 'button', 'apply_filters', false ) . ' ';
     $output .= get_submit_button( esc_html__( 'Clear', 'activities' ), 'button', 'clear_filters', false );
     $output .= '</div>';
   	$output .= '</form></div>';

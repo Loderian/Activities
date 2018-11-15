@@ -44,11 +44,11 @@
 
 #activities-filter-wrap div {
   display: inline-block;
+  margin-right: 10px;
 }
 
 #activities-filter-wrap input {
   height: 31px;
-  margin-right: 10px;
 }
 
 .acts-filter-buttons {
@@ -117,6 +117,10 @@
   font-weight: bold;
 }
 
+.acts-edit-types-options input {
+  vertical-align: middle !important;
+}
+
 .acts-form input[type=text],
 .acts-form input[type=date],
 .acts-form input[type=number],
@@ -129,6 +133,7 @@
   width: 70%;
   min-width: 300px;
   display: inline-block;
+  box-sizing: border-box;
 }
 
 .acts-create-wrap ul {
@@ -547,6 +552,11 @@
     text-align: center;
   }
 
+  #activities-filter-wrap div,
+  #activities-filter-wrap input[type=text] {
+    width: 100% !important;
+  }
+
   #acts-nice-logo {
     display: block;
     max-width: 100%;
@@ -606,6 +616,18 @@
 
 /* Medium devices (landscape tablets, 768px and down) */
 @media only screen and (max-width: 782px) {
+  .acts-export-select {
+    width: 100%;
+  }
+
+  #activities-filter-wrap div {
+    width: 30%;
+  }
+
+  #activities-filter-wrap input[type=text] {
+    width: 100%;
+  }
+
   #acts-nice-preview input[type=checkbox] {
     margin: 0 2px 2px 0;
   }
@@ -659,7 +681,9 @@
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
-
+  .acts-create-wrap {
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 1230px) {

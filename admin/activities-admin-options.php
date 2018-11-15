@@ -97,6 +97,23 @@ function activities_admin_options_page() {
 
           Activities_Options::update_option( ACTIVITIES_USER_SEARCH_KEY, isset( $_POST['bus'] ) );
 
+          $types_map = array();
+          $types = acts_get_quick_edit_types();
+          if (isset( $_POST['input_key'] ) && isset( $_POST['input_type'] ) &&
+              is_array( $_POST['input_key'] ) && is_array( $_POST['input_type'] ) &&
+              count( $_POST['input_key'] ) == count( $_POST['input_type'] )) {
+            for ($i=0; $i < count( $_POST['input_key'] ); $i++) {
+              $key = sanitize_key( $_POST['input_key'][$i] );
+              $type = sanitize_key( $_POST['input_type'][$i] );
+
+              if ($key != '' && isset( $types[$type] ) ) {
+                $types_map[$key] = $type;
+              }
+            }
+          }
+
+          Activities_Options::update_option( ACTIVITIES_QUICK_EDIT_TYPES_KEY, $types_map );
+
           break;
 
         case 'nice':
@@ -290,6 +307,42 @@ function activities_options_general() {
   echo '</p>';
   echo '</div>';
 
+  echo '<div class="acts-edit-types-options">';
+  echo '<h2>' . esc_html__( 'Quick edit types', 'activities' ) . ' ' . get_submit_button( '+', 'button', 'add_type', false ) . '</h2>';
+  echo '<ul id="edit_types_html_base" style="display: none;">';
+  echo '<li>';
+  echo '<input type="text" name="input_key[]" />';
+  echo acts_build_select(
+    acts_get_quick_edit_types(),
+    array(
+      'name' => 'input_type[]',
+      'no_blank' => true
+    )
+  );
+  echo '<input type="submit" value="-" class="button" name="remove_type" />';
+  echo '</li>';
+  echo '</ul>';
+  echo '<ul id="edit_types_html">';
+  foreach (Activities_Options::get_option( ACTIVITIES_QUICK_EDIT_TYPES_KEY ) as $key => $value) {
+    echo '<li>';
+    echo '<input type="text" name="input_key[]" value="' . esc_attr( $key ) . '" />';
+    echo acts_build_select(
+      acts_get_quick_edit_types(),
+      array(
+        'name' => 'input_type[]',
+        'selected' => $value,
+        'no_blank' => true
+      )
+    );
+    echo '<input type="submit" value="-" class="button" name="remove_type" />';
+    echo '</li>';
+  }
+  echo '</ul>';
+  echo '<p class="acts-grey">';
+  echo esc_html__( 'Select special input types for report quick edit', 'activities' );
+  echo '</p>';
+  echo '</div>';
+
   echo '</div>'; //activities-options
 }
 
@@ -417,5 +470,18 @@ function acts_get_responsible_options() {
     ACTIVITIES_RESPONSIBLE_SAME => esc_html__( 'Same as their role permissions', 'activities' ),
     ACTIVITIES_RESPONSIBLE_VIEW => esc_html__( 'View assigned activities', 'activities' ),
     ACTIVITIES_RESPONSIBLE_EDIT => esc_html__( 'View and edit assigned activities', 'activities' )
+  );
+}
+
+/**
+ * Get quick edit types
+ *
+ * @return array
+ */
+function acts_get_quick_edit_types() {
+  return array(
+    'text' => 'Text',
+    'textarea' => 'Textarea',
+    'country' => 'Contry'
   );
 }

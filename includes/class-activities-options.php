@@ -90,6 +90,12 @@ class Activities_Options {
         return array();
         break;
 
+      case ACTIVITIES_QUICK_EDIT_TYPES_KEY:
+        return array(
+          'billing_country' => 'country',
+          'shipping_country' => 'country'
+        );
+
       default:
         return null;
         break;

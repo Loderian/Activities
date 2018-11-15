@@ -39,6 +39,8 @@ define( 'ACTIVITIES_RESPONSIBLE_KEY', 'responsible_permission' );
 
 define( 'ACTIVITIES_NICE_SETTINGS_KEY', 'nice_settings');
 
+define( 'ACTIVITIES_QUICK_EDIT_TYPES_KEY', 'quick_edit_types' );
+
 define( 'ACTIVITIES_ARCHIVE_NONCE_GET', 'acts_aan' );
 
 define( 'ACTIVITIES_BULK_NONCE', 'activities-bulk-nonce' );

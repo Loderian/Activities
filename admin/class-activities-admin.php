@@ -864,7 +864,7 @@ class Activities_Admin {
     }
 
     if ( isset( $_POST['custom'] ) && is_array( $_POST['custom'] ) ) {
-      $types = apply_filters( 'acts_quick_edit_types', acts_nice_defualt_types() );
+      $types = Activities_Options::get_option( ACTIVITIES_QUICK_EDIT_TYPES_KEY );
       foreach ($_POST['custom'] as $key => $value) {
         $key = sanitize_key( $key );
 

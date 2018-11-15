@@ -3,7 +3,7 @@
  * included in this file.
  */
 
-.acts-wrap {
+.acts-form {
   position: relative;
 }
 
@@ -235,7 +235,7 @@
   height: 50px;
   font-size: 50px;
   position: absolute;
-  right: 19px;
+  right: 18px;
   z-index: 2;
 }
 
@@ -403,12 +403,12 @@
   display: none;
 }
 
-.acts-nice-members-row {
+.acts-nice-user-row {
   display: flex;
   flex-direction: row;
 }
 
-.acts-nice-members-info,
+.acts-nice-user-info,
 .acts-nice-members-head {
   width: 36%;
 }
@@ -431,7 +431,7 @@
   visibility: visible;
 }
 
-.acts-nice-members-time,
+.acts-nice-user-time,
 .acts-nice-members-head-time {
   width: 29%;
 }
@@ -443,8 +443,8 @@
   padding: 5px;
 }
 
-.acts-nice-members-info,
-.acts-nice-members-time {
+.acts-nice-user-info,
+.acts-nice-user-time {
   border-bottom: 1px solid black;
   border-right: 1px solid black;
   padding: 3px 5px;
@@ -452,12 +452,12 @@
 
 .acts-quick-edit-type ul,
 .acts-quick-edit-type ul li,
-.acts-nice-members-info span ul,
-.acts-nice-members-info span ul li {
+.acts-nice-user-info span ul,
+.acts-nice-user-info span ul li {
   margin: 0;
 }
 
-.acts-nice-members-info span ul li:not(.acts-nice-member-name) {
+.acts-nice-user-info span ul li:not(.acts-nice-member-name) {
   font-size: 10px;
 }
 
@@ -575,8 +575,30 @@
     display: block;
   }
 
-  .acts-nice-members-info,
-  .acts-nice-members-time {
+  .acts-nice-user-info {
+    cursor: pointer;
+  }
+
+  .acts-nice-expand,
+  .acts-nice-colapse {
+    float: right;
+  }
+
+  .acts-nice-expand::before  {
+    content: "\f140";
+  }
+  .acts-nice-colapse::before  {
+    content: "\f142";
+  }
+
+  .acts-nice-colapse,
+  .acts-nice-col2,
+  .acts-nice-col1 span:first-child ul {
+    display: none;
+  }
+
+  .acts-nice-user-info,
+  .acts-nice-user-time {
     width: 100% !important;
     border-right: 1px solid black !important;
   }
@@ -588,7 +610,7 @@
     margin: 0 2px 2px 0;
   }
 
-  .acts-nice-members-row {
+  .acts-nice-user-row {
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -603,17 +625,17 @@
     width: 100%;
   }
 
-  .acts-nice-members-info:first-child {
+  .acts-nice-user-info:first-child {
     border-right: 1px dashed lightgrey;
   }
 
-  .acts-nice-members-info {
+  .acts-nice-user-info {
     width: 40%;
     flex-grow: 1;
     border-bottom: none;
   }
 
-  .acts-nice-members-time {
+  .acts-nice-user-time {
     width: 100%;
   }
 }
@@ -645,10 +667,14 @@
     overflow-x: hidden;
   }
 
+  .acts-settings-form #acts-nice-settings-wrap {
+    top: 17px;
+  }
+
   #acts-nice-settings-wrap {
     position: absolute;
     right: -20px;
-    top: 40px;
+    top: -53px;
   }
 
   #acts-show-nice-settings {
@@ -715,14 +741,14 @@
     page-break-inside: auto;
   }
 
-  .acts-nice-members-info a {
+  .acts-nice-user-info a {
     color: black;
   }
 
-  .acts-nice-members-row,
+  .acts-nice-user-row,
   .acts-nice-members-head,
-  .acts-nice-members-info,
-  .acts-nice-members-time {
+  .acts-nice-user-info,
+  .acts-nice-user-time {
     page-break-before: auto;
     page-break-inside: avoid;
     page-break-after: auto;

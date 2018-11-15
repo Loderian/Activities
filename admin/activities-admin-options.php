@@ -151,7 +151,7 @@ function activities_admin_options_page() {
   }
   echo '</nav>';
 
-  echo '<form action="' . esc_url( $current_url ) . '" method="post" class="acts-form">';
+  echo '<form action="' . esc_url( $current_url ) . '" method="post" class="acts-form acts-settings-form">';
 
   switch ($tab) {
     case 'general':

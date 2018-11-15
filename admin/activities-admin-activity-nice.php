@@ -454,7 +454,7 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
 	$output .= '<div id="acts-nice-members">';
 	$member_c = count( $activity['members'] );
 	if ( $member_c > 0 ) {
-		$output .= '<div class="acts-nice-members-row">';
+		$output .= '<div class="acts-nice-user-row">';
 
 		$output .= '<div class="acts-nice-members-head">';
 		if ( $member_c == 1 ) {
@@ -476,9 +476,9 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
     }
 
 		foreach (acts_get_member_info( $activity['members'], $nice_settings['member_info'], $nice_settings['custom'], true ) as $id => $user) {
-			$output .= '<div class="acts-nice-members-row">';
+			$output .= '<div class="acts-nice-user-row">';
 
-			$output .= '<div class="acts-nice-members-info"><span id="col1-id' . esc_attr( $id ) . '"';
+			$output .= '<div class="acts-nice-user-info acts-nice-col1"><span id="col1-id' . esc_attr( $id ) . '"';
       if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
         if ( $id > 0 ) {
           $coupon_list = array();
@@ -517,11 +517,11 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
 
 			$output .= '</div>';
 
-			$output .= '<div class="acts-nice-members-info"><span id="col2-id' . esc_attr( $id )  . '">';
+			$output .= '<div class="acts-nice-user-info acts-nice-col2"><span id="col2-id' . esc_attr( $id )  . '">';
 			$output .= $user['col2'];
 			$output .= '</span></div>';
 
-			$output .= '<div class="acts-nice-members-time" uid="' . esc_attr( $id ) . '">';
+			$output .= '<div class="acts-nice-user-time" uid="' . esc_attr( $id ) . '">';
       $attended = array();
       if ( isset( $nice_settings['attended'] ) ) {
         $attended = $nice_settings['attended'];
@@ -603,6 +603,7 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
     else {
       $col1 .= $bold_name;
     }
+    $col1 .= '<span class="dashicons acts-nice-expand"></span><span class="dashicons acts-nice-colapse"></span>';
     $col1 .= '<ul class="acts-nice-prepared">';
 
     $col2 = '<span class="acts-nice-member-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</span>';

@@ -2,6 +2,27 @@
   'use strict';
 
   $(document).ready( function() {
+    var show = true;
+    $('.acts-nice-user-info').on( 'click', function() {
+      var size = window.innerWidth;
+      if (size <= 600) {
+        if (show) {
+          $(this).find('span:first-child ul').show();
+          $(this).siblings('.acts-nice-col2').show();
+          $(this).find('.acts-nice-colapse').show();
+          $(this).find('.acts-nice-expand').hide();
+        }
+        else {
+          //Reset all styles to make browser css rules if the device is rotated
+          $(this).find('span:first-child ul').attr('style', '');
+          $(this).siblings('.acts-nice-col2').attr('style', '');
+          $(this).find('.acts-nice-colapse').attr('style', '');
+          $(this).find('.acts-nice-expand').attr('style', '');
+        }
+        show = !show;
+      }
+    });
+
     //Activity nice logo control
     if ( $('#acts-nice-settings').length ) {
       if ( $('#acts-nice-logo').attr( 'src' ) == '' ) {
@@ -19,7 +40,7 @@
       $('#acts_upload_nice_logo').on( 'click', function( event ) {
         event.preventDefault();
 
-        var selected = parseInt( $('#acts_nice_logo_id').val() );
+        var selected = parseInt($('#acts_nice_logo_id').val());
 
         if ( file_frame ) {
           file_frame.on('open', function() {
@@ -110,7 +131,7 @@
       var prev_times;
 
       function append_checkbox_html(start, end) {
-        $('div.acts-nice-members-time').each( function(index, elem) {
+        $('div.acts-nice-user-time').each( function(index, elem) {
           var id = $(elem).attr('uid');
           var attended = '';
           if (all_member_info.hasOwnProperty(id)) {
@@ -130,7 +151,7 @@
         var times = parseInt($('#time-slots').val());
         var max = parseInt($('#time-slots').attr('max'));
         var exist = -1;
-        if ($('.acts-nice-members-time').length) {
+        if ($('.acts-nice-user-time').length) {
           exist = $('input[time]:last').attr('time');
         }
         else {
@@ -162,7 +183,7 @@
         }
         else {
           //If prev_times is NaN (page refresh)
-          $('div.acts-nice-members-time').html('');
+          $('div.acts-nice-user-time').html('');
           append_checkbox_html(0, times);
         }
 

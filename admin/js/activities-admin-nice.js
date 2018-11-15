@@ -2,20 +2,6 @@
   'use strict';
 
   $(document).ready( function() {
-    var show = true;
-    $('#acts-show-nice-settings').on( 'click', function() {
-      if (show) {
-        $('#acts-nice-settings').css('transform', 'none');
-        $('#acts-show-nice-settings > .dashicons').attr('class', 'dashicons dashicons-no');
-      }
-      else {
-        $('#acts-nice-settings').css('transform', 'translate(100%, 0)');
-        $('#acts-show-nice-settings > .dashicons').attr('class', 'dashicons dashicons-menu');
-      }
-      show = !show;
-    });
-
-
     //Activity nice logo control
     if ( $('#acts-nice-settings').length ) {
       if ( $('#acts-nice-logo').attr( 'src' ) == '' ) {

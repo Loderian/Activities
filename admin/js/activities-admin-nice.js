@@ -342,7 +342,7 @@
 
       var link = $('#acts-nice-user-link').attr('href');
 
-      $('.acts-user-quick-edit').click( function( event ) {
+      $('.acts-user-quick-edit[uid]').click( function( event ) {
         event.preventDefault();
 
         var id = $(this).attr('uid');

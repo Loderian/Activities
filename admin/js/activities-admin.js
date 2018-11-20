@@ -119,18 +119,9 @@
 		}
 
 		if ($('.acts-edit-types-options').length) {
-			var html = $('#edit_types_html_base').html();
-
-			$('#add_type').on( 'click', function(event) {
-				event.preventDefault();
-
-				$('#edit_types_html').append(html);
-			});
-
-			$(document).on( 'click', 'input[type=submit][name=remove_type]', function(event) {
-				event.preventDefault();
-
-				$(this).parent('li').remove();
+			$('.acts-edit-types-options input').selectize({
+				create: true,
+				plugins: ['remove_button']
 			});
 		}
 	});

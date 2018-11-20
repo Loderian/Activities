@@ -596,17 +596,21 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
     $user_info = acts_get_user_nice_info( $id, $custom_fields );
 
     $col1 = '';
-    $bold_name = '<b class="acts-nice-member-name"><span key="acts_full_name">' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</span></b>';
+    $bold_name = '<b class="acts-nice-user-name"><span key="acts_full_name">' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</span></b>';
     if ( $id > 0 ) {
-      $col1 .= '<a href="" class="acts-user-quick-edit" uid="' . $id . '">' . $bold_name . '<span class="dashicons dashicons-edit"></span></a>';
+      $col1 .= '<a href="" class="acts-user-quick-edit" uid="' . $id . '">' . $bold_name . ' <span class="dashicons dashicons-edit"></span></a>';
+
+      $col2 = '<a href="mailto:' . esc_attr( $user_info['user_email'] ) . '" class="acts-user-quick-edit acts-nice-user-name" key="user_email">';
+      $col2 .= stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . ' <span class="dashicons dashicons-email"></span></a>';
     }
     else {
       $col1 .= $bold_name;
+
+      $col2 = '<span class="acts-nice-user-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</a>';
     }
     $col1 .= '<span class="dashicons acts-nice-expand"></span><span class="dashicons acts-nice-colapse"></span>';
     $col1 .= '<ul class="acts-nice-prepared">';
 
-    $col2 = '<span class="acts-nice-member-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</span>';
     $col2 .= '<ul class="acts-nice-prepared">';
 
     switch ($type) {

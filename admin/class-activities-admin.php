@@ -670,7 +670,7 @@ class Activities_Admin {
 				if ( $act->name === '' ) {
 					return $admin_title;
 				}
-				return $act->name . ' ' . esc_html__( 'Report', 'activities' );
+				return stripslashes( wp_filter_nohtml_kses( $act->name ) ) . ' ' . esc_html__( 'Report', 'activities' );
 			}
 			else {
 				return $admin_title;

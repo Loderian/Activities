@@ -101,7 +101,7 @@
   align-items: baseline;
 }
 
-#activities-options div {
+#activities-options > div {
   margin-right: 10px;
 }
 
@@ -117,8 +117,17 @@
   font-weight: bold;
 }
 
+.acts-edit-types-options label {
+  display: block;
+  margin-bottom: 5px;
+}
+
 .acts-edit-types-options input {
-  vertical-align: middle !important;
+  width: 100%;
+}
+
+.acts-edit-types-options .selectize-control {
+  max-width: 300px;
 }
 
 .acts-form input[type=text],
@@ -421,6 +430,17 @@
 .acts-user-quick-edit {
   color: #0073aa;
 }
+
+.acts-nice-user-info .acts-nice-user-name,
+.acts-nice-user-info ul {
+  word-wrap: break-word;
+}
+
+.acts-nice-user-info.acts-nice-col2 .acts-nice-user-name {
+  display: block;
+  word-break: break-all;
+}
+
 .acts-user-quick-edit .dashicons {
   visibility: hidden;
   width: 16px;
@@ -448,6 +468,8 @@
   padding: 5px;
 }
 
+
+
 .acts-nice-user-info,
 .acts-nice-user-time {
   border-bottom: 1px solid black;
@@ -462,7 +484,7 @@
   margin: 0;
 }
 
-.acts-nice-user-info span ul li:not(.acts-nice-member-name) {
+.acts-nice-user-info span ul li {
   font-size: 10px;
 }
 
@@ -548,13 +570,18 @@
 
 /* Small devices (portrait tablets and large phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  #acts-nice-header {
-    text-align: center;
+  .acts-edit-types-options .selectize-control {
+    max-width: none;
   }
 
   #activities-filter-wrap div,
   #activities-filter-wrap input[type=text] {
     width: 100% !important;
+  }
+
+
+  #acts-nice-header {
+    text-align: center;
   }
 
   #acts-nice-logo {
@@ -686,7 +713,7 @@
   }
 }
 
-@media only screen and (max-width: 1230px) {
+@media only screen and (max-width: 1335px) {
   body {
     overflow-x: hidden;
   }

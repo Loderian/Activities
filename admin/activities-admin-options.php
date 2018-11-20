@@ -99,15 +99,17 @@ function activities_admin_options_page() {
 
           $types_map = array();
           $types = acts_get_quick_edit_types();
-          if (isset( $_POST['input_key'] ) && isset( $_POST['input_type'] ) &&
-              is_array( $_POST['input_key'] ) && is_array( $_POST['input_type'] ) &&
-              count( $_POST['input_key'] ) == count( $_POST['input_type'] )) {
-            for ($i=0; $i < count( $_POST['input_key'] ); $i++) {
-              $key = sanitize_key( $_POST['input_key'][$i] );
-              $type = sanitize_key( $_POST['input_type'][$i] );
-
-              if ($key != '' && isset( $types[$type] ) ) {
-                $types_map[$key] = $type;
+          if (isset( $_POST['edit_types'] ) && is_array( $_POST['edit_types'] ) ) {
+            foreach ($_POST['edit_types'] as $key => $value) {
+              $key = sanitize_key( $key );
+              if ( isset( $types[$key] ) ) {
+                $values = explode( ',', sanitize_text_field( $value ) );
+                foreach ($values as $meta_key) {
+                  $meta_key = sanitize_key( $meta_key );
+                  if ( $meta_key != '') {
+                    $types_map[$meta_key] = $key;
+                  }
+                }
               }
             }
           }
@@ -308,36 +310,22 @@ function activities_options_general() {
   echo '</div>';
 
   echo '<div class="acts-edit-types-options">';
-  echo '<h2>' . esc_html__( 'Quick edit types', 'activities' ) . ' ' . get_submit_button( '+', 'button', 'add_type', false ) . '</h2>';
-  echo '<ul id="edit_types_html_base" style="display: none;">';
-  echo '<li>';
-  echo '<input type="text" name="input_key[]" />';
-  echo acts_build_select(
-    acts_get_quick_edit_types(),
-    array(
-      'name' => 'input_type[]',
-      'no_blank' => true
-    )
-  );
-  echo '<input type="submit" value="-" class="button" name="remove_type" />';
-  echo '</li>';
-  echo '</ul>';
-  echo '<ul id="edit_types_html">';
-  foreach (Activities_Options::get_option( ACTIVITIES_QUICK_EDIT_TYPES_KEY ) as $key => $value) {
-    echo '<li>';
-    echo '<input type="text" name="input_key[]" value="' . esc_attr( $key ) . '" />';
-    echo acts_build_select(
-      acts_get_quick_edit_types(),
-      array(
-        'name' => 'input_type[]',
-        'selected' => $value,
-        'no_blank' => true
-      )
-    );
-    echo '<input type="submit" value="-" class="button" name="remove_type" />';
-    echo '</li>';
+  echo '<h2>' . esc_html__( 'Quick edit types', 'activities' ) . '</h2>';
+  $input_texts = array();
+  foreach (Activities_Options::get_option( ACTIVITIES_QUICK_EDIT_TYPES_KEY ) as $meta_key => $type) {
+    if ( !isset( $input_texts[$type] ) ) {
+      $input_texts[$type] = array();
+    }
+    $input_texts[$type][] = $meta_key;
   }
-  echo '</ul>';
+  foreach (acts_get_quick_edit_types() as $type => $display) {
+    echo '<label>' . $display . '</label>';
+    $val = '';
+    if ( isset( $input_texts[$type] ) ) {
+      $val = implode( ',', $input_texts[$type] );
+    }
+    echo '<input type="text" name="edit_types[' . esc_attr( $type ) . ']" value="' . esc_attr( $val ) . '" />';
+  }
   echo '<p class="acts-grey">';
   echo esc_html__( 'Select special input types for report quick edit', 'activities' );
   echo '</p>';
@@ -480,8 +468,7 @@ function acts_get_responsible_options() {
  */
 function acts_get_quick_edit_types() {
   return array(
-    'text' => 'Text',
-    'textarea' => 'Textarea',
-    'country' => 'Contry'
+    'textarea' => esc_attr__( 'Textarea', 'activities' ),
+    'country' => esc_attr__( 'Country', 'activities' )
   );
 }

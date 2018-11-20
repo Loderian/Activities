@@ -255,7 +255,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   if ( isset( $nice_settings['attended'] ) ) {
     foreach ($nice_settings['attended']  as $uid => $sessions) {
       for ($t=$nice_settings['time_slots'] - 1; $t >= 0; $t--) {
-        if ( $sessions[$t] == '1' ) {
+        if ( isset( $sessions[$t] ) && $sessions[$t] == '1' ) {
           if ( $t + 2 > $last_session ) {
             $last_session = $t + 2; //Add 1 for array offset and 1 for display of next session
           }
@@ -289,28 +289,42 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	$output .= '</tbody>';
 	$output .= '</table>';
 	$output .= '<ul id="acts-nice-custom">';
-	$output .= '<li><b>' . esc_html__( 'Custom Fields', 'activities' )  . '</b> <i class="acts-grey">(advanced)</i> <input type="submit" id="add-custom" value="+" class="button" /></li>';
+	$output .= '<li><b>' . esc_html__( 'Custom Fields', 'activities' )  . '</b> <i class="acts-grey">(advanced)</i></li>';
 	$output .= '<li><i class="acts-grey">' . esc_html__( 'Type in usermeta key, then press reload info.', 'activities' )  . '</i></li>';
   $output .= '<li><i class="acts-grey">' . esc_html__( 'Seperate multiple fields in one line by a comma.', 'activities' )  . '</i></li>';
+  $output .= '</ul>';
+
+  $custom_col = array(
+    1 => '',
+    2 => ''
+  );
   if ( isset($nice_settings['custom']) ) {
     foreach ($nice_settings['custom'] as $custom) {
-  		$output .= '<li><input type="text" name="nice_custom[]" value="' . esc_attr( $custom['name'] ) . '" />';
-  		$output .= '<select name="nice_custom_col[]">';
-  		$selected_one = $custom['col'] === 1 ? 'selected' : '';
-  		$selected_two = $custom['col'] === 2 ? 'selected' : '';
-  		$output .= '<option value="1" ' . $selected_one . '>Column 1</option>';
-  		$output .= '<option value="2" ' . $selected_two . '>Column 2</option>';
-  		$output .= '</select>';
-  		$output .= ' <input type="submit" name="delete_custom" value="-" class="delete-custom button" /></li>';
+      if ( isset( $custom_col[$custom['col']] ) ) {
+        $custom_col[$custom['col']] .= '<li class="acts-nice-custom-split"><input type="text" name="nice_custom[' . $custom['col'] . '][]" value="' . esc_attr( $custom['name'] ) . '" />';
+        $custom_col[$custom['col']] .= ' <input type="submit" name="delete_custom" value="-" class="delete-custom button" /></li>';
+      }
   	}
   }
+  $output .= '<ul class="acts-nice-custom" col="1">';
+  //Use sprintf to ensure same translation as the report translation
+	$output .= '<li><b>' . esc_html( sprintf( __( '%s Column', 'activities' ), __( 'Participants', 'activities' ) ) )  . '</b> <input type="submit" value="+" class="button" col="1" /></li>';
+  $output .= $custom_col[1];
+  $output .= '</ul>';
+
+  $output .= '<ul class="acts-nice-custom" col="2">';
+  $output .= '<li><b>' . esc_html( sprintf( __( '%s Column', 'activities' ), __( 'Additional Info', 'activities' ) ) )  . '</b> <input type="submit" value="+" class="button" col="2" /></li>';
+  $output .= $custom_col[2];
 	$output .= '</ul>';
-  $output .= '<ul id="acts-nice-color">';
+  $output .= '</ul>';
+
+  $output .= '<hr class="acts-nice-splitter">';
+  $output .= '<ul id="acts-nice-color" class="acts-nice-custom">';
   $output .= '<li><b>' . esc_html__( 'Color Fields', 'activities' )  . '</b> <i class="acts-grey">(advanced)</i> <input type="submit" id="add-color" value="+" class="button" /></li>';
   $output .= '<li><i class="acts-grey">' . esc_html__( 'Colorize usermeta data for quicker identification.', 'activities' )  . '</i></li>';
   if ( isset($nice_settings['color']) ) {
     foreach ($nice_settings['color'] as $key => $color) {
-      $output .= '<li><input type="text" value="' . esc_attr( $color ) . '" name="nice_color[]" />';
+      $output .= '<li class="acts-nice-custom-split"><input type="text" value="' . esc_attr( $color ) . '" name="nice_color[]" />';
       $output .= '<input type="text" name="nice_color_key[]" value="' . esc_attr( $key ) . '" />';
       $output .= ' <input type="submit" name="delete_color" value="-" class="delete-color button" />';
       $output .= '</li>';

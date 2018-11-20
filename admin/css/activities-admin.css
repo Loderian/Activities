@@ -329,31 +329,39 @@
   width: 80px;
 }
 
-#acts-nice-custom li input[type=text] {
-  width: 50%;
+.acts-nice-custom .button {
+  display: inline-block;
 }
 
-#acts-nice-custom li #add-custom,
-#acts-nice-custom li .delete-custom,
-#acts-nice-color li #add-color,
-#acts-nice-color li .delete-color {
-  font-size: 20px;
+.acts-nice-custom .selectize-control {
+  display: inline-block;
+  width: 250px;
 }
 
-#acts-nice-custom li input[type=text],
-#acts-nice-custom li input[type=submit],
-#acts-nice-color li input[type=text],
-#acts-nice-color li input[type=submit] {
+.acts-nice-custom li:first-child .button {
   vertical-align: middle;
 }
 
-#acts-nice-color li input[type=text] {
-  width: 85%;
+.acts-nice-custom li input[col],
+.acts-nice-custom li .delete-custom,
+.acts-nice-custom li #add-color,
+.acts-nice-custom li .delete-color {
+  font-size: 20px;
 }
 
-#acts-nice-color li:not(:first-child):not(:nth-child(2)):not(:last-child) {
+.acts-nice-custom li.acts-nice-custom-split:not(:last-child){
   padding-bottom: 5px;
   border-bottom: 1px dashed grey;
+}
+
+.acts-nice-wl-ok {
+  border: 1px solid green !important;
+  background-color: rgba(63, 191, 63, 0.3) !important;
+}
+
+.acts-nice-wl-error {
+  border: 1px solid red !important;
+  background-color: rgba(201, 76, 76, 0.3) !important;
 }
 
 #acts-nice-buttons {
@@ -467,8 +475,6 @@
   vertical-align: bottom;
   padding: 5px;
 }
-
-
 
 .acts-nice-user-info,
 .acts-nice-user-time {

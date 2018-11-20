@@ -87,15 +87,16 @@ class Activities_Admin_Utility {
         FROM $wpdb->usermeta"
       );
       $custom = array();
-      if (
-          isset( $_POST['nice_custom'] ) && isset( $_POST['nice_custom_col'] ) &&
-          is_array( $_POST['nice_custom'] ) && is_array( $_POST['nice_custom_col'] ) &&
-          count( $_POST['nice_custom'] ) == count( $_POST['nice_custom_col'] )) {
-        for ($index=0; $index < count( $_POST['nice_custom'] ); $index++) {
-          $name = self::filter_meta_key_input( $meta_fields, $_POST['nice_custom'][$index] );
-          $col = acts_validate_id( $_POST['nice_custom_col'][$index] );
-          if ( $name !== '' && ( $col === 1 || $col === 2 ) ) {
-            $custom[] = array( 'name' => $name, 'col' => $col );
+      if ( isset( $_POST['nice_custom'] ) && is_array( $_POST['nice_custom'] ) ) {
+        foreach ($_POST['nice_custom'] as $col => $texts) {
+          $col = acts_validate_id( $col );
+          if ( $col === 1 || $col === 2 ) {
+            foreach ($texts as $text) {
+              $name = self::filter_meta_key_input( $meta_fields, $text );
+              if ( $text != '' ) {
+                $custom[] = array( 'name' => $name, 'col' => $col );
+              }
+            }
           }
         }
       }
@@ -328,7 +329,7 @@ class Activities_Admin_Utility {
         $input_list[$key] = $single_input;
       }
     }
-    $input = implode( ', ', $input_list );
+    $input = implode( ',', $input_list );
     return $input;
   }
 

@@ -224,18 +224,12 @@
         mark_session(false);
       });
 
-      function checkWl(elem) {
-        var valid = true;
-        $(elem).val().split(',').forEach( function(str) {
-          if (!meta_whitelist.has(str.trim())) {
-            $(elem).css('border-color', 'red');
-            $(elem).css('background-color', 'rgba(201, 76, 76, 0.3)');
-            valid = false;
-          }
-        });
-        if (valid) {
-          $(elem).css('border-color', 'green');
-          $(elem).css('background-color', 'rgba(63, 191, 63, 0.3)');
+      function getWlClass(item) {
+        if (meta_whitelist.has(item.trim())) {
+          return 'acts-nice-wl-ok';
+        }
+        else {
+          return 'acts-nice-wl-error';
         }
       }
 
@@ -262,18 +256,32 @@
         });
       }
 
+      function get_selectize_options() {
+        return {
+          create: true,
+          plugins: ['remove_button'],
+          render: {
+            item: function(item, escape) {
+              return '<div class="' + getWlClass( escape(item.value) ) + '">' +
+                (item.value ? '<span>' + escape(item.value) + '</span>' : '') +
+              '</div>';
+            },
+            option_create: function(item, escape) {
+              return '<div class="' + getWlClass( escape(item.input) ) + ' create">' +
+                'Add: <strong>' + (item.input ? '<span>' + escape(item.input) + '</span>' : '') +
+              '</strong></div>';
+            }
+          }
+        };
+      }
+
       if ($('#acts-nice-color').length) {
-        var html_color = '<li><input type="text" value="" name="nice_color[]" />';
+        $('#acts-nice-color input[name="nice_color_key[]"]').selectize(get_selectize_options());
+
+        var html_color = '<li class="acts-nice-custom-split"><input type="text" value="" name="nice_color[]" />';
         html_color += '<input type="text" name="nice_color_key[]" value="" />';
         html_color += ' <input type="submit" name="delete_color" value="-" class="delete-color button" />';
         html_color += '</li>';
-
-        $('input[name="nice_color_key[]"]').each( function(index, elem) {
-          checkWl(elem);
-          $(elem).on( 'input', function() {
-            checkWl(elem);
-          });
-        });
 
         function add_color_control() {
           $('input[type=text][name="nice_color[]"]').wpColorPicker({
@@ -292,9 +300,8 @@
           add_color_control();
 
           var elem = $('#acts-nice-color').children().last('li').children('input[name="nice_color_key[]"]');
-          $(elem).on( 'input', function() {
-            checkWl(elem);
-          });
+
+          $(elem).selectize(get_selectize_options());
         });
 
         $(document).on( 'click', 'input[type=submit][name=delete_color]', function( event ) {
@@ -308,29 +315,22 @@
       }
 
       if ($('#acts-nice-custom').length) {
-        var html_custom = '<li><input type="text" name="nice_custom[]" />';
-        html_custom +=	'<select name="nice_custom_col[]">';
-        html_custom +=	'<option value="1">Column 1</option>';
-        html_custom +=	'<option value="2">Column 2</option>';
-        html_custom +=	'</select>';
+        $('.acts-nice-custom[col] input[type=text]').selectize(get_selectize_options());
+
+        var html_custom = '<li class="acts-nice-custom-split"><input type="text" name="nice_custom[][]" />';
         html_custom +=	' <input type="submit" name="delete_custom" value="-" class="delete-custom button" /></li>';
 
-        $('input[name="nice_custom[]"]').each( function(index, elem) {
-          checkWl(elem);
-          $(elem).on( 'input', function() {
-            checkWl(elem);
-          });
-        });
-
-        $('#add-custom').on( 'click', function( event ) {
+        $('input[col]').on( 'click', function( event ) {
           event.preventDefault();
 
-          $('#acts-nice-custom').append(html_custom);
+          var col = $(this).attr('col');
 
-          var elem = $('#acts-nice-custom').children().last('li').children('input[name="nice_custom[]"]');
-          elem.on( 'input', function() {
-            checkWl(elem);
-          });
+          $('ul[col=' + col +  ']').append(html_custom);
+
+          var elem = $('ul[col=' + col +  ']').children().last('li').children('input[name="nice_custom[][]"]');
+          $(elem).attr('name', 'nice_custom[' + col + '][]' );
+
+          $(elem).selectize(get_selectize_options());
         });
 
         $(document).on( 'click', 'input[type=submit][name=delete_custom]', function( event ) {

@@ -255,7 +255,6 @@
 
 #acts-nice-settings-wrap {
   display: inline-block;
-  height: 100%;
   position: relative;
   height: 0;
 }
@@ -285,9 +284,7 @@
 }
 
 #acts-nice-settings-wrap > input:checked ~ #acts-nice-settings  {
-  -webkit-transform: none;
-      -ms-transform: none;
-          transform: none;
+  display: block;
 }
 
 #acts-nice-settings-wrap > input:checked ~ #acts-show-nice-settings::before {
@@ -795,22 +792,7 @@
 
   #acts-nice-settings {
     z-index: 1;
-    -webkit-transform-origin: 0% 0%;
-        -ms-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: translate(100%, 0);
-        -ms-transform: translate(100%, 0);
-            transform: translate(100%, 0);
-
-    -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.8,0.2,0.05,1.0);
-
-    transition: -webkit-transform 0.3s cubic-bezier(0.8,0.2,0.05,1.0);
-
-    -o-transition: transform 0.3s cubic-bezier(0.8,0.2,0.05,1.0);
-
-    transition: transform 0.3s cubic-bezier(0.8,0.2,0.05,1.0);
-
-    transition: transform 0.3s cubic-bezier(0.8,0.2,0.05,1.0), -webkit-transform 0.3s cubic-bezier(0.8,0.2,0.05,1.0);
+    display: none;
   }
 }
 

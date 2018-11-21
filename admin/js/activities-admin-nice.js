@@ -3,14 +3,14 @@
 
   $(document).ready( function() {
     function getWlClass(item) {
-      if (meta_whitelist.has(item.trim())) {
+      if (meta_whitelist.hasOwnProperty(item.trim())) {
         return 'acts-nice-wl-ok';
       }
       else {
         return 'acts-nice-wl-error';
       }
     }
-    
+
     function get_selectize_options() {
       return {
         create: true,
@@ -36,8 +36,9 @@
     }
 
     var show = true;
-    $('.acts-nice-user-info').on( 'click', function() {
-      var size = window.innerWidth;
+    $('.acts-nice-user-info').click( function() {
+      var size = $('html').width();
+      console.log(size);
       if (size <= 600) {
         if (show) {
           $(this).find('span:first-child ul').show();
@@ -406,7 +407,7 @@
               var id = user_info['ID'];
               delete user_info['ID'];
               update_user_info(id, user_info);
-              write_member_info(new Set([id]));
+              write_member_info(id);
               tb_remove();
             }
             else {
@@ -485,7 +486,7 @@
               update_user_info(id, member_info.data[id]);
             }
             if ( write ) {
-              write_member_info(new Set());
+              write_member_info(0);
             }
 
             update_sessions();
@@ -575,7 +576,7 @@
         }
       }
 
-      function write_member_info(users) {
+      function write_member_info(user) {
         if (all_member_info.length == 0) {
           return;
         }
@@ -592,7 +593,7 @@
         }
 
         for(var id in all_member_info) {
-          if (users.size > 0 && !users.has(parseInt(id))) {
+          if (user != 0 && user != id) {
             continue;
           }
           if (all_member_info.hasOwnProperty(id)) {
@@ -622,7 +623,7 @@
           load_member_info(true);
         }
         else {
-          write_member_info(new Set());
+          write_member_info(0);
         }
       });
 

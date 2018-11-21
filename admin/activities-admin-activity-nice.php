@@ -601,7 +601,7 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
     else {
       $col1 .= $bold_name;
 
-      $col2 = '<span class="acts-nice-user-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</a>';
+      $col2 = '<span class="acts-nice-user-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</span>';
     }
     $col1 .= '<span class="dashicons acts-nice-expand"></span><span class="dashicons acts-nice-colapse"></span>';
     $col1 .= '<ul class="acts-nice-prepared">';
@@ -920,11 +920,11 @@ function acts_nice_key_display( $key ) {
        unset( $meta_fields[$key] );
      }
      else {
-       $meta_fields[$key] = '"' . wp_filter_nohtml_kses( $meta ) . '"';
+       $meta_fields[$key] = '"' . wp_filter_nohtml_kses( $meta ) . '": 1';
      }
    }
    $wl = '<script>';
-   $wl .= 'var meta_whitelist = new Set([' . implode( ', ', $meta_fields ) . ']);';
+   $wl .= 'var meta_whitelist = {' . implode( ',', $meta_fields ) . '};';
    $wl .= '</script>';
 
    return $wl;

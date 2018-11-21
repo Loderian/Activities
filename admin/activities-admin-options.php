@@ -327,9 +327,11 @@ function activities_options_general() {
     echo '<input type="text" name="edit_types[' . esc_attr( $type ) . ']" value="' . esc_attr( $val ) . '" />';
   }
   echo '<p class="acts-grey">';
-  echo esc_html__( 'Select special input types for report quick edit', 'activities' );
+  echo esc_html__( 'Select special input types for quick user edit', 'activities' );
   echo '</p>';
   echo '</div>';
+
+  echo acts_nice_meta_key_set();
 
   echo '</div>'; //activities-options
 }

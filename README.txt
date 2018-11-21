@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL
 Tags: activities, events, courses, classes, report
 Requires at least: 4.6
 Tested up to: 4.9.8
-Stable tag: 1.0.3
+Stable tag: trunk
 Requires PHP: 7.0.32
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
@@ -15,9 +15,9 @@ A plugin for managing activities, activity reports and communication with partic
 
 Activities is a free, light-weight plugin for managing activities.
 It provides an easy to use interface to manage your sites activities and who is participating.
-This plugin supports multisite installations. Each site has their own activities, locations, activity archive and their own plugin settings.
+This plugin supports multisite installations. Each site has their own activities, locations, activity archive and plugin settings.
 
-The heart of the plugin is the Activity Report. It is designed for printing, but through the printing driver the reports can easily be saved as PDFs.
+The heart of the plugin is the Activity Report.
 When using the Activity Report it is easy to manage different recurring activities like yoga courses, football training and a lot of similar group oriented activities.
 The plugin integrates beautifully with WooCommerce Products.
 For example, when a customer is buying participation on a yoga retreat the customer are at the same time assigned the Activity list for this particular retreat.
@@ -29,60 +29,38 @@ They can also be assigned a location, they are created separately for easy reuse
 In addition each activity can have a responsible user who can be granted access to view and/or edit their assigned activities.
 Activities can be archived to get a 'history' and reduce the amount of activities on the 'main' list.
 
-#### Activity Report ####
+### Activity Report ###
 
 This plugin comes with a report page where you can get an overview of the activity and its participants.
 The report is a static structure, but has a lot of customization options for its content.
 In addition to specific report settings, the 'Activities > Options > Activity Report' page you can set a generic setting for all reports.
-Reports are currently designed for printing, but mobile use will be supported in the future.
 
-#### Shortcodes ####
+### Export and Participant Communication ###
+
+The export page allows you to copy participant information from an activity. It currently supports exporting email, phone and names.
+For example it can be used to send emails to all participants by copying the email list it provides and pasting it into a email program or webpage.
+
+### Shortcodes ###
 
 A simple shortcode is provided to display activity information in blog-posts, products or other types of posts.
-Also comes with an option to display a join/unjoin button on posts.
-
-### Locations ###
-
-Locations has the common location information in addition to a description.
+Also comes with an option to display a join/unjoin button on posts. Check the FAQ on how to use it.
 
 ### Responsible Users ###
 
 Usually users would be granted permission to use a plugin based on their role.
-In this plugin you can grant users permission to only view and/or edit their assigned activities.
-This will naturally not restrict access for other users who have permission based on role.
+With this plugin you can grant users permission to only view and/or edit their assigned activities.
+This will naturally not restrict access for other users who have higher permissions based on role.
 
 ### WooCommerce ###
 
-Activities has a light integration with WooCommerce.
-WooCommerce products can be assigned with any number of activities,
-when a user buys the product and the order is set to *Completed* they will be added to the activities assigned to products bough.
+Activities has a good integration with WooCommerce. Products can be assigned with any number of activities,
+when a user buys the product and the order is set to *Completed* they will be added to the activities assigned to products bought.
+Guets customers who buy any product can be converted into a WordPress user and then be assigned to activities.
 
-#### Guest Customers ####
-
-Since activities uses WordPress users, it comes with the option to automatically create users from guest customers.
-It can also convert existing guest customers with a single press of a button in the options section.
-
-### Import and Export ###
-
-#### Import ####
+### Importing ###
 
 Activities comes with a simple import feature. The import system only takes CSV files and expect them to be semicolon separated.
 Both activities and participants can be imported.
-
-#### Export ####
-
-The export page allows you to export data about participants for an activity. It currently supports exporting email, phone and names.
-Other export features are not yet added, but the existing version is very useful for communication with participants.
-
-### Activity Archive ###
-
-Activities can be archived when they are no longer active.
-This allows you to get a history of previous activities without an ever growing list of activities on the main page.
-
-### Users ###
-
-On every user profile in the admin area there is added an overview of the current active activities and the archived ones.
-This plugin also includes and option to get a better user search in the admin user list, which allows you to search by first and last name.
 
 == Installation ==
 
@@ -173,6 +151,13 @@ List of data options
 
 == Changelog ==
 
+= 1.0.4 =
+
+* Feature: Added option to set textarea or country select for inputs field on the quick user edit form
+* Enhancement: The report should now be usable for all devices
+* Tweak: Improved the look of custom field editing on report settings
+* Tweak:
+
 = 1.0.3 =
 
 * Feature: Clicking names in the activity report will now show a box where you can edit user info
@@ -197,28 +182,24 @@ List of data options
 
 == Upgrade Notice ==
 
+= 1.0.4 =
+
+Allows you to use activity reports on small devices!
+
 = 1.0.3 =
 
-* Makes editing participant info on reports easier
-* Report checkmarks can be used digitally (not adapted to phone use yet)
-* Easier to make default report settings
+Makes editing participant info on reports easier.
+Report checkmarks can be used digitally (not adapted to phone use yet).
+Easier to make default report settings.
 
 = 1.0.2 =
 
-* Sites are more usable for IE users
+Sites are more usable for IE users.
 
 = 1.0.1 =
 
-* Should be a lot safer to use
+Should be a lot safer to use.
 
 = 1.0.0 =
 
-* Lets you create activities!
-
-== Arbitrary section ==
-
-This plugin was made for a specific purpose, the Activity Report.
-After we did a lot of searching for plugins with a similar feature, but with no results, I was set on the task of creating this plugin.
-Mainly the features in this extension was made as they where needed or as a part of the foundation for the Activity Report.
-And I made some things that I thought where good to have, like the use of responsibility as a sudo role.
-As my first PHP and released project I hope you enjoy it even though it might not be a very polished thing.
+Lets you create activities!

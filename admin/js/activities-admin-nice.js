@@ -2,6 +2,39 @@
   'use strict';
 
   $(document).ready( function() {
+    function getWlClass(item) {
+      if (meta_whitelist.has(item.trim())) {
+        return 'acts-nice-wl-ok';
+      }
+      else {
+        return 'acts-nice-wl-error';
+      }
+    }
+    
+    function get_selectize_options() {
+      return {
+        create: true,
+        addPrecedence: true,
+        plugins: ['remove_button'],
+        render: {
+          item: function(item, escape) {
+            return '<div class="' + getWlClass( escape(item.value) ) + '">' +
+              (item.value ? '<span>' + escape(item.value) + '</span>' : '') +
+            '</div>';
+          },
+          option_create: function(item, escape) {
+            return '<div class="' + getWlClass( escape(item.input) ) + ' create">' +
+              'Add: <strong>' + (item.input ? '<span>' + escape(item.input) + '</span>' : '') +
+            '</strong></div>';
+          }
+        }
+      };
+    }
+
+    if ($('.acts-edit-types-options').length) {
+      $('.acts-edit-types-options input').selectize(get_selectize_options());
+    }
+
     var show = true;
     $('.acts-nice-user-info').on( 'click', function() {
       var size = window.innerWidth;
@@ -224,15 +257,6 @@
         mark_session(false);
       });
 
-      function getWlClass(item) {
-        if (meta_whitelist.has(item.trim())) {
-          return 'acts-nice-wl-ok';
-        }
-        else {
-          return 'acts-nice-wl-error';
-        }
-      }
-
       function change_color(elem, color = '') {
         var text = $(elem).closest('li').children('input[name="nice_color_key[]"]').val();
         if (color === '') {
@@ -254,25 +278,6 @@
         $('input[name="nice_color[]"]').each( function(index, elem) {
           change_color(elem);
         });
-      }
-
-      function get_selectize_options() {
-        return {
-          create: true,
-          plugins: ['remove_button'],
-          render: {
-            item: function(item, escape) {
-              return '<div class="' + getWlClass( escape(item.value) ) + '">' +
-                (item.value ? '<span>' + escape(item.value) + '</span>' : '') +
-              '</div>';
-            },
-            option_create: function(item, escape) {
-              return '<div class="' + getWlClass( escape(item.input) ) + ' create">' +
-                'Add: <strong>' + (item.input ? '<span>' + escape(item.input) + '</span>' : '') +
-              '</strong></div>';
-            }
-          }
-        };
       }
 
       if ($('#acts-nice-color').length) {
@@ -415,14 +420,17 @@
       var all_member_info = {};
 
       function load_custom_fields() {
-        if ( $('input[type=text][name="nice_custom[]"]').length ) {
-          var custom_fields = {};
+        if ( $('ul[col]').length ) {
+          var custom_fields = [];
 
-          $('input[type=text][name="nice_custom[]"]').each( function( index, element ) {
-            custom_fields[index] = {
-              name: $(element).val(),
-              col: $(element).siblings('select[name="nice_custom_col[]"]').val()
-            }
+          $('ul[col]').each( function( index, elem ) {
+            var col = $(elem).attr('col');
+            $(elem).find('input[name="nice_custom[' + col + '][]"]').each( function( text_index, text_elem ) {
+              custom_fields.push({
+                name: $(text_elem).val(),
+                col: col
+              });
+            });
           });
 
           return custom_fields;

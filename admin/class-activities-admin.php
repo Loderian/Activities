@@ -88,7 +88,7 @@ class Activities_Admin {
 		) );
 
     //Enqueue such that selectize works on WooCommerce pages
-		wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize/selectize.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize/selectize.min.js', array( 'jquery' ), $this->version, false );
 	}
 
 	/**

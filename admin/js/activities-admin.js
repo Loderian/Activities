@@ -117,13 +117,6 @@
 				$('#acts-export-copied').css('visibility', 'visible');
 			});
 		}
-
-		if ($('.acts-edit-types-options').length) {
-			$('.acts-edit-types-options input').selectize({
-				create: true,
-				plugins: ['remove_button']
-			});
-		}
 	});
 
 })(jQuery);

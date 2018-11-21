@@ -23,8 +23,6 @@ if ( !defined( 'WPINC' ) ) {
  * @return  string  Management page for nice activity display
  */
 function acts_activity_nice_management( $activity, $current_url = null ) {
-	global $wpdb;
-
 	wp_enqueue_media();
 
 	if ( isset( $_POST['save_nice_settings'] ) && $current_url != null ) {
@@ -358,24 +356,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     $output .= '</form>';
   }
 
-  $meta_fields = $wpdb->get_col(
-    "SELECT DISTINCT meta_key
-    FROM $wpdb->usermeta"
-  );
-
-  foreach ($meta_fields as $key => $meta) {
-    if ( activities_nice_filter_custom_field( $meta ) ) {
-      unset( $meta_fields[$key] );
-    }
-    else {
-      $meta_fields[$key] = '"' . wp_filter_nohtml_kses( $meta ) . '"';
-    }
-  }
-  $custom_wl_display = '<script>';
-  $custom_wl_display .= 'var meta_whitelist = new Set([' . implode( ', ', $meta_fields ) . ']);';
-  $custom_wl_display .= '</script>';
-
-  $output .= $custom_wl_display;
+  $output .= acts_nice_meta_key_set();
 
 	return $output;
 }
@@ -920,3 +901,31 @@ function acts_nice_key_display( $key ) {
 
   return implode( ' ', $display );
 }
+
+/**
+ * Get meta_key set script
+ *
+ * @return string
+ */
+ function acts_nice_meta_key_set() {
+   global $wpdb;
+
+   $meta_fields = $wpdb->get_col(
+     "SELECT DISTINCT meta_key
+     FROM $wpdb->usermeta"
+   );
+
+   foreach ($meta_fields as $key => $meta) {
+     if ( activities_nice_filter_custom_field( $meta ) ) {
+       unset( $meta_fields[$key] );
+     }
+     else {
+       $meta_fields[$key] = '"' . wp_filter_nohtml_kses( $meta ) . '"';
+     }
+   }
+   $wl = '<script>';
+   $wl .= 'var meta_whitelist = new Set([' . implode( ', ', $meta_fields ) . ']);';
+   $wl .= '</script>';
+
+   return $wl;
+ }

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: activities\n"
-"POT-Creation-Date: 2018-11-15 17:49+0100\n"
-"PO-Revision-Date: 2018-11-15 17:49+0100\n"
+"POT-Creation-Date: 2018-11-21 15:58+0100\n"
+"PO-Revision-Date: 2018-11-21 15:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -110,203 +110,220 @@ msgstr "Aktiviteter"
 msgid "Create new activity"
 msgstr "Opprett ny aktivitet"
 
-#: admin/activities-admin-activity-nice.php:34
+#: admin/activities-admin-activity-nice.php:32
 #, php-format
 msgid "Report settings updated for %s."
 msgstr "Rapport innstillinger er oppdatert for %s."
 
-#: admin/activities-admin-activity-nice.php:37
-#: admin/activities-admin-activity-nice.php:63
+#: admin/activities-admin-activity-nice.php:35
+#: admin/activities-admin-activity-nice.php:61
 #, php-format
 msgid "An error occured during saving report setting for %s."
 msgstr "Det oppstod en feil under lagring av rapport innstillinger for %s."
 
-#: admin/activities-admin-activity-nice.php:45
+#: admin/activities-admin-activity-nice.php:43
 #, php-format
 msgid "Report settings has been reset for %s."
 msgstr "Rapport innstillingene er tilbakestilt for %s."
 
-#: admin/activities-admin-activity-nice.php:48
+#: admin/activities-admin-activity-nice.php:46
 #, php-format
 msgid "An error occured during resetting report setting for %s."
 msgstr ""
 "Det oppstod en feil under tilbakestilling av rapport innstillinger for %s."
 
-#: admin/activities-admin-activity-nice.php:60
+#: admin/activities-admin-activity-nice.php:58
 #, php-format
 msgid "Report settings updated for %s, and made default for all activities."
 msgstr ""
 "Rapport innstillinger er oppdatert for %s, og har gjort standard for alle "
 "aktiviteter."
 
-#: admin/activities-admin-activity-nice.php:90
+#: admin/activities-admin-activity-nice.php:88
 msgid "First Name"
 msgstr "Fornavn"
 
-#: admin/activities-admin-activity-nice.php:91
+#: admin/activities-admin-activity-nice.php:89
 msgid "Last Name"
 msgstr "Etternavn"
 
-#: admin/activities-admin-activity-nice.php:92
+#: admin/activities-admin-activity-nice.php:90
 msgid "User"
 msgstr "Bruker"
 
-#: admin/activities-admin-activity-nice.php:105
+#: admin/activities-admin-activity-nice.php:103
 msgid "Billing"
 msgstr "Fakturering"
 
-#: admin/activities-admin-activity-nice.php:106
+#: admin/activities-admin-activity-nice.php:104
 msgid "Shipping"
 msgstr "Frakt"
 
-#: admin/activities-admin-activity-nice.php:146
-#: admin/activities-admin-activity-nice.php:292
+#: admin/activities-admin-activity-nice.php:144
+#: admin/activities-admin-activity-nice.php:290
 msgid "Custom Fields"
 msgstr "Egendefinerte felter"
 
-#: admin/activities-admin-activity-nice.php:154
-#: admin/activities-admin-activity-nice.php:325
+#: admin/activities-admin-activity-nice.php:152
+#: admin/activities-admin-activity-nice.php:337
 #: admin/activities-admin-activity.php:123
 #: admin/activities-admin-location.php:83
-#: admin/activities-admin-options.php:177 admin/class-activities-admin.php:545
+#: admin/activities-admin-options.php:196 admin/class-activities-admin.php:545
 msgid "Save"
 msgstr "Lagre"
 
-#: admin/activities-admin-activity-nice.php:156
+#: admin/activities-admin-activity-nice.php:154
 msgid "Open user page"
 msgstr "Åpne bruker siden"
 
-#: admin/activities-admin-activity-nice.php:163
+#: admin/activities-admin-activity-nice.php:161
 msgid "Activity Report Management"
 msgstr "Aktivitetsrapport Behandling"
 
-#: admin/activities-admin-activity-nice.php:168
+#: admin/activities-admin-activity-nice.php:166
 #: admin/class-activities-admin.php:673
 msgid "Report"
 msgstr "Rapport"
 
-#: admin/activities-admin-activity-nice.php:188
+#: admin/activities-admin-activity-nice.php:186
 #: admin/activities-admin-archive.php:58
 msgid "Activity"
 msgstr "Aktivitet"
 
-#: admin/activities-admin-activity-nice.php:216
+#: admin/activities-admin-activity-nice.php:214
 msgid "Settings"
 msgstr "Innstillinger"
 
-#: admin/activities-admin-activity-nice.php:218
+#: admin/activities-admin-activity-nice.php:216
 msgid "default"
 msgstr "standard"
 
-#: admin/activities-admin-activity-nice.php:218
+#: admin/activities-admin-activity-nice.php:216
 msgid "custom"
 msgstr "egendefinert"
 
-#: admin/activities-admin-activity-nice.php:222
+#: admin/activities-admin-activity-nice.php:220
 msgid "Header"
 msgstr "Toppfelt"
 
-#: admin/activities-admin-activity-nice.php:224
+#: admin/activities-admin-activity-nice.php:222
 msgid "Logo"
 msgstr "Logo"
 
-#: admin/activities-admin-activity-nice.php:225
+#: admin/activities-admin-activity-nice.php:223
 msgid "Select Logo"
 msgstr "Velg Logo"
 
-#: admin/activities-admin-activity-nice.php:226
+#: admin/activities-admin-activity-nice.php:224
 msgid "Remove Logo"
 msgstr "Fjern Logo"
 
-#: admin/activities-admin-activity-nice.php:234
+#: admin/activities-admin-activity-nice.php:232
 #: admin/activities-admin-activity.php:55
 msgid "Activity Info"
 msgstr "Aktivitetsinformasjon"
 
-#: admin/activities-admin-activity-nice.php:237
-#: admin/activities-admin-activity-nice.php:410
+#: admin/activities-admin-activity-nice.php:235
+#: admin/activities-admin-activity-nice.php:405
 msgid "Start"
 msgstr "Start"
 
-#: admin/activities-admin-activity-nice.php:238
-#: admin/activities-admin-activity-nice.php:415
+#: admin/activities-admin-activity-nice.php:236
+#: admin/activities-admin-activity-nice.php:410
 msgid "End"
 msgstr "Slutt"
 
-#: admin/activities-admin-activity-nice.php:239
+#: admin/activities-admin-activity-nice.php:237
 #: admin/activities-admin-activity.php:60
-#: admin/class-activities-admin-utility.php:362
+#: admin/class-activities-admin-utility.php:363
 msgid "Short Description"
 msgstr "Kort Beskrivelse"
 
-#: admin/activities-admin-activity-nice.php:240
+#: admin/activities-admin-activity-nice.php:238
 msgid "Location Address"
 msgstr "Stedsadresse"
 
-#: admin/activities-admin-activity-nice.php:241
+#: admin/activities-admin-activity-nice.php:239
 msgid "Responsible User"
 msgstr "Ansvarlig Bruker"
 
-#: admin/activities-admin-activity-nice.php:242
+#: admin/activities-admin-activity-nice.php:240
 #: admin/activities-admin-activity.php:62
-#: admin/class-activities-admin-utility.php:366
+#: admin/class-activities-admin-utility.php:367
 msgid "Long Description"
 msgstr "Lang Beskrivelse"
 
-#: admin/activities-admin-activity-nice.php:247
-#: admin/activities-admin-activity-nice.php:469
+#: admin/activities-admin-activity-nice.php:245
+#: admin/activities-admin-activity-nice.php:464
 msgid "Sessions"
 msgstr "Økter"
 
-#: admin/activities-admin-activity-nice.php:249
+#: admin/activities-admin-activity-nice.php:247
 msgid "Mark Sessions"
 msgstr "Merk økter"
 
-#: admin/activities-admin-activity-nice.php:250
+#: admin/activities-admin-activity-nice.php:248
 msgid "Mark: On"
 msgstr "Merk: På"
 
-#: admin/activities-admin-activity-nice.php:251
+#: admin/activities-admin-activity-nice.php:249
 msgid "Mark: Off"
 msgstr "Merk: Av"
 
-#: admin/activities-admin-activity-nice.php:279
+#: admin/activities-admin-activity-nice.php:277
 msgid "Participant Info"
 msgstr "Deltaker info"
 
-#: admin/activities-admin-activity-nice.php:280
+#: admin/activities-admin-activity-nice.php:278
 msgid "Reload Info"
 msgstr "Oppdater info"
 
-#: admin/activities-admin-activity-nice.php:283
+#: admin/activities-admin-activity-nice.php:281
 msgid "Prepared Setups"
 msgstr "Klargjorte oppsett"
 
-#: admin/activities-admin-activity-nice.php:293
+#: admin/activities-admin-activity-nice.php:291
 msgid "Type in usermeta key, then press reload info."
 msgstr "Skriv inn en bruker-meta felt, også trykk på Oppdater info."
 
-#: admin/activities-admin-activity-nice.php:294
+#: admin/activities-admin-activity-nice.php:292
 msgid "Seperate multiple fields in one line by a comma."
 msgstr "Skill flere felt på en linje med et komma."
 
 #: admin/activities-admin-activity-nice.php:309
+#: admin/activities-admin-activity-nice.php:314
+#, php-format
+msgid "%s Column"
+msgstr "%s-kolonne"
+
+#: admin/activities-admin-activity-nice.php:309
+#: admin/activities-admin-activity-nice.php:459
+#: admin/activities-admin-generic.php:87 admin/activities-admin-import.php:45
+msgid "Participants"
+msgstr "Deltakere"
+
+#: admin/activities-admin-activity-nice.php:314
+#: admin/activities-admin-activity-nice.php:463
+msgid "Additional Info"
+msgstr "Tillegg Info"
+
+#: admin/activities-admin-activity-nice.php:321
 msgid "Color Fields"
 msgstr "Fargefelt"
 
-#: admin/activities-admin-activity-nice.php:310
+#: admin/activities-admin-activity-nice.php:322
 msgid "Colorize usermeta data for quicker identification."
 msgstr "Fargelegg bruker data for raskere identifikasjon."
 
-#: admin/activities-admin-activity-nice.php:327
+#: admin/activities-admin-activity-nice.php:339
 msgid "Print"
 msgstr "Print"
 
-#: admin/activities-admin-activity-nice.php:328
+#: admin/activities-admin-activity-nice.php:340
 msgid "Folder Print"
 msgstr "Mappe Print"
 
-#: admin/activities-admin-activity-nice.php:330
+#: admin/activities-admin-activity-nice.php:342
 #: admin/activities-admin-import.php:249 admin/activities-admin-import.php:305
 #: admin/activities-admin-import.php:420 admin/activities-admin-import.php:543
 #: includes/class-activities-woocommerce.php:299
@@ -314,92 +331,83 @@ msgstr "Mappe Print"
 msgid "Return"
 msgstr "Retuner"
 
-#: admin/activities-admin-activity-nice.php:333
+#: admin/activities-admin-activity-nice.php:345
 msgid "Make default"
 msgstr "Angi som standard"
 
-#: admin/activities-admin-activity-nice.php:334
+#: admin/activities-admin-activity-nice.php:346
 msgid "Reset to default"
 msgstr "Reset til standard"
 
-#: admin/activities-admin-activity-nice.php:404
+#: admin/activities-admin-activity-nice.php:399
 msgid "Activity Participants List"
 msgstr "Aktivitetsdeltakere Liste"
 
-#: admin/activities-admin-activity-nice.php:428
+#: admin/activities-admin-activity-nice.php:423
 #: admin/activities-admin-activity.php:88 admin/activities-admin-generic.php:54
 #: admin/activities-admin-locations.php:62
 #: admin/activities-admin-locations.php:92
 #: admin/activities-admin-locations.php:100
-#: admin/class-activities-admin-utility.php:384
+#: admin/class-activities-admin-utility.php:385
 msgid "Location"
 msgstr "Sted"
 
-#: admin/activities-admin-activity-nice.php:445
+#: admin/activities-admin-activity-nice.php:440
 #: admin/activities-admin-activity.php:71 admin/activities-admin-generic.php:67
-#: admin/class-activities-admin-utility.php:379
+#: admin/class-activities-admin-utility.php:380
 msgid "Responsible"
 msgstr "Ansvarlig"
 
-#: admin/activities-admin-activity-nice.php:461
+#: admin/activities-admin-activity-nice.php:456
 msgid "Participant"
 msgstr "Deltaker"
 
-#: admin/activities-admin-activity-nice.php:464
-#: admin/activities-admin-generic.php:87 admin/activities-admin-import.php:45
-msgid "Participants"
-msgstr "Deltakere"
-
-#: admin/activities-admin-activity-nice.php:468
-msgid "Additional Info"
-msgstr "Tillegg Info"
-
-#: admin/activities-admin-activity-nice.php:542
+#: admin/activities-admin-activity-nice.php:537
 msgid "This activity has no participants."
 msgstr "Denne aktiviteten har ingen deltakere."
 
-#: admin/activities-admin-activity-nice.php:700
+#: admin/activities-admin-activity-nice.php:699
 msgid "Wordpress User Info"
 msgstr "WordPress Bruker Info"
 
-#: admin/activities-admin-activity-nice.php:703
+#: admin/activities-admin-activity-nice.php:702
 msgid "Woocommerce Billing Info"
 msgstr "Woocommerce Fakturerings Info"
 
-#: admin/activities-admin-activity-nice.php:704
+#: admin/activities-admin-activity-nice.php:703
 msgid "Woocommerce Shipping Info"
 msgstr "Woocommerce Sendings Info"
 
+#: admin/activities-admin-activity-nice.php:786
 #: admin/activities-admin-activity-nice.php:787
-#: admin/activities-admin-activity-nice.php:788
+#: admin/activities-admin-activity-nice.php:793
 #: admin/activities-admin-activity-nice.php:794
-#: admin/activities-admin-activity-nice.php:795
 #, php-format
 msgid "Address %d"
 msgstr "Adresselinje %d"
 
-#: admin/activities-admin-activity-nice.php:789
-#: admin/activities-admin-activity-nice.php:796
+#: admin/activities-admin-activity-nice.php:788
+#: admin/activities-admin-activity-nice.php:795
 #: admin/activities-admin-location.php:55
-#: admin/class-activities-admin-utility.php:396
+#: admin/class-activities-admin-utility.php:397
 msgid "City"
 msgstr "By"
 
-#: admin/activities-admin-activity-nice.php:790
-#: admin/activities-admin-activity-nice.php:797
+#: admin/activities-admin-activity-nice.php:789
+#: admin/activities-admin-activity-nice.php:796
 #: admin/activities-admin-location.php:53
-#: admin/class-activities-admin-utility.php:400
+#: admin/class-activities-admin-utility.php:401
 msgid "Postcode"
 msgstr "Postnummer"
 
-#: admin/activities-admin-activity-nice.php:791
+#: admin/activities-admin-activity-nice.php:790
 #: admin/activities-admin-export.php:268
 msgid "Phone"
 msgstr "Mobilnummer"
 
 #: admin/activities-admin-activity.php:58 admin/activities-admin-export.php:269
 #: admin/activities-admin-location.php:49
-#: admin/class-activities-admin-utility.php:358
+#: admin/class-activities-admin-utility.php:359
 #: admin/class-activities-admin.php:528
 msgid "Name"
 msgstr "Navn"
@@ -586,7 +594,7 @@ msgstr "Advarsel: Aktiviteter kan ikke gjenopprettes etter sletting."
 
 #: admin/activities-admin-generic.php:110
 #: admin/activities-admin-location.php:51
-#: admin/class-activities-admin-utility.php:388
+#: admin/class-activities-admin-utility.php:389
 msgid "Address"
 msgstr "Adresse"
 
@@ -834,12 +842,13 @@ msgid "Location Info"
 msgstr "Sted Info"
 
 #: admin/activities-admin-location.php:57
-#: admin/class-activities-admin-utility.php:404
+#: admin/activities-admin-options.php:474
+#: admin/class-activities-admin-utility.php:405
 msgid "Country"
 msgstr "Land"
 
 #: admin/activities-admin-location.php:71
-#: admin/class-activities-admin-utility.php:392
+#: admin/class-activities-admin-utility.php:393
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -890,15 +899,15 @@ msgstr "Steder"
 msgid "Create new location"
 msgstr "Opprett nytt sted"
 
-#: admin/activities-admin-options.php:36 admin/activities-admin-options.php:189
+#: admin/activities-admin-options.php:36 admin/activities-admin-options.php:208
 msgid "View Activities"
 msgstr "Se Aktiviteter"
 
-#: admin/activities-admin-options.php:37 admin/activities-admin-options.php:190
+#: admin/activities-admin-options.php:37 admin/activities-admin-options.php:209
 msgid "Administer Activities"
 msgstr "Administrere Aktiviteter"
 
-#: admin/activities-admin-options.php:38 admin/activities-admin-options.php:191
+#: admin/activities-admin-options.php:38 admin/activities-admin-options.php:210
 msgid "Administer Activities Options"
 msgstr "Administrere Aktiviteter Innstillinger"
 
@@ -906,40 +915,40 @@ msgstr "Administrere Aktiviteter Innstillinger"
 msgid "Can be Member"
 msgstr "Kan være Medlem"
 
-#: admin/activities-admin-options.php:42 admin/activities-admin-options.php:195
+#: admin/activities-admin-options.php:42 admin/activities-admin-options.php:214
 msgid "Can be Responsible"
 msgstr "Kan være Ansvarlig"
 
-#: admin/activities-admin-options.php:126
+#: admin/activities-admin-options.php:145
 msgid "Options has been updated."
 msgstr "Innstillingene er oppdatert."
 
-#: admin/activities-admin-options.php:143 admin/class-activities-admin.php:118
+#: admin/activities-admin-options.php:162 admin/class-activities-admin.php:118
 msgid "Activities Options"
 msgstr "Aktiviteter Innstillinger"
 
-#: admin/activities-admin-options.php:194
+#: admin/activities-admin-options.php:213
 msgid "Can be Participant"
 msgstr "Kan være deltaker"
 
-#: admin/activities-admin-options.php:201
+#: admin/activities-admin-options.php:220
 msgid "Permissions"
 msgstr "Tillgang"
 
-#: admin/activities-admin-options.php:205
-#: admin/activities-admin-options.php:250
+#: admin/activities-admin-options.php:224
+#: admin/activities-admin-options.php:269
 msgid "Roles"
 msgstr "Roller"
 
-#: admin/activities-admin-options.php:229
+#: admin/activities-admin-options.php:248
 msgid "Responsible Users"
 msgstr "Ansvarlige Brukere"
 
-#: admin/activities-admin-options.php:230
+#: admin/activities-admin-options.php:249
 msgid "Allow responsible users to:"
 msgstr "Tillat ansvarlige brukere å:"
 
-#: admin/activities-admin-options.php:237
+#: admin/activities-admin-options.php:256
 msgid ""
 "This will be in addtion to role permissions.\n"
 "An admin will always be able to view and edit their assigned activities,\n"
@@ -949,19 +958,19 @@ msgstr ""
 "En administrator vil alltid kunne vise og redigere tilordnede aktivitetene,\n"
 "uansett hva den ansvarlige tillatelsesinnstillingen er satt til."
 
-#: admin/activities-admin-options.php:246
+#: admin/activities-admin-options.php:265
 msgid "Activity Roles"
 msgstr "Aktivitetsroller"
 
-#: admin/activities-admin-options.php:275
+#: admin/activities-admin-options.php:294
 msgid "Activities Deletion"
 msgstr "Aktiviteter Avinstallering"
 
-#: admin/activities-admin-options.php:276
+#: admin/activities-admin-options.php:295
 msgid "Delete plugin data on uninstall"
 msgstr "Slett plugin data når den avinstalleres"
 
-#: admin/activities-admin-options.php:278
+#: admin/activities-admin-options.php:297
 msgid ""
 "Makes the plugin delete all off it's data on uninstall, only the current "
 "blog."
@@ -969,25 +978,25 @@ msgstr ""
 "Gjør at plugin-en vil slette all dens data når den avinstalleres, bare den "
 "aktuelle bloggen."
 
-#: admin/activities-admin-options.php:280
+#: admin/activities-admin-options.php:299
 #, php-format
 msgid "With the exception of user created from %s guest customers."
 msgstr "Med unntak av brukeren som er opprettet fra %s gjeste kunder."
 
-#: admin/activities-admin-options.php:280
+#: admin/activities-admin-options.php:299
 #, php-format
 msgid "You can delete those with the button in the %s tab."
 msgstr "Du kan slette dem med en knapp i %s fanen."
 
-#: admin/activities-admin-options.php:286
+#: admin/activities-admin-options.php:305
 msgid "Better user search"
 msgstr "Bedre bruker søk"
 
-#: admin/activities-admin-options.php:287
+#: admin/activities-admin-options.php:306
 msgid "Improve user search"
 msgstr "Forbedre bruker søk"
 
-#: admin/activities-admin-options.php:289
+#: admin/activities-admin-options.php:308
 msgid ""
 "Allows you to search users by their first name and last name.\n"
 "Might make searching slower."
@@ -995,15 +1004,23 @@ msgstr ""
 "Lar deg å søke blant brukere etter fornavn og etter navn.\n"
 "Kan gjøre søket tregere."
 
-#: admin/activities-admin-options.php:301
+#: admin/activities-admin-options.php:313
+msgid "Quick edit types"
+msgstr "Hurtig redigeringstyper"
+
+#: admin/activities-admin-options.php:330
+msgid "Select special input types for quick user edit"
+msgstr "Velg spesielle inntastetyper for hurtig bruker redigering"
+
+#: admin/activities-admin-options.php:344
 msgid "Activity Report Default Settings"
 msgstr "Standardinnstillinger for aktivitetsrapport"
 
-#: admin/activities-admin-options.php:304
+#: admin/activities-admin-options.php:347
 msgid "Activity name"
 msgstr "Aktivitetsnavn"
 
-#: admin/activities-admin-options.php:307
+#: admin/activities-admin-options.php:350
 msgid ""
 "(short description)\n"
 "    This is a example activity"
@@ -1011,7 +1028,7 @@ msgstr ""
 "(kort beskrivelse)\n"
 "    Dette er en eksempel aktivitet"
 
-#: admin/activities-admin-options.php:309
+#: admin/activities-admin-options.php:352
 msgid ""
 "(long description)\n"
 "    If a user does not some data, like an address, it will not be shown.\n"
@@ -1023,15 +1040,15 @@ msgstr ""
 "    I dette generelle eksempelet vises alle data der det ville vært med "
 "reelle brukere."
 
-#: admin/activities-admin-options.php:328
+#: admin/activities-admin-options.php:371
 msgid "WooCommerce Guest Customers"
 msgstr "WooCommerce gjeste kunder"
 
-#: admin/activities-admin-options.php:330
+#: admin/activities-admin-options.php:373
 msgid "Enable Guest Coversion"
 msgstr "Aktiver gjeste konvertering"
 
-#: admin/activities-admin-options.php:331
+#: admin/activities-admin-options.php:374
 msgid ""
 "Enables automatic conversion of guest customers to users.\n"
 "This allows guests to be added to activities."
@@ -1039,63 +1056,67 @@ msgstr ""
 "Aktiverer automatisk konvertering av gjeste kunder til brukere.\n"
 "Dette gjør at gjestene kan bli lagt til aktiviteter."
 
-#: admin/activities-admin-options.php:345
+#: admin/activities-admin-options.php:388
 msgid "Coupons on activities report"
 msgstr "Kuponger på aktivitetsrapport"
 
-#: admin/activities-admin-options.php:349
+#: admin/activities-admin-options.php:392
 msgid "Coupons"
 msgstr "Kuponger"
 
-#: admin/activities-admin-options.php:349
+#: admin/activities-admin-options.php:392
 msgid "Display on activity report"
 msgstr "Vis på aktivitetsrapport"
 
-#: admin/activities-admin-options.php:365
+#: admin/activities-admin-options.php:408
 msgid "Actions"
 msgstr "Handlinger"
 
-#: admin/activities-admin-options.php:366
+#: admin/activities-admin-options.php:409
 msgid "Convert Guests Customers"
 msgstr "Konverter gjester kunder"
 
-#: admin/activities-admin-options.php:369
+#: admin/activities-admin-options.php:412
 msgid "Delete All Converted Users"
 msgstr "Slett alle konverterte brukere"
 
-#: admin/activities-admin-options.php:387
+#: admin/activities-admin-options.php:430
 msgid "Could not verify options."
 msgstr "Kan ikke bekrefte innstillinger."
 
-#: admin/activities-admin-options.php:399
+#: admin/activities-admin-options.php:442
 msgid "General"
 msgstr "Generell"
 
-#: admin/activities-admin-options.php:400
+#: admin/activities-admin-options.php:443
 msgid "Activity Report"
 msgstr "Aktivitetsrapport"
 
-#: admin/activities-admin-options.php:417
+#: admin/activities-admin-options.php:460
 msgid "Same as their role permissions"
 msgstr "Samme som rolle tillatelsene"
 
-#: admin/activities-admin-options.php:418
+#: admin/activities-admin-options.php:461
 msgid "View assigned activities"
 msgstr "Se tilordnede aktiviteter"
 
-#: admin/activities-admin-options.php:419
+#: admin/activities-admin-options.php:462
 msgid "View and edit assigned activities"
 msgstr "Se og redigere tilordnede aktiviteter"
+
+#: admin/activities-admin-options.php:473
+msgid "Textarea"
+msgstr "Tekstområde"
 
 #: admin/class-activities-admin-utility.php:32
 msgid "Could not verify activity report data integrity."
 msgstr "Kan ikke bekrefte dataintegritet for aktivitetsrapport."
 
-#: admin/class-activities-admin-utility.php:370
+#: admin/class-activities-admin-utility.php:371
 msgid "Start Date"
 msgstr "Startdato"
 
-#: admin/class-activities-admin-utility.php:374
+#: admin/class-activities-admin-utility.php:375
 msgid "End Date"
 msgstr "Sluttdato"
 

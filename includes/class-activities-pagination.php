@@ -160,7 +160,7 @@ class Activities_Pagination {
         $output .= '<span class="tablenav-pages-navspan">&lsaquo;</span> ';
       }
 
-      $output .= '<span class="paging-input"><input type="text" value="' . $current_page . '" name="paged" size="1" class="current-page" /> of <span class="total-pages">' . $this->total_pages . '</span></span> ';
+      $output .= '<span class="paging-input"><input type="text" value="' . $current_page . '" name="paged" size="1" class="current-page" /> ' . esc_html__( 'of', 'activities' ) . ' <span class="total-pages">' . $this->total_pages . '</span></span> ';
 
       if ( $current_page < $this->total_pages) {
         $stepforward_url = add_query_arg( 'paged', $current_page + 1, $current_url );

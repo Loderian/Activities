@@ -470,7 +470,7 @@ function acts_get_responsible_options() {
  */
 function acts_get_quick_edit_types() {
   return array(
-    'textarea' => esc_attr__( 'Textarea', 'activities' ),
-    'country' => esc_attr__( 'Country', 'activities' )
+    'textarea' => esc_html__( 'Textarea', 'activities' ),
+    'country' => esc_html__( 'Country', 'activities' )
   );
 }

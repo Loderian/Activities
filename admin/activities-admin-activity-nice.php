@@ -287,7 +287,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	$output .= '</tbody>';
 	$output .= '</table>';
 	$output .= '<ul id="acts-nice-custom">';
-	$output .= '<li><b>' . esc_html__( 'Custom Fields', 'activities' )  . '</b> <i class="acts-grey">(advanced)</i></li>';
+	$output .= '<li><b>' . esc_html__( 'Custom Fields', 'activities' )  . '</b> <i class="acts-grey">(' . esc_html__( 'advanced', 'activities' ) . ')</i></li>';
 	$output .= '<li><i class="acts-grey">' . esc_html__( 'Type in usermeta key, then press reload info.', 'activities' )  . '</i></li>';
   $output .= '<li><i class="acts-grey">' . esc_html__( 'Seperate multiple fields in one line by a comma.', 'activities' )  . '</i></li>';
   $output .= '</ul>';
@@ -318,7 +318,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 
   $output .= '<hr class="acts-nice-splitter">';
   $output .= '<ul id="acts-nice-color" class="acts-nice-custom">';
-  $output .= '<li><b>' . esc_html__( 'Color Fields', 'activities' )  . '</b> <i class="acts-grey">(advanced)</i> <input type="submit" id="add-color" value="+" class="button" /></li>';
+  $output .= '<li><b>' . esc_html__( 'Color Fields', 'activities' )  . '</b> <i class="acts-grey">(' . esc_html__( 'advanced', 'activities' ) . ')</i> <input type="submit" id="add-color" value="+" class="button" /></li>';
   $output .= '<li><i class="acts-grey">' . esc_html__( 'Colorize usermeta data for quicker identification.', 'activities' )  . '</i></li>';
   if ( isset($nice_settings['color']) ) {
     foreach ($nice_settings['color'] as $key => $color) {

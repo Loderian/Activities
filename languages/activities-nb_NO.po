@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: activities\n"
-"POT-Creation-Date: 2018-11-21 15:58+0100\n"
-"PO-Revision-Date: 2018-11-21 15:59+0100\n"
+"POT-Creation-Date: 2018-11-22 14:53+0100\n"
+"PO-Revision-Date: 2018-11-22 14:54+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -281,6 +281,11 @@ msgstr "Oppdater info"
 #: admin/activities-admin-activity-nice.php:281
 msgid "Prepared Setups"
 msgstr "Klargjorte oppsett"
+
+#: admin/activities-admin-activity-nice.php:290
+#: admin/activities-admin-activity-nice.php:321
+msgid "advanced"
+msgstr "avansert"
 
 #: admin/activities-admin-activity-nice.php:291
 msgid "Type in usermeta key, then press reload info."
@@ -1382,6 +1387,10 @@ msgstr "%d steder"
 #, php-format
 msgid "%d activities"
 msgstr "%d aktiviteter"
+
+#: includes/class-activities-pagination.php:163
+msgid "of"
+msgstr "av"
 
 #: includes/class-activities-utility.php:56
 msgid "Afghanistan"

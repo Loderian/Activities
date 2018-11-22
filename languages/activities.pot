@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Activities\n"
-"POT-Creation-Date: 2018-11-21 15:58+0100\n"
+"POT-Creation-Date: 2018-11-22 14:53+0100\n"
 "PO-Revision-Date: 2018-09-05 18:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -282,6 +282,11 @@ msgstr ""
 
 #: admin/activities-admin-activity-nice.php:281
 msgid "Prepared Setups"
+msgstr ""
+
+#: admin/activities-admin-activity-nice.php:290
+#: admin/activities-admin-activity-nice.php:321
+msgid "advanced"
 msgstr ""
 
 #: admin/activities-admin-activity-nice.php:291
@@ -1353,6 +1358,10 @@ msgstr ""
 #: includes/class-activities-pagination.php:148
 #, php-format
 msgid "%d activities"
+msgstr ""
+
+#: includes/class-activities-pagination.php:163
+msgid "of"
 msgstr ""
 
 #: includes/class-activities-utility.php:56

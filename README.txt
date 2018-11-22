@@ -153,10 +153,11 @@ List of data options
 
 = 1.0.4 =
 
-* Feature: Added option to set textarea or country select for inputs field on the quick user edit form
+* Feature: Added option to set textarea or country-select as input fields on the quick user edit form
 * Enhancement: The report should now be usable for all devices
 * Tweak: Improved the look of custom field editing on report settings
-* Tweak:
+* Tweak: Improved layout for all devices
+* Fix: Replaced use of Sets in JavaScript with objects to improve compatibility
 
 = 1.0.3 =
 
@@ -184,7 +185,7 @@ List of data options
 
 = 1.0.4 =
 
-Allows you to use activity reports on small devices!
+Allows you to use reports on all devices!
 
 = 1.0.3 =
 

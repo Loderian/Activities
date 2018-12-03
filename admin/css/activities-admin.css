@@ -26,6 +26,20 @@
   padding: 5px 15px 10px;
 }
 
+.acts-delete-button.button {
+  background-color: #cc0000;
+  border-color: #4d0000;
+  color: #4d0000;
+  box-shadow: 0 1px #4d0000;
+}
+
+.acts-delete-button.button:hover {
+  background-color: #d40000;
+  border-color: #4d0000;
+  color: #4d0000;
+  box-shadow: 0 1px #4d0000;
+}
+
 #activities-title a {
   margin-left: 10px;
   font-size: 14px;
@@ -164,12 +178,19 @@
   margin: 0;
 }
 
+.acts-category-edit input[type=text],
+.acts-category-edit select,
+.acts-category-edit textarea,
 .acts-create-extra-wrap .activities-table,
 .acts-create-extra input[type=text],
 .acts-create-extra select,
 .acts-create-wrap input[type=text],
 .acts-create-wrap textarea {
   width: 100%;
+}
+
+.acts-category-edit textarea {
+  height: 150px;
 }
 
 .acts-create-extra-wrap {

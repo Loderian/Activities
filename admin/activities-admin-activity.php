@@ -42,6 +42,18 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 		);
 	}
 
+  $categories = get_terms( array(
+    'taxonomy' => Activities_Category::taxonomy,
+    'hide_empty' => false,
+  ));
+
+  $parent_select = '<select name="category_parent">';
+  $parent_select .= '<option value="">-- ' . esc_html__( 'Category Parent', 'activities' ) . ' --</option>';
+  foreach ($categories as $term) {
+    $parent_select .= '<option value="' . esc_attr( $term->slug ) . '">' . esc_html( $term->name ) . '</option>';
+  }
+  $parent_select .= '</select>';
+
 	$disabled = '';
 	if ( $archive == 'archive' || ( !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) && !Activities_Responsible::current_user_restricted_edit() ) ) {
 		$disabled = 'disabled';
@@ -49,6 +61,25 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 	$output = '<h2 id="activities-title">' . $title . '</h2>';
 
 	$output .= Activities_Admin::get_messages();
+
+  add_thickbox();
+
+  $output .= '<div id="acts-category-edit" style="display: none;">';
+  $output .= '<form action="' . admin_url( 'admin-ajax.php' ) . '" class="acts-category-edit acts-form" method="post">';
+  $output .= '<h3>' . esc_html__( 'Category', 'activities' ) . '</h3>';
+  $output .= '<ul>';
+  $output .= '<li><label>' . esc_html__( 'Name', 'activities' ) . '</br>';
+  $output .= '<input type="text" name="category_name" placeholder="' . esc_attr__( 'Category Name', 'activities' ) . '" /></label></li>';
+  $output .= '<li><label>' . esc_html__( 'Category Parent', 'activities' ) . '</br>' . $parent_select . '</label></li>';
+  $output .= '<li><label>' . esc_html__( 'Description', 'activities' ) . '</br>';
+  $output .= '<textarea name="category_description"></textarea></label></li>';
+  $output .= '</ul>';
+  $output .= '<p>';
+  $output .= get_submit_button( __( 'Save', 'activities' ), 'button-primary', 'save_category', false );
+  $output .= get_submit_button( __( 'Delete', 'activities' ), 'acts-delete-button button right', 'delete_category', false );
+  $output .= '</p>';
+  $output .= '</form>';
+  $output .= '</div>';
 
 	$output .= '<form action="' . esc_url( $current_url ) . '" method="post" class="acts-form acts-create-form">';
 	$output .= '<div class="acts-create-wrap acts-box-wrap acts-box-padding">';
@@ -140,22 +171,13 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 	$output .= wp_nonce_field( 'activities_activity', ACTIVITIES_ACTIVITY_NONCE, true, false );
 	$output .= '</div>'; //acts-create-wrap
 
-  $categories = get_terms( array(
-    'taxonomy' => Activities_Category::taxonomy,
-    'hide_empty' => false,
-  ));
   $output .= '<div class="acts-create-extra-wrap">';
   $output .= '<div class="acts-categories acts-create-extra acts-box-wrap acts-box-padding">';
   $output .= '<h3>' . esc_html__( 'Categories', 'activities') . ' ' . get_submit_button( '+', 'button', 'show_category_form', false ) . '</h3>';
   $output .= '<ul id="category_form" style="display: none;">';
   $output .= '<li><input type="text" name="category_name" placeholder="' . esc_attr__( 'Category Name', 'activities' ) . '" /><li>';
   $output .= '<li>';
-  $output .= '<select name="category_parent">';
-  $output .= '<option value="">-- ' . esc_html__( 'Category Parent', 'activities' ) . ' --</option>';
-  foreach ($categories as $term) {
-    $output .= '<option value="' . esc_attr( $term->slug ) . '">' . esc_html( $term->name ) . '</option>';
-  }
-  $output .= '</select>';
+  $output .= $parent_select;
   $output .= '</li>';
   $output .= '<li>' . get_submit_button( esc_html__( 'Create Category', 'activities' ), 'button', 'create_category', false ) . '</li>';
   $output .= '<li><hr/></li>';

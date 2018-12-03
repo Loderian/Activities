@@ -156,7 +156,19 @@
 		$('.acts-category-name a').click( function(event) {
 			event.preventDefault();
 
+			var h = window.innerHeight * 0.90;
+			var w = window.innerWidth * 0.90;
+			if ( w > 500 ) {
+				w = 500;
+			}
+
 			console.log($(this).attr('category'));
+			tb_show($(this).html(), "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-category-edit");
+
+			var wh = $('.acts-category-edit').height();
+			if ( wh < h ) {
+				$('#TB_ajaxContent').height(wh+20);
+			}
 		});
 
 		$(document).on( 'click', 'input[name=primary_category]', function(event) {

@@ -394,7 +394,7 @@
 
         var wh = $('.acts-quick-edit-box').height();
         if ( wh < h ) {
-          $('#TB_ajaxContent').height(wh);
+          $('#TB_ajaxContent').height(wh+20);
         }
       });
 

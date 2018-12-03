@@ -16,13 +16,13 @@
   white-space: pre-line;
 }
 
-.activities-box-wrap {
+.acts-box-wrap {
   background-color: #fff;
   border: 1px solid lightgrey;
   border-radius: 3px;
 }
 
-.activities-box-padding {
+.acts-box-padding {
   padding: 5px 15px 10px;
 }
 
@@ -117,7 +117,8 @@
   padding-right: 5px;
 }
 
-.activities-table .activities-table-d {
+.activities-table thead td:not(:first-child),
+.activities-table tbody td:not(:first-child) {
   text-align: center;
 }
 
@@ -146,10 +147,15 @@
   border-radius: 3px;
 }
 
+.acts-create-form {
+  margin-right: 310px;
+}
+
 .acts-create-wrap {
-  width: 70%;
+  width: 100%;
   min-width: 300px;
   display: inline-block;
+  float: left;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -158,9 +164,38 @@
   margin: 0;
 }
 
+.acts-create-extra-wrap .activities-table,
+.acts-create-extra input[type=text],
+.acts-create-extra select,
 .acts-create-wrap input[type=text],
 .acts-create-wrap textarea {
   width: 100%;
+}
+
+.acts-create-extra-wrap {
+  width: 300px;
+  margin-right: -310px;
+  float: right;
+}
+
+.acts-categories h3 input[name=show_category_form] {
+  vertical-align: middle;
+}
+
+.acts-create-extra-wrap h3 {
+  margin-bottom: 5px;
+}
+
+.acts-category-name .dashicons::before {
+  content: "\f464";
+}
+
+.acts-category-name .dashicons {
+  visibility: hidden;
+}
+
+.acts-category-name a:hover .dashicons {
+  visibility: visible;
 }
 
 #acts-location-desc {

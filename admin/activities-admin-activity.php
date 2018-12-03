@@ -50,8 +50,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 
 	$output .= Activities_Admin::get_messages();
 
-	$output .= '<form action="' . esc_url( $current_url ) . '" method="post" class="acts-form">';
-	$output .= '<div class="acts-create-wrap activities-box-wrap activities-box-padding">';
+	$output .= '<form action="' . esc_url( $current_url ) . '" method="post" class="acts-form acts-create-form">';
+	$output .= '<div class="acts-create-wrap acts-box-wrap acts-box-padding">';
 	$output .= '<h3>' . esc_html__( 'Activity Info', 'activities' ) . '</h3>';
 	$output .= '<div class="acts-form-columns">';
 	$output .= '<ul class="acts-single-column">';
@@ -138,7 +138,52 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   $output .= '</p>';
 	$output .= '</div>';
 	$output .= wp_nonce_field( 'activities_activity', ACTIVITIES_ACTIVITY_NONCE, true, false );
-	$output .= '</div>';
+	$output .= '</div>'; //acts-create-wrap
+
+  $categories = get_terms( array(
+    'taxonomy' => Activities_Category::taxonomy,
+    'hide_empty' => false,
+  ));
+  $output .= '<div class="acts-create-extra-wrap">';
+  $output .= '<div class="acts-categories acts-create-extra acts-box-wrap acts-box-padding">';
+  $output .= '<h3>' . esc_html__( 'Categories', 'activities') . ' ' . get_submit_button( '+', 'button', 'show_category_form', false ) . '</h3>';
+  $output .= '<ul id="category_form" style="display: none;">';
+  $output .= '<li><input type="text" name="category_name" placeholder="' . esc_attr__( 'Category Name', 'activities' ) . '" /><li>';
+  $output .= '<li>';
+  $output .= '<select name="category_parent">';
+  $output .= '<option value="">-- ' . esc_html__( 'Category Parent', 'activities' ) . ' --</option>';
+  foreach ($categories as $term) {
+    $output .= '<option value="' . esc_attr( $term->slug ) . '">' . esc_html( $term->name ) . '</option>';
+  }
+  $output .= '</select>';
+  $output .= '</li>';
+  $output .= '<li>' . get_submit_button( esc_html__( 'Create Category', 'activities' ), 'button', 'create_category', false ) . '</li>';
+  $output .= '<li><hr/></li>';
+  $output .= '</ul>';
+
+  $output .= '<table class="activities-table">';
+  $output .= '<thead>';
+  $output .= '<tr>';
+  $output .= '<td></td>';
+  $output .= '<td>' . esc_html__( 'Primary', 'activities' ) . '</td>';
+  $output .= '<td>' . esc_html__( 'Additional', 'activities' ) . '</td>';
+  $output .= '</tr>';
+  $output .= '<tbody>';
+  foreach ($categories as $term) {
+    $output .= '<tr>';
+    $output .= '<td class="acts-category-name"><a href="" category="' . esc_attr( $term->slug ) . '">' . esc_html( $term->name ) . '<span class="dashicons"></span></a></td>';
+    $output .= '<td><input type="radio" name="primary_category" value="' . esc_attr( $term->slug ) . '" /></td>';
+    $output .= '<td><input type="checkbox" name="additional_categories[' . esc_attr( $term->slug ) . ']" /></td>';
+    $output .= '</tr>';
+  }
+  $output .= '</tbody>';
+  $output .= '</thead>';
+
+  $output .= '</table>';
+  $output .= '</div>';
+
+  $output .= '</div>';
+
   $output .= '</form>';
 
 	return $output;

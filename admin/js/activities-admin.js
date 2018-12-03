@@ -117,6 +117,58 @@
 				$('#acts-export-copied').css('visibility', 'visible');
 			});
 		}
+
+		$('#show_category_form').click( function(event) {
+			event.preventDefault();
+
+			$('#category_form').toggle();
+		});
+
+
+
+		$('#create_category').click( function(event) {
+			event.preventDefault();
+
+			$.ajax({
+				url: ajaxurl,
+				type: 'POST',
+				data: {
+					action: 'acts_insert_cat',
+					name: $('input[name=category_name]').val(),
+					parent: $('select[name=category_parent]').val()
+				},
+				dataType: 'json',
+				success: function(cat) {
+					if (!cat.success) {
+						console.error(cat.data);
+						return;
+					}
+
+					$('.acts-categories table tbody').append(cat.data.table);
+					$('select[name=category_parent]').append(cat.data.option);
+				},
+				error: function(jqXHR, text, error) {
+					console.error(text);
+				}
+			});
+		});
+
+		$('.acts-category-name a').click( function(event) {
+			event.preventDefault();
+
+			console.log($(this).attr('category'));
+		});
+
+		$(document).on( 'click', 'input[name=primary_category]', function(event) {
+			var checkbox = $('input[name="additional_categories[' + $(this).val() +  ']"]');
+
+			$('.acts-categories input[type=checkbox]').each( function(index, elem) {
+				if ($(elem)[0] === checkbox[0]) {
+					$(elem).attr('checked', false);
+				}
+				$(elem).attr('disabled', $(elem)[0] === checkbox[0]);
+			});
+		});
 	});
 
 })(jQuery);

@@ -42,7 +42,7 @@ function acts_location_management( $title, $action, $map = null ) {
 	$output .= Activities_Admin::get_messages();
 
 	$output .= '<form action="' . esc_url( $current_url ) . '" method="post" class="acts-form">';
-	$output .= '<div class="acts-create-wrap activities-box-wrap activities-box-padding">';
+	$output .= '<div class="acts-create-wrap acts-box-wrap acts-box-padding">';
 	$output .= '<h3>' . esc_html__( 'Location Info', 'activities' ) . '</h3>';
 	$output .= '<div class="acts-form-columns">';
 	$output .= '<ul class="acts-single-column">';

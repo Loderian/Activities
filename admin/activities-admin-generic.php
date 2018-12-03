@@ -34,7 +34,7 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
 
 	$output .= Activities_Admin::get_messages();
 
-	$output .= '<div class="activities-box-wrap activities-box-padding">';
+	$output .= '<div class="acts-box-wrap acts-box-padding">';
 	$output .= '<form action="' . esc_url( $current_url ) . '" method="post">';
 	if ( $type == 'address' || $type == 'delete_l') {
 		$output .= '<h2>' . esc_html__( 'Selected Locations', 'activities' ) . '</h2>';
@@ -141,7 +141,7 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
  */
 function acts_confirm_item_delete_page( $display, $item_id, $name, $current_url ) {
 	$output = '<h1>' . sprintf( esc_html__( 'Delete %s', 'activities' ), $display ) . '</h1>';
-	$output .= '<div class="activities-box-wrap activities-box-padding">';
+	$output .= '<div class="acts-box-wrap acts-box-padding">';
 	$output .= '<form action="' . esc_url( $current_url ) . '" method="post">';
 	$output .= '<h2>' . sprintf( esc_html__( 'Selected %s', 'activities' ), $display ) . ': </h2>';
 	$output .= '<p style="font-size: 1.2em;">' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</p>';

@@ -93,7 +93,7 @@ function activities_export_page() {
         $export .= '<p>' . esc_html__( 'No data found.', 'activities' ) . '</p>';
       }
       else {
-        $export .= '<div id="acts-export-results" class="activities-box-wrap">';
+        $export .= '<div id="acts-export-results" class="acts-box-wrap">';
         foreach ($data as $key => $value) {
           $value = trim($value);
           if ( $value === '' ) {

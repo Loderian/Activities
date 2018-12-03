@@ -898,4 +898,43 @@ class Activities_Admin {
 
     wp_send_json_success( $user_data );
   }
+
+  /**
+   * Ajax callback for inserting category
+   */
+  public function ajax_insert_cat() {
+    $name = sanitize_text_field( $_POST['name'] );
+    $slug = sanitize_title_with_dashes( $_POST['name'] );
+    $parent = sanitize_title_with_dashes( $_POST['parent'] );
+
+    if ( $name != '' && $slug != '' ) {
+      $term = term_exists( $name, Activities_Category::taxonomy );
+      if ( empty( $term ) ) {
+        $term = Activities_Category::insert(
+          array(
+            'name' => $name,
+            'slug' => $slug,
+            'parent' => $parent
+          )
+        );
+
+        if ( !is_wp_error( $term ) ) {
+          $html = '<tr>';
+          $html .= '<td class="acts-category-name"><a href="" category="' . esc_attr( $slug ) . '">' . esc_html( $name ) . '<span class="dashicons"></span></a></td>';
+          $html .= '<td><input type="radio" name="primary_category" value="' . esc_attr( $slug ) . '" /></td>';
+          $html .= '<td><input type="checkbox" name="additional_categories[' . esc_attr( $slug ) . ']" /></td>';
+          $html .= '</tr>';
+
+          $option = '<option value="' . esc_attr( $slug ) . '">' . esc_html( $name ) . '</option>';
+
+          wp_send_json_success( array( 'table' => $html, 'option' => $option ) );
+        }
+        else {
+          wp_send_json_error( $term );
+        }
+      }
+    }
+
+    wp_send_json_error( 'Name error' );
+  }
 }

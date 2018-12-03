@@ -223,7 +223,7 @@ function activities_options_general() {
   echo '<thead><tr>';
   echo '<td>' . esc_html__( 'Roles', 'activities' ) . '</td>';
   foreach ($permissions as $display) {
-    echo '<td class="activities-table-d">' . esc_html( $display ) . '</td>';
+    echo '<td>' . esc_html( $display ) . '</td>';
   }
   echo '</tr></thead>';
 
@@ -236,7 +236,7 @@ function activities_options_general() {
       if ( $r_key === 'administrator' || $wp_roles->get_role($r_key)->has_cap($p_key) ) {
         $checked = 'checked';
       }
-      echo '<td class="activities-table-d"><input type="checkbox" name="' . esc_attr( $p_key . '[' . $r_key . ']' ) . '" ' . $checked . ' ' . ($r_key === 'administrator' ? 'disabled' : '') . ' /></td>';
+      echo '<td><input type="checkbox" name="' . esc_attr( $p_key . '[' . $r_key . ']' ) . '" ' . $checked . ' ' . ($r_key === 'administrator' ? 'disabled' : '') . ' /></td>';
     }
     echo '</tr>';
   }
@@ -268,7 +268,7 @@ function activities_options_general() {
   echo '<thead><tr>';
   echo '<td>' . esc_html__( 'Roles', 'activities' ) . '</td>';
   foreach ($activity_roles as $display) {
-    echo '<td class="activities-table-d">' . esc_html( $display ) . '</td>';
+    echo '<td>' . esc_html( $display ) . '</td>';
   }
   echo '</tr></thead>';
 
@@ -281,7 +281,7 @@ function activities_options_general() {
       if ( in_array( $r_key, $act_roles_options[$ar_key] ) ) {
         $checked = 'checked';
       }
-      echo '<td class="activities-table-d"><input type="checkbox" name="' . esc_attr( $ar_key . '[' . $r_key . ']' ) . '" ' . $checked . ' /></td>';
+      echo '<td><input type="checkbox" name="' . esc_attr( $ar_key . '[' . $r_key . ']' ) . '" ' . $checked . ' /></td>';
     }
     echo '</tr>';
   }
@@ -396,7 +396,7 @@ function activities_options_woocommerce() {
     foreach ($coupons as $coupon) {
       echo '<tr>';
       $checked = isset( $coupons_display[$coupon->post_title] ) ? 'checked' : '';
-      echo '<td>' . stripslashes( wp_filter_nohtml_kses( ucfirst( $coupon->post_title ) ) ) . '</td><td class="activities-table-d"><input type="checkbox" name="' . esc_attr( ACTIVITIES_NICE_WC_COUPONS_KEY . '[' . $coupon->post_title ) . ']" ' . $checked . ' /></td>';
+      echo '<td>' . stripslashes( wp_filter_nohtml_kses( ucfirst( $coupon->post_title ) ) ) . '</td><td><input type="checkbox" name="' . esc_attr( ACTIVITIES_NICE_WC_COUPONS_KEY . '[' . $coupon->post_title ) . ']" ' . $checked . ' /></td>';
       echo '</tr>';
     }
     echo '</tbody>';

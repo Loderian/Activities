@@ -580,7 +580,7 @@ class Activities_List_Table {
    * @return  string  Filter box for display
    */
   function field_filters( $filters ) {
-  	$output = '<div id="activities-filter-wrap" class="activities-box-wrap activities-box-padding">';
+  	$output = '<div id="activities-filter-wrap" class="acts-box-wrap acts-box-padding">';
   	$output .= '<b>' . esc_html__( 'Filters', 'activities' ) . '</b>';
   	$output .= '<form action="' . esc_url( $this->current_url ) . '" method="post" class="acts-form">';
 

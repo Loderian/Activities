@@ -177,9 +177,9 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 
   $output .= '<div id="acts-nice-settings-wrap">';
   $output .= '<input type="checkbox" />';
-  $output .= '<span id="acts-show-nice-settings" class="activities-box-wrap dashicons"></span>';
+  $output .= '<span id="acts-show-nice-settings" class="acts-box-wrap dashicons"></span>';
 
-	$output .= '<div id="acts-nice-settings" class="activities-box-wrap activities-box-padding">';
+	$output .= '<div id="acts-nice-settings" class="acts-box-wrap acts-box-padding">';
 
   if ( $current_url != null ) {
     $output .= '<div>';

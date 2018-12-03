@@ -34,7 +34,7 @@ function activities_import_page() {
 
   $current_url = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-  echo '<table id="acts-import-table" class="activities-box-wrap">';
+  echo '<table id="acts-import-table" class="acts-box-wrap">';
   echo '<tbody>';
   echo '<tr>';
   echo '<td>' . esc_html__( 'Activities', 'activities' ) . '</br>';

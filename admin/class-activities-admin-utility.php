@@ -151,6 +151,22 @@ class Activities_Admin_Utility {
     if ( isset( $_POST['item_id'] ) ) {
       $act_map['activity_id'] = acts_validate_id( $_POST['item_id'] );
     }
+    $act_map['categories'] = array();
+    if ( isset( $_POST['primary_category'] ) ) {
+      $primary_cat = acts_validate_id( $_POST['primary_category'] );
+      if ( Activities_Category::exists( $primary_cat ) ) {
+        $act_map['categories'][] = $primary_cat;
+      }
+    }
+
+    if ( isset( $_POST['additional_categories'] ) && is_array( $_POST['additional_categories'] ) ) {
+      foreach ($_POST['additional_categories'] as $cat_id) {
+        $cat_id = acts_validate_id( $cat_id );
+        if ( Activities_Category::exists( $cat_id ) && !in_array( $cat_id, $act_map['categories'] ) ) {
+          $act_map['categories'][] = $cat_id;
+        }
+      }
+    }
     return $act_map;
   }
 

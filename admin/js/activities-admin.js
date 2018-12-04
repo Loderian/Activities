@@ -209,10 +209,13 @@
 				else if (elem_id === prev_selected) {
 					$(elem).attr('checked', true);
 				}
-				$(elem).attr('disabled', elem_id === id);
 			});
 
 			prev_selected = id;
+		});
+
+		$(document).on( 'click', 'input[name="additional_categories[]"]', function(event) {
+			$('input[name=primary_category][value=' + $(this).val() + ']').attr('checked', false);
 		});
 
 		$('#save_category').click( function( event ) {

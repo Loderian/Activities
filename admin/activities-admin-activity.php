@@ -38,7 +38,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 			'end' => date('Y-m-d'),
 			'location_id' => '',
 			'responsible_id' => '',
-			'members' => array()
+			'members' => array(),
+      'categories' => array()
 		);
 	}
 
@@ -205,10 +206,18 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
     $parent = $term->parent;
     $term_data[] = $tid . ': {name: "' . wp_filter_nohtml_kses( $name ) . '", slug: "' . wp_filter_nohtml_kses( $slug ) . '", desc: "' . wp_filter_nohtml_kses( $desc ) . '",  parent: "' . $parent . '"}';
 
+    $p_checked = '';
+    $a_checked = '';
+    if ( isset( $map['categories'][0] ) && $map['categories'][0] === $tid ) {
+      $p_checked = 'checked="checked"';
+    }
+    else if ( in_array( $tid, $map['categories'] ) ) {
+      $a_checked = 'checked="checked"';
+    }
     $output .= '<tr>';
     $output .= '<td class="acts-category-name"><a href="" tid="' . esc_attr( $tid ) . '"><span>' . esc_html( $name ) . '</span><span class="dashicons"></span></a></td>';
-    $output .= '<td><input type="radio" name="primary_category" value="' . esc_attr( $tid ) . '" /></td>';
-    $output .= '<td><input type="checkbox" name="additional_categories[]" value="' . esc_attr( $tid ) . '" /></td>';
+    $output .= '<td><input type="radio" name="primary_category" value="' . esc_attr( $tid ) . '" ' . $p_checked . ' /></td>';
+    $output .= '<td><input type="checkbox" name="additional_categories[]" value="' . esc_attr( $tid ) . '" ' . $a_checked . ' /></td>';
     $output .= '</tr>';
   }
   $output .= '</tbody>';

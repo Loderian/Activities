@@ -124,7 +124,22 @@
 			$('#category_form').toggle();
 		});
 
+		function add_to_table(selector, data) {
+			var table = $(selector);
+			table.find('tr:first').clone(true).appendTo(table);
+			var new_row = table.find('tr:last');
+			new_row.find('a').attr('tid', data.id);
+			new_row.find('a span:first').html(data.name);
+			new_row.find('input').val(data.id);
+		}
 
+		function add_to_select(selector, data) {
+			var select = $(selector);
+			select.find('option:first').clone(true).appendTo(select);
+			var new_option = select.find('option:last');
+			new_option.val(data.id);
+			new_option.html(data.name);
+		}
 
 		$('#create_category').click( function(event) {
 			event.preventDefault();
@@ -134,8 +149,8 @@
 				type: 'POST',
 				data: {
 					action: 'acts_insert_cat',
-					name: $('input[name=category_name]').val(),
-					parent: $('select[name=category_parent]').val()
+					name: $('.acts-categories input[name=category_name]').val(),
+					parent: $('.acts-categories select[name=category_parent]').val()
 				},
 				dataType: 'json',
 				success: function(cat) {
@@ -144,8 +159,12 @@
 						return;
 					}
 
-					$('.acts-categories table tbody').append(cat.data.table);
-					$('select[name=category_parent]').append(cat.data.option);
+					add_to_table('.acts-categories table tbody', cat.data);
+
+					add_to_select('.acts-categories select[name=category_parent]', cat.data);
+					add_to_select('.acts-category-edit select[name=category_parent]', cat.data);
+
+					term_data[cat.data.id] = {name: cat.data.name, slug: cat.data.slug, desc: '', parent: cat.data.parent};
 				},
 				error: function(jqXHR, text, error) {
 					console.error(text);
@@ -162,23 +181,96 @@
 				w = 500;
 			}
 
-			console.log($(this).attr('category'));
+			var id = $(this).attr('tid');
+			var form = $('.acts-category-edit');
+			form.find('input[name=category_id]').val(id);
+			form.find('input[name=category_name]').val(term_data[id].name);
+			form.find('select[name=category_parent]').val(term_data[id].parent);
+			form.find('textarea[name=category_description]').val(term_data[id].desc);
+			$('#delete_category').toggle(term_data[id].slug !== 'uncategorized');
 			tb_show($(this).html(), "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-category-edit");
 
-			var wh = $('.acts-category-edit').height();
+			var wh = form.height();
 			if ( wh < h ) {
 				$('#TB_ajaxContent').height(wh+20);
 			}
 		});
 
+		var prev_selected = $('input[name=primary_category]:checked').val();
+
 		$(document).on( 'click', 'input[name=primary_category]', function(event) {
-			var checkbox = $('input[name="additional_categories[' + $(this).val() +  ']"]');
+			var id = $(this).val();
 
 			$('.acts-categories input[type=checkbox]').each( function(index, elem) {
-				if ($(elem)[0] === checkbox[0]) {
+				var elem_id = $(elem).val();
+				if (elem_id === id) {
 					$(elem).attr('checked', false);
 				}
-				$(elem).attr('disabled', $(elem)[0] === checkbox[0]);
+				else if (elem_id === prev_selected) {
+					$(elem).attr('checked', true);
+				}
+				$(elem).attr('disabled', elem_id === id);
+			});
+
+			prev_selected = id;
+		});
+
+		$('#save_category').click( function( event ) {
+			event.preventDefault();
+
+			var form = $('.acts-category-edit');
+
+			$.post( form.attr('action'), form.serialize(), function(rep) {
+					if (rep.success) {
+						var id = rep.data.id;
+						term_data[id].name = rep.data.name;
+						term_data[id].parent = rep.data.parent;
+						term_data[id].desc = rep.data.desc;
+
+						$('option[value=' + id + ']').html(rep.data.name);
+						$('a[tid=' + id + '] span:first').html(rep.data.name);
+						tb_remove();
+					}
+					else {
+						console.error(response.data);
+					}
+				}, 'json' );
+		});
+
+		$('#delete_category').click( function( event ) {
+			event.preventDefault();
+
+			var id = $('.acts-category-edit').find('input[name=category_id]').val();
+
+			if (term_data[id].slug === 'uncategorized') {
+				return;
+			}
+
+			$.ajax({
+				url: ajaxurl,
+				type: 'POST',
+				data: {
+					action: 'acts_delete_cat',
+					category_id: id
+				},
+				dataType: 'json',
+				success: function(cat) {
+					if (!cat.success) {
+						console.error(cat.data);
+						return;
+					}
+
+					tb_remove();
+					$('option[value=' + id + ']').remove();
+					$('a[tid=' + id + ']').parent('td').parent('tr').remove();
+
+					for (var term_id in cat.data) {
+						term_data[term_id].parent = cat.data[term_id];
+					}
+				},
+				error: function(jqXHR, text, error) {
+					console.error(error);
+				}
 			});
 		});
 	});

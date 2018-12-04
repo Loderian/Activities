@@ -30,10 +30,9 @@ class Activities_Category {
       self::taxonomy,
       'acts_activity',
       array(
-          'label' => __( 'Activity Categories' ),
-          'public' => false,
-          'rewrite' => false,
-          'hierarchical' => true,
+        'label' => __( 'Activity Categories' ),
+        'rewrite' => false,
+        'hierarchical' => true,
       )
     );
   }
@@ -56,6 +55,31 @@ class Activities_Category {
       $values['name'],
       self::taxonomy,
       $args
+    );
+  }
+
+  static function update( $values ){
+    $args = array(
+      'name' => $values['name'],
+      'description' => $values['desc']
+    );
+
+    $parent_term = term_exists( $values['parent'], self::taxonomy );
+    if ( !empty( $parent_term ) ) {
+      $args['parent'] = $parent_term['term_id'];
+    }
+
+    return wp_update_term(
+      $values['id'],
+      self::taxonomy,
+      $args
+    );
+  }
+
+  static function delete( $id ){
+    return wp_delete_term(
+      $id,
+      self::taxonomy
     );
   }
 }

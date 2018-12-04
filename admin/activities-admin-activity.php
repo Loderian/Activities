@@ -48,9 +48,9 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   ));
 
   $parent_select = '<select name="category_parent">';
-  $parent_select .= '<option value="">-- ' . esc_html__( 'Category Parent', 'activities' ) . ' --</option>';
+  $parent_select .= '<option value="0">-- ' . esc_html__( 'Category Parent', 'activities' ) . ' --</option>';
   foreach ($categories as $term) {
-    $parent_select .= '<option value="' . esc_attr( $term->slug ) . '">' . esc_html( $term->name ) . '</option>';
+    $parent_select .= '<option value="' . esc_attr( $term->term_id ) . '">' . esc_html( $term->name ) . '</option>';
   }
   $parent_select .= '</select>';
 
@@ -70,7 +70,9 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   $output .= '<ul>';
   $output .= '<li><label>' . esc_html__( 'Name', 'activities' ) . '</br>';
   $output .= '<input type="text" name="category_name" placeholder="' . esc_attr__( 'Category Name', 'activities' ) . '" /></label></li>';
-  $output .= '<li><label>' . esc_html__( 'Category Parent', 'activities' ) . '</br>' . $parent_select . '</label></li>';
+  $output .= '<li><label>' . esc_html__( 'Category Parent', 'activities' ) . '</br>';
+  $output .= $parent_select;
+  $output .= '</label></li>';
   $output .= '<li><label>' . esc_html__( 'Description', 'activities' ) . '</br>';
   $output .= '<textarea name="category_description"></textarea></label></li>';
   $output .= '</ul>';
@@ -78,6 +80,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   $output .= get_submit_button( __( 'Save', 'activities' ), 'button-primary', 'save_category', false );
   $output .= get_submit_button( __( 'Delete', 'activities' ), 'acts-delete-button button right', 'delete_category', false );
   $output .= '</p>';
+  $output .= '<input type="hidden" name="category_id" />';
+  $output .= '<input type="hidden" name="action" value="acts_update_cat" />';
   $output .= '</form>';
   $output .= '</div>';
 
@@ -191,11 +195,20 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   $output .= '<td>' . esc_html__( 'Additional', 'activities' ) . '</td>';
   $output .= '</tr>';
   $output .= '<tbody>';
+
+  $term_data = array();
   foreach ($categories as $term) {
+    $tid = $term->term_id;
+    $name = $term->name;
+    $slug = $term->slug;
+    $desc = $term->description;
+    $parent = $term->parent;
+    $term_data[] = $tid . ': {name: "' . wp_filter_nohtml_kses( $name ) . '", slug: "' . wp_filter_nohtml_kses( $slug ) . '", desc: "' . wp_filter_nohtml_kses( $desc ) . '",  parent: "' . $parent . '"}';
+
     $output .= '<tr>';
-    $output .= '<td class="acts-category-name"><a href="" category="' . esc_attr( $term->slug ) . '">' . esc_html( $term->name ) . '<span class="dashicons"></span></a></td>';
-    $output .= '<td><input type="radio" name="primary_category" value="' . esc_attr( $term->slug ) . '" /></td>';
-    $output .= '<td><input type="checkbox" name="additional_categories[' . esc_attr( $term->slug ) . ']" /></td>';
+    $output .= '<td class="acts-category-name"><a href="" tid="' . esc_attr( $tid ) . '"><span>' . esc_html( $name ) . '</span><span class="dashicons"></span></a></td>';
+    $output .= '<td><input type="radio" name="primary_category" value="' . esc_attr( $tid ) . '" /></td>';
+    $output .= '<td><input type="checkbox" name="additional_categories[]" value="' . esc_attr( $tid ) . '" /></td>';
     $output .= '</tr>';
   }
   $output .= '</tbody>';
@@ -207,6 +220,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   $output .= '</div>';
 
   $output .= '</form>';
+
+  $output .= '<script>var term_data = {' . implode( ',', $term_data ) . '};</script>';
 
 	return $output;
 }

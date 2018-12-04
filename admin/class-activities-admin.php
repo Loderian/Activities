@@ -905,7 +905,7 @@ class Activities_Admin {
   public function ajax_insert_cat() {
     $name = sanitize_text_field( $_POST['name'] );
     $slug = sanitize_title_with_dashes( $_POST['name'] );
-    $parent = sanitize_title_with_dashes( $_POST['parent'] );
+    $parent = acts_validate_id( $_POST['parent'] );
 
     if ( $name != '' && $slug != '' ) {
       $term = term_exists( $name, Activities_Category::taxonomy );
@@ -919,15 +919,7 @@ class Activities_Admin {
         );
 
         if ( !is_wp_error( $term ) ) {
-          $html = '<tr>';
-          $html .= '<td class="acts-category-name"><a href="" category="' . esc_attr( $slug ) . '">' . esc_html( $name ) . '<span class="dashicons"></span></a></td>';
-          $html .= '<td><input type="radio" name="primary_category" value="' . esc_attr( $slug ) . '" /></td>';
-          $html .= '<td><input type="checkbox" name="additional_categories[' . esc_attr( $slug ) . ']" /></td>';
-          $html .= '</tr>';
-
-          $option = '<option value="' . esc_attr( $slug ) . '">' . esc_html( $name ) . '</option>';
-
-          wp_send_json_success( array( 'table' => $html, 'option' => $option ) );
+          wp_send_json_success( array( 'id' => $term['term_id'], 'name' => $name, 'slug' => $slug, 'parent' => $parent ) );
         }
         else {
           wp_send_json_error( $term );
@@ -936,5 +928,77 @@ class Activities_Admin {
     }
 
     wp_send_json_error( 'Name error' );
+  }
+
+  /**
+   * Ajax callback for updating category
+   */
+  public function ajax_update_cat() {
+    $id = acts_validate_id( $_POST['category_id'] );
+    $name = sanitize_text_field( $_POST['category_name'] );
+    $parent = acts_validate_id( $_POST['category_parent'] );
+    $desc = sanitize_textarea_field( $_POST['category_description'] );
+
+    if ( $id <= 0 ) {
+      wp_send_json_error( 'id error' );
+    }
+    if ( $name == '' ) {
+      wp_send_json_error( 'name error' );
+    }
+    if ( $id === $parent ) {
+      wp_send_json_error( 'parent error' );
+    }
+
+    $term = term_exists( $name, Activities_Category::taxonomy );
+    if ( empty( $term ) || $term['term_id'] == $id ) {
+      $values = array(
+        'id' => $id,
+        'name' => $name,
+        'parent' => $parent,
+        'desc' => $desc
+      );
+      $term = Activities_Category::update( $values );
+
+      if ( !is_wp_error( $term ) ) {
+        wp_send_json_success( $values );
+      }
+      else {
+        wp_send_json_error( $term );
+      }
+    }
+
+    wp_send_json_error( 'duplicate error' );
+  }
+
+  /**
+   * Ajax callback for deleting category
+   */
+  public function ajax_delete_cat() {
+    $id = acts_validate_id( $_POST['category_id'] );
+
+    if ( $id > 0 ) {
+      $term = get_term( $id, Activities_Category::taxonomy );
+
+      if ( !empty( $term ) && $term->slug === 'uncategorized' ) {
+        wp_send_json_error( 'Cant edit uncategorized' );
+      }
+
+      $term = Activities_Category::delete( $id );
+
+      if ( $term && !is_wp_error( $term ) ) {
+        $categories = get_terms( array(
+          'taxonomy' => Activities_Category::taxonomy,
+          'hide_empty' => false,
+          'fields' => 'id=>parent'
+        ));
+
+        wp_send_json_success( $categories );
+      }
+      else {
+        wp_send_json_error( $term );
+      }
+    }
+
+    wp_send_json_error( 'Invalid id' );
   }
 }

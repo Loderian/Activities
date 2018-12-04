@@ -593,7 +593,12 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
     $col1 = '';
     $bold_name = '<b class="acts-nice-user-name"><span key="acts_full_name">' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</span></b>';
     if ( $id > 0 ) {
-      $col1 .= '<a href="" class="acts-user-quick-edit" uid="' . $id . '">' . $bold_name . ' <span class="dashicons dashicons-edit"></span></a>';
+      if ( current_user_can( 'edit_user', $id ) ) {
+        $col1 .= '<a href="" class="acts-user-quick-edit" uid="' . $id . '">' . $bold_name . ' <span class="dashicons dashicons-edit"></span></a>';
+      }
+      else {
+        $col1 .= $bold_name;
+      }
 
       $col2 = '<a href="mailto:' . esc_attr( $user_info['user_email'] ) . '" class="acts-user-quick-edit acts-nice-user-name" key="user_email">';
       $col2 .= stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . ' <span class="dashicons dashicons-email"></span></a>';

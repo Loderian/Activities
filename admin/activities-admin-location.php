@@ -61,7 +61,8 @@ function acts_location_management( $title, $action, $map = null ) {
 		array(
 			'name' => 'country',
 			'id' => 'acts-location-country',
-			'selected' => $map['country']
+			'selected' => $map['country'],
+			'blank' => __( 'No Country' )
 		)
 	);
 	$output .= '</li>';

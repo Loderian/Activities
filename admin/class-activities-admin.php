@@ -986,11 +986,7 @@ class Activities_Admin {
       $term = Activities_Category::delete( $id );
 
       if ( $term && !is_wp_error( $term ) ) {
-        $categories = get_terms( array(
-          'taxonomy' => Activities_Category::taxonomy,
-          'hide_empty' => false,
-          'fields' => 'id=>parent'
-        ));
+        $categories = Activities_Category::get_categories( 'id=>parent' );
 
         wp_send_json_success( $categories );
       }

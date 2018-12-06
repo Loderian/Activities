@@ -190,7 +190,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
       array(
         'id' => 'acts_nice_quick_change',
         'selected' => $activity['activity_id'],
-        'no_blank' => true
+        'blank' => false
       ),
       Activities_Responsible::current_user_restricted_view()
     );
@@ -333,17 +333,19 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 	if ( $current_url != null ) {
     $output .= '<hr class="acts-nice-splitter">';
 		$output .= '<div id="acts-nice-buttons">';
-    $output .= '<span class="acts-nice-top-buttons">';
+    $output .= '<p class="acts-nice-top-buttons">';
 		$output .= '<input type="submit" name="save_nice_settings" class="button button-primary" value="' . esc_html__( 'Save', 'activities' ) . '" /> ';
 		//$output .= '<input type="submit" name="download" class="button" value="Download PDF"/> ';
 		$output .= '<a href="javascript:window.print()" class="acts-nice-print button">' . esc_html__( 'Print', 'activities' ) . '</a> ';
     $output .= '<input id="folder_print" type="button" class="acts-nice-print button" value="' . esc_html__( 'Folder Print', 'activities' ) . '" /> ';
     $output .= wp_nonce_field( 'activities_nice', ACTIVITIES_ADMIN_NICE_NONCE, true, false );
 		$output .= '<a href="' . esc_url( $current_url ) . '" class="button">' . esc_html__( 'Return', 'activities' ) . '</a>';
-    $output .= '</span>';
+    $output .= '</p>';
     $output .= '<hr class="acts-nice-splitter">';
+    $output .= '<p>';
     $output .= get_submit_button( esc_html__( 'Make default', 'activities' ), 'button-primary',  'default_nice_settings', false );
     $output .= get_submit_button( esc_html__( 'Reset to default', 'activities' ), 'button right',  'reset_nice_settings', false );
+    $output .= '</p>';
 		$output .= '</div>';
 	}
 	$output .= '<input type="hidden" value="' . esc_attr( $activity['activity_id'] ) . '" id="item-id" name="item_id" />';

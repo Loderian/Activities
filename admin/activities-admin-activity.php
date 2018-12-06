@@ -43,17 +43,13 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 		);
 	}
 
-  $categories = get_terms( array(
-    'taxonomy' => Activities_Category::taxonomy,
-    'hide_empty' => false,
-  ));
-
-  $parent_select = '<select name="category_parent">';
-  $parent_select .= '<option value="0">-- ' . esc_html__( 'Category Parent', 'activities' ) . ' --</option>';
-  foreach ($categories as $term) {
-    $parent_select .= '<option value="' . esc_attr( $term->term_id ) . '">' . esc_html( $term->name ) . '</option>';
-  }
-  $parent_select .= '</select>';
+  $parent_select = acts_build_select(
+    Activities_Category::get_categories( 'id=>name' ),
+    array(
+      'name' => 'category_parent',
+      'blank' => __( 'No Category Parent', 'activities' )
+    )
+  );
 
 	$disabled = '';
 	if ( $archive == 'archive' || ( !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) && !Activities_Responsible::current_user_restricted_edit() ) ) {
@@ -113,7 +109,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
       'name' => 'responsible',
       'id' => 'acts-activity-responsible',
       'selected' => $map['responsible_id'],
-      'disabled' => Activities_Responsible::current_user_restricted_edit() || ( $disabled !== '' )
+      'disabled' => Activities_Responsible::current_user_restricted_edit() || ( $disabled !== '' ),
+      'blank' => __( 'No Responsible' ),
     )
   );
   if ( Activities_Responsible::current_user_restricted_edit() ) {
@@ -129,7 +126,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
       'name' => 'location',
       'id' => 'acts-activity-location',
       'selected' => $map['location_id'],
-      'disabled' => $disabled !== ''
+      'disabled' => $disabled !== '',
+      'blank' => __( 'No Location' )
     )
   );
   $output .= '</li>';
@@ -198,7 +196,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
   $output .= '<tbody>';
 
   $term_data = array();
-  foreach ($categories as $term) {
+  foreach (Activities_Category::get_categories() as $term) {
     $tid = $term->term_id;
     $name = $term->name;
     $slug = $term->slug;

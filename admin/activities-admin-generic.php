@@ -57,7 +57,8 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
         array(
           'name' => 'location',
           'id' => 'acts_bulk_selectize',
-          'selected' => $value
+          'selected' => $value,
+          'blank' =>  __( 'No Location' )
         )
       );
 
@@ -70,7 +71,8 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
         array(
           'name' => 'responsible',
           'id' => 'acts_bulk_selectize',
-          'selected' => $value
+          'selected' => $value,
+          'blank' => __( 'No Responsible' )
         )
       );
 
@@ -168,7 +170,7 @@ function acts_confirm_item_delete_page( $display, $item_id, $name, $current_url 
  *    - array class => Select classes
  *    - array selected => Values selected
  *    - bool multiple => true for multiple select
- *		- bool no_blank => true to remove the blank choice (forces a selection)
+ *		- bool|string blank => false to remove the blank choice (stars with a selected value) or text for blank field
  *    - bool disabled => true to disable
  *
  * @return string Select html
@@ -184,7 +186,8 @@ function acts_build_select( $data, $settings ) {
 			'class' => array(),
 			'selected' => array(),
 			'multiple' => false,
-			'no_blank' => false,
+			'blank' => '',
+      'blank_val' => '0',
       'disabled' => false
 		),
 		$settings
@@ -196,8 +199,8 @@ function acts_build_select( $data, $settings ) {
             '" class="' . esc_attr( implode( ' ', $settings['class'] ) ) .
             '" ' . $multiple . '
                ' . $disabled . '>';
-	if ( !$settings['no_blank'] ) {
-		$output .= '<option default value=""></option>';
+	if ( $settings['blank'] !== false ) {
+		$output .= '<option default value="' . $settings['blank_val'] . '">-- ' . esc_html( $settings['blank'] ) . ' --</option>';
 	}
 	foreach ($data as $key => $name) {
 		$selected = '';
@@ -221,7 +224,7 @@ function acts_build_select( $data, $settings ) {
  *      - array class => Select classes
  *      - array selected => Values selected
  *      - string multiple => 'multiple' for multiple select
- *		  - no_blank => true to remove the blank choice (forces a selection)
+ *		  - bool|string blank => true to remove the blank choice (stars with a selected value) or text for blank field
  *
  * @param   bool    $responsible_filter Filter activities by current user id, if they cant view activities the list will be empty
  * @return  string  Select html

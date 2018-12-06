@@ -155,7 +155,7 @@ function activities_export_page() {
       'id' => 'acts_select_activity_export',
       'class' => array( 'acts-export-select' ),
       'selected' => $act_id,
-      'no_blank' => true,
+      'blank' => false,
     ),
     Activities_Responsible::current_user_restricted_view()
   );
@@ -166,7 +166,7 @@ function activities_export_page() {
     'id' => 'acts_select_user_meta',
     'class' => array( 'acts-export-select' ),
     'selected' => $user_meta,
-    'no_blank' => true
+    'blank' => false
   ));
 
   if ( $user_meta !== null ) {
@@ -181,7 +181,7 @@ function activities_export_page() {
     'id' => 'acts_select_delimiter',
     'class' => array( 'acts-export-select' ),
     'selected' => $delimiter,
-    'no_blank' => true
+    'blank' => false
   ));
   echo get_submit_button( esc_html__( 'Export', 'activities' ), 'button-primary', 'export_data' );
 

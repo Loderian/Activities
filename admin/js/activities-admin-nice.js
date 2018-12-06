@@ -392,9 +392,9 @@
 
         tb_show(all_member_info[id].acts_full_name, "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-quick-user-edit");
 
-        var wh = $('.acts-quick-edit-box').height();
+        var wh = $('.acts-quick-edit-box').height() + 20;
         if ( wh < h ) {
-          $('#TB_ajaxContent').height(wh+20);
+          $('#TB_ajaxContent').height(wh);
         }
       });
 

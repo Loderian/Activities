@@ -23,7 +23,7 @@
 }
 
 .acts-box-padding {
-  padding: 5px 15px 10px;
+  padding: 7px 14px 7px;
 }
 
 .acts-delete-button.button {
@@ -52,7 +52,7 @@
 
 #activities-filter-wrap b {
   display: block;
-  margin-top: 10px;
+  margin: 5px 0;
   font-size: 16px;
 }
 
@@ -244,7 +244,7 @@
 
 .acts-single-column {
   width: 49%;
-  min-width: 300px;
+  min-width: 230px;
 }
 
 #acts-import-table {
@@ -446,10 +446,6 @@
   background-color: rgba(201, 76, 76, 0.3) !important;
 }
 
-#acts-nice-buttons {
-  padding-top: 5px;
-}
-
 #acts-nice-buttons .acts-nice-top-buttons {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -465,8 +461,6 @@
 }
 
 #acts-nice-buttons .acts-nice-splitter {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
   border-style: dashed;
 }
 
@@ -646,7 +640,7 @@
 }
 
 .acts-quick-edit-group {
-  min-width: 300px;
+  min-width: 290px;
   width: 49%;
   padding: 5px 0px;
 }
@@ -678,15 +672,20 @@
 
 /* Small devices (portrait tablets and large phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .acts-quick-edit-group,
+  .acts-single-column {
+    width: 100%;
+  }
+
   .acts-edit-types-options .selectize-control {
     max-width: none;
   }
 
   #activities-filter-wrap div,
+  #activities-filter-wrap select,
   #activities-filter-wrap input[type=text] {
     width: 100% !important;
   }
-
 
   #acts-nice-header {
     text-align: center;
@@ -751,17 +750,15 @@
 
 /* Medium devices (landscape tablets, 768px and down) */
 @media only screen and (max-width: 782px) {
-  .acts-export-select {
+  .acts-export-select,
+  #activities-filter-wrap input[type=text],
+  .acts-nice-user-time {
     width: 100%;
   }
 
-  #activities-filter-wrap div {
+  /*#activities-filter-wrap div {
     width: 30%;
-  }
-
-  #activities-filter-wrap input[type=text] {
-    width: 100%;
-  }
+  }*/
 
   #acts-nice-preview input[type=checkbox] {
     margin: 0 2px 2px 0;
@@ -811,10 +808,6 @@
             flex-grow: 1;
     border-bottom: none;
   }
-
-  .acts-nice-user-time {
-    width: 100%;
-  }
 }
 
 /* Around this width the report needs to be resized to fit */
@@ -831,14 +824,25 @@
 
 /* Large devices (laptops/desktops, 992px and down) */
 @media only screen and (max-width: 992px) {
+  .acts-create-form,
+  .acts-create-wrap,
+  .acts-create-extra-wrap {
+    float: none;
+    margin-right: 0;
+  }
 
+  .acts-create-extra-wrap .acts-create-extra {
+    margin-top: 10px;
+  }
+
+  .acts-create-extra-wrap {
+    width: 100%;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
-  .acts-create-wrap {
-    width: 100%;
-  }
+
 }
 
 @media only screen and (max-width: 1335px) {

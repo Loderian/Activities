@@ -585,11 +585,29 @@ class Activities_List_Table {
   	$output .= '<form action="' . esc_url( $this->current_url ) . '" method="post" class="acts-form">';
 
   	foreach ($filters as $key => $value) {
-  		$output .= '<div>';
-  		$output .= '<p>' . esc_html__( ucfirst( $key ), 'activities' ) . '</p>';
-  		$output .= '<input type="text" placeholder="' . sprintf( esc_html__( 'Filter %s', 'activities' ),  esc_html__( ucfirst( $key ), 'activities' ) ) . '" name="filters[' . esc_attr( $key ) . ']" value="' . esc_attr( $value ) . '" />';
+      $output .= '<div>';
+      switch ($key) {
+        case 'category':
+          $output .= '<p>' . esc_html__( ucfirst( $key ), 'activities' ) . '</p>';
+          $output .= acts_build_select(
+            Activities_Category::get_categories( 'id=>name' ),
+            array(
+              'name' => 'filters[category]',
+              'blank' => __( 'No Category Filter', 'activities' )
+            )
+          );
+          break;
+
+        default:
+          $output .= '<p>' . esc_html__( ucfirst( $key ), 'activities' ) . '</p>';
+          $output .= '<input type="text" placeholder="' . sprintf( esc_html__( 'Filter %s', 'activities' ),  esc_html__( ucfirst( $key ), 'activities' ) ) . '" name="filters[' . esc_attr( $key ) . ']" value="' . esc_attr( $value ) . '" />';
+          break;
+      }
+
   		$output .= '</div>';
   	}
+
+
 
     $output .= '<div class="acts-filter-buttons">';
     $output .= get_submit_button( esc_html__( 'Apply', 'activities' ), 'button', 'apply_filters', false ) . ' ';

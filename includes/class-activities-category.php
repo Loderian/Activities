@@ -63,6 +63,19 @@ class Activities_Category {
   }
 
   /**
+   * Get all categories
+   *
+   * @return array
+   */
+  static function get_categories( $fields = 'all' ) {
+    return get_terms( array(
+      'taxonomy' => self::taxonomy,
+      'hide_empty' => false,
+      'fields' => $fields
+    ));
+  }
+
+  /**
    * Insert a new category into the db
    *
    * @param   array            $values Category info

@@ -198,7 +198,9 @@ class Activities_Activity {
       }
     }
 
-    Activities_Category::change_category_relations( $act_id, $act_map['categories'] );
+    if ( $act && isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
+      Activities_Category::change_category_relations( $act_map['activity_id'],  $act_map['categories'] );
+    }
 
     return $act;
   }
@@ -253,7 +255,9 @@ class Activities_Activity {
       Activities_User_Activity::insert_delete( $act_map['members'], $act_map['activity_id'], 'activity_id' );
     }
 
-    Activities_Category::change_category_relations( $act_map['activity_id'],  $act_map['categories'] );
+    if ( $update && isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
+      Activities_Category::change_category_relations( $act_map['activity_id'],  $act_map['categories'] );
+    }
 
     return $update;
   }

@@ -122,7 +122,8 @@ class Activities_Options {
             return array(
               'name' => '',
               'responsible' => '',
-              'location' => ''
+              'location' => '',
+              'category' => 0,
             );
             break;
 

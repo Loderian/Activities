@@ -188,11 +188,12 @@
 			form.find('select[name=category_parent]').val(term_data[id].parent);
 			form.find('textarea[name=category_description]').val(term_data[id].desc);
 			$('#delete_category').toggle(term_data[id].slug !== 'uncategorized');
+			window.scrollTo(0, 0);
 			tb_show($(this).html(), "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-category-edit");
 
-			var wh = form.height();
+			var wh = form.height() + 20; //Offset some paddings
 			if ( wh < h ) {
-				$('#TB_ajaxContent').height(wh+20);
+				$('#TB_ajaxContent').height(wh);
 			}
 		});
 

@@ -31,6 +31,7 @@ class Activities_WooCommerce {
     }
     add_filter( 'woocommerce_product_data_tabs', array( __CLASS__, 'product_tab' ) );
     add_action( 'woocommerce_product_data_panels', array( __CLASS__, 'product_tab_panel' ) );
+    add_action( 'woocommerce_product_after_variable_attributes', array( __CLASS__, 'variation_tab_panel' ), 10, 3 );
     add_action( 'save_post', array( __CLASS__, 'product_tab_save' ) );
     add_action( 'woocommerce_order_status_completed', array( __CLASS__, 'order_complete' ) );
     add_action( 'woocommerce_update_new_customer_past_order', array( __CLASS__, 'resolve_past_order' ), 10, 2 );
@@ -55,20 +56,31 @@ class Activities_WooCommerce {
   }
 
   /**
-   * Callback for adding tab content
+   * Echo select activity field
+   *
+   * @param int $id Product id
+   * @param
    */
-  static function product_tab_panel() {
-    global $wpdb, $thepostid;
+  static function get_activity_select( $id, $loop = false ) {
+    if ( $loop === false ) {
+      $name = self::selected_acts_key . '[]';
+      $id = 'acts_select_activities';
+      $class = 'long';
+    }
+    else {
+      $name = 'multi_' . self::selected_acts_key . '[' . $loop . '][]';
+      $id = 'acts_select_activities_' . $loop;
+      $class = 'short';
+    }
 
-  	echo '<div id="activities_woocommerce_tab" class="panel woocommerce_options_panel">';
     woocommerce_wp_select(
       array(
-        'name' => self::selected_acts_key . '[]',
-        'id' => 'acts_select_activities',
+        'name' => $name,
+        'id' => $id,
         'options' => acts_get_items_map( 'activity' ),
-        'value' => get_post_meta( $thepostid, self::selected_acts_key ),
+        'value' => get_post_meta( $id, self::selected_acts_key ),
         'label' => esc_html__( 'Select Activities', 'activities' ),
-        'class' => 'long',
+        'class' => $class,
         'placeholder' => esc_html__( 'Select Activities', 'activities' ),
         'desc_tip' => false,
         'description' => esc_html__( 'Users who orders this product will be added to the selected activities.', 'activities' ),
@@ -78,14 +90,54 @@ class Activities_WooCommerce {
 
     echo '
     <script>
-      if (jQuery("#acts_select_activities").length) {
-        jQuery("#acts_select_activities").selectize({
+      jQuery("document").ready( function() {
+        jQuery("#' . $id . '").selectize({
           closeAfterSelect: true,
           plugins: ["remove_button"]
         });
-      }
+      });
     </script>';
+  }
+
+  /**
+   * Callback for adding tab content
+   */
+  static function product_tab_panel() {
+    global $wpdb, $thepostid;
+
+  	echo '<div id="activities_woocommerce_tab" class="panel woocommerce_options_panel">';
+    self::get_activity_select( $thepostid );
+
+    woocommerce_wp_checkbox(
+      array(
+        'name' => 'handle_past_orders',
+        'id' => 'acts_past_orders',
+        'label' => esc_html__( 'Handle past orders', 'activities' ),
+        'description' => esc_html__( 'Add users to selected activities who have already bought the product', 'activities' ),
+      )
+    );
+
+    $start_of_year = date( 'Y' );
+    $start_of_year .= '-01-01';
+
+    echo '<p class="form-field acts_past_orders_date_field">';
+    echo '<label for="acts_past_orders_date">' . esc_html__( 'Handle orders from', 'activities') . '</label>';
+    echo '<input id="acts_past_orders_date" type="date" name="handle_past_orders_from" value="' . $start_of_year . '" />';
+    echo '<span class="description">' . esc_html__( 'Only select orders from this date and onwards', 'activities' ) . '</span>';
+    echo '</p>';
   	echo '</div>';
+  }
+
+  /**
+   * Callback for added options to product variations
+   */
+  static function variation_tab_panel( $loop, $variation_data, $variation ) {
+
+    echo '<div class="options_group form-row form-row-full">';
+
+    self::get_activity_select( $variation->ID, $loop );
+
+    echo '</div>';
   }
 
   /**
@@ -128,8 +180,8 @@ class Activities_WooCommerce {
       delete_post_meta( $post_id, self::selected_acts_key, $a_id );
     }
 
-    if ( !empty( get_post_meta( $post_id, self::selected_acts_key ) ) ) {
-      foreach (self::get_orders_by_product_ids( array( $post_id ) ) as $order_id) {
+    if ( isset( $_POST['handle_past_orders'] ) && !empty( get_post_meta( $post_id, self::selected_acts_key ) ) ) {
+      foreach (self::get_orders_by_product_ids( array( $post_id ), sanitize_text_field( $_POST['handle_past_orders_from'] ) ) as $order_id) {
         self::order_complete( $order_id );
       }
     }
@@ -139,9 +191,10 @@ class Activities_WooCommerce {
    * Gets all orders by product ids
    *
    * @param   array   $product_ids Array of product ids
+   * @param   string  $from_date Only get order after this date
    * @return  array   Array of order ids
    */
-  static function get_orders_by_product_ids( $product_ids ) {
+  static function get_orders_by_product_ids( $product_ids, $from_date = '' ) {
     global $wpdb;
 
     if ( empty( $product_ids ) ) {
@@ -153,6 +206,13 @@ class Activities_WooCommerce {
       $ids[] = sprintf( '\'%d\'', $value );
     }
     $ids = implode( ', ', $ids );
+
+    $date = Activities_Admin_Utility::validate_date( $from_date . ' 00:00:00', 'Y-m-d H:i:s', false );
+    $date_filter = '';
+    if ( $date ) {
+      $date_filter = sprintf( 'AND posts.post_date >= \'%s\'', $date );
+    }
+
     return $wpdb->get_col("
       SELECT order_items.order_id
       FROM {$wpdb->prefix}woocommerce_order_items as order_items
@@ -162,7 +222,8 @@ class Activities_WooCommerce {
       AND posts.post_status = 'wc-completed'
       AND order_items.order_item_type = 'line_item'
       AND order_item_meta.meta_key = '_product_id'
-      AND order_item_meta.meta_value IN ($ids)"
+      AND order_item_meta.meta_value IN ($ids)
+      $date_filter"
     );
   }
 

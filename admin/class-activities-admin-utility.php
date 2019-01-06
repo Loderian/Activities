@@ -435,15 +435,17 @@ class Activities_Admin_Utility {
    * Validates a date input
    *
    * @param   string  $date Date input
+   * @param   string  $format Expected date format
+   * @param   mixed   $default Value if date cant be validated
    * @return  string  Date to insert into database
    */
-  static function validate_date( $date, $format = 'Y-m-d' ) {
+  static function validate_date( $date, $format = 'Y-m-d', $default = '0000-00-00 00:00:00' ) {
     $d = DateTime::createFromFormat( $format, $date );
     if ( $d && $d->format( $format ) == $date ) {
       return $d->format( 'Y-m-d H:i:s' );
     }
     else {
-      return '0000-00-00 00:00:00';
+      return $default;
     }
   }
 

@@ -203,12 +203,8 @@ class Activities_Admin_Utility {
    * @return  array   Columns info
    */
   static function get_activity_columns( $archive = '' ) {
-    if ( $archive != 'archive' ) {
-      $options = Activities_Options::get_user_option( 'activity', 'show_columns' );
-    }
-    else {
-      $options = Activities_Options::get_user_option( 'activity_archive', 'show_columns' );
-    }
+    $options = Activities_Options::get_user_option( ( $archive != 'archive' ? 'activity' : 'activity_archive' ), 'show_columns' );
+
 
     $columns = array(
       'cb' => array(
@@ -242,6 +238,10 @@ class Activities_Admin_Utility {
       'location' => array(
         'hidden' => !$options['location'],
         'sortable' => true,
+      ),
+      'categories' => array(
+        'hidden' => !$options['categories'],
+        'sortable' => false
       )
     );
 
@@ -419,6 +419,10 @@ class Activities_Admin_Utility {
 
       case 'country':
         return esc_html__( 'Country', 'activities' );
+        break;
+
+      case 'categories':
+        return esc_html__( 'Categories', 'activities' );
         break;
 
       default:

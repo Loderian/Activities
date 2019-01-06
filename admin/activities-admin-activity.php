@@ -143,7 +143,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
       'id' => 'acts-activity-member-list',
       'selected' => is_string( $map['members'] ) ? explode( ',', $map['members'] ) : $map['members'],
       'multiple' => true,
-      'disabled' => $disabled !== ''
+      'disabled' => $disabled !== '',
+      'blank' => false
     )
   );
 

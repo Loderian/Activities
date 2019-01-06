@@ -199,7 +199,7 @@ class Activities_Activity {
     }
 
     if ( $act && isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
-      Activities_Category::change_category_relations( $act_map['activity_id'],  $act_map['categories'] );
+      Activities_Category::change_category_relations( $act_id,  $act_map['categories'] );
     }
 
     return $act;

@@ -55,11 +55,41 @@ class Activities_Category {
   /**
    * Get categories for an activity
    *
-   * @param   int $act_id Activity id
+   * @param   int   $act_id Activity id
+   * @param   bool  $display True for names, false for ids
    * @return  array
    */
-  static function get_act_categories( $act_id ) {
+  static function get_act_categories( $act_id, $display = false ) {
+    if ( $display ) {
+      return wp_get_object_terms( $act_id, self::taxonomy, array( 'orderby' => 'term_order', 'fields' => 'names' ) );
+    }
+
     return wp_get_object_terms( $act_id, self::taxonomy, array( 'orderby' => 'term_order', 'fields' => 'ids' ) );
+  }
+
+  /**
+   * Get activities with category or categories
+   *
+   * @param   int|array     $cat_id Category id or list of categories
+   * @return  array         List of activity ids
+   */
+  static function get_activities_with_category( $cat_id ) {
+    $acts = get_objects_in_term( $cat_id, self::taxonomy );
+
+    //Remove possible duplicates
+    if ( is_array( $cat_id ) ) {
+      $filtered_acts = array();
+
+      foreach ($acts as $id) {
+        if ( !isset( $filtered_acts[$id] ) ) {
+          $filtered_acts[$id] = $id;
+        }
+      }
+
+      $acts = array_keys( $filtered_acts );
+    }
+
+    return $acts;
   }
 
   /**

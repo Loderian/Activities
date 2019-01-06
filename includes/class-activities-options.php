@@ -134,7 +134,8 @@ class Activities_Options {
               'start' => false,
               'end' => false,
               'responsible' => true,
-              'location' => true
+              'location' => true,
+              'categories' => false
             );
             break;
         }
@@ -278,7 +279,12 @@ class Activities_Options {
     if ( $user_id !== null) {
       $options = self::get_all_user_options( $user_id );
       $value = isset( $options[$page][$option] ) ? $options[$page][$option] : self::get_default_user_option( $page, $option );
+      if ( is_array( $value ) ) {
+        $value = wp_parse_args( $value, self::get_default_user_option( $page, $option ) );
+      }
     }
+
+
 
     return $value;
   }

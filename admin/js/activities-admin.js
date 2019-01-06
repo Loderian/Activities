@@ -74,7 +74,9 @@
 
 		//Show/hide columns in list tables
 		if ($('#acts_name').length) {
-			var columns = ['short_desc', 'long_desc', 'start', 'end', 'responsible', 'location', 'address', 'description', 'city', 'postcode', 'country'];
+			var columns = ['short_desc', 'long_desc', 'start', 'end', 'responsible',
+										 'location', 'address', 'description', 'city', 'postcode',
+										 'country', 'categories'];
 
 			function toggleColumn(column) {
 				return function() {

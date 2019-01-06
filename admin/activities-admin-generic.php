@@ -93,7 +93,8 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
           'name' => 'members[]',
           'id' => 'acts_bulk_selectize',
           'selected' => $value,
-          'multiple' => true
+          'multiple' => true,
+          'blank' => false
         )
       );
 
@@ -186,7 +187,7 @@ function acts_build_select( $data, $settings ) {
 			'class' => array(),
 			'selected' => array(),
 			'multiple' => false,
-			'blank' => '',
+			'blank' => __( 'None', 'activities' ),
       'blank_val' => '0',
       'disabled' => false
 		),

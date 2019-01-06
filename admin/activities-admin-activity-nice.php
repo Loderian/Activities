@@ -876,6 +876,7 @@ function acts_nice_quick_inputs( $input_list, $header = '', $list_name = '', $in
       		array(
       			'name' => sprintf( $name, $key ),
       			'id' => 'acts-quick-' . esc_attr( $key ),
+            'blank' => __( 'No Country', 'activities' )
       		)
       	);
         $output .= '<script>jQuery("#' . 'acts-quick-' . esc_attr( $key ) . '").selectize({});</script>';

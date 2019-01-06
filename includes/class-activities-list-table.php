@@ -156,6 +156,16 @@ class Activities_List_Table {
   					$filters_str[] = sprintf ( "%s LIKE '%%%s%%'", 'l.name', $value );
   					break;
 
+          case 'category':
+            $cat_acts = Activities_Category::get_activities_with_category( $value );
+            if ( count( $cat_acts ) === 0 ) {
+              $filters_str[] = sprintf( 'i.activity_id = 0' );
+            }
+            else {
+              $filters_str[] = sprintf( 'i.activity_id IN (%s)', implode( ',', $cat_acts ) );
+            }
+            break;
+
   				default:
   					$filters_str[] = sprintf ( "%s LIKE '%%%s%%'", ('i.' . $key), $value );
   					break;
@@ -204,7 +214,7 @@ class Activities_List_Table {
           $count_sql_joins .= "LEFT JOIN $location_table l ON i.location_id = l.location_id ";
         }
   		}
-  		else if ( $key != 'cb') {
+  		else if ( !in_array( $key, array( 'cb', 'categories') ) ) {
   			$sql_select[] = 'i.'.$key;
   		}
   	}
@@ -560,6 +570,9 @@ class Activities_List_Table {
             $output .= stripslashes( wp_filter_nohtml_kses( $countries[$item[$key]] ) );
           }
         }
+        else if ( $key == 'categories' ) {
+          $output .= stripslashes( wp_filter_nohtml_kses( implode( ', ', Activities_Category::get_act_categories( $item[$id], true ) ) ) );
+        }
   			else {
           $output .= stripslashes( wp_filter_nohtml_kses( $item[$key] ) );
   			}
@@ -593,7 +606,9 @@ class Activities_List_Table {
             Activities_Category::get_categories( 'id=>name' ),
             array(
               'name' => 'filters[category]',
-              'blank' => __( 'No Category Filter', 'activities' )
+              'selected' => $value,
+              'blank' => __( 'No Category Filter', 'activities' ),
+              'blank_val' => ''
             )
           );
           break;
@@ -606,8 +621,6 @@ class Activities_List_Table {
 
   		$output .= '</div>';
   	}
-
-
 
     $output .= '<div class="acts-filter-buttons">';
     $output .= get_submit_button( esc_html__( 'Apply', 'activities' ), 'button', 'apply_filters', false ) . ' ';

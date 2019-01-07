@@ -11,7 +11,7 @@
  * Plugin Name:       Activities
  * Plugin URI:        https://github.com/Loderian/Activities
  * Description:       A plugin for managing activities, activity reports and communication with participants. Comes with WooCommerce integration.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Mikal Naustdal
  * Author URI:        https://github.com/Loderian
  * License:           GPL-3.0+
@@ -27,8 +27,8 @@ if ( !defined( 'WPINC' ) ) {
 /**
  * Current plugin version
  */
-define( 'ACTIVITIES_VERSION', '1.0.4' );
-define( 'ACTIVITIES_DB_VERSION', '1.0.0' );
+define( 'ACTIVITIES_VERSION', '1.0.5' );
+define( 'ACTIVITIES_DB_VERSION', '1.0.1' );
 
 /**
  * Activities activation

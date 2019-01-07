@@ -204,7 +204,11 @@
 		$(document).on( 'click', 'input[name=primary_category]', function(event) {
 			var id = $(this).val();
 
-			$('.acts-categories input[type=checkbox]').each( function(index, elem) {
+			if (id != prev_selected) {
+				$('input[name=primary_category][value=' + prev_selected + ']').attr('checked', false);
+			}
+
+			$('.acts-categories input[name="additional_categories[]"]').each( function(index, elem) {
 				var elem_id = $(elem).val();
 				if (elem_id === id) {
 					$(elem).attr('checked', false);

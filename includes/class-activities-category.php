@@ -23,6 +23,20 @@ class Activities_Category {
   }
 
   /**
+   * Added the uncategorized category
+   *
+   * @return bool
+   */
+  static function add_uncategorized() {
+    $insert = wp_insert_term(
+      'Uncategorized',
+      self::taxonomy
+    );
+
+    return !is_wp_error( $insert );
+  }
+
+  /**
    * Register acts category
    */
   static function register_category_taxonomy() {

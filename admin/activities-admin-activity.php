@@ -215,7 +215,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
     }
     $output .= '<tr>';
     $output .= '<td class="acts-category-name"><a href="" tid="' . esc_attr( $tid ) . '"><span>' . esc_html( $name ) . '</span><span class="dashicons"></span></a></td>';
-    $output .= '<td><input type="radio" name="primary_category" value="' . esc_attr( $tid ) . '" ' . $p_checked . ' /></td>';
+    $output .= '<td><input type="checkbox" name="primary_category" value="' . esc_attr( $tid ) . '" ' . $p_checked . ' /></td>';
     $output .= '<td><input type="checkbox" name="additional_categories[]" value="' . esc_attr( $tid ) . '" ' . $a_checked . ' /></td>';
     $output .= '</tr>';
   }

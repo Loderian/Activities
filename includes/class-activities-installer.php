@@ -29,11 +29,13 @@ class Activities_Installer {
     if ( !$installed_ver ) {
       $installed_ver = '0.0.0';
     }
-    if ( version_compare( $installed_ver, ACTIVITIES_DB_VERSION ) < 0 ) {
+    if ( version_compare( $installed_ver, '1.0.0' ) < 0 ) {
       $this->install_location_table();
       $this->install_activity_table();
       $this->install_user_activity_table();
       $this->install_activity_meta_table();
+
+      Activities_Category::add_uncategorized();
 
       update_option( 'activities_db_version', ACTIVITIES_DB_VERSION );
     }

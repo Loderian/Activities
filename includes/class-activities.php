@@ -56,7 +56,7 @@ class Activities {
 			$this->version = ACTIVITIES_VERSION;
 		}
 		else {
-			$this->version = '1.0.4';
+			$this->version = '1.0.5';
 		}
 		$this->plugin_name = 'activities';
 
@@ -119,6 +119,7 @@ class Activities {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-csv-importer.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-utility.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-category.php';
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-updater.php';
 
 		if ( is_admin() ) {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin.php';

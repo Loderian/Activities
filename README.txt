@@ -3,7 +3,7 @@ Contributors: loderian
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: activities, events, courses, classes, report
 Requires at least: 4.6
-Tested up to: 4.9.8
+Tested up to: 5.0.0
 Stable tag: trunk
 Requires PHP: 7.0.32
 License: GPLv3 or later

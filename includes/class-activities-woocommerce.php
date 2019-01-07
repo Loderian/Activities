@@ -33,6 +33,7 @@ class Activities_WooCommerce {
     add_action( 'woocommerce_product_data_panels', array( __CLASS__, 'product_tab_panel' ) );
     add_action( 'woocommerce_product_after_variable_attributes', array( __CLASS__, 'variation_tab_panel' ), 10, 3 );
     add_action( 'save_post', array( __CLASS__, 'product_tab_save' ) );
+    add_action( 'woocommerce_save_product_variation', array( __CLASS__, 'product_variation_save' ), 10, 2 );
     add_action( 'woocommerce_order_status_completed', array( __CLASS__, 'order_complete' ) );
     add_action( 'woocommerce_update_new_customer_past_order', array( __CLASS__, 'resolve_past_order' ), 10, 2 );
     add_action( 'activities_archive_activity', array( __CLASS__, 'remove_selected_activities' ) );
@@ -57,26 +58,23 @@ class Activities_WooCommerce {
 
   /**
    * Echo select activity field
-   *
-   * @param int $id Product id
-   * @param
    */
-  static function get_activity_select( $id, $loop = false ) {
-    if ( $loop === false ) {
+  static function get_activity_select( $id, $index = false ) {
+    if ( $index === false ) {
       $name = self::selected_acts_key . '[]';
-      $id = 'acts_select_activities';
+      $elem_id = 'acts_select_activities';
       $class = 'long';
     }
     else {
-      $name = 'multi_' . self::selected_acts_key . '[' . $loop . '][]';
-      $id = 'acts_select_activities_' . $loop;
+      $name = 'multi' . self::selected_acts_key . '[' . $index . '][]';
+      $elem_id = 'acts_select_activities_' . $index;
       $class = 'short';
     }
 
     woocommerce_wp_select(
       array(
         'name' => $name,
-        'id' => $id,
+        'id' => $elem_id,
         'options' => acts_get_items_map( 'activity' ),
         'value' => get_post_meta( $id, self::selected_acts_key ),
         'label' => esc_html__( 'Select Activities', 'activities' ),
@@ -91,7 +89,7 @@ class Activities_WooCommerce {
     echo '
     <script>
       jQuery("document").ready( function() {
-        jQuery("#' . $id . '").selectize({
+        jQuery("#' . $elem_id . '").selectize({
           closeAfterSelect: true,
           plugins: ["remove_button"]
         });
@@ -131,13 +129,43 @@ class Activities_WooCommerce {
   /**
    * Callback for added options to product variations
    */
-  static function variation_tab_panel( $loop, $variation_data, $variation ) {
+  static function variation_tab_panel( $index, $variation_data, $variation ) {
 
     echo '<div class="options_group form-row form-row-full">';
 
-    self::get_activity_select( $variation->ID, $loop );
+    self::get_activity_select( $variation->ID, $index );
 
     echo '</div>';
+  }
+
+  /**
+   * Save activities to product
+   *
+   * @param int   $product_id Product id
+   * @param array $selected_acts Selected activities
+   */
+  static function product_save( $product_id, $selected_acts ) {
+    $existing = get_post_meta( $product_id, self::selected_acts_key );
+    if ( !is_array( $existing ) ) {
+      $existing = array( $existing );
+    }
+
+    foreach ($selected_acts as $a_id) {
+      $a_id = acts_validate_id( $a_id );
+      if ( $a_id ) {
+        $key = array_search( $a_id, $existing );
+        if ( $key === false && Activities_Activity::exists( $a_id ) ) {
+          add_post_meta( $product_id, self::selected_acts_key, $a_id );
+        }
+        else {
+          unset( $existing[$key] );
+        }
+      }
+    }
+
+    foreach ($existing as $a_id) {
+      delete_post_meta( $product_id, self::selected_acts_key, $a_id );
+    }
   }
 
   /**
@@ -154,36 +182,31 @@ class Activities_WooCommerce {
       return;
     }
 
-    $existing = get_post_meta( $post_id, self::selected_acts_key );
-    if ( isset( $_POST[self::selected_acts_key] ) ) {
-      if ( !is_array( $existing ) ) {
-        $existing = array( $existing );
-      }
+    if ( isset( $_POST[self::selected_acts_key] ) && is_array( $_POST[self::selected_acts_key] ) ) {
+      self::product_save( $post_id, $_POST[self::selected_acts_key] );
+    }
 
-      if ( is_array( $_POST[self::selected_acts_key] ) ) {
-        foreach ($_POST[self::selected_acts_key] as $a_id) {
-          $a_id = acts_validate_id( $a_id );
-          if ( $a_id ) {
-            $key = array_search( $a_id, $existing );
-            if ( $key === false && Activities_Activity::exists( $a_id ) ) {
-              add_post_meta( $post_id, self::selected_acts_key, $a_id );
-            }
-            else {
-              unset( $existing[$key] );
-            }
+    if ( isset( $_POST['handle_past_orders'] ) && !empty( get_post_meta( $post_id, self::selected_acts_key ) ) ) {
+      $from_date = sanitize_text_field( $_POST['handle_past_orders_from'] );
+      foreach (self::get_orders_by_product_ids( array( $post_id ), $from_date ) as $order_id) {
+        self::order_complete( $order_id );
+      }
+      if ( $product->get_type() == 'variable' ) {
+        foreach ($product->get_children() as $v_id) {
+          foreach (self::get_orders_by_product_ids( array( $v_id ), $from_date ) as $order_id) {
+            self::order_complete( $order_id );
           }
         }
       }
     }
+  }
 
-    foreach ($existing as $a_id) {
-      delete_post_meta( $post_id, self::selected_acts_key, $a_id );
-    }
-
-    if ( isset( $_POST['handle_past_orders'] ) && !empty( get_post_meta( $post_id, self::selected_acts_key ) ) ) {
-      foreach (self::get_orders_by_product_ids( array( $post_id ), sanitize_text_field( $_POST['handle_past_orders_from'] ) ) as $order_id) {
-        self::order_complete( $order_id );
-      }
+  /**
+   *  Callback for saving product variations
+   */
+  static function product_variation_save( $variation_id, $index ) {
+    if ( isset( $_POST['multi' . self::selected_acts_key][$index] ) && is_array( $_POST['multi' . self::selected_acts_key][$index] ) ) {
+      self::product_save( $variation_id, $_POST['multi' . self::selected_acts_key][$index] );
     }
   }
 

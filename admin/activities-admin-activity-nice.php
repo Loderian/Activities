@@ -625,7 +625,7 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
 
         $col1 .= acts_nice_listing( $user_info[$prefix . '_address_1'] );
         $col1 .= acts_nice_listing( $user_info[$prefix . '_address_2'] );
-        $col1 .= acts_nice_listing( $user_info[$prefix . '_city'] . ' ' . $user_info[$prefix . '_postcode'] );
+        $col1 .= acts_nice_listing( $user_info[$prefix . '_postcode'] . ' ' . $user_info[$prefix . '_city'] );
         $col2 .= acts_nice_listing( $user_info['billing_phone'] );
         break;
     }
@@ -876,7 +876,8 @@ function acts_nice_quick_inputs( $input_list, $header = '', $list_name = '', $in
       		array(
       			'name' => sprintf( $name, $key ),
       			'id' => 'acts-quick-' . esc_attr( $key ),
-            'blank' => __( 'No Country', 'activities' )
+            'blank' => __( 'No Country', 'activities' ),
+            'blank_val' => ''
       		)
       	);
         $output .= '<script>jQuery("#' . 'acts-quick-' . esc_attr( $key ) . '").selectize({});</script>';

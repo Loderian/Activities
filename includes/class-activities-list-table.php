@@ -525,6 +525,9 @@ class Activities_List_Table {
   						}
 
               $output .= ' | <a href="' . esc_url( $export_url ) . '">' . esc_html__( 'Export', 'activities' ) . '</a>';
+              if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
+                $output .= ' | <a href="' . wp_nonce_url( $this->current_url . '&action=duplicate&item_id=' . esc_attr( $item[$id] ), 'duplicate_act_' . $item[$id] ) . '">' . esc_html__( 'Duplicate', 'activities' ) . '</a>';
+              }
   						break;
 
   					case 'location':

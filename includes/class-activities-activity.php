@@ -158,7 +158,7 @@ class Activities_Activity {
    * Inserts activity data into the database
    *
    * @param   array     $act_map Activity info
-   * @return  int|bool  False if it could not be inserted, 1 otherwise
+   * @return  int|bool  False if it could not be inserted, new activity id otherwise
    */
   static function insert( $act_map ) {
     global $wpdb;
@@ -192,14 +192,18 @@ class Activities_Activity {
   	$act = $wpdb->insert( $table_name, $values, $formats );
     $act_id = $wpdb->insert_id;
 
-    if ( $act && isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
-      foreach ($act_map['members'] as $u_id) {
-        Activities_User_Activity::insert( $u_id, $act_id );
+    if ( $act ) {
+      if ( isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
+        foreach ($act_map['members'] as $u_id) {
+          Activities_User_Activity::insert( $u_id, $act_id );
+        }
       }
-    }
 
-    if ( $act && isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
-      Activities_Category::change_category_relations( $act_id,  $act_map['categories'] );
+      if ( isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
+        Activities_Category::change_category_relations( $act_id,  $act_map['categories'] );
+      }
+
+      return $act_id;
     }
 
     return $act;
@@ -260,6 +264,50 @@ class Activities_Activity {
     }
 
     return $update;
+  }
+
+  /**
+   * Duplicates an activity
+   * Appends a (copy-int) to the end of the name, tries until it findes a unused name
+   *
+   * @param   int        $activity_id Activity id
+   * @return  int|bool   New activity id, false on error
+   */
+  static function duplicate( $activity_id ) {
+    $activity = self::load( $activity_id );
+
+    if ( $activity !== null ) {
+      unset( $activity['members'] );
+      unset( $activity['activity_id'] );
+
+      $name = $activity['name'];
+      $copy = esc_html__( 'Copy', 'activities' );
+      for ($i=0; $i < 10000; $i++) {
+        $idx = $i == 0 ? '' : "-$i";
+        $new_name = "$name ($copy$idx)";
+        if ( !self::exists( $new_name, 'name' ) ) {
+          $activity['name'] = $new_name;
+          break;
+        }
+      }
+
+      $new_act_id = self::insert( $activity );
+
+      if ( $new_act_id ) {
+        $meta = self::get_all_meta( $activity_id, false );
+        foreach ($meta as $key => $value) {
+          if ( $key == 'attended' ) {
+            continue;
+          }
+
+          self::update_meta( $new_act_id, $key, $value, false );
+        }
+
+        return $new_act_id;
+      }
+    }
+
+    return false;
   }
 
   /**
@@ -402,6 +450,42 @@ class Activities_Activity {
   }
 
   /**
+   * Get all metadata from an activity
+   *
+   * @param   int     $activity_id Activity id
+   * @param   bool    $unserialize False to skip unserializeing
+   * @return  array   meta_key => meta_value
+   */
+  static function get_all_meta( $activity_id, $unserialize = true ) {
+    global $wpdb;
+
+    $meta_table = Activities::get_table_name( 'activity_meta' );
+
+    $meta = $wpdb->get_results( $wpdb->prepare(
+      "SELECT meta_key, meta_value
+      FROM $meta_table
+      WHERE activity_id = %d
+      ",
+      array( $activity_id )
+      ),
+      ARRAY_A
+    );
+
+    $meta_map = array();
+
+    foreach ($meta as $key_value) {
+      $val = $key_value['meta_value'];
+      if ( $unserialize && is_serialized( $val ) ) {
+        $val = @unserialize( $val );
+      }
+
+      $meta_map[$key_value['meta_key']] = $val;
+    }
+
+    return $meta_map;
+  }
+
+  /**
    * Get an activity meta value
    *
    * @param   int             $activity_id Activity id
@@ -433,14 +517,17 @@ class Activities_Activity {
    * @param   int       $activity_id Activity id
    * @param   string    $meta_key Meta key
    * @param   mixed     $meta_value Value to store
+   * @param   bool      $serialize false to skip serializeing
    * @return  bool      False on error
    */
-  static function update_meta( $activity_id, $meta_key, $meta_value ) {
+  static function update_meta( $activity_id, $meta_key, $meta_value, $serialize = true ) {
     global $wpdb;
 
     $meta_table = Activities::get_table_name( 'activity_meta' );
 
-    $meta_value = maybe_serialize( $meta_value );
+    if ( $serialize ) {
+      $meta_value = maybe_serialize( $meta_value );
+    }
 
     if ( self::get_meta( $activity_id, $meta_key ) === null ) {
       return $wpdb->insert(

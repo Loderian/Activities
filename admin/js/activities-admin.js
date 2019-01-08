@@ -133,6 +133,7 @@
 			new_row.find('a').attr('tid', data.id);
 			new_row.find('a span:first').html(data.name);
 			new_row.find('input').val(data.id);
+			new_row.find('input[type=checkbox]').attr('checked', false);
 		}
 
 		function add_to_select(selector, data) {
@@ -146,13 +147,18 @@
 		$('#create_category').click( function(event) {
 			event.preventDefault();
 
+			var name = $('.acts-categories input[name=category_name]');
+			var parent = $('.acts-categories select[name=category_parent]');
+
+			$('#category_form').toggle(false);
+
 			$.ajax({
 				url: ajaxurl,
 				type: 'POST',
 				data: {
 					action: 'acts_insert_cat',
-					name: $('.acts-categories input[name=category_name]').val(),
-					parent: $('.acts-categories select[name=category_parent]').val()
+					name: $(name).val(),
+					parent: $(parent).val()
 				},
 				dataType: 'json',
 				success: function(cat) {
@@ -167,9 +173,13 @@
 					add_to_select('.acts-category-edit select[name=category_parent]', cat.data);
 
 					term_data[cat.data.id] = {name: cat.data.name, slug: cat.data.slug, desc: '', parent: cat.data.parent};
+					$(name).val('');
+					$(parent).val('0');
 				},
 				error: function(jqXHR, text, error) {
 					console.error(text);
+
+					$('#category_form').toggle(true);
 				}
 			});
 		});

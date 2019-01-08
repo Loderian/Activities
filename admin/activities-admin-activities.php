@@ -28,6 +28,7 @@ function activities_admin_activities_page() {
   $current_url = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   $current_url = remove_query_arg( 'action', $current_url );
   $current_url = remove_query_arg( 'item_id', $current_url );
+  $current_url = remove_query_arg( '_wpnonce', $current_url );
 
   if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
     return acts_activity_management( esc_html__( 'Create New Activity', 'activities' ), 'create' );
@@ -52,6 +53,22 @@ function activities_admin_activities_page() {
       else {
         Activities_Admin::add_error_message( esc_html__( 'You do not have permission to view this activity.', 'activities' ) );
       }
+    }
+  }
+  elseif ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'duplicate' && isset( $_GET['item_id'] ) ) {
+    $act_id = acts_validate_id( $_GET['item_id'] );
+    if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) && $act_id && wp_verify_nonce( $_GET['_wpnonce'], 'duplicate_act_' . $act_id ) ) {
+      $new_act_id = Activities_Activity::duplicate( $act_id );
+
+      if ( $new_act_id ) {
+        wp_safe_redirect( $current_url . '&action=edit&item_id=' . $new_act_id );
+        exit;
+      }
+      
+      Activities_Admin::add_error_message( esc_html__( 'An error occured during duplication of activity.', 'activities' ) );
+    }
+    else {
+      Activities_Admin::add_error_message( esc_html__( 'You do not have permission to duplicate activities.', 'activities' ) );
     }
   }
   elseif ( isset( $_POST['create_act'] ) ) {

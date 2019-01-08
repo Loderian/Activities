@@ -38,7 +38,6 @@
     var show = true;
     $('.acts-nice-user-info').click( function() {
       var size = $('html').width();
-      console.log(size);
       if (size <= 600) {
         if (show) {
           $(this).find('span:first-child ul').show();
@@ -536,15 +535,14 @@
           switch (list[i]) {
             case 'billing_city':
             case 'shipping_city':
-
-              val += ' ' + user_info[list[parseInt(i)+1]];
-              if (val.trim() != '') {
-                col.append('<li>' + val + '</li>');
-              }
               break;
 
             case 'billing_postcode':
             case 'shipping_postcode':
+              val += ' ' + user_info[list[parseInt(i)-1]];
+              if (val.trim() != '') {
+                col.append('<li>' + val + '</li>');
+              }
               break;
 
             default:

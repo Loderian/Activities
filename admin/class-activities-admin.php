@@ -845,8 +845,8 @@ class Activities_Admin {
 
     $user_data = array(
       'ID' => $id,
-      'first_name' => sanitize_text_field( $_POST['first_name'] ),
-      'last_name' => sanitize_text_field( $_POST['last_name'] ),
+      'first_name' => stripslashes( sanitize_text_field( $_POST['first_name'] ) ),
+      'last_name' => stripslashes( sanitize_text_field( $_POST['last_name'] ) ),
     );
 
     $ret_id = wp_update_user( $user_data );
@@ -857,7 +857,7 @@ class Activities_Admin {
 
     foreach (acts_get_woocommerce_nice_keys() as $key => $unused) {
       if ( isset( $_POST[$key] ) ) {
-        $value = sanitize_text_field( $_POST[$key] );
+        $value = stripslashes( sanitize_text_field( $_POST[$key] ) );
         update_user_meta( $id, $key, $value );
         $user_data[$key] = $value;
       }
@@ -886,7 +886,7 @@ class Activities_Admin {
 
           case 'input':
           default:
-            $value = sanitize_text_field( $value );
+            $value = stripslashes( sanitize_text_field( $value ) );
             break;
         }
         if ( $key != '' ) {

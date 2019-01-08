@@ -151,6 +151,11 @@ List of data options
 
 == Changelog ==
 
+= 1.0.5 =
+
+* Feature: Added categories to activities
+* Feature: You can now duplicate activities
+
 = 1.0.4 =
 
 * Feature: Added option to set textarea or country-select as input fields on the quick user edit form
@@ -182,6 +187,10 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.0.5 =
+
+Added activity duplication and categories.
 
 = 1.0.4 =
 

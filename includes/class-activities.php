@@ -120,6 +120,7 @@ class Activities {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-utility.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-category.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-updater.php';
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan.php';
 
 		if ( is_admin() ) {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin.php';
@@ -135,6 +136,8 @@ class Activities {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-import.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin-utility.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-bulk-action.php';
+      require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-plans.php';
+      require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-plan.php';
 		}
 
 		$this->loader = new Activities_Loader();

@@ -113,6 +113,7 @@ class Activities_Admin {
 
 		$pages[] = add_submenu_page( 'activities-admin', esc_html__( 'Activities', 'activities' ), esc_html__( 'Activities', 'activities' ), ACTIVITIES_ACCESS_ACTIVITIES, 'activities-admin', array ($this, 'activities_admin_activities') );
 		$pages[] = add_submenu_page( 'activities-admin', esc_html__( 'Activities Locations', 'activities' ), esc_html__( 'Locations', 'activities' ), ACTIVITIES_ADMINISTER_ACTIVITIES, 'activities-admin-locations', array ($this, 'activities_admin_locations') );
+    $pages[] = add_submenu_page( 'activities-admin', esc_html__( 'Activities Plans', 'activities' ), esc_html__( 'Plans', 'activities' ), ACTIVITIES_ADMINISTER_ACTIVITIES, 'activities-admin-plans', array ($this, 'activities_admin_plans') );
 		$pages[] = add_submenu_page( 'activities-admin', esc_html__( 'Activities Import', 'activities' ), esc_html__( 'Import', 'activities' ), ACTIVITIES_ADMINISTER_ACTIVITIES, 'activities-admin-import', array ($this, 'activities_admin_import') );
 		$pages[] = add_submenu_page( 'activities-admin', esc_html__( 'Activities Export', 'activities' ), esc_html__( 'Export', 'activities' ), ACTIVITIES_ACCESS_ACTIVITIES, 'activities-admin-export', array ($this, 'activities_admin_export') );
 		$pages[] = add_submenu_page( 'activities-admin', esc_html__( 'Activities Options', 'activities' ), esc_html__( 'Options', 'activities' ), ACTIVITIES_ADMINISTER_OPTIONS, 'activities-admin-options', array ($this, 'activities_admin_options') );
@@ -129,15 +130,28 @@ class Activities_Admin {
 		* Echoes activities page
 		*/
 	public function activities_admin_activities() {
-		echo '<div class="wrap acts-wrap">' . activities_admin_activities_page() . '</div>';
+		echo '<div class="wrap acts-wrap">';
+    echo activities_admin_activities_page();
+    echo '</div>';
 	}
 
 	/**
 		* Echoes locations page
 		*/
 	public function activities_admin_locations() {
-		echo '<div class="wrap acts-wrap">' . activities_admin_locations_page() . '</div>';
+		echo '<div class="wrap acts-wrap">';
+    echo activities_admin_locations_page();
+    echo '</div>';
 	}
+
+  /**
+    * Echoes locations page
+    */
+  public function activities_admin_plans() {
+    echo '<div class="wrap acts-wrap">';
+    echo activities_admin_plans_page();
+    echo '</div>';
+  }
 
 	/**
 		* Echoes options page

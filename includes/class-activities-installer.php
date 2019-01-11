@@ -64,7 +64,7 @@ class Activities_Installer {
 
     $sql_activity = "CREATE TABLE $table_name (
       activity_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-      name varchar(100) NOT NULL UNIQUE,
+      name varchar(200) NOT NULL UNIQUE,
       short_desc tinytext DEFAULT '' NOT NULL,
       long_desc text DEFAULT '' NOT NULL,
       location_id bigint(20) UNSIGNED,
@@ -112,7 +112,7 @@ class Activities_Installer {
 
     $sql_location = "CREATE TABLE $table_name (
       location_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-      name varchar(100) DEFAULT '' NOT NULL,
+      name varchar(200) DEFAULT '' NOT NULL,
       address varchar(255) DEFAULT '' NOT NULL,
       postcode varchar(12) DEFAULT '' NOT NULL,
       city varchar(100) DEFAULT '' NOT NULL,
@@ -147,5 +147,47 @@ class Activities_Installer {
     ) $charset_collate;";
 
     dbDelta( $sql_activity_meta );
+  }
+
+  /**
+   * Installs plans talbe
+   */
+  public function install_plans_table() {
+    global $wpdb;
+
+    $table_name = Activities::get_table_name( 'plan' );
+
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql_plan = "CREATE TABLE $table_name (
+      plan_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+      name varchar(200) NOT NULL,
+      description text DEFAULT '' NOT NULL,
+      slots smallint(5) NOT NULL,
+      PRIMARY KEY  (plan_id),
+      KEY name (name)
+    ) $charset_collate;";
+
+    dbDelta( $sql_plan );
+  }
+
+  /**
+   * Installs plans talbe
+   */
+  public function install_plans_slots_table() {
+    global $wpdb;
+
+    $table_name = Activities::get_table_name( 'plan_slot' );
+
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql_plan_slot = "CREATE TABLE $table_name (
+      plan_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+      slot_id smallint(5) NOT NULL,
+      text text DEFAULT '' NOT NULL,
+      PRIMARY KEY  (plan_id,slot_id)
+    ) $charset_collate;";
+
+    dbDelta( $sql_plan_slot );
   }
 }

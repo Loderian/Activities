@@ -17,10 +17,10 @@ if ( !defined( 'WPINC' ) ) {
  * Builds page for editing a activity
  *
  * @param   string  $title Page title
- * @param   string  $button Display and name text for primary button
+ * @param   string  $action Display and name text for primary button
  * @param   array   $map Information about the activity
  * @param   string  $archive Set to 'archive' to disable all fields, default ''
- * @return  array   A list of user info to display in coloumn 1 ('col1') and column 2 ('col2')
+ * @return  string  Page
  */
 function acts_activity_management( $title, $action, $map = null, $archive = '' ) {
 	global $wpdb;
@@ -88,7 +88,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 	$output .= '<div class="acts-form-columns">';
 	$output .= '<ul class="acts-single-column">';
 	$output .= '<li>' . esc_html__( 'Name', 'activities' ) . '<span class="acts-req-mark"> *</span></li>';
-	$output .= '<li><input type="text" name="name" maxlength="100" value="' . esc_attr( stripslashes( $map['name'] ) )  . '" ' . $disabled . ' /></li>';
+	$output .= '<li><input type="text" name="name" maxlength="200" value="' . esc_attr( stripslashes( $map['name'] ) )  . '" ' . $disabled . ' /></li>';
 	$output .= '<li>' . esc_html__( 'Short Description', 'activities' ) . '</li>';
 	$output .= '<li><input type="text" name="short_desc" maxlength="255" value="' . esc_attr( stripslashes( $map['short_desc'] ) )  . '" ' . $disabled . ' /></li>';
 	$output .= '<li>' . esc_html__( 'Long Description', 'activities' ) . '</li>';

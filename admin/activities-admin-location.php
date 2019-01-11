@@ -47,7 +47,7 @@ function acts_location_management( $title, $action, $map = null ) {
 	$output .= '<div class="acts-form-columns">';
 	$output .= '<ul class="acts-single-column">';
 	$output .= '<li>' . esc_html__( 'Name', 'activities' ) . ' <span class="acts-req-mark">*</span></li>';
-	$output .= '<li><input type="text" name="name" maxlength="100" value="' . esc_attr( stripslashes( $map['name'] ) ) . '" /></li>';
+	$output .= '<li><input type="text" name="name" maxlength="200" value="' . esc_attr( stripslashes( $map['name'] ) ) . '" /></li>';
 	$output .= '<li>' . esc_html__( 'Address', 'activities' ) . '</li>';
 	$output .= '<li><input type="text" name="address" maxlength="255" value="' . esc_attr( stripslashes( $map['address'] ) ) . '" /></li>';
 	$output .= '<li>' . esc_html__( 'Postcode', 'activities' ) . '</li>';

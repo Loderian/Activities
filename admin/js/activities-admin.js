@@ -293,6 +293,52 @@
 				}
 			});
 		});
+
+		var acts_min_slots = 1;
+		var acts_max_slots = 50;
+
+		function update_slots_textareas() {
+			var input = $('#plan_slots');
+			var slots = parseInt($(input).val());
+
+			if (isNaN(slots)) {
+				slots = acts_min_slots;
+			}
+			else if (slots < acts_min_slots) {
+				slots = acts_min_slots;
+				$(input).val(slots);
+			}
+			else if (slots > acts_max_slots) {
+				slots = acts_max_slots;
+				$(input).val(slots);
+			}
+
+			var last_slot = parseInt($('.acts-plan-textareas li').last().attr('slot'));
+
+			if (isNaN(last_slot)) {
+				return;
+			}
+
+			if (slots > last_slot) {
+				var html = $('.acts-plan-textareas li').last().html();
+				var list = $('.acts-plan-textareas');
+				for (var i = last_slot+1; i <= slots; i++) {
+					$(list).append('<li slot="' + i + '">' + html + '</li>');
+					var new_textarea = $('.acts-plan-textareas li[slot=' + i + ']');
+					new_textarea.find('.acts-slot-text-num').html(acts_i18n.slot + ' ' + i);
+					new_textarea.find('textarea').attr( 'name', 'slot[' + i + ']');
+				}
+			}
+			else {
+				for (var i = last_slot; i > slots; i--) {
+					$('li[slot=' + i + ']').remove();
+				}
+			}
+		}
+
+		$('#plan_slots').on( 'input', function() {
+			update_slots_textareas();
+		});
 	});
 
 })(jQuery);

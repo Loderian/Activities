@@ -15,41 +15,34 @@ if ( !defined( 'WPINC' ) ) {
 class Activities_Plan {
 
   /**
+   * Checks if a plan exists
+   *
+   * @param   int|string  $plan_id Plan identifier
+   * @param   string      $check_by Column to compare ('id', 'name')
+   * @return  bool        True if the plan exists, false otherwise
+   */
+  static function exists( $act_id, $check_by = 'id' ) {
+    return Activities_Item::exists( $plan_id, 'plan', $check_by );
+  }
+
+  /**
    * Insert a plan
    *
    * @param   array     $plan_map
    * @return  int|bool  Plan id or false
    */
   static function insert( $plan_map ) {
-    global $wpdb;
+    return Activities_Item::insert( 'plan', $plan_map );
+  }
 
-    $values = array();
-    $formats = array();
-
-    foreach (self::get_columns('string') as $column) {
-      if ( array_key_exists( $column, $plan_map ) ) {
-        $values[] = $plan_map[$column];
-        $formats[] = '%s';
-      }
-    }
-    foreach (self::get_columns('int') as $column) {
-      if ( array_key_exists( $column, $plan_map ) ) {
-        $values[] = $plan_map[$column];
-        $formats[] = '%d';
-      }
-    }
-
-    $plan = $wpdb->insert(
-      Activities::get_table_name( 'plan' ),
-      $values,
-      $formats
-    );
-
-    if ( $plan ) {
-      return $wpdb->insert_id;
-    }
-
-    return $plan;
+  /**
+   * Update a plan
+   *
+   * @param   array     $plan_map
+   * @return  int|bool  Plan id or false
+   */
+  static function update( $plan_map ) {
+    return Activities_Item::update( 'plan', $plan_map );
   }
 
   /**

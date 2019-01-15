@@ -78,19 +78,7 @@ class Activities_Location {
    * @return  bool        True if the location exists, false otherwise
    */
   static function exists( $loc_id, $check_by = 'id' ) {
-    global $wpdb;
-
-    $table_name = Activities::get_table_name( 'location' );
-    $where = self::build_where( $check_by );
-    $exists = $wpdb->get_var( $wpdb->prepare(
-      "SELECT COUNT(*)
-      FROM $table_name
-      WHERE $where
-      ",
-      $loc_id
-    ));
-
-    return $exists >= 1;
+    return Activities_Item::exists( $loc_id, 'location', $check_by );
   }
 
   /**
@@ -100,29 +88,7 @@ class Activities_Location {
    * @return  int|bool  False if it could not be inserted, 1 otherwise
    */
   static function insert( $loc_map ) {
-    global $wpdb;
-
-    if ( self::exists( $loc_map['name'] , 'name' ) ) {
-      return false;
-    }
-
-    $values = array();
-    $formats = array();
-
-    foreach (self::get_columns('strings') as $str) {
-      if ( array_key_exists( $str, $loc_map ) ) {
-        $values[$str] = $loc_map[$str];
-        $formats[] = '%s';
-      }
-    }
-
-    $loc = $wpdb->insert(
-      Activities::get_table_name( 'location' ),
-      $values,
-      $formats
-    );
-
-    return $loc;
+    return Activities_Item::insert( 'location', $loc_map );
   }
 
   /**
@@ -132,30 +98,7 @@ class Activities_Location {
    * @return  int|bool  False if it could not be updated, 1 otherwise
    */
   static function update( $loc_map ) {
-    if ( !isset( $loc_map['location_id'] ) ) {
-      return false;
-    }
-    global $wpdb;
-
-    $values = array();
-    $formats = array();
-
-    foreach (self::get_columns('strings') as $str) {
-      if ( array_key_exists( $str, $loc_map ) ) {
-        $values[$str] = $loc_map[$str];
-        $formats[] = '%s';
-      }
-    }
-
-    $loc = $wpdb->update(
-      Activities::get_table_name( 'location' ),
-      $values,
-      array( 'location_id' => $loc_map['location_id'] ),
-      $formats,
-      array( '%d' )
-    );
-
-    return $loc;
+    return Activities_Item::update( 'location', $loc_map );
   }
 
   /**
@@ -213,15 +156,7 @@ class Activities_Location {
    * @return  bool  True if the location was deleted, false otherwise
    */
   static function delete( $location_id ) {
-    global $wpdb;
-
-    $location_table = Activities::get_table_name( 'location' );
-
-    $del = $wpdb->delete(
-      $location_table,
-      array( 'location_id' => $location_id ),
-      array( '%d' )
-    );
+    $del = Activities_Item::update( 'location', $location_id );
 
     if ( $del ) {
       do_action( 'activities_delete_location', $location_id );

@@ -116,19 +116,7 @@ class Activities_Activity {
    * @return  bool        True if the activity exists, false otherwise
    */
   static function exists( $act_id, $check_by = 'id' ) {
-    global $wpdb;
-
-    $activity_table = Activities::get_table_name( 'activity' );
-    $where = self::build_where( $check_by );
-    $exists = $wpdb->get_var( $wpdb->prepare(
-      "SELECT COUNT(*)
-      FROM $activity_table
-      WHERE $where
-      ",
-      $act_id
-    ));
-
-    return $exists >= 1;
+    return Activities_Item::exists( $act_id, 'activity', $check_by );
   }
 
   /**
@@ -142,7 +130,7 @@ class Activities_Activity {
     global $wpdb;
 
     $activity_table = Activities::get_table_name( 'activity' );
-    $where = self::build_where( $check_by );
+    $where = Activities_Item::build_where( 'activity', $check_by );
     $archive = $wpdb->get_var( $wpdb->prepare(
       "SELECT archive
       FROM $activity_table
@@ -163,47 +151,22 @@ class Activities_Activity {
   static function insert( $act_map ) {
     global $wpdb;
 
-    if ( $act_map['name'] === '' || self::exists( $act_map['name'], 'name' ) ) {
-      return false;
-    }
-
-    $table_name = Activities::get_table_name( 'activity' );
-
-    $values = array();
-    $formats = array();
-
-    foreach (self::get_columns('strings') as $str) {
-      if ( array_key_exists( $str, $act_map ) ) {
-        $values[$str] = $act_map[$str];
-        $formats[] = '%s';
-      }
-    }
-
-    foreach (self::get_columns('ints') as $str) {
-      if ( array_key_exists( $str, $act_map ) ) {
-        $values[$str] = $act_map[$str];
-        $formats[] = '%d';
-        if ( $str === 'responsible_id' ) {
-          Activities_Responsible::update_user_responsiblity( $act_map['responsible_id'] );
-        }
-      }
-    }
-
-  	$act = $wpdb->insert( $table_name, $values, $formats );
-    $act_id = $wpdb->insert_id;
+    $act = Activities_Item::insert( 'activity', $act_map );
 
     if ( $act ) {
+      if ( array_key_exists( 'responsible_id', $act_map ) && $act_map['responsible_id'] !== null ) {
+        Activities_Responsible::update_user_responsiblity( $act_map['responsible_id'] );
+      }
+
       if ( isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
         foreach ($act_map['members'] as $u_id) {
-          Activities_User_Activity::insert( $u_id, $act_id );
+          Activities_User_Activity::insert( $u_id, $act );
         }
       }
 
       if ( isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
-        Activities_Category::change_category_relations( $act_id,  $act_map['categories'] );
+        Activities_Category::change_category_relations( $act,  $act_map['categories'] );
       }
-
-      return $act_id;
     }
 
     return $act;
@@ -216,51 +179,27 @@ class Activities_Activity {
    * @return  int|bool  False if it could not be updated, 1 otherwise
    */
   static function update( $act_map ) {
-    if ( !isset( $act_map['activity_id'] ) || self::is_archived( $act_map['activity_id'] ) || !self::exists( $act_map['activity_id'] ) ) {
+    if ( !isset( $act_map['activity_id'] ) || self::is_archived( $act_map['activity_id'] ) ) {
       return false;
     }
 
-    global $wpdb;
+    $update = Activities_Item::update( 'activity', $act_map );
 
-    $table_name = Activities::get_table_name( 'activity' );
-
-    $values = array();
-    $formats = array();
-
-    foreach (self::get_columns('strings') as $str) {
-      if ( array_key_exists( $str, $act_map ) ) {
-        $values[$str] = $act_map[$str];
-        $formats[] = '%s';
-      }
-    }
-
-    foreach (self::get_columns('ints') as $str) {
-      if ( array_key_exists( $str, $act_map ) ) {
-        $values[$str] = $act_map[$str];
-        $formats[] = '%d';
-        if ( $str === 'responsible_id' ) {
-          Activities_Responsible::remove_user_responsibility( $act_map['activity_id'] );
-          if ( $act_map[$str] !== null ) {
-            Activities_Responsible::update_user_responsiblity( $act_map[$str] );
-          }
+    if ( $update ) {
+      if ( array_key_exists( 'responsible_id', $act_map ) ) {
+        Activities_Responsible::remove_user_responsibility( $act_map['activity_id'] );
+        if ( $act_map['responsible_id'] !== null ) {
+          Activities_Responsible::update_user_responsiblity( $act_map['responsible_id'] );
         }
       }
-    }
 
-    $update = $wpdb->update(
-      $table_name,
-      $values,
-      array( 'activity_id' => $act_map['activity_id'] ),
-      $formats,
-      array( '%d' )
-    );
+      if ( isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
+        Activities_User_Activity::insert_delete( $act_map['members'], $act_map['activity_id'], 'activity_id' );
+      }
 
-    if ( $update !== false && isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
-      Activities_User_Activity::insert_delete( $act_map['members'], $act_map['activity_id'], 'activity_id' );
-    }
-
-    if ( $update && isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
-      Activities_Category::change_category_relations( $act_map['activity_id'],  $act_map['categories'] );
+      if ( isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
+        Activities_Category::change_category_relations( $act_map['activity_id'],  $act_map['categories'] );
+      }
     }
 
     return $update;
@@ -420,13 +359,7 @@ class Activities_Activity {
       return false;
     }
 
-    $activities = Activities::get_table_name( 'activity' );
-
-    $del = $wpdb->delete(
-      $activities,
-      array( 'activity_id' => $activity_id ),
-      array( '%d' )
-    );
+    $del = Activities_Item::delete( 'activity', $activity_id );
 
     if ( $del ) {
       $user_activity = Activities::get_table_name( 'user_activity' );
@@ -446,6 +379,7 @@ class Activities_Activity {
 
       do_action( 'activities_delete_activity', $activity_id );
     }
+
     return $del;
   }
 

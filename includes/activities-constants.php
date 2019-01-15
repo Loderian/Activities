@@ -47,6 +47,8 @@ define( 'ACTIVITIES_BULK_NONCE', 'activities-bulk-nonce' );
 
 define( 'ACTIVITIES_ACTIVITY_NONCE', 'activities-activity-nonce' );
 
+define( 'ACTIVITIES_PLAN_NONCE', 'activities-plan-nonce' );
+
 define( 'ACTIVITIES_DELETE_ITEM_NONCE', 'activities-delete-nonce' );
 
 define( 'ACTIVITIES_LOCATION_NONCE', 'activities-location-nonce' );

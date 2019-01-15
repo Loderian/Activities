@@ -50,19 +50,44 @@ function activities_plan_management( $title, $action, $map = null ) {
   $output .= '<li>' . esc_html__( 'Name', 'activities' ) . '<span class="acts-req-mark"> *</span></li>';
   $output .= '<li><input type="text" name="name" maxlength="200" value="' . esc_attr( stripslashes( $map['name'] ) ) . '" /></li>';
   $output .= '<li>' . esc_html__( 'Slots', 'activities' ) . '</li>';
-  $output .= '<li><input type="number" name="slots" value="' . esc_attr( stripslashes( $map['slots'] ) )  . '" /></li>';
+  $output .= '<li><input type="number" id="plan_slots" min="1" max="50" name="slots" value="' . esc_attr( stripslashes( $map['slots'] ) )  . '" /></li>';
   $output .= '<li>' . esc_html__( 'Description', 'activities' ) . '</li>';
   $output .= '<li><textarea name="description" maxlength="65535" id="acts-activity-ldesc">' . stripslashes( wp_filter_nohtml_kses ( $map['description'] ) ) . '</textarea>';
   $output .= '</li></ul>';
 
-  $output .= '<ul class="acts-single-column">';
-  for ($slot=1; $slot <= $map['slots']; $slot++) {
-    $output .= '<li>' . sprintf( esc_html__( 'Slot %d', 'activities' ), $slot ) . '</li>';
-    $output .= '<li><textarea name="slot[' . $slot . ']" maxlength="65535"></textarea>';
+  $output .= '<ul class="acts-single-column acts-plan-textareas">';
+  if ( $map['slots'] < 1 ) {
+    $map['slots'] = 1;
   }
-  $output .= '</li></ul>';
+  for ($slot=1; $slot <= $map['slots']; $slot++) {
+    $output .= '<li slot="' . $slot . '"><span class="acts-slot-text-num">' . sprintf( esc_html__( 'Session %d', 'activities' ), $slot ) . '</span></br>';
+    $output .= '<textarea name="slot[' . $slot . ']" maxlength="65535"></textarea></li>';
+  }
+  $output .= '</ul>';
 
   $output .= '</div>'; //acts-form-columns
+
+  $button = '';
+  switch ($action) {
+    case 'create':
+      $button = esc_html__( 'Create', 'activities' );
+      break;
+
+    case 'edit':
+      $button = esc_html__( 'Save', 'activities' );
+      break;
+  }
+  $output .= '<p>';
+  $output .= get_submit_button( $button, 'button-primary', $action, false );
+	$output .= ' <a href="' . esc_url( $current_url ) . '" class="button" >' . esc_html__( 'Cancel', 'activities' ) . '</a>';
+  if ( isset( $_GET['item_id'] ) || isset( $map['plan_id'] ) ) {
+		$plan_id = acts_validate_id( (isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['plan_id']) );
+		$output .= '<input type="hidden" name="item_id" value="' . esc_attr( $plan_id ) . '" />';
+	}
+  $output .= '</p>';
+
+  $output .= wp_nonce_field( 'activities_plan', ACTIVITIES_PLAN_NONCE, true, false );
+
   $output .= '</div>'; //acts-create-wrap
   $output .= '</form>';
 

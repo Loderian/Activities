@@ -30,9 +30,36 @@ function activities_admin_plans_page() {
   $current_url = remove_query_arg( 'item_id', $current_url );
   $current_url = remove_query_arg( '_wpnonce', $current_url );
 
+  if ( isset( $_POST['create_act'] ) ) {
+    if ( !wp_verify_nonce( $_POST[ACTIVITIES_PLAN_NONCE], 'activities_plan' ) ) {
+      wp_die( 'Access Denied' );
+    }
+    if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
+      $plan_map = Activities_Admin_Utility::get_plan_post_values();
+      if ( $plan_map['name'] === '' ) {
+        Activities_Admin::add_error_message( esc_html__( 'The plan must have a name.', 'activities' ) );
+        return acts_activity_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $plan_map );
+      }
+      if ( !Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
+        if ( Activities_Plan::insert( $plan_map ) ) {
+          Activities_Admin::add_create_success_message( $plan_map['name'] );
+        }
+        else {
+          Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured creating plan: %s', 'activities' ), $act_map['name'] ) );
+        }
+      }
+      else {
+        Activities_Admin::add_error_message( sprintf( esc_html__( 'An plan with name: %s already exists.', 'activities' ), $act_map['name'] ) );
+        return acts_activity_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $act_map );
+      }
+    }
+    else {
+      Activities_Admin::add_error_message( esc_html__( 'You do not have permission to create plans.', 'activities' ) );
+    }
+  }
   $output = '';
 
-  $output .= activities_plan_management( 'Create plan', 'create' );
+  $output .= activities_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create' );
 
   return $output;
 }

@@ -45,7 +45,7 @@ class Activities_Item {
    * @param   array     $map Item data
    * @return  int|bool  False if it could not be inserted, new item id otherwise
    */
-  public function insert( $type, $map ) {
+  static function insert( $type, $map ) {
     global $wpdb;
 
     if ( $map['name'] === '' || self::exists( $map['name'], $type, 'name' ) ) {

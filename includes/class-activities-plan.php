@@ -32,7 +32,15 @@ class Activities_Plan {
    * @return  int|bool  Plan id or false
    */
   static function insert( $plan_map ) {
-    return Activities_Item::insert( 'plan', $plan_map );
+    $plan_id = Activities_Item::insert( 'plan', $plan_map );
+
+    if ( $plan_id && array_key_exists( 'slot_text', $plan_map ) ) {
+      foreach ($plan_map['slot_text'] as $slot => $text) {
+        self::insert_slot_text( $plan_id, $slot, $text );
+      }
+    }
+
+    return $plan_id;
   }
 
   /**
@@ -44,6 +52,67 @@ class Activities_Plan {
   static function update( $plan_map ) {
     return Activities_Item::update( 'plan', $plan_map );
   }
+
+  /**
+   * Adds a slot text to a plan
+   *
+   * @param   int     $plan_id Plan id
+   * @param   int     $slot Slot number
+   * @param   string  $text Text to put into the slot
+   * @return  bool
+   */
+  static function insert_slot_text( $plan_id, $slot, $text ) {
+    global $wpdb;
+
+    $insert = $wpdb->insert(
+      Activities::get_table_name( 'plan_slot' ),
+      array(
+        'plan_id' => $plan_id,
+        'slot_id' => $slot,
+        'text' => $text
+      ),
+      array( '%d', '%d', '%s' )
+    );
+
+    return $insert;
+  }
+
+  /**
+   * Updates a slot text in a plan
+   *
+   * @param   int     $plan_id Plan id
+   * @param   int     $slot Slot number
+   * @param   string  $text Text to put into the slot
+   * @return  bool
+   */
+  static function update_slot_text( $plan_id, $slot, $text ) {
+    global $wpdb;
+
+    $update = $wpdb->update(
+      Activities::get_table_name( 'plan_slot' ),
+      array( 'text' => $text ),
+      array(
+        'plan_id' => $plan_id,
+        'slot_id' => $slot,
+      ),
+      array( '%s' ),
+      array( '%d', '%d' )
+    );
+
+    return $update;
+  }
+
+  /**
+   * Delete a plan
+   *
+   * @param   array     $plan_map
+   * @return  bool      True if the plan was deleted, false otherwise
+   */
+  static function delete( $plan_id ) {
+    return Activities_Item::delete( 'plan', $plan_id );
+  }
+
+
 
   /**
    * Get all the columns uses to store plans

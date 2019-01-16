@@ -139,7 +139,7 @@ class Activities_Admin_Utility {
       }
     }
     $act_map = array(
-      'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 100 ),
+      'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 200 ),
       'short_desc' => substr( sanitize_text_field( $_POST['short_desc'] ), 0, 255  ),
       'long_desc' => substr( sanitize_textarea_field( $_POST['long_desc'] ), 0, 65535 ),
       'start' => self::validate_date( sanitize_text_field( $_POST['start'] ) ),
@@ -181,7 +181,7 @@ class Activities_Admin_Utility {
       $country = '';
     }
     $loc_map = array(
-      'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 100 ),
+      'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 200 ),
       'address' => substr( sanitize_text_field( $_POST['address'] ), 0, 255 ),
       'description' => substr( sanitize_textarea_field( $_POST['description'] ), 0, 65535 ),
       'city' => substr( sanitize_text_field( $_POST['city'] ), 0, 100 ),
@@ -197,6 +197,36 @@ class Activities_Admin_Utility {
   }
 
   /**
+   * Gets post values for plan
+   *
+   * @return array Plan info
+   */
+  static function get_plan_post_values() {
+    $plan_map = array(
+      'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 200 ),
+      'description' => substr( sanitize_textarea_field( $_POST['description'] ), 0, 65535 ),
+      'slots' => acts_validate_id( $_POST['slots'] )
+    );
+
+    $slot_text = array();
+    if ( isset( $_POST['slot'] ) && is_array( $_POST['slot'] ) ) {
+      foreach ($_POST['slot'] as $slot => $text) {
+        $slot = acts_validate_id( $slot );
+        if ( $slot &&  $slot <= $plan_map['slots'] ) {
+          $slot_text[$slot] = sanitize_textarea_field( $text );
+        }
+      }
+    }
+    $plan_map['slot_text'] = $slot_text;
+
+    if ( isset( $_POST['item_id'] ) ) {
+      $plan_map['slot_id'] = acts_validate_id( $_POST['item_id'] );
+    }
+
+    return $plan_map;
+  }
+
+  /**
    * Gets columns for activities
    *
    * @param   string  $archive 'Archive' to get columns for archive display
@@ -204,7 +234,6 @@ class Activities_Admin_Utility {
    */
   static function get_activity_columns( $archive = '' ) {
     $options = Activities_Options::get_user_option( ( $archive != 'archive' ? 'activity' : 'activity_archive' ), 'show_columns' );
-
 
     $columns = array(
       'cb' => array(

@@ -30,7 +30,7 @@ function activities_admin_plans_page() {
   $current_url = remove_query_arg( 'item_id', $current_url );
   $current_url = remove_query_arg( '_wpnonce', $current_url );
 
-  if ( isset( $_POST['create_act'] ) ) {
+  if ( isset( $_POST['create_plan'] ) ) {
     if ( !wp_verify_nonce( $_POST[ACTIVITIES_PLAN_NONCE], 'activities_plan' ) ) {
       wp_die( 'Access Denied' );
     }

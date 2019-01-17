@@ -99,7 +99,7 @@ class Activities_Activity_List_Table extends Activities_List_Table {
    */
   protected function build_count_sql_joins( $filters ) {
     global $wpdb;
-    
+
     $count_sql_joins = '';
     if ( isset( $filters['responsible'] ) && $filters['responsible'] != '' ) {
       $count_sql_joins .= "LEFT JOIN $wpdb->users u ON i.responsible_id = u.ID ";
@@ -251,5 +251,133 @@ class Activities_Activity_List_Table extends Activities_List_Table {
     );
 
     return $columns;
+  }
+
+  /**
+   * Builds a singe cell on the table
+   *
+   * @param   array   $item Data for the cell
+   * @param   string  $key Cell key
+   * @return  string  The cell
+   */
+  protected function build_table_cell( $item, $key ) {
+    if ( $key == 'name') {
+      return $this->build_table_name_cell( $item );
+    }
+    else if ( $key == 'start' || $key == 'end') {
+      return stripslashes( wp_filter_nohtml_kses( Activities_Utility::format_date( $item[$key] ) ) );;
+    }
+    else if ( $key == 'responsible' ) {
+      if ( $item['responsible'] === null ) {
+        $display = '&mdash;';
+      }
+      else {
+        $display = $item['first_name'] . ' ' . $item['last_name'];
+        if ( $display == ' ') {
+          $display = $item['responsible'];
+        }
+      }
+      return stripslashes( wp_filter_nohtml_kses( $display ) );
+    }
+    else if ( $key == 'location' ) {
+      return $item['location'] === null ? '&mdash;' : stripslashes( wp_filter_nohtml_kses( $item['location'] ) );
+    }
+    else if ( $key == 'categories' ) {
+      return stripslashes( wp_filter_nohtml_kses( implode( ', ', Activities_Category::get_act_categories( $item['activity_id'], true ) ) ) );
+    }
+    else {
+      return parent::build_table_cell( $item, $key );
+    }
+  }
+
+  /**
+   * Builds a the special name cell on the table
+   *
+   * @param   array   $item Data for the cell
+   * @return  string  The cell
+   */
+  protected function build_table_name_cell( $item ) {
+    global $wpdb;
+
+    $id = $item['activity_id'];
+
+    $count_display = '';
+
+    $user_act_table = Activities::get_table_name( 'user_activity' );
+    $count = $wpdb->get_var( $wpdb->prepare(
+      "SELECT COUNT(*)
+      FROM $user_act_table
+      WHERE activity_id = %d
+      ",
+      $id
+    ));
+    $count_display = '(' . $count . ')';
+
+    if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) {
+      $name_action = 'edit';
+    }
+    else {
+      $name_action = 'view';
+    }
+
+    $output = '<div class="activities-name-wrap">';
+    $output .= '<a href="' . esc_url( $this->current_url . '&action=' . $name_action  . '&item_id=' . $id ) . '">' . stripslashes( wp_filter_nohtml_kses( $item['name'] ) ) . '</a> ';
+    $output .= $count_display;
+
+    $output .= '<div class="row-actions">';
+
+    $output .= $this->build_row_actions( $id );
+
+    $output .= '</div>'; //row-actions
+    $output .= '</div>'; //name-wrap
+
+    $output .= '<div class="activities-nice-link"><a href="' . esc_url( $this->current_url . '&action=view&item_id=' . esc_attr( $id ) ) . '"><span class="dashicons dashicons-visibility"></span></a></div>';
+    $output .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . esc_html__( 'Show more details', 'activities' ) . '</span></button>';
+
+    return $output;
+  }
+
+  /**
+   * Build row actions for the name cell
+   *
+   * @param   int     $id Id of the item
+   * @return  string  Row actions
+   */
+  protected function build_row_actions( $id ) {
+    $output = '';
+    $export_url = remove_query_arg( array( 'paged', 'order', 'orderby', 'action', 'view' ) , $this->current_url );
+    $export_url = add_query_arg( array( 'page' => 'activities-admin-export', 'item_id' => $id ), $export_url );
+
+    if ( !$this->archive ) {
+      $output .= '<a href="' . esc_url( $this->current_url . '&action=view&item_id=' . esc_attr( $id ) ) . '">' . esc_html__( 'View', 'activities' ) . '</a>';
+
+      if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) {
+        $output .= ' | <a href="' . esc_url( $this->current_url . '&action=edit&item_id=' . esc_attr( $id ) ) . '">' . esc_html__( 'Edit', 'activities' ) . '</a>';
+      }
+
+      $output .= ' | <a href="' . esc_url( $export_url ) . '">' . esc_html__( 'Export', 'activities' ) . '</a>';
+      if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
+        $output .= ' | <a href="' . wp_nonce_url( $this->current_url . '&action=duplicate&item_id=' . esc_attr( $id ), 'duplicate_act_' . $id ) . '">' . esc_html__( 'Duplicate', 'activities' ) . '</a>';
+      }
+    }
+    else {
+      $output .= '<a href="' . esc_url( $this->current_url . '&action=view&item_id=' . esc_attr( $id ) ) . '">' . esc_html__( 'View', 'activities' ) . '</a> | ' ;
+      $output .= '<a href="' . esc_url( $export_url ) . '">' . esc_html__( 'Export', 'activities' ) . '</a> | ';
+      $activate_url = wp_nonce_url( $this->current_url, 'activities_activate_activity', ACTIVITIES_ARCHIVE_NONCE_GET ) . '&action=activate&item_id=' . esc_attr( $id );
+      $output .= '<a href="' . esc_url( $activate_url ) . '" class="activities-activate">' . esc_html__( 'Activate', 'activities' ) . '</a> | ';
+      $output .= '<a href="' . esc_url( $this->current_url . '&action=delete&item_id=' . esc_attr( $id ) ) . '" class="activities-delete">' . esc_html__( 'Delete', 'activities' ) . '</a>';
+    }
+
+    return $output;
+  }
+
+  /**
+   * Gets the item id
+   *
+   * @param   array   $item Item data
+   * @return  int     Id
+   */
+  protected function get_item_id( $item ) {
+    return $item['activity_id'];
   }
 }

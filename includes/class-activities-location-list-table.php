@@ -130,4 +130,49 @@ class Activities_Location_List_Table extends Activities_List_Table {
 
     return $columns;
   }
+
+  /**
+   * Builds a singe cell on the table
+   *
+   * @param   array   $item Data for the cell
+   * @param   string  $key Cell key
+   * @return  string  The cell
+   */
+  protected function build_table_cell( $item, $key ) {
+    if ( $key == 'name') {
+      return $this->build_table_name_cell( $item );
+    }
+    else if ( $key == 'country' ) {
+      $countries = Activities_Utility::get_countries();
+      if ( isset( $countries[$item[$key]] ) ) {
+        return stripslashes( wp_filter_nohtml_kses( $countries[$item[$key]] ) );
+      }
+    }
+    else {
+      return parent::build_table_cell( $item, $key );
+    }
+  }
+
+  /**
+   * Build row actions for name cell
+   *
+   * @param   int     $id Id of the item
+   * @return  string  Row actions
+   */
+  protected function build_row_actions( $id ) {
+    $output = '<a href="' . esc_url( $this->current_url . '&action=edit&item_id=' . esc_attr( $id ) ) . '">' . esc_html__( 'Edit', 'activities' ) . '</a> | ';
+    $output .= '<a href="' . esc_url( $this->current_url . '&action=delete&item_id=' . esc_attr( $id ) ) . '" class="activities-delete">' . esc_html__( 'Delete', 'activities' ) . '</a>';
+
+    return $output;
+  }
+
+  /**
+   * Gets the item id
+   *
+   * @param   array   $item Item data
+   * @return  int     Id
+   */
+  protected function get_item_id( $item ) {
+    return $item['location_id'];
+  }
 }

@@ -361,7 +361,7 @@ abstract class Activities_List_Table {
    *
    * @return  string  Rows or placeholder if 0 items
    */
-  function get_rows_or_placeholder() {
+  protected function get_rows_or_placeholder() {
     $output = '';
     if ( $this->pagination->total_items > 0 ) {
       foreach ( $this->items as $item ) {
@@ -388,18 +388,14 @@ abstract class Activities_List_Table {
   }
 
   /**
-   * Builds a single row to display (planned to be updated)
+   * Builds a single row to display
    *
    * @param   array   $item Data for a single row
    * @return  string  The row
    */
-  function single_row( $item ) {
+  protected function single_row( $item ) {
     global $wpdb;
 
-    $countries = array();
-    if ( $this->type == 'location' ) {
-      $countries = Activities_Utility::get_countries();
-    }
     $output = '<tr>';
 
 		foreach ( $this->get_columns() as $key => $info ) {
@@ -418,118 +414,18 @@ abstract class Activities_List_Table {
 
 			$attributes = "class='$classes' $data";
 
-      $id = $this->type == 'location' ? 'location_id' : 'activity_id';
-
       if ( $key === 'cb' ) {
         $output .= '<th scope="row" class="check-column">';
-        $output .= '<input type="checkbox" name="selected_activities[]" value="' . esc_attr( $item[$id] ) . '" />';
+        $output .= '<input type="checkbox" name="selected_activities[]" value="' . esc_attr( $this->get_item_id( $item ) ) . '" />';
         $output .= '</th>';
       }
       else {
         $output .= "<td $attributes>";
 
-        if ( $key == 'name' ) {
-  				$count_display = '';
-  				if ( $this->type != 'location' ) {
-            $user_act_table = Activities::get_table_name( 'user_activity' );
-  					if ( $this->type == 'activity' ) {
-              $archive_url = wp_nonce_url( $this->current_url, 'activities_archive_activity', ACTIVITIES_ARCHIVE_NONCE_GET );
-  					}
-  					else {
-              $activate_url = wp_nonce_url( $this->current_url, 'activities_activate_activity', ACTIVITIES_ARCHIVE_NONCE_GET );
-  					}
+        $output .= $this->build_table_cell( $item, $key );
 
-  					$count = $wpdb->get_var( $wpdb->prepare(
-  						"SELECT COUNT(*)
-  						FROM $user_act_table
-  						WHERE activity_id = %d
-  						",
-  						$item[$id]
-  					));
-  					$count_display = '(' . $count . ')';
-            $export_url = remove_query_arg( array( 'paged', 'order', 'orderby', 'action', 'view' ) , $this->current_url );
-            $export_url = add_query_arg( array( 'page' => 'activities-admin-export', 'item_id' => $item[$id] ), $export_url );
-  				}
-  				if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) {
-  					$name_action = 'edit';
-  				}
-  				else {
-  					$name_action = 'view';
-  				}
-
-          $output .= '<div ' . ( $this->type != 'location' ? 'class="activities-name-wrap"' : '' ) . '>';
-  				$output .= '<a href="' . esc_url( $this->current_url . '&action=' . $name_action ) . '&item_id=' . $item[$id] . '">' . stripslashes( wp_filter_nohtml_kses( $item['name'] ) ) . '</a> ';
-  				$output .= $count_display;
-
-  				$output .= '<div class="row-actions">';
-
-  				switch ($this->type) {
-  					case 'activity':
-
-              $output .= '<a href="' . esc_url( $this->current_url . '&action=view&item_id=' . esc_attr( $item[$id] ) ) . '">' . esc_html__( 'View', 'activities' ) . '</a>';
-
-  						if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) {
-  							$output .= ' | <a href="' . esc_url( $this->current_url . '&action=edit&item_id=' . esc_attr( $item[$id] ) ) . '">' . esc_html__( 'Edit', 'activities' ) . '</a>';
-  						}
-
-              $output .= ' | <a href="' . esc_url( $export_url ) . '">' . esc_html__( 'Export', 'activities' ) . '</a>';
-              if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
-                $output .= ' | <a href="' . wp_nonce_url( $this->current_url . '&action=duplicate&item_id=' . esc_attr( $item[$id] ), 'duplicate_act_' . $item[$id] ) . '">' . esc_html__( 'Duplicate', 'activities' ) . '</a>';
-              }
-  						break;
-
-  					case 'location':
-  						$output .= '<a href="' . esc_url( $this->current_url . '&action=edit&item_id=' . esc_attr( $item[$id] ) ) . '">' . esc_html__( 'Edit', 'activities' ) . '</a> | ';
-  						$output .= '<a href="' . esc_url( $this->current_url . '&action=delete&item_id=' . esc_attr( $item[$id] ) ) . '" class="activities-delete">' . esc_html__( 'Delete', 'activities' ) . '</a>';
-  						break;
-
-  					case 'activity_archive':
-  						$output .= '<a href="' . esc_url( $this->current_url . '&action=view&item_id=' . esc_attr( $item[$id] ) ) . '">' . esc_html__( 'View', 'activities' ) . '</a> | ' ;
-              $output .= '<a href="' . esc_url( $export_url ) . '">' . esc_html__( 'Export', 'activities' ) . '</a> | ';
-  						$output .= '<a href="' . esc_url( $activate_url . '&action=activate&item_id=' . esc_attr( $item[$id] ) ) . '" class="activities-activate">' . esc_html__( 'Activate', 'activities' ) . '</a> | ';
-  						$output .= '<a href="' . esc_url( $this->current_url . '&action=delete&item_id=' . esc_attr( $item[$id] ) ) . '" class="activities-delete">' . esc_html__( 'Delete', 'activities' ) . '</a>';
-  				}
-          $output .= '</div>';
-          $output .= '</div>';
-
-          if ( $this->type != 'location' ) {
-            $output .= '<div class="activities-nice-link"><a href="' . esc_url( $this->current_url . '&action=view&item_id=' . esc_attr( $item[$id] ) ) . '"><span class="dashicons dashicons-visibility"></span></a></div>';
-          }
-
-          $output .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . esc_html__( 'Show more details', 'activities' ) . '</span></button>';
-  			}
-  			else if ( $key == 'start' || $key == 'end') {
-          $output .= stripslashes( wp_filter_nohtml_kses( Activities_Utility::format_date( $item[$key] ) ) );;
-  			}
-  			else if ( $key == 'responsible' ) {
-  				if ( $item['responsible'] === null ) {
-  					$display = '&mdash;';
-  				}
-  				else {
-  					$display = $item['first_name'] . ' ' . $item['last_name'];
-  					if ( $display == ' ') {
-  						$display = $item['responsible'];
-  					}
-  				}
-          $output .= stripslashes( wp_filter_nohtml_kses( $display ) );
-        }
-  			else if ( $key == 'location' ) {
-          $output .= $item['location'] === null ? '&mdash;' : stripslashes( wp_filter_nohtml_kses( $item['location'] ) );
-  			}
-        else if ( $key == 'country' ) {
-          if ( isset( $countries[$item[$key]] ) ) {
-            $output .= stripslashes( wp_filter_nohtml_kses( $countries[$item[$key]] ) );
-          }
-        }
-        else if ( $key == 'categories' ) {
-          $output .= stripslashes( wp_filter_nohtml_kses( implode( ', ', Activities_Category::get_act_categories( $item[$id], true ) ) ) );
-        }
-  			else {
-          $output .= stripslashes( wp_filter_nohtml_kses( $item[$key] ) );
-  			}
+        $output .= "</td>";
   		}
-
-      $output .= "</td>";
     }
 
     $output .= '</tr>';
@@ -538,12 +434,62 @@ abstract class Activities_List_Table {
   }
 
   /**
+   * Builds a the special name cell on the table
+   *
+   * @param   array   $item Data for the cell
+   * @return  string  The cell
+   */
+  protected function build_table_name_cell( $item ) {
+    $output = '<div>';
+    $output .= '<a href="' . esc_url( $this->current_url . '&action=edit&item_id=' . $this->get_item_id( $item ) ) . '">' . stripslashes( wp_filter_nohtml_kses( $item['name'] ) ) . '</a> ';
+
+    $output .= '<div class="row-actions">';
+
+    $output .= $this->build_row_actions( $this->get_item_id( $item ) );
+
+    $output .= '</div>'; //row-actions
+    $output .= '</div>'; //name-wrap
+
+    $output .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . esc_html__( 'Show more details', 'activities' ) . '</span></button>';
+
+    return $output;
+  }
+
+  /**
+   * Build row actions for the name cell
+   *
+   *
+   * @param   int     $id Id of the item
+   * @return  string  Row actions
+   */
+  abstract protected function build_row_actions( $id );
+
+  /**
+   * Builds a singe cell on the table
+   *
+   * @param   array   $item Data for the cell
+   * @param   string  $key Cell key
+   * @return  string  The cell
+   */
+  protected function build_table_cell( $item, $key ) {
+    return stripslashes( wp_filter_nohtml_kses( $item[$key] ) );
+  }
+
+  /**
+   * Gets the item id
+   *
+   * @param   array   $item Item data
+   * @return  int     Id
+   */
+  abstract protected function get_item_id( $item );
+
+  /**
    * Builds the filter part of the page
    *
    * @param   array   $filters Current filter values
    * @return  string  Filter box for display
    */
-  function field_filters( $filters ) {
+  protected function field_filters( $filters ) {
   	$output = '<div id="activities-filter-wrap" class="acts-box-wrap acts-box-padding">';
   	$output .= '<b>' . esc_html__( 'Filters', 'activities' ) . '</b>';
   	$output .= '<form action="' . esc_url( $this->current_url ) . '" method="post" class="acts-form">';

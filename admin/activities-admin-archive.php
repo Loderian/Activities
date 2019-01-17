@@ -102,7 +102,7 @@ function activities_admin_archive_page() {
 	$output = '<h1 id="activities-title">';
   $output .= esc_html__( 'Activities Archive', 'activities' ) . '</h1>';
 
-  $table_builder = new Activities_List_Table( Activities_Admin_Utility::get_activity_columns( 'archive' ), 'activity_archive' );
+  $table_builder = new Activities_Activity_List_Table( true );
 
   $output .= $table_builder->display();
 

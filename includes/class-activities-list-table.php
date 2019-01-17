@@ -472,6 +472,10 @@ abstract class Activities_List_Table {
    * @return  string  The cell
    */
   protected function build_table_cell( $item, $key ) {
+    if ( $key == 'name') {
+      return $this->build_table_name_cell( $item );
+    }
+
     return stripslashes( wp_filter_nohtml_kses( $item[$key] ) );
   }
 

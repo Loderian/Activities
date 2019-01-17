@@ -205,76 +205,25 @@ class Activities_Admin_Utility {
     $plan_map = array(
       'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 200 ),
       'description' => substr( sanitize_textarea_field( $_POST['description'] ), 0, 65535 ),
-      'slots' => acts_validate_id( $_POST['slots'] )
+      'sessions' => acts_validate_id( $_POST['sessions'] )
     );
 
-    $slot_text = array();
-    if ( isset( $_POST['slot'] ) && is_array( $_POST['slot'] ) ) {
-      foreach ($_POST['slot'] as $slot => $text) {
-        $slot = acts_validate_id( $slot );
-        if ( $slot &&  $slot <= $plan_map['slots'] ) {
-          $slot_text[$slot] = sanitize_textarea_field( $text );
+    $session_text = array();
+    if ( isset( $_POST['session'] ) && is_array( $_POST['session'] ) ) {
+      foreach ($_POST['session'] as $session => $text) {
+        $session = acts_validate_id( $session );
+        if ( $session &&  $session <= $plan_map['sessions'] ) {
+          $session_text[$session] = sanitize_textarea_field( $text );
         }
       }
     }
-    $plan_map['slot_text'] = $slot_text;
+    $plan_map['session_text'] = $session_text;
 
     if ( isset( $_POST['item_id'] ) ) {
-      $plan_map['slot_id'] = acts_validate_id( $_POST['item_id'] );
+      $plan_map['plan_id'] = acts_validate_id( $_POST['item_id'] );
     }
 
     return $plan_map;
-  }
-
-  /**
-   * Gets columns for activities
-   *
-   * @param   string  $archive 'Archive' to get columns for archive display
-   * @return  array   Columns info
-   */
-  static function get_activity_columns( $archive = '' ) {
-    $options = Activities_Options::get_user_option( ( $archive != 'archive' ? 'activity' : 'activity_archive' ), 'show_columns' );
-
-    $columns = array(
-      'cb' => array(
-        'hidden' => false,
-        'sortable' => false,
-      ),
-      'name' => array(
-        'hidden' => false,
-        'sortable' => true,
-      ),
-      'short_desc' => array(
-        'hidden' => !$options['short_desc'],
-        'sortable' => false,
-      ),
-      'long_desc' => array(
-        'hidden' => !$options['long_desc'],
-        'sortable' => false,
-      ),
-      'start' => array(
-        'hidden' => !$options['start'],
-        'sortable' => true,
-      ),
-      'end' => array(
-        'hidden' => !$options['end'],
-        'sortable' => true,
-      ),
-      'responsible' => array(
-        'hidden' => !$options['responsible'],
-        'sortable' => true,
-      ),
-      'location' => array(
-        'hidden' => !$options['location'],
-        'sortable' => true,
-      ),
-      'categories' => array(
-        'hidden' => !$options['categories'],
-        'sortable' => false
-      )
-    );
-
-    return $columns;
   }
 
   /**
@@ -454,8 +403,12 @@ class Activities_Admin_Utility {
         return esc_html__( 'Categories', 'activities' );
         break;
 
+      case 'sessions':
+        return esc_html__( 'Sessions', 'activities' );
+        break;
+
       default:
-        return 'undefined';
+        return $name;
         break;
     }
   }

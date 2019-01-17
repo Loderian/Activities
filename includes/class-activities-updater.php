@@ -78,7 +78,7 @@ class Activities_Updater {
 
     $installer = new Activities_Installer();
     $installer->install_plans_table();
-    $installer->install_plans_slots_table();
+    $installer->install_plans_session_table();
 
     return true;
   }

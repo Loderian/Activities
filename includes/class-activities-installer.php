@@ -163,7 +163,7 @@ class Activities_Installer {
       plan_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
       name varchar(200) NOT NULL,
       description text DEFAULT '' NOT NULL,
-      slots smallint(5) NOT NULL,
+      sessions smallint(5) NOT NULL,
       PRIMARY KEY  (plan_id),
       KEY name (name)
     ) $charset_collate;";
@@ -174,7 +174,7 @@ class Activities_Installer {
   /**
    * Installs plans talbe
    */
-  public function install_plans_slots_table() {
+  public function install_plans_session_table() {
     global $wpdb;
 
     $table_name = Activities::get_table_name( 'plan_slot' );
@@ -183,7 +183,7 @@ class Activities_Installer {
 
     $sql_plan_slot = "CREATE TABLE $table_name (
       plan_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-      slot_id smallint(5) NOT NULL,
+      session_id smallint(5) NOT NULL,
       text text DEFAULT '' NOT NULL,
       PRIMARY KEY  (plan_id,slot_id)
     ) $charset_collate;";

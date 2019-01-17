@@ -166,6 +166,28 @@ class Activities_Options {
         }
         break;
 
+      case 'plan':
+        switch ( $key ) {
+          case 'items_per_page':
+            return 10;
+            break;
+
+          case 'filters':
+            return array(
+              'name' => '',
+              'session' => ''
+            );
+            break;
+
+          case 'show_columns':
+            return array(
+              'description' => true,
+              'sessions' => true
+            );
+            break;
+        }
+        break;
+
       case 'export':
         switch ( $key ) {
           case 'email':

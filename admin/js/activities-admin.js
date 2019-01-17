@@ -294,50 +294,50 @@
 			});
 		});
 
-		var acts_min_slots = 1;
-		var acts_max_slots = 50;
+		var acts_min_sessions = 1;
+		var acts_max_sessions = 50;
 
-		function update_slots_textareas() {
-			var input = $('#plan_slots');
-			var slots = parseInt($(input).val());
+		function update_sessions_textareas() {
+			var input = $('#plan_sessions');
+			var sessions = parseInt($(input).val());
 
-			if (isNaN(slots)) {
-				slots = acts_min_slots;
+			if (isNaN(sessions)) {
+				sessions = acts_min_sessions;
 			}
-			else if (slots < acts_min_slots) {
-				slots = acts_min_slots;
-				$(input).val(slots);
+			else if (sessions < acts_min_sessions) {
+				sessions = acts_min_sessions;
+				$(input).val(sessions);
 			}
-			else if (slots > acts_max_slots) {
-				slots = acts_max_slots;
-				$(input).val(slots);
+			else if (sessions > acts_max_sessions) {
+				sessions = acts_max_sessions;
+				$(input).val(sessions);
 			}
 
-			var last_slot = parseInt($('.acts-plan-textareas li').last().attr('slot'));
+			var last_session = parseInt($('.acts-plan-textareas li').last().attr('session'));
 
-			if (isNaN(last_slot)) {
+			if (isNaN(last_session)) {
 				return;
 			}
 
-			if (slots > last_slot) {
+			if (sessions > last_session) {
 				var html = $('.acts-plan-textareas li').last().html();
 				var list = $('.acts-plan-textareas');
-				for (var i = last_slot+1; i <= slots; i++) {
-					$(list).append('<li slot="' + i + '">' + html + '</li>');
-					var new_textarea = $('.acts-plan-textareas li[slot=' + i + ']');
-					new_textarea.find('.acts-slot-text-num').html(acts_i18n.slot + ' ' + i);
-					new_textarea.find('textarea').attr( 'name', 'slot[' + i + ']');
+				for (var i = last_session+1; i <= sessions; i++) {
+					$(list).append('<li session="' + i + '">' + html + '</li>');
+					var new_textarea = $('.acts-plan-textareas li[session=' + i + ']');
+					new_textarea.find('.acts-session-text-num').html(acts_i18n.session + ' ' + i);
+					new_textarea.find('textarea').attr( 'name', 'session[' + i + ']');
 				}
 			}
 			else {
-				for (var i = last_slot; i > slots; i--) {
-					$('li[slot=' + i + ']').remove();
+				for (var i = last_session; i > sessions; i--) {
+					$('li[session=' + i + ']').remove();
 				}
 			}
 		}
 
-		$('#plan_slots').on( 'input', function() {
-			update_slots_textareas();
+		$('#plan_sessions').on( 'input', function() {
+			update_sessions_textareas();
 		});
 	});
 

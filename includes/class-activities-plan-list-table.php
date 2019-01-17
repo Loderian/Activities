@@ -5,18 +5,18 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 /**
- * Class for getting table display for locations
+ * Class for getting table display for plans
  *
  * @since      1.1.0
  * @package    Activities
  * @subpackage Activities/includes
  * @author     Mikal Naustdal <miknau94@gmail.com>
  */
-class Activities_Location_List_Table extends Activities_List_Table {
+class Activities_Plan_List_Table extends Activities_List_Table {
   function __construct( ) {
     parent::__construct();
 
-    $this->type = 'location';
+    $this->type = 'plan';
   }
 
   /**
@@ -25,7 +25,7 @@ class Activities_Location_List_Table extends Activities_List_Table {
    * @return string
    */
   protected function get_table_name() {
-    return Activities::get_table_name( 'location' );
+    return Activities::get_table_name( 'plan' );
   }
 
   /**
@@ -34,7 +34,7 @@ class Activities_Location_List_Table extends Activities_List_Table {
    * @return string Select query
    */
   protected function build_sql_select() {
-    $sql_select = array( 'i.location_id' );
+    $sql_select = array( 'i.plan_id' );
     foreach (array_keys( $this->get_columns() ) as $key) {
       switch ($key) {
         case 'cb':
@@ -78,8 +78,7 @@ class Activities_Location_List_Table extends Activities_List_Table {
    */
   protected function get_bulk_actions() {
     return $actions = array(
-      'address' => esc_html__( 'Change Address', 'activities' ),
-      'delete_l' => esc_html__( 'Delete', 'activities' )
+      'delete_p' => esc_html__( 'Delete', 'activities' )
     );
   }
 
@@ -94,7 +93,7 @@ class Activities_Location_List_Table extends Activities_List_Table {
    * )
    */
   protected function get_columns() {
-    $options = Activities_Options::get_user_option( 'location', 'show_columns' );
+    $options = Activities_Options::get_user_option( 'plan', 'show_columns' );
 
     $columns = array(
       'cb' => array(
@@ -105,51 +104,17 @@ class Activities_Location_List_Table extends Activities_List_Table {
         'hidden' => false,
         'sortable' => true
       ),
-      'address' => array(
-        'hidden' => !$options['address'],
-        'sortable' => true
-      ),
       'description' => array(
         'hidden' => !$options['description'],
         'sortable' => false
       ),
-      'city' => array(
-        'hidden' => !$options['city'],
-        'sortable' => true
-      ),
-      'postcode' => array(
-        'hidden' => !$options['postcode'],
-        'sortable' => true
-      ),
-      'country' => array(
-        'hidden' => !$options['country'],
+      'sessions' => array(
+        'hidden' => !$options['sessions'],
         'sortable' => true
       )
     );
 
     return $columns;
-  }
-
-  /**
-   * Builds a singe cell on the table
-   *
-   * @param   array   $item Data for the cell
-   * @param   string  $key Cell key
-   * @return  string  The cell
-   */
-  protected function build_table_cell( $item, $key ) {
-    if ( $key == 'name') {
-      return $this->build_table_name_cell( $item );
-    }
-    else if ( $key == 'country' ) {
-      $countries = Activities_Utility::get_countries();
-      if ( isset( $countries[$item[$key]] ) ) {
-        return stripslashes( wp_filter_nohtml_kses( $countries[$item[$key]] ) );
-      }
-    }
-    else {
-      return parent::build_table_cell( $item, $key );
-    }
   }
 
   /**
@@ -172,6 +137,6 @@ class Activities_Location_List_Table extends Activities_List_Table {
    * @return  int     Id
    */
   protected function get_item_id( $item ) {
-    return $item['location_id'];
+    return $item['plan_id'];
   }
 }

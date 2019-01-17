@@ -124,6 +124,7 @@ class Activities {
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-item.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-activity-list-table.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-location-list-table.php';
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan-list-table.php';
 
 		if ( is_admin() ) {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin.php';

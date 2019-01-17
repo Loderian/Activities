@@ -21,7 +21,7 @@ class Activities_Plan {
    * @param   string      $check_by Column to compare ('id', 'name')
    * @return  bool        True if the plan exists, false otherwise
    */
-  static function exists( $act_id, $check_by = 'id' ) {
+  static function exists( $plan_id, $check_by = 'id' ) {
     return Activities_Item::exists( $plan_id, 'plan', $check_by );
   }
 
@@ -34,9 +34,9 @@ class Activities_Plan {
   static function insert( $plan_map ) {
     $plan_id = Activities_Item::insert( 'plan', $plan_map );
 
-    if ( $plan_id && array_key_exists( 'slot_text', $plan_map ) ) {
-      foreach ($plan_map['slot_text'] as $slot => $text) {
-        self::insert_slot_text( $plan_id, $slot, $text );
+    if ( $plan_id && array_key_exists( 'session_text', $plan_map ) ) {
+      foreach ($plan_map['session_text'] as $session => $text) {
+        self::insert_session_text( $plan_id, $session, $text );
       }
     }
 
@@ -54,21 +54,21 @@ class Activities_Plan {
   }
 
   /**
-   * Adds a slot text to a plan
+   * Adds a session text to a plan
    *
    * @param   int     $plan_id Plan id
-   * @param   int     $slot Slot number
-   * @param   string  $text Text to put into the slot
+   * @param   int     $session Slot number
+   * @param   string  $text Text to put into the session
    * @return  bool
    */
-  static function insert_slot_text( $plan_id, $slot, $text ) {
+  static function insert_session_text( $plan_id, $session, $text ) {
     global $wpdb;
 
     $insert = $wpdb->insert(
-      Activities::get_table_name( 'plan_slot' ),
+      Activities::get_table_name( 'plan_session' ),
       array(
         'plan_id' => $plan_id,
-        'slot_id' => $slot,
+        'session_id' => $session,
         'text' => $text
       ),
       array( '%d', '%d', '%s' )
@@ -78,22 +78,22 @@ class Activities_Plan {
   }
 
   /**
-   * Updates a slot text in a plan
+   * Updates a session text in a plan
    *
    * @param   int     $plan_id Plan id
-   * @param   int     $slot Slot number
-   * @param   string  $text Text to put into the slot
+   * @param   int     $session Slot number
+   * @param   string  $text Text to put into the session
    * @return  bool
    */
-  static function update_slot_text( $plan_id, $slot, $text ) {
+  static function update_session_text( $plan_id, $session, $text ) {
     global $wpdb;
 
     $update = $wpdb->update(
-      Activities::get_table_name( 'plan_slot' ),
+      Activities::get_table_name( 'plan_session' ),
       array( 'text' => $text ),
       array(
         'plan_id' => $plan_id,
-        'slot_id' => $slot,
+        'session_id' => $session,
       ),
       array( '%s' ),
       array( '%d', '%d' )
@@ -122,7 +122,7 @@ class Activities_Plan {
    */
   static function get_columns( $type = 'none' ) {
     $strings = array( 'name', 'description' );
-    $ints = array( 'slots' );
+    $ints = array( 'sessions' );
 
     switch ($type) {
       case 'string':

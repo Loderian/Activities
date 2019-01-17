@@ -30,7 +30,10 @@ function activities_admin_plans_page() {
   $current_url = remove_query_arg( 'item_id', $current_url );
   $current_url = remove_query_arg( '_wpnonce', $current_url );
 
-  if ( isset( $_POST['create_plan'] ) ) {
+  if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
+    return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create' );
+  }
+  elseif ( isset( $_POST['create_plan'] ) ) {
     if ( !wp_verify_nonce( $_POST[ACTIVITIES_PLAN_NONCE], 'activities_plan' ) ) {
       wp_die( 'Access Denied' );
     }
@@ -57,9 +60,15 @@ function activities_admin_plans_page() {
       Activities_Admin::add_error_message( esc_html__( 'You do not have permission to create plans.', 'activities' ) );
     }
   }
-  $output = '';
+  $output = '<h1 id="activities-title">';
+	$output .= esc_html__( 'Plans', 'activities' );
+  if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES )) {
+  	$output .= '<a href="' . esc_url( $current_url ) . '&action=create" class="add page-title-action">' . esc_html__( 'Create new plan', 'activities' ) . '</a>';
+  }
+	$output .= '</h1>';
 
-  $output .= activities_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create' );
+  $table = new Activities_Plan_List_Table();
+  $output .= $table->display();
 
   return $output;
 }

@@ -81,6 +81,9 @@ class Activities_Admin {
 	 */
 	public function register_scripts() {
 		wp_register_script( $this->plugin_name . '-admin-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin.js', array( 'jquery' ), $this->version, false );
+    wp_localize_script( $this->plugin_name . '-admin-js', 'acts_i18n', array(
+      'session' => esc_html__( 'Session', 'activities' )
+    ) );
 
     wp_register_script( $this->plugin_name . '-admin-nice-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-nice.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
 		wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n', array(

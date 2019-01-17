@@ -7,21 +7,12 @@ if ( !defined( 'WPINC' ) ) {
 /**
  * Class for getting table display for admin areas
  *
- * //TODO Improve code structure
- *
  * @since      1.0.0
  * @package    Activities
  * @subpackage Activities/includes
  * @author     Mikal Naustdal <miknau94@gmail.com>
  */
-class Activities_List_Table {
-  /**
-   * Columns to display
-   *
-   * @var array
-   */
-  protected $columns;
-
+abstract class Activities_List_Table {
   /**
    * Type of data to display (activity, location, activity_archive)
    *
@@ -75,16 +66,10 @@ class Activities_List_Table {
    * Initializes data required to begin creating the page
    *
    * @param array $columns Information about the columns to display
-   * 'column_key' => array(
-   *    'hidden'    => bool
-   *    'sortable'  => bool
-   *    'display'   => string
-   * )
+
    * @param string $type Type to display (activity, location, activity_archive)
    */
-  public function __construct( $columns, $type ) {
-    $this->columns = $columns;
-    $this->type = $type;
+  public function __construct() {
   }
 
   /**
@@ -97,19 +82,7 @@ class Activities_List_Table {
 
   	$output = '';
 
-    $table_name = '';
-
-    switch ($this->type) {
-      case 'activity':
-      case 'activity_archive':
-        $table_name = Activities::get_table_name( 'activity' );
-        break;
-
-      case 'location':
-        $table_name = Activities::get_table_name( 'location' );
-        break;
-    }
-
+    $table_name = $this->get_table_name();
 
   	$current_url = ( isset($_SERVER['HTTPS'] ) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   	$current_url = remove_query_arg( 'action', $current_url );
@@ -118,202 +91,54 @@ class Activities_List_Table {
 
   	$output .= Activities_Admin::get_messages();
 
-  	$sql_filter = '';
   	$items_per_page = Activities_Options::get_user_option( $this->type, 'items_per_page' );
 
-  	$filters = array();
-  	if ( isset( $_POST['apply_filters'] ) && isset( $_POST['filters'] ) && is_array( $_POST['filters'] ) ) {
-      $default_filters = Activities_Options::get_default_user_option( $this->type, 'filters' );
-  		foreach ($_POST['filters'] as $key => $value) {
-        $key = sanitize_key( $key );
-        if ( array_key_exists( $key, $default_filters ) ) {
-    			$filters[$key] = sanitize_text_field( $value );
-        }
-  		}
-  		Activities_Options::update_user_option( $this->type, 'filters', $filters );
-  	}
-  	else if ( isset( $_POST['clear_filters'] ) ) {
-  		Activities_Options::delete_user_option( $this->type, 'filters' );
-  	}
-  	if ( !isset( $_POST['apply_filters'] ) ) {
-  		$filters = Activities_Options::get_user_option( $this->type, 'filters' );
-  	}
-    $filters_str = array();
-    if ( $this->type == 'activity' ) {
-      $filters_str[] = 'archive = 0';
-    }
-    if ( $this->type == 'activity_archive' ) {
-      $filters_str[] = 'archive = 1';
-    }
-  	foreach ($filters as $key => $value) {
-  		if ( $value != '' ) {
-  			switch ($key) {
-  				case 'responsible':
-  					$filters_str[] = sprintf ( "(u.display_name LIKE '%%%s%%' OR CONCAT(first.meta_value, ' ', last.meta_value) LIKE '%%%s%%')", $value, $value );
-  					break;
+    $filters = $this->get_filters();
 
-  				case 'location':
-  					$filters_str[] = sprintf ( "%s LIKE '%%%s%%'", 'l.name', $value );
-  					break;
-
-          case 'category':
-            $cat_acts = Activities_Category::get_activities_with_category( $value );
-            if ( count( $cat_acts ) === 0 ) {
-              $filters_str[] = sprintf( 'i.activity_id = 0' );
-            }
-            else {
-              $filters_str[] = sprintf( 'i.activity_id IN (%s)', implode( ',', $cat_acts ) );
-            }
-            break;
-
-  				default:
-  					$filters_str[] = sprintf ( "%s LIKE '%%%s%%'", ('i.' . $key), $value );
-  					break;
-  			}
-  		}
-  	}
-  	if ( count( $filters_str ) > 0 ) {
-  		$sql_filter = 'WHERE ' . implode( ' AND ', $filters_str );
-
-  		if ( $this->type == 'activity' && Activities_Responsible::current_user_restricted_view() ) {
-  			$sql_filter .= sprintf ( ' AND i.responsible_id = %d', wp_get_current_user()->ID );
-  		}
-  	}
-  	else if ( $this->type == 'activity' && Activities_Responsible::current_user_restricted_view() ) {
-  		$sql_filter = sprintf ( 'WHERE i.responsible_id = %d', wp_get_current_user()->ID );
-  	}
-
-  	$sql_joins = '';
-    $count_sql_joins = '';
-  	$sql_select = array();
-  	if ( $this->type == 'location' ) {
-  		$sql_select[] = 'i.location_id';
-  	}
-  	else {
-  		$sql_select[] = 'i.activity_id';
-  	}
-  	foreach ($this->columns as $key => $info) {
-  		if ( $key == 'responsible' ) {
-  			$sql_select[] = 'u.display_name AS responsible';
-  			$sql_select[] = 'first.meta_value AS first_name';
-  			$sql_select[] = 'last.meta_value AS last_name';
-  			$sql_joins .= "LEFT JOIN $wpdb->users u ON i.responsible_id = u.ID ";
-  			$sql_joins .= "LEFT JOIN $wpdb->usermeta first ON i.responsible_id = first.user_id AND first.meta_key = 'first_name' ";
-  			$sql_joins .= "LEFT JOIN $wpdb->usermeta last ON i.responsible_id = last.user_id AND last.meta_key = 'last_name' ";
-        if ( isset( $filters['responsible'] ) && $filters['responsible'] != '' ) {
-          $count_sql_joins .= "LEFT JOIN $wpdb->users u ON i.responsible_id = u.ID ";
-          $count_sql_joins .= "LEFT JOIN $wpdb->usermeta first ON i.responsible_id = first.user_id AND first.meta_key = 'first_name' ";
-          $count_sql_joins .= "LEFT JOIN $wpdb->usermeta last ON i.responsible_id = last.user_id AND last.meta_key = 'last_name' ";
-        }
-  		}
-  		else if ( $key == 'location' ) {
-  			$sql_select[] = 'l.name AS location';
-  			$location_table = Activities::get_table_name( 'location' );
-  			$sql_joins .= "LEFT JOIN $location_table l ON i.location_id = l.location_id ";
-        if ( isset( $filters['location'] ) && $filters['location'] != '' ) {
-          $count_sql_joins .= "LEFT JOIN $location_table l ON i.location_id = l.location_id ";
-        }
-  		}
-  		else if ( !in_array( $key, array( 'cb', 'categories') ) ) {
-  			$sql_select[] = 'i.'.$key;
-  		}
-  	}
-
-  	$sql_select = implode( ', ', $sql_select );
+    $sql_select = $this->build_sql_select();
+    $sql_joins = $this->build_sql_joins();
+    $count_sql_joins = $this->build_count_sql_joins( $filters );
+    $sql_where = $this->build_where( $filters );
+    $sql_order = $this->build_sql_order();
 
     $total_items = $wpdb->get_var(
       "SELECT COUNT(*)
       FROM $table_name i
       $count_sql_joins
-      $sql_filter"
+      $sql_where"
     );
 
   	$this->pagination = new Activities_Pagination( $total_items, $items_per_page );
+
+    $sql_limit_offset = $this->pagination->get_sql();
 
   	if ( $this->pagination->check_if_paged() ) {
   		$current_url = remove_query_arg( 'paged', $current_url );
   	}
 
     $this->current_url = $current_url;
-  	//Url ready
-
-  	$output .= $this->field_filters( $filters );
-
-  	switch ($this->type) {
-  		case 'activity':
-  			$actions = array();
-  			if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) {
-  				$actions = array(
-  					'change_location' => esc_html__( 'Change Location', 'activities' ),
-  					'change_responsible' => esc_html__( 'Change Responsible', 'activities' ),
-  					'change_members' => esc_html__( 'Change Participants', 'activities' )
-  				);
-          if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
-            $actions['archive'] = esc_html_x( 'Archive', 'To archive', 'activities' );
-          }
-  			}
-  			break;
-
-  		case 'location':
-  			$actions = array(
-  				'address' => esc_html__( 'Change Address', 'activities' ),
-  				'delete_l' => esc_html__( 'Delete', 'activities' )
-  			);
-  			break;
-
-  		case 'activity_archive':
-  			$actions = array(
-  				'activate' => esc_html__( 'Activate', 'activities' ),
-  				'delete_a' => esc_html__( 'Delete', 'activities' )
-  			);
-  			break;
-  	}
-
-    $output .= '<form action="' . $current_url . '" method="post">';
-
-    $output .= '<div class="tablenav top">';
-    $output .= $this->bulk_actions( $actions );
-
-    $output .= $this->pagination->get_pagination_control( $current_url, $this->type );
-    $output .= '</div>';
-
-  	if ( isset( $_GET['order'] ) ) {
-  		$this->order = sanitize_key( $_GET['order'] );
-  	}
-  	if ( isset( $_GET['orderby'] ) ) {
-  		$this->orderby = sanitize_key( $_GET['orderby'] );
-  	}
-  	$this->order_switch = $this->order == 'asc' ? 'desc' : 'asc';
-
-    $orderby = sanitize_sql_orderby( $this->orderby . ' ' . strtoupper( $this->order ) );
-    $order_prefix = '';
-
-    if ( $orderby ) {
-      if ($this->orderby != 'responsible' && $this->orderby != 'location') {
-        $order_prefix = 'i.';
-      }
-
-      $sql_order = sprintf( 'ORDER BY %s%s', $order_prefix, $orderby );
-    }
-    else {
-      $this->order = 'name';
-      $this->orderby = 'asc';
-
-      $sql_order = 'ORDER BY i.name ASC';
-    }
-
-    $sql_limit_offset = $this->pagination->get_sql();
 
     $this->items = $wpdb->get_results(
       "SELECT $sql_select
        FROM $table_name i
        $sql_joins
-       $sql_filter
+       $sql_where
        $sql_order
        $sql_limit_offset
       ",
       ARRAY_A
     );
+  	//Url ready, start output building
+
+  	$output .= $this->field_filters( $filters );
+
+    $output .= '<form action="' . $current_url . '" method="post">';
+
+    $output .= '<div class="tablenav top">';
+    $output .= $this->build_bulk_actions();
+
+    $output .= $this->pagination->get_pagination_control( $current_url, $this->type );
+    $output .= '</div>';
 
     $output .= $this->get_table();
 
@@ -325,6 +150,129 @@ class Activities_List_Table {
 
   	return $output;
   }
+
+  /**
+   * Get search input for the db query
+   *
+   * @return array Filters
+   */
+  protected function get_filters() {
+    $filters = array();
+    if ( isset( $_POST['apply_filters'] ) && isset( $_POST['filters'] ) && is_array( $_POST['filters'] ) ) {
+      $default_filters = Activities_Options::get_default_user_option( $this->type, 'filters' );
+      foreach ($_POST['filters'] as $key => $value) {
+        $key = sanitize_key( $key );
+        if ( array_key_exists( $key, $default_filters ) ) {
+          $filters[$key] = sanitize_text_field( $value );
+        }
+      }
+      Activities_Options::update_user_option( $this->type, 'filters', $filters );
+    }
+    else if ( isset( $_POST['clear_filters'] ) ) {
+      Activities_Options::delete_user_option( $this->type, 'filters' );
+    }
+    if ( !isset( $_POST['apply_filters'] ) ) {
+      $filters = Activities_Options::get_user_option( $this->type, 'filters' );
+    }
+
+    return $filters;
+  }
+
+  /**
+   * Get db table name
+   *
+   * @return string
+   */
+  abstract protected function get_table_name();
+
+
+  /**
+   * Get sql select
+   *
+   * @return string
+   */
+  abstract protected function build_sql_select();
+
+  /**
+   * Build sql joins
+   *
+   * @return string
+   */
+  protected function build_sql_joins() {
+    return '';
+  }
+
+  /**
+   * Build sql joins for count query
+   *
+   * @param   array   $filters Current filters applied to the sql query
+   * @return  string
+   */
+  protected function build_count_sql_joins( $filters ) {
+    return '';
+  }
+
+  /**
+   * Build sql order
+   *
+   * @param   array   $filters Filters for the current page
+   * @return  string  Where clause
+   */
+  protected function build_sql_order() {
+    if ( isset( $_GET['order'] ) ) {
+      $this->order = sanitize_key( $_GET['order'] );
+    }
+    if ( isset( $_GET['orderby'] ) ) {
+      $this->orderby = sanitize_key( $_GET['orderby'] );
+    }
+    $this->order_switch = $this->order == 'asc' ? 'desc' : 'asc';
+
+    $orderby = sanitize_sql_orderby( $this->orderby . ' ' . strtoupper( $this->order ) );
+    $order_prefix = '';
+
+    if ( $orderby ) {
+      if ($this->orderby != 'responsible' && $this->orderby != 'location') {
+        $order_prefix = 'i.';
+      }
+
+      return $sql_order = sprintf( 'ORDER BY %s%s', $order_prefix, $orderby );
+    }
+    else {
+      $this->order = 'name';
+      $this->orderby = 'asc';
+
+      return $sql_order = 'ORDER BY i.name ASC';
+    }
+  }
+
+  /**
+   * Build sql where clause
+   *
+   * @param   array   $filters Filters for the current page
+   * @return  string  Where clause
+   */
+  abstract protected function build_where( $filters );
+
+  /**
+   * Gets bulk actions
+   *
+   * @return array
+   */
+  abstract protected function get_bulk_actions();
+
+
+
+  /**
+   * Gets columns for the table
+   *
+   * @return array
+   * 'column_key' => array(
+   *    'hidden'    => bool
+   *    'sortable'  => bool
+   *    'display'   => string
+   * )
+   */
+  abstract protected function get_columns();
 
   /**
    * Builds the table
@@ -365,7 +313,7 @@ class Activities_List_Table {
    */
   protected function get_column_headers( $with_id = true ) {
   	$output = '';
-  	foreach ( $this->columns as $key => $info ) {
+  	foreach ( $this->get_columns() as $key => $info ) {
   		$class = array( 'manage-column', "column-$key" );
   		$column_display_name = Activities_Admin_Utility::get_column_display( $key );
 
@@ -421,7 +369,7 @@ class Activities_List_Table {
       }
     } else {
       $col_count = 0;
-      foreach ($this->columns as $info) {
+      foreach ($this->get_columns() as $info) {
         if ( !$info['hidden'] ) {
           $col_count++;
         }
@@ -454,7 +402,7 @@ class Activities_List_Table {
     }
     $output = '<tr>';
 
-		foreach ( $this->columns as $key => $info ) {
+		foreach ( $this->get_columns() as $key => $info ) {
 			$classes = "$key column-$key";
 			if ( $key === 'name' ) {
 				$classes .= ' has-row-actions column-primary';
@@ -637,14 +585,15 @@ class Activities_List_Table {
   /**
    * Builds bulk action selecter
    *
-   * @param   array   $actions Possible bulk actions for the current page
+   * @param   array   $bulk_actions Possible bulk actions for the current page
    * @return  string  Bulk actions selecter
    */
-  function bulk_actions( $actions ) {
+  function build_bulk_actions() {
+    $bulk_actions = $this->get_bulk_actions();
   	$output = '<div id="activities-bulk-wrap">';
   	$output .= '<select name="bulk">';
   	$output .= '<option selected="selected" value="0">' . esc_html__( 'Bulk Actions', 'activities' ) . '</option>';
-  	foreach ($actions as $value => $display) {
+  	foreach ($bulk_actions as $value => $display) {
   		$output .= '<option value="' . esc_attr( $value ) . '">' . stripslashes( wp_filter_nohtml_kses( $display ) ) . '</option>';
   	}
   	$output .= '</select> ';

@@ -64,7 +64,7 @@ function activities_admin_activities_page() {
         wp_safe_redirect( $current_url . '&action=edit&item_id=' . $new_act_id );
         exit;
       }
-      
+
       Activities_Admin::add_error_message( esc_html__( 'An error occured during duplication of activity.', 'activities' ) );
     }
     else {
@@ -205,7 +205,7 @@ function activities_admin_activities_page() {
   }
 	$output .= '</h1>';
 
-  $table_builder = new Activities_List_Table( Activities_Admin_Utility::get_activity_columns(), 'activity' );
+  $table_builder = new Activities_Activity_List_Table();
 
   $output .= $table_builder->display();
 

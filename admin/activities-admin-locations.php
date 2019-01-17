@@ -146,40 +146,7 @@ function activities_admin_locations_page() {
     $output .= '<a href="' . esc_url( $current_url . '&action=create' ) . '" class="add page-title-action" >' . esc_html__( 'Create new location', 'activities' ) . '</a>';
     $output .= '</h1>';
 
-    $options = Activities_Options::get_user_option( 'location', 'show_columns' );
-
-    $columns = array(
-      'cb' => array(
-        'hidden' => false,
-        'sortable' => false
-      ),
-      'name' => array(
-        'hidden' => false,
-        'sortable' => true
-      ),
-      'address' => array(
-        'hidden' => !$options['address'],
-        'sortable' => true
-      ),
-      'description' => array(
-        'hidden' => !$options['description'],
-        'sortable' => false
-      ),
-      'city' => array(
-        'hidden' => !$options['city'],
-        'sortable' => true
-      ),
-      'postcode' => array(
-        'hidden' => !$options['postcode'],
-        'sortable' => true
-      ),
-      'country' => array(
-        'hidden' => !$options['country'],
-        'sortable' => true
-      )
-    );
-
-    $table_builder = new Activities_List_Table( $columns, 'location' );
+    $table_builder = new Activities_Location_List_Table();
 
     $output .= $table_builder->display();
 

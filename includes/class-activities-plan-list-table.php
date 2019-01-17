@@ -29,46 +29,16 @@ class Activities_Plan_List_Table extends Activities_List_Table {
   }
 
   /**
-   * Get sql select
+   * Get where builders
    *
-   * @return string Select query
+   * @return array List of column $key => callback
    */
-  protected function build_sql_select() {
-    $sql_select = array( 'i.plan_id' );
-    foreach (array_keys( $this->get_columns() ) as $key) {
-      switch ($key) {
-        case 'cb':
-          break;
-
-        default:
-          $sql_select[] = 'i.'.$key;
-          break;
+  protected function get_where_builders() {
+    return array(
+      'sessions' => function( $value )  {
+        return sprintf( "sessions = %d", $value );
       }
-    }
-
-    return implode( ', ', $sql_select );
-  }
-
-  /**
-   * Build sql where clause for activities
-   *
-   * @param   array   $filters Filters for the current page
-   * @return  string  Where clause
-   */
-  protected function build_where( $filters ) {
-    $filters_str = array();
-    foreach ($filters as $key => $value) {
-      if ( $value != '' ) {
-        $filters_str[] = sprintf ( "%s LIKE '%%%s%%'", $key, $value );
-      }
-    }
-
-    $sql_where = '';
-    if ( count( $filters_str ) > 0 ) {
-      $sql_where = 'WHERE ' . implode( ' AND ', $filters_str );
-    }
-
-    return $sql_where;
+    );
   }
 
   /**

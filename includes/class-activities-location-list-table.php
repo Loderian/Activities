@@ -29,49 +29,6 @@ class Activities_Location_List_Table extends Activities_List_Table {
   }
 
   /**
-   * Get sql select
-   *
-   * @return string Select query
-   */
-  protected function build_sql_select() {
-    $sql_select = array( 'i.location_id' );
-    foreach (array_keys( $this->get_columns() ) as $key) {
-      switch ($key) {
-        case 'cb':
-          break;
-
-        default:
-          $sql_select[] = 'i.'.$key;
-          break;
-      }
-    }
-
-    return implode( ', ', $sql_select );
-  }
-
-  /**
-   * Build sql where clause for activities
-   *
-   * @param   array   $filters Filters for the current page
-   * @return  string  Where clause
-   */
-  protected function build_where( $filters ) {
-    $filters_str = array();
-    foreach ($filters as $key => $value) {
-      if ( $value != '' ) {
-        $filters_str[] = sprintf ( "%s LIKE '%%%s%%'", $key, $value );
-      }
-    }
-
-    $sql_where = '';
-    if ( count( $filters_str ) > 0 ) {
-      $sql_where = 'WHERE ' . implode( ' AND ', $filters_str );
-    }
-
-    return $sql_where;
-  }
-
-  /**
    * Gets bulk actions for activity list table
    *
    * @return array

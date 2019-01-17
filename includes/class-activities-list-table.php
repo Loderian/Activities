@@ -95,7 +95,9 @@ abstract class Activities_List_Table {
 
     $filters = $this->get_filters();
 
-    $sql_select = $this->build_sql_select();
+    $sql_select = $this->get_additional_sql_select();
+    array_unshift( $sql_select, 'i.*' );
+    $sql_select = implode( ', ', $sql_select );
     $sql_joins = $this->build_sql_joins();
     $count_sql_joins = $this->build_count_sql_joins( $filters );
     $sql_where = $this->build_where( $filters );
@@ -187,11 +189,13 @@ abstract class Activities_List_Table {
 
 
   /**
-   * Get sql select
+   * Get additional sql selects
    *
-   * @return string
+   * @return array Additional selects for query
    */
-  abstract protected function build_sql_select();
+  protected function get_additional_sql_select() {
+    return array();
+  }
 
   /**
    * Build sql joins
@@ -246,12 +250,41 @@ abstract class Activities_List_Table {
   }
 
   /**
-   * Build sql where clause
+   * Build sql where clause for activities
    *
    * @param   array   $filters Filters for the current page
    * @return  string  Where clause
    */
-  abstract protected function build_where( $filters );
+  protected function build_where( $filters ) {
+    $builders = $this->get_where_builders();
+    $filters_str = array();
+    foreach ($filters as $key => $value) {
+      if ( $value != '' ) {
+        if ( array_key_exists( $key, $builders ) ) {
+          $filters_str[] = call_user_func( $builders[$key], $value );
+        }
+        else {
+          $filters_str[] = sprintf ( "i.%s LIKE '%%%s%%'", $key, $value );
+        }
+      }
+    }
+
+    $sql_where = '';
+    if ( count( $filters_str ) > 0 ) {
+      $sql_where = 'WHERE ' . implode( ' AND ', $filters_str );
+    }
+
+    return $sql_where;
+  }
+
+  /**
+   * Get where builders
+   *
+   * @return array List of column $key => callback
+   */
+  protected function get_where_builders() {
+    return array();
+  }
 
   /**
    * Gets bulk actions
@@ -483,7 +516,7 @@ abstract class Activities_List_Table {
    * Gets the item id
    *
    * @param   array   $item Item data
-   * @return  int     Id
+   * @return  int
    */
   abstract protected function get_item_id( $item );
 

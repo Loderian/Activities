@@ -43,35 +43,17 @@ class Activities_Activity_List_Table extends Activities_List_Table {
   }
 
   /**
-   * Get select sql for query
+   * Get additional sql selects
    *
-   * @return string Select
+   * @return array Additional selects for query
    */
-  protected function build_sql_select() {
-    $sql_select = array( 'i.activity_id' );
-    foreach (array_keys( $this->get_columns() ) as $key) {
-      switch ($key) {
-        case 'responsible':
-          $sql_select[] = 'u.display_name AS responsible';
-          $sql_select[] = 'first.meta_value AS first_name';
-          $sql_select[] = 'last.meta_value AS last_name';
-          break;
-
-        case 'location':
-          $sql_select[] = 'l.name AS location';
-          break;
-
-        case 'cb':
-        case 'categories':
-          break;
-
-        default:
-          $sql_select[] = 'i.'.$key;
-          break;
-      }
-    }
-
-    return implode( ', ', $sql_select );
+  protected function get_additional_sql_select() {
+    return array(
+      'u.display_name AS responsible',
+      'first.meta_value AS first_name',
+      'last.meta_value AS last_name',
+      'l.name AS location'
+    );
   }
 
   /**
@@ -121,52 +103,45 @@ class Activities_Activity_List_Table extends Activities_List_Table {
    * @return  string  Where clause
    */
   protected function build_where( $filters ) {
-    $filters_str = array();
-    if ( $this->archive ) {
-      $filters_str[] = 'archive = 1';
+    $sql_where = parent::build_where( $filters );
+    if ( $sql_where === '' ) {
+      $sql_where .= 'WHERE ';
     }
     else {
-      $filters_str[] = 'archive = 0';
+      $sql_where .= ' AND ';
     }
-    foreach ($filters as $key => $value) {
-      if ( $value != '' ) {
-        switch ($key) {
-          case 'responsible':
-            $filters_str[] = sprintf ( "(u.display_name LIKE '%%%s%%' OR CONCAT(first.meta_value, ' ', last.meta_value) LIKE '%%%s%%')", $value, $value );
-            break;
+    $sql_where .= 'archive = ' . ($this->archive ? 1 : 0);
 
-          case 'location':
-            $filters_str[] = sprintf ( "%s LIKE '%%%s%%'", 'l.name', $value );
-            break;
-
-          case 'category':
-            $cat_acts = Activities_Category::get_activities_with_category( $value );
-            if ( count( $cat_acts ) === 0 ) {
-              $filters_str[] = sprintf( 'i.activity_id = 0' );
-            }
-            else {
-              $filters_str[] = sprintf( 'i.activity_id IN (%s)', implode( ',', $cat_acts ) );
-            }
-            break;
-
-          default:
-            $filters_str[] = sprintf ( "%s LIKE '%%%s%%'", ('i.' . $key), $value );
-            break;
-        }
-      }
-    }
-    if ( count( $filters_str ) > 0 ) {
-      $sql_where = 'WHERE ' . implode( ' AND ', $filters_str );
-
-      if ( Activities_Responsible::current_user_restricted_view() ) {
-        $sql_where .= sprintf ( ' AND i.responsible_id = %d', wp_get_current_user()->ID );
-      }
-    }
-    else if ( Activities_Responsible::current_user_restricted_view() ) {
-      $sql_where = sprintf ( 'WHERE i.responsible_id = %d', wp_get_current_user()->ID );
+    if ( Activities_Responsible::current_user_restricted_view() ) {
+      $sql_where .= sprintf ( ' AND i.responsible_id = %d', wp_get_current_user()->ID );
     }
 
     return $sql_where;
+  }
+
+  /**
+   * Get where builders
+   *
+   * @return array List of column $key => callback
+   */
+  protected function get_where_builders() {
+    return array(
+      'responsible' => function( $value ) {
+        return sprintf ( "(u.display_name LIKE '%%%s%%' OR CONCAT(first.meta_value, ' ', last.meta_value) LIKE '%%%s%%')", $value, $value );
+      },
+      'location' => function( $value ) {
+        return sprintf ( "%s LIKE '%%%s%%'", 'l.name', $value );
+      },
+      'category' => function( $value ) {
+        $cat_acts = Activities_Category::get_activities_with_category( $value );
+        if ( count( $cat_acts ) === 0 ) {
+          return sprintf( 'i.activity_id = 0' );
+        }
+        else {
+          return sprintf( 'i.activity_id IN (%s)', implode( ',', $cat_acts ) );
+        }
+      }
+    );
   }
 
   /**

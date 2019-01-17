@@ -175,7 +175,7 @@ class Activities_Options {
           case 'filters':
             return array(
               'name' => '',
-              'session' => ''
+              'sessions' => ''
             );
             break;
 

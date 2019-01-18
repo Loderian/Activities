@@ -105,6 +105,30 @@ function activities_admin_plans_page() {
       }
     }
   }
+  else if ( isset( $_POST['apply_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) ) {
+    $action = sanitize_key( $_POST['bulk'] );
+    switch ($action) {
+      case 'delete_p':
+        $title = esc_html__( 'Delete Plans', 'activities' );
+        break;
+    }
+    if ( isset( $title ) && is_array( $_POST['selected_activities'] ) ) {
+      $names = Activities_Admin_Utility::get_item_names( $_POST['selected_activities'], 'plan' );
+
+      return activities_bulk_action_page( $names['ids'] , $action, $title, $names['names'] );
+    }
+  }
+  else if ( isset( $_POST['confirm_bulk'] ) && isset( $_POST['bulk'] ) && isset( $_POST['selected_activities'] ) && isset( $_POST[ACTIVITIES_BULK_NONCE] ) ) {
+    if ( wp_nonce_field( $_POST[ACTIVITIES_BULK_NONCE], 'activities_bulk_action' ) ) {
+      $plans = explode( ',', sanitize_text_field( $_POST['selected_activities'] ) );
+      $bulk = new Activities_Bulk_Action();
+      switch (sanitize_key( $_POST['bulk'] )) {
+        case 'delete_p':
+          $bulk->delete_plans( $plans );
+          break;
+      }
+    }
+  }
 
   $output = '<h1 id="activities-title">';
 	$output .= esc_html__( 'Plans', 'activities' );

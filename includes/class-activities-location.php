@@ -143,7 +143,7 @@ class Activities_Location {
    * @return  bool  True if the location was deleted, false otherwise
    */
   static function delete( $location_id ) {
-    $del = Activities_Item::update( 'location', $location_id );
+    $del = Activities_Item::delete( 'location', $location_id );
 
     if ( $del ) {
       do_action( 'activities_delete_location', $location_id );

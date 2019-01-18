@@ -120,7 +120,7 @@ function activities_admin_locations_page() {
           break;
       }
       if ( isset( $title ) && is_array( $_POST['selected_activities'] ) ) {
-        $names = Activities_Admin_Utility::get_names( $_POST['selected_activities'] );
+        $names = Activities_Admin_Utility::get_item_names( $_POST['selected_activities'], 'location' );
 
         return activities_bulk_action_page( $names['ids'] , $action, $title, $names['names'] );
       }

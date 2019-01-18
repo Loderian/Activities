@@ -118,6 +118,11 @@ function activities_bulk_action_page( $ids, $type, $header, $names, $value = '' 
 			$output .= '<p>' . sprintf( esc_html__( 'Are you sure you want to delete %d locations?', 'activities' ), count( $names ) ) . '</p>';
 			$output .= '<p><b>' . esc_html__( 'Warning: Locations cannot be recovered after deletion.', 'activities' ) . '</b></p>';
 			break;
+
+    case 'delete_p';
+      $output .= '<p>' . sprintf( esc_html__( 'Are you sure you want to delete %d plans?', 'activities' ), count( $names ) ) . '</p>';
+      $output .= '<p><b>' . esc_html__( 'Warning: Plans cannot be recovered after deletion.', 'activities' ) . '</b></p>';
+      break;
 	}
 
 	$output .= '<input type="hidden" name="selected_activities" value="' . esc_attr( implode( ',', $ids ) ) . '" />';

@@ -480,6 +480,10 @@
   border-style: dashed;
 }
 
+#acts-nice-save-bottom {
+  display: none;
+}
+
 #acts-nice-preview {
   border: 1px solid lightgrey;
   background-color: #fff;
@@ -887,6 +891,10 @@
     padding-right: 20px;
     border-right: none;
     z-index: 1;
+  }
+
+  #acts-nice-save-bottom {
+    display: inline-block;
   }
 }
 

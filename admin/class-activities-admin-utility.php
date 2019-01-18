@@ -456,6 +456,10 @@ class Activities_Admin_Utility {
         case 'location':
           $item = new Activities_Location( $id );
           break;
+
+        case 'plan':
+          $item = new Activities_Plan( $id );
+          break;
       }
       if ( isset( $item ) && acts_validate_id( $item->id ) === $id ) {
         $names[] = esc_html( $item->name );

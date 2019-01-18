@@ -334,7 +334,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     $output .= '<hr class="acts-nice-splitter">';
 		$output .= '<div id="acts-nice-buttons">';
     $output .= '<p class="acts-nice-top-buttons">';
-		$output .= '<input type="submit" name="save_nice_settings" class="button button-primary" value="' . esc_html__( 'Save', 'activities' ) . '" /> ';
+    $output .= get_submit_button( esc_html__( 'Save', 'activities' ), 'button-primary',  'save_nice_settings', false, array( 'id' => '' ) );
 		//$output .= '<input type="submit" name="download" class="button" value="Download PDF"/> ';
 		$output .= '<a href="javascript:window.print()" class="acts-nice-print button">' . esc_html__( 'Print', 'activities' ) . '</a> ';
     $output .= '<input id="folder_print" type="button" class="acts-nice-print button" value="' . esc_html__( 'Folder Print', 'activities' ) . '" /> ';
@@ -355,7 +355,10 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   $output .= '</div>'; //Nice settings wrap
 
   if ( $current_url != null ) {
+    $output .= get_submit_button( esc_html__( 'Save', 'activities' ), 'button-primary',  'save_nice_settings', true, array( 'id' => 'acts-nice-save-bottom' ) );
     $output .= '</form>';
+
+    $output .= acts_build_plans_box( $activity['plan_id'] );
   }
 
   $output .= acts_nice_meta_key_set();
@@ -916,25 +919,53 @@ function acts_nice_key_display( $key ) {
  *
  * @return string
  */
- function acts_nice_meta_key_set() {
-   global $wpdb;
+function acts_nice_meta_key_set() {
+  global $wpdb;
 
-   $meta_fields = $wpdb->get_col(
-     "SELECT DISTINCT meta_key
-     FROM $wpdb->usermeta"
-   );
+  $meta_fields = $wpdb->get_col(
+    "SELECT DISTINCT meta_key
+    FROM $wpdb->usermeta"
+  );
 
-   foreach ($meta_fields as $key => $meta) {
-     if ( activities_nice_filter_custom_field( $meta ) ) {
-       unset( $meta_fields[$key] );
-     }
-     else {
-       $meta_fields[$key] = '"' . wp_filter_nohtml_kses( $meta ) . '": 1';
-     }
-   }
-   $wl = '<script>';
-   $wl .= 'var meta_whitelist = {' . implode( ',', $meta_fields ) . '};';
-   $wl .= '</script>';
+  foreach ($meta_fields as $key => $meta) {
+    if ( activities_nice_filter_custom_field( $meta ) ) {
+      unset( $meta_fields[$key] );
+    }
+    else {
+      $meta_fields[$key] = '"' . wp_filter_nohtml_kses( $meta ) . '": 1';
+    }
+  }
+  $wl = '<script>';
+  $wl .= 'var meta_whitelist = {' . implode( ',', $meta_fields ) . '};';
+  $wl .= '</script>';
 
-   return $wl;
- }
+  return $wl;
+}
+
+/**
+ * Builds the plan box under the activity report
+ */
+function acts_build_plans_box( $plan_id ) {
+  $plan = Activities_Plan::load( $plan_id );
+
+  if ( $plan === null ) {
+    return '';
+  }
+
+  $output = '<div class="acts-box-wrap acts-box-padding">';
+  $output .= '<h3>' . esc_html( ucfirst( acts_get_multi_item_translation( 'plan', count( $plan['session_map'] ) ) ) ) . '</h3>';
+  if ( count( $plan['session_map'] ) == 1 ) {
+    $output .= '<div>' . $plan['session_map'][1] . '</div>';
+  }
+  else {
+    foreach ($plan['session_map'] as $session_id => $text) {
+      $output .= '<b>' . sprintf( esc_html__( 'Session %d', 'activities' ), $session_id ) . '</b></br>';
+      $output .= '<div>';
+      $output .= esc_html( $text );
+      $output .= '</div>';
+    }
+  }
+  $output .= '</div>';
+
+  return $output;
+}

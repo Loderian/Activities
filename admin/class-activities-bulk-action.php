@@ -191,4 +191,19 @@ class Activities_Bulk_Action {
 
     Activities_Admin::add_success_message( sprintf( esc_html__( '%d locations has been deleted.', 'activities' ), $this->succ ) );
   }
+
+  /**
+   * Deletes one or more plans
+   *
+   * @param array $locs List of locations ids
+   */
+  public function delete_plans( $plans ) {
+    foreach ($plans as $id) {
+      if ( Activities_Plan::delete( $id ) ) {
+        $this->succ++;
+      }
+    }
+
+    Activities_Admin::add_success_message( sprintf( esc_html__( '%d plans has been deleted.', 'activities' ), $this->succ ) );
+  }
 }

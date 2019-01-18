@@ -33,6 +33,12 @@ function activities_admin_plans_page() {
   if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
     return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create' );
   }
+  else if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] == 'edit' ) && isset( $_GET['item_id'] ) ) {
+    $id = acts_validate_id( $_GET['item_id'] );
+    if ( $id ) {
+      return acts_plan_management( esc_html__( 'Edit Plan', 'activities' ), 'edit', Activities_Plan::load( $id ) );
+    }
+  }
   elseif ( isset( $_POST['create_plan'] ) ) {
     if ( !wp_verify_nonce( $_POST[ACTIVITIES_PLAN_NONCE], 'activities_plan' ) ) {
       wp_die( 'Access Denied' );
@@ -41,19 +47,19 @@ function activities_admin_plans_page() {
       $plan_map = Activities_Admin_Utility::get_plan_post_values();
       if ( $plan_map['name'] === '' ) {
         Activities_Admin::add_error_message( esc_html__( 'The plan must have a name.', 'activities' ) );
-        return acts_activity_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $plan_map );
+        return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $plan_map );
       }
       if ( !Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
         if ( Activities_Plan::insert( $plan_map ) ) {
           Activities_Admin::add_create_success_message( $plan_map['name'] );
         }
         else {
-          Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured creating plan: %s', 'activities' ), $act_map['name'] ) );
+          Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured creating plan: %s', 'activities' ), $plan_map['name'] ) );
         }
       }
       else {
-        Activities_Admin::add_error_message( sprintf( esc_html__( 'An plan with name: %s already exists.', 'activities' ), $act_map['name'] ) );
-        return acts_activity_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $act_map );
+        Activities_Admin::add_error_message( sprintf( esc_html__( 'An plan with name: %s already exists.', 'activities' ), $plan_map['name'] ) );
+        return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $plan_map );
       }
     }
     else {

@@ -258,16 +258,7 @@ class Activities_Activity {
   static function load( $activity_id ) {
     global $wpdb;
 
-    $activity_table = Activities::get_table_name( 'activity' );
-    $activity = $wpdb->get_row( $wpdb->prepare(
-        "SELECT *
-         FROM $activity_table
-         WHERE activity_id = %d
-        ",
-        $activity_id
-      ),
-      ARRAY_A
-    );
+    $activity = Activities_Item::load( 'activity', $activity_id );
 
     if ( $activity !== null ) {
       $user_activity = Activities::get_table_name( 'user_activity' );
@@ -277,12 +268,12 @@ class Activities_Activity {
         FROM $user_activity
         WHERE activity_id = %d
         ",
-        $activity['activity_id']
+        $activity_id
       ));
 
       $activity['members'] = $users;
 
-      $activity['categories'] = Activities_Category::get_act_categories( $activity['activity_id'] );
+      $activity['categories'] = Activities_Category::get_act_categories( $activity_id );
     }
 
     return $activity;
@@ -648,7 +639,7 @@ class Activities_Activity {
    */
   static function get_columns( $type = 'none' ) {
     $strings = array( 'name', 'short_desc', 'long_desc', 'start', 'end' );
-    $ints = array( 'responsible_id', 'location_id', 'archive' );
+    $ints = array( 'responsible_id', 'location_id', 'archive', 'plan_id' );
 
     switch ($type) {
       case 'string':
@@ -666,27 +657,6 @@ class Activities_Activity {
         return array_merge( $strings, $ints );
         break;
     }
-  }
-
-  /**
-   * Builds where cluase for sql queries
-   *
-   * @param   string  $check_by Column find activity by
-   * @return  string  String to use in where clause in sql
-   */
-  static function build_where( $check_by = 'id' ) {
-    switch ($check_by) {
-      case 'name':
-        $where = 'name = %s';
-        break;
-
-      case 'id':
-      default:
-        $where = 'activity_id = %d';
-        break;
-    }
-
-    return $where;
   }
 }
 Activities_Activity::init();

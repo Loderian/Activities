@@ -13,6 +13,21 @@ if ( !defined( 'WPINC' ) ) {
  * @author     Mikal Naustdal <miknau94@gmail.com>
  */
 class Activities_Plan {
+  /**
+   * Plan data
+   *
+   * @var array
+   */
+  protected $plan;
+
+  /**
+   * Loads a plan by id
+   *
+   * @param int $id Plan id
+   */
+  function __construct( $id ) {
+    $this->plan = self::load( $id );
+  }
 
   /**
    * Checks if a plan exists
@@ -51,6 +66,42 @@ class Activities_Plan {
    */
   static function update( $plan_map ) {
     return Activities_Item::update( 'plan', $plan_map );
+  }
+
+  /**
+   * Reads plan data from the database
+   *
+   * @param   int         $plan_id Plan id
+   * @return  array|null  Associative array of plan info, or null if error
+   */
+  static function load( $plan_id ) {
+    global $wpdb;
+
+    $plan = Activities_Item::load( 'plan', $plan_id );
+
+    if ( $plan != null ) {
+      $session_table = Activities::get_table_name( 'plan_session' );
+      $session_map = $wpdb->get_results( $wpdb->prepare(
+          "SELECT session_id, text
+          FROM $session_table
+          WHERE plan_id = %d
+          ",
+          $plan_id
+        ),
+        OBJECT_K
+      );
+
+      var_dump( $session_map );
+
+      $new_session_map = array();
+      foreach ($session_map as $session_id => $text) {
+        $new_session_map[$session_id] = $text->text;
+      }
+
+      $plan['session_map'] = $new_session_map;
+    }
+
+    return $plan;
   }
 
   /**

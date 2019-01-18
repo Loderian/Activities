@@ -121,6 +121,30 @@ class Activities_Item {
   }
 
   /**
+   * Reads item data from the database
+   *
+   * @param   string      $type Item type
+   * @param   int         $item_id Item id
+   * @return  array|null  Associative array of item info, or null if error
+   */
+  static function load( $type, $item_id ) {
+    global $wpdb;
+
+    $table = Activities::get_table_name( $type );
+    $item = $wpdb->get_row( $wpdb->prepare(
+        "SELECT *
+         FROM $table
+         WHERE {$type}_id = %d
+        ",
+        $item_id
+      ),
+      ARRAY_A
+    );
+
+    return $item;
+  }
+
+  /**
    * Deletes item
    *
    * @param   string    $type Type of item

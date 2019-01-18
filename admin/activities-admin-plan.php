@@ -33,6 +33,7 @@ function acts_plan_management( $title, $action, $map = null ) {
       'name' => '',
       'sessions' => 6,
       'description' => '',
+      'session_map' => array()
     );
   }
 
@@ -61,7 +62,12 @@ function acts_plan_management( $title, $action, $map = null ) {
   }
   for ($session=1; $session <= $map['sessions']; $session++) {
     $output .= '<li session="' . $session . '"><span class="acts-session-text-num">' . sprintf( esc_html__( 'Session %d', 'activities' ), $session ) . '</span></br>';
-    $output .= '<textarea name="session[' . $session . ']" maxlength="65535"></textarea></li>';
+    $text = '';
+    if ( array_key_exists( $session, $map['session_map'] ) ) {
+      $text = stripslashes( wp_filter_nohtml_kses( $map['session_map'][$session] ) );
+    }
+    $output .= '<textarea name="session[' . $session . ']" maxlength="65535">' . $text . '</textarea>';
+    $output .= '</li>';
   }
   $output .= '</ul>';
 

@@ -108,20 +108,7 @@ class Activities_Location {
    * @return  array|null  Associative array of location info, or null if error
    */
   static function load( $location_id ) {
-    global $wpdb;
-
-    $location_table = Activities::get_table_name( 'location' );
-    $location = $wpdb->get_row( $wpdb->prepare(
-        "SELECT *
-        FROM $location_table
-        WHERE location_id = %d
-        ",
-        $location_id
-      ),
-      ARRAY_A
-    );
-
-    return $location;
+    return Activities_Item::load( 'location', $location_id );
   }
 
   /**
@@ -193,26 +180,5 @@ class Activities_Location {
         return array_merge( $strings, $ints );
         break;
     }
-  }
-
-  /**
-   * Builds where cluase for sql queries
-   *
-   * @param   string  $check_by Column find activity by
-   * @return  string  String to use in where clause in sql
-   */
-  static function build_where( $check_by = 'id' ) {
-    switch ($check_by) {
-      case 'name':
-        $where = 'name = %s';
-        break;
-
-      case 'id':
-      default:
-        $where = 'location_id = %d';
-        break;
-    }
-
-    return $where;
   }
 }

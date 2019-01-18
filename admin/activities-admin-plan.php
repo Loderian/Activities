@@ -66,7 +66,7 @@ function acts_plan_management( $title, $action, $map = null ) {
     if ( array_key_exists( $session, $map['session_map'] ) ) {
       $text = stripslashes( wp_filter_nohtml_kses( $map['session_map'][$session] ) );
     }
-    $output .= '<textarea name="session[' . $session . ']" maxlength="65535">' . $text . '</textarea>';
+    $output .= '<textarea name="session_map[' . $session . ']" maxlength="65535">' . $text . '</textarea>';
     $output .= '</li>';
   }
   $output .= '</ul>';

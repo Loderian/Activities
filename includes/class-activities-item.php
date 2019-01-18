@@ -83,7 +83,7 @@ class Activities_Item {
    *
    * @param   string    $type Type of item
    * @param   array     $map Item data
-   * @return  int|bool  False if it could not be updated, 1 otherwise
+   * @return  bool  False if it could not be updated, True otherwise
    */
   static function update( $type, $map ) {
     if ( !isset( $map[$type . '_id'] ) || !self::exists( $map[$type . '_id'], $type ) ) {
@@ -117,7 +117,7 @@ class Activities_Item {
       array( '%d' )
     );
 
-    return $update;
+    return $update !== false;
   }
 
   /**

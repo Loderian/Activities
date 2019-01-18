@@ -408,12 +408,7 @@ abstract class Activities_List_Table {
         }
       }
       $output .= '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr( $col_count ) . '">';
-      if ( $this->type != 'location' ) {
-        $output .= 'No activities found.';
-      }
-      else {
-        $output .= 'No locations found.';
-      }
+      $output .= $this->get_placeholder();
       $output .= '</td></tr>';
     }
 
@@ -510,6 +505,15 @@ abstract class Activities_List_Table {
     }
 
     return stripslashes( wp_filter_nohtml_kses( $item[$key] ) );
+  }
+
+  /**
+   * Gets the placeholder when there are no items
+   *
+   * @return  string  Placeholder
+   */
+  protected function get_placeholder() {
+    return sprintf( esc_html__( 'No %s found.' ), acts_get_multi_item_translation( $this->type, 2 ) );
   }
 
   /**

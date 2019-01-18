@@ -254,3 +254,29 @@ function acts_build_select_items( $type, $settings, $responsible_filter = false 
 
   return acts_build_select( $data, $settings );
 }
+
+/**
+ * Gets traslation for 1 or more items
+ *
+ * @param   string  $type Item type
+ * @param   int     $number Number of items
+ * @return  string
+ */
+function acts_get_multi_item_translation( $type, $number ) {
+  switch ($type) {
+    case 'activity':
+    case 'activity_archive':
+      return _n( 'activity', 'activities', $number, 'activities' );
+      break;
+
+    case 'location':
+      return _n( 'location', 'locations', $number, 'activities' );
+      break;
+
+    case 'plan':
+      return _n( 'plan', 'plans', $number, 'activities' );
+      break;
+  }
+
+  return '';
+}

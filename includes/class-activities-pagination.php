@@ -145,7 +145,8 @@ class Activities_Pagination {
       $output .= ' one-page';
     }
     $output .= '">';
-    $output .= '<span class="displaying-num">' . sprintf( ( $type == 'location' ? esc_html__( '%d locations', 'activities' ) : esc_html__( '%d activities', 'activities' ) ), $this->total_items ) . '</span>';
+
+    $output .= '<span class="displaying-num">' . esc_html( $this->total_items . ' ' . acts_get_multi_item_translation( $type, $this->total_items ) ) . '</span>';
 
     $output .= '<span class="pagination-links">';
     if ( $this->total_items > $this->items_per_page ) {

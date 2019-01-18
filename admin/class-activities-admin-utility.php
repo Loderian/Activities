@@ -209,15 +209,15 @@ class Activities_Admin_Utility {
     );
 
     $session_text = array();
-    if ( isset( $_POST['session'] ) && is_array( $_POST['session'] ) ) {
-      foreach ($_POST['session'] as $session => $text) {
+    if ( isset( $_POST['session_map'] ) && is_array( $_POST['session_map'] ) ) {
+      foreach ($_POST['session_map'] as $session => $text) {
         $session = acts_validate_id( $session );
         if ( $session &&  $session <= $plan_map['sessions'] ) {
           $session_text[$session] = sanitize_textarea_field( $text );
         }
       }
     }
-    $plan_map['session_text'] = $session_text;
+    $plan_map['session_map'] = $session_text;
 
     if ( isset( $_POST['item_id'] ) ) {
       $plan_map['plan_id'] = acts_validate_id( $_POST['item_id'] );

@@ -121,6 +121,7 @@ class Activities {
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-category.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-updater.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan.php';
+    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan-session.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-item.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-activity-list-table.php';
     require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-location-list-table.php';

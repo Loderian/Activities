@@ -95,7 +95,7 @@ class Activities_Location {
    * Updates location data, requires location_id
    *
    * @param   array     $loc_map Location info
-   * @return  int|bool  False if it could not be updated, 1 otherwise
+   * @return  bool  False if it could not be updated, True otherwise
    */
   static function update( $loc_map ) {
     return Activities_Item::update( 'location', $loc_map );

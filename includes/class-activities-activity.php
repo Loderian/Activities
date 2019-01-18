@@ -176,7 +176,7 @@ class Activities_Activity {
    * Updates activity data, requires activity_id
    *
    * @param   array     $act_map Activity info
-   * @return  int|bool  False if it could not be updated, 1 otherwise
+   * @return  bool  False if it could not be updated, True otherwise
    */
   static function update( $act_map ) {
     if ( !isset( $act_map['activity_id'] ) || self::is_archived( $act_map['activity_id'] ) ) {

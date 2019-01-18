@@ -43,27 +43,52 @@ function activities_admin_plans_page() {
     if ( !wp_verify_nonce( $_POST[ACTIVITIES_PLAN_NONCE], 'activities_plan' ) ) {
       wp_die( 'Access Denied' );
     }
-    if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
-      $plan_map = Activities_Admin_Utility::get_plan_post_values();
-      if ( $plan_map['name'] === '' ) {
-        Activities_Admin::add_error_message( esc_html__( 'The plan must have a name.', 'activities' ) );
-        return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $plan_map );
-      }
-      if ( !Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
-        if ( Activities_Plan::insert( $plan_map ) ) {
-          Activities_Admin::add_create_success_message( $plan_map['name'] );
-        }
-        else {
-          Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured creating plan: %s', 'activities' ), $plan_map['name'] ) );
-        }
+    $plan_map = Activities_Admin_Utility::get_plan_post_values();
+    if ( $plan_map['name'] === '' ) {
+      Activities_Admin::add_error_message( esc_html__( 'The plan must have a name.', 'activities' ) );
+      return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $plan_map );
+    }
+    if ( !Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
+      if ( Activities_Plan::insert( $plan_map ) ) {
+        Activities_Admin::add_create_success_message( $plan_map['name'] );
       }
       else {
-        Activities_Admin::add_error_message( sprintf( esc_html__( 'An plan with name: %s already exists.', 'activities' ), $plan_map['name'] ) );
-        return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $plan_map );
+        Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured creating plan: %s', 'activities' ), $plan_map['name'] ) );
       }
     }
     else {
-      Activities_Admin::add_error_message( esc_html__( 'You do not have permission to create plans.', 'activities' ) );
+      Activities_Admin::add_error_message( sprintf( esc_html__( 'An plan with name: %s already exists.', 'activities' ), $plan_map['name'] ) );
+      return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create', $plan_map );
+    }
+  }
+  elseif ( isset( $_POST['edit_plan'] ) && isset( $_POST['item_id'] ) ) {
+    if ( !wp_verify_nonce( $_POST[ACTIVITIES_PLAN_NONCE], 'activities_plan' ) ) {
+      wp_die( 'Access Denied' );
+    }
+    $plan_map = Activities_Admin_Utility::get_plan_post_values();
+    if ( $plan_map['name'] != '' ) {
+      $plan = new Activities_Plan( acts_validate_id( $_POST['item_id'] ) );
+      if ( $plan->id === '' ) {
+        Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating plan: %s', 'activities' ), $plan_map['name'] ) );
+      }
+      elseif ( $plan->name === $plan_map['name'] || !Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
+        if ( Activities_Plan::update( $plan_map ) !== false ) {
+          Activities_Admin::add_update_success_message( stripslashes( wp_filter_nohtml_kses( $plan_map['name'] ) ) );
+        }
+        else {
+          Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating plan: %s', 'activities'), $plan->name ) );
+        }
+      }
+      else {
+        Activities_Admin::add_error_message( sprintf( esc_html__( 'A plan with name %s already exists.', 'activities' ), $plan_map['name'] ) );
+        $plan_map['name'] = $plan->name;
+        return acts_plan_management( esc_html__( 'Edit Plan', 'activities' ), 'edit', $plan_map );
+      }
+    }
+    else {
+      Activities_Admin::add_name_error_message( esc_html__( 'Plan', 'activities' ) );
+
+      return acts_plan_management( esc_html__( 'Edit Plan', 'activities' ), 'edit', $plan_map );
     }
   }
   $output = '<h1 id="activities-title">';

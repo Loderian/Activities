@@ -302,7 +302,7 @@ class Activities_Utility {
    * @return 	string 	Formattet date or --
    */
   static function format_date( $date_string ) {
-  	if ( $date_string == '0000-00-00 00:00:00' ) {
+  	if ( $date_string == '0000-00-00 00:00:00' || $date_string === null ) {
   		return '&mdash;';
   	}
   	$date = date_create( $date_string );

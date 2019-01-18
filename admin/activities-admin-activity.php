@@ -39,7 +39,8 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 			'location_id' => '',
 			'responsible_id' => '',
 			'members' => array(),
-      'categories' => array()
+      'categories' => array(),
+      'plan_id' => ''
 		);
 	}
 
@@ -110,7 +111,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
       'id' => 'acts-activity-responsible',
       'selected' => $map['responsible_id'],
       'disabled' => Activities_Responsible::current_user_restricted_edit() || ( $disabled !== '' ),
-      'blank' => __( 'No Responsible' ),
+      'blank' => __( 'No Responsible', 'activities' ),
     )
   );
   if ( Activities_Responsible::current_user_restricted_edit() ) {
@@ -127,7 +128,21 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
       'id' => 'acts-activity-location',
       'selected' => $map['location_id'],
       'disabled' => $disabled !== '',
-      'blank' => __( 'No Location' )
+      'blank' => __( 'No Location', 'activities'  )
+    )
+  );
+  $output .= '</li>';
+
+  $output .= '<li>' . esc_html__( 'Plan', 'activities' ) . '</li>';
+  $output .= '<li>';
+  $output .= acts_build_select_items(
+    'plan',
+    array(
+      'name' => 'plan',
+      'id' => 'acts-activity-plan',
+      'selected' => $map['plan_id'],
+      'disabled' => $disabled !== '',
+      'blank' => __( 'No Plan', 'activities' )
     )
   );
   $output .= '</li>';

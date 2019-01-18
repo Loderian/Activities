@@ -87,7 +87,7 @@
         }
 
         file_frame = wp.media.frames.file_frame = wp.media({
-          title: acts_i18n.select_img_title,
+          title: acts_i18n_nice.select_img_title,
           library: {
             type: 'image',
           },

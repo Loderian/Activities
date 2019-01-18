@@ -71,7 +71,10 @@ class Activities_Updater {
 
     $acts_table = Activities::get_table_name( 'activity' );
     $wpdb->query( "ALTER TABLE $acts_table MODIFY name VARCHAR(200);" );
+    $wpdb->query( "ALTER TABLE $acts_table MODIFY COLUMN start datetime DEFAULT NULL;" );
+    $wpdb->query( "ALTER TABLE $acts_table MODIFY COLUMN end datetime DEFAULT NULL;" );
     $wpdb->query( "ALTER TABLE $acts_table ADD plan_id bigint(20);" );
+    $wpdb->query( "ALTER TABLE $acts_table ADD INDEX 'activity_plan' ('plan_id');" );
 
     $locs_table = Activities::get_table_name( 'location' );
     $wpdb->query( "ALTER TABLE $locs_table MODIFY name VARCHAR(200);" );

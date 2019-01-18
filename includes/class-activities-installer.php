@@ -68,14 +68,15 @@ class Activities_Installer {
       short_desc tinytext DEFAULT '' NOT NULL,
       long_desc text DEFAULT '' NOT NULL,
       location_id bigint(20) UNSIGNED,
-      start datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-      end datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+      start datetime DEFAULT NULL,
+      end datetime DEFAULT NULL,
       responsible_id bigint(20) UNSIGNED,
       archive boolean DEFAULT 0 NOT NULL,
       PRIMARY KEY  (activity_id),
       KEY activity_res (responsible_id),
       KEY activity_loc (location_id),
-      KEY activity_arc (archive)
+      KEY activity_arc (archive),
+      KEY activity_plan (plan_id)
     ) $charset_collate;";
 
     dbDelta( $sql_activity );

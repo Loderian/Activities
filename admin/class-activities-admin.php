@@ -81,12 +81,12 @@ class Activities_Admin {
 	 */
 	public function register_scripts() {
 		wp_register_script( $this->plugin_name . '-admin-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin.js', array( 'jquery' ), $this->version, false );
-    wp_localize_script( $this->plugin_name . '-admin-js', 'acts_i18n', array(
+    wp_localize_script( $this->plugin_name . '-admin-js', 'acts_i18n_admin', array(
       'session' => esc_html__( 'Session', 'activities' )
     ) );
 
     wp_register_script( $this->plugin_name . '-admin-nice-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-nice.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
-		wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n', array(
+		wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n_nice', array(
 			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' )
 		) );
 
@@ -774,7 +774,7 @@ class Activities_Admin {
 						if ( !is_user_logged_in() ) {
 							return '<i>' . esc_html__( 'You have to login to join.', 'activities' )  . '</i>';
 						}
-						if ( $obj->archive || ( $obj->end != '0000-00-00 00:00:00' && date( 'U' ) > strtotime( $obj->end ) ) ) {
+						if ( $obj->archive || ( $obj->end != '0000-00-00 00:00:00' && $obj->end !== null && date( 'U' ) > strtotime( $obj->end ) ) ) {
 							return '<i>' . esc_html__( 'You can no longer join this activity.', 'activities' )  . '</i>';
 						}
             $roles = wp_get_current_user()->roles;

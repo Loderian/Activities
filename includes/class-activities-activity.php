@@ -104,6 +104,7 @@ class Activities_Activity {
    */
   static function init() {
     add_action( 'activities_delete_location', array( __CLASS__, 'deleted_location' ) );
+    add_action( 'activities_delete_plan', array( __CLASS__, 'deleted_plan' ) );
     add_action( 'deleted_user', array( __CLASS__, 'deleted_user' ) );
     add_action( 'remove_user_from_blog', array( __CLASS__, 'remove_user_from_blog' ), 10, 2 );
   }
@@ -626,6 +627,25 @@ class Activities_Activity {
       Activities::get_table_name( 'activity' ),
       array( 'location_id' => null ),
       array( 'location_id' => $loc_id ),
+      array( '%d' ),
+      array( '%d' )
+    );
+  }
+
+  /**
+   * Callback for plan deletion
+   *
+   * Removes plan from plan_id fields on activities
+   *
+   * @param   int   $plan_id Plan id
+   */
+  static function deleted_plan( $plan_id ) {
+    global $wpdb;
+
+    $wpdb->update(
+      Activities::get_table_name( 'activity' ),
+      array( 'plan_id' => null ),
+      array( 'plan_id' => $plan_id ),
       array( '%d' ),
       array( '%d' )
     );

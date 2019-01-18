@@ -130,6 +130,7 @@ class Activities_Admin_Utility {
   static function get_activity_post_values() {
     $loc_id = acts_validate_id( $_POST['location'] );
     $res_id = acts_validate_id( $_POST['responsible'] );
+    $plan_id = acts_validate_id( $_POST['plan'] );
     $members = array();
     if ( isset( $_POST['member_list'] ) && is_array( $_POST['member_list'] ) ) {
       foreach ($_POST['member_list'] as $id) {
@@ -146,6 +147,7 @@ class Activities_Admin_Utility {
       'end' => self::validate_date( sanitize_text_field( $_POST['end'] ) ),
       'location_id' => ( $loc_id ? $loc_id : null ),
       'responsible_id' => ( $res_id ? $res_id : null ),
+      'plan_id' => ( $plan_id ? $plan_id : null ),
       'members' => $members
     );
     if ( isset( $_POST['item_id'] ) ) {
@@ -419,9 +421,9 @@ class Activities_Admin_Utility {
    * @param   string  $date Date input
    * @param   string  $format Expected date format
    * @param   mixed   $default Value if date cant be validated
-   * @return  string  Date to insert into database
+   * @return  string  Date to insert into database or $default
    */
-  static function validate_date( $date, $format = 'Y-m-d', $default = '0000-00-00 00:00:00' ) {
+  static function validate_date( $date, $format = 'Y-m-d', $default = null ) {
     $d = DateTime::createFromFormat( $format, $date );
     if ( $d && $d->format( $format ) == $date ) {
       return $d->format( 'Y-m-d H:i:s' );

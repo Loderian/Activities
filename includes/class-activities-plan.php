@@ -170,6 +170,8 @@ class Activities_Plan {
         array( 'plan_id' => $plan_id ),
         array( '%d' )
       );
+
+      do_action( 'activities_delete_plan', $plan_id );
     }
 
     return $del;

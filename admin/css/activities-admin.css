@@ -247,6 +247,22 @@
   min-width: 230px;
 }
 
+#acts-plan-desc {
+  height: 150px;
+}
+
+.acts-plan-textareas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.acts-plan-textareas li {
+  width: 49%;
+}
+
 #acts-import-table {
   border-spacing: 0;
 }

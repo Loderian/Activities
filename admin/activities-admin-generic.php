@@ -239,6 +239,7 @@ function acts_build_select_items( $type, $settings, $responsible_filter = false 
     case 'location':
     case 'activity_archive':
     case 'all_activities':
+    case 'plan':
       $data = acts_get_items_map( $type, 'name', $responsible_filter );
       break;
 

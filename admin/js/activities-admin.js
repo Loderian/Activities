@@ -22,6 +22,11 @@
 			$('#acts-activity-location').selectize({});
 		}
 
+		//Activity plan options
+		if ($('#acts-activity-plan').length) {
+			$('#acts-activity-plan').selectize({});
+		}
+
 		//Activity member options
 		if ($('#acts-activity-member-list').length) {
 			set_member_count();
@@ -297,6 +302,15 @@
 		var acts_min_sessions = 1;
 		var acts_max_sessions = 50;
 
+		var session_map = {};
+		$('.acts-plan-textareas li').each( function( index, elem ) {
+			var session = $(elem).attr('session');
+			var text = $(elem).find('textarea').html();
+
+			session_map[session] = text;
+		});
+		console.log(session_map);
+
 		function update_sessions_textareas() {
 			var input = $('#plan_sessions');
 			var sessions = parseInt($(input).val());
@@ -324,9 +338,16 @@
 				var list = $('.acts-plan-textareas');
 				for (var i = last_session+1; i <= sessions; i++) {
 					$(list).append('<li session="' + i + '">' + html + '</li>');
-					var new_textarea = $('.acts-plan-textareas li[session=' + i + ']');
-					new_textarea.find('.acts-session-text-num').html(acts_i18n.session + ' ' + i);
-					new_textarea.find('textarea').attr( 'name', 'session[' + i + ']');
+					var new_li = $('.acts-plan-textareas li[session=' + i + ']');
+					new_li.find('.acts-session-text-num').html(acts_i18n_admin.session + ' ' + i);
+					var new_textarea = new_li.find('textarea');
+					$(new_textarea).attr( 'name', 'session_map[' + i + ']');
+					if (session_map.hasOwnProperty(i)) {
+						$(new_textarea).html(session_map[i]);
+					}
+					else {
+						$(new_textarea).html('');
+					}
 				}
 			}
 			else {

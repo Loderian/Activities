@@ -72,6 +72,11 @@ function acts_get_items_map( $type, $key = 'name', $responsible_filter = false )
       $table_name = Activities::get_table_name( 'location' );
       $id = 'location_id';
       break;
+
+    case 'plan':
+      $table_name = Activities::get_table_name( 'plan' );
+      $id = 'plan_id';
+      break;
   }
 
   if ( isset( $table_name ) && isset( $id ) ) {

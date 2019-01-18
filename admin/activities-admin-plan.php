@@ -52,11 +52,16 @@ function acts_plan_management( $title, $action, $map = null ) {
   $output .= '<li><input type="text" name="name" maxlength="200" value="' . esc_attr( stripslashes( $map['name'] ) ) . '" /></li>';
   $output .= '<li>' . esc_html__( 'Slots', 'activities' ) . '</li>';
   $output .= '<li><input type="number" id="plan_sessions" min="1" max="50" name="sessions" value="' . esc_attr( stripslashes( $map['sessions'] ) )  . '" /></li>';
-  $output .= '<li>' . esc_html__( 'Description', 'activities' ) . '</li>';
-  $output .= '<li><textarea name="description" maxlength="65535" id="acts-activity-ldesc">' . stripslashes( wp_filter_nohtml_kses ( $map['description'] ) ) . '</textarea>';
-  $output .= '</li></ul>';
+  $output .= '</ul>';
 
-  $output .= '<ul class="acts-single-column acts-plan-textareas">';
+  $output .= '<ul class="acts-single-column">';
+  $output .= '<li>' . esc_html__( 'Description', 'activities' ) . '</li>';
+  $output .= '<li><textarea name="description" maxlength="65535" id="acts-plan-desc">' . stripslashes( wp_filter_nohtml_kses ( $map['description'] ) ) . '</textarea></li>';
+  $output .= '</ul>';
+
+  $output .= '</div>'; //acts-form-columns
+
+  $output .= '<ul class="acts-plan-textareas">';
   if ( $map['sessions'] < 1 ) {
     $map['sessions'] = 1;
   }
@@ -70,8 +75,6 @@ function acts_plan_management( $title, $action, $map = null ) {
     $output .= '</li>';
   }
   $output .= '</ul>';
-
-  $output .= '</div>'; //acts-form-columns
 
   $button = '';
   switch ($action) {

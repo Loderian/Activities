@@ -171,7 +171,17 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
 
 	$output .= '<div id="acts-nice-preview">';
 
+  $output .= '<div id="acts-nice-preview-report">';
 	$output .= acts_activity_nice_page( $activity, $nice_settings );
+  $output .= '</div>';
+
+  if ( $current_url != null ) {
+    $output .= get_submit_button( esc_html__( 'Save', 'activities' ), 'button-primary',  'save_nice_settings', true, array( 'id' => '' ) );
+
+    $output .= '<div id="acts-nice-preview-plan">';
+    $output .= acts_build_plans_box( $activity['plan_id'], $nice_settings['time_slots'] );
+    $output .= '</div>';
+  }
 
 	$output .= '</div> ';
 
@@ -355,10 +365,8 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   $output .= '</div>'; //Nice settings wrap
 
   if ( $current_url != null ) {
-    $output .= get_submit_button( esc_html__( 'Save', 'activities' ), 'button-primary',  'save_nice_settings', true, array( 'id' => 'acts-nice-save-bottom' ) );
+    $output .= get_submit_button( esc_html__( 'Save', 'activities' ), 'button-primary acts-nice-extra-button',  'save_nice_settings', true, array( 'id' => 'acts-nice-save-bottom' ) );
     $output .= '</form>';
-
-    $output .= acts_build_plans_box( $activity['plan_id'] );
   }
 
   $output .= acts_nice_meta_key_set();
@@ -944,27 +952,55 @@ function acts_nice_meta_key_set() {
 
 /**
  * Builds the plan box under the activity report
+ *
+ * @return string
  */
-function acts_build_plans_box( $plan_id ) {
+function acts_build_plans_box( $plan_id, $time_slots ) {
   $plan = Activities_Plan::load( $plan_id );
 
-  if ( $plan === null ) {
-    return '';
+  $sessions = 0;
+  if ( $plan !== null ) {
+    $sessions = $plan['sessions'];
   }
 
-  $output = '<div class="acts-box-wrap acts-box-padding">';
-  $output .= '<h3>' . esc_html( ucfirst( acts_get_multi_item_translation( 'plan', count( $plan['session_map'] ) ) ) ) . '</h3>';
-  if ( count( $plan['session_map'] ) == 1 ) {
-    $output .= '<div>' . $plan['session_map'][1] . '</div>';
+  $output = '<div class="acts-box-padding">';
+  $output .= '<h3>' . esc_html( ucfirst( acts_get_multi_item_translation( 'plan', $sessions ) ) );
+  if ( $sessions == 1 ) {
+    $output .= ' | <span class="acts-nice-plan-edit">' . esc_html__( 'Edit', 'activities' ) . '<span class="dashicons dashicons-edit"></span></span>';
+    $output .= '</h3>';
+    $output .= '<div class="acts-nice-session-text">';
+    $output .= '<div session="1" name="session_map[1]">' . esc_html( $plan['session_map'][1] ) . '</div>';
+    $output .= '</div>';
   }
   else {
-    foreach ($plan['session_map'] as $session_id => $text) {
-      $output .= '<b>' . sprintf( esc_html__( 'Session %d', 'activities' ), $session_id ) . '</b></br>';
-      $output .= '<div>';
-      $output .= esc_html( $text );
-      $output .= '</div>';
+    $output .= '</h3>';
+  }
+
+  if ( $sessions == 0 ) {
+    for ($session_id=1; $session_id <= $time_slots; $session_id++) {
+      $output .= acts_build_session_box( $session_id, '' );
     }
   }
+  elseif ( $sessions > 1 ) {
+    foreach ($plan['session_map'] as $session_id => $text) {
+      $output .= acts_build_session_box( $session_id, $text );
+    }
+  }
+  $output .= '<input type="hidden" name="plan_id" value="' . esc_attr( $plan_id ) . '" />';
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Builds a single session text box
+ *
+ * @return string
+ */
+function acts_build_session_box( $session_id, $text ) {
+  $output = '<div class="acts-nice-session-text">';
+  $output .= '<b>' . sprintf( esc_html__( 'Session %d', 'activities' ), $session_id ) . '</b> | <span class="acts-nice-plan-edit">' . esc_html__( 'Edit', 'activities' ) . '<span class="dashicons dashicons-edit"></span></span></br>';
+  $output .= '<div session="' . $session_id . '" name="session_map[' . $session_id . ']">' . esc_html( $text ) . '</div>';
   $output .= '</div>';
 
   return $output;

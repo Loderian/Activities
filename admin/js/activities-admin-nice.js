@@ -642,5 +642,19 @@
         $('#acts-nice-wrap').css('padding-left', '7mm');
       });
     }
+
+    //Activity nice plans
+    if ($('#acts-nice-preview-plan').length) {
+      $(document).on( 'click', '.acts-nice-plan-edit', function() {
+        var textfield = $(this).parent().find('div');
+        var name = $(textfield).attr('name');
+        var session = $(textfield).attr('session');
+        var text = $(textfield).html();
+
+        $(textfield).replaceWith( function() {
+          return $('<textarea />', {session: session, name: name}).append(text);
+        });
+      });
+    }
   });
 })(jQuery);

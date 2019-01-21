@@ -480,16 +480,22 @@
   border-style: dashed;
 }
 
+#acts-nice-preview > .submit,
 #acts-nice-save-bottom {
   display: none;
 }
 
 #acts-nice-preview {
-  border: 1px solid lightgrey;
-  background-color: #fff;
   width: 210mm;
   display: inline-block;
   vertical-align: top;
+}
+
+#acts-nice-preview-plan,
+#acts-nice-preview-report {
+  border: 1px solid lightgrey;
+  background-color: #fff;
+  width: 100%;
 }
 
 #acts-nice-preview h1 {
@@ -543,6 +549,7 @@
   width: 36%;
 }
 
+.acts-nice-plan-edit,
 .acts-user-quick-edit {
   color: #0073aa;
 }
@@ -564,6 +571,7 @@
   font-size: 16px;
 }
 
+.acts-nice-plan-edit:hover,
 .acts-user-quick-edit:hover {
   color: #0085ba;
 }
@@ -688,6 +696,37 @@
   position: absolute;
   top: 54px;
   left: 54px;
+}
+
+.acts-nice-session-text {
+  margin-bottom: 10px;
+}
+
+.acts-nice-session-text b,
+.acts-nice-session-text .acts-nice-plan-edit, {
+  font-size: 14px;
+}
+
+.acts-nice-plan-edit .dashicons {
+  visibility: hidden;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.acts-nice-plan-edit:hover {
+  cursor: pointer;
+}
+
+.acts-nice-plan-edit:hover .dashicons {
+  visibility: visible;
+}
+
+.acts-nice-session-text textarea {
+  white-space: pre-line;
+  width: 100%;
+  height: 7.8em;
 }
 
 /* Small devices (portrait tablets and large phones, 600px and down) */
@@ -893,6 +932,7 @@
     z-index: 1;
   }
 
+  #acts-nice-preview > .submit,
   #acts-nice-save-bottom {
     display: inline-block;
   }

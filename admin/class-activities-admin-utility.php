@@ -43,7 +43,7 @@ class Activities_Admin_Utility {
       if ( $id ) {
         $nice_settings['activity_id'] = $id;
 
-        //Only get attended list if this not an example activity
+        //Only get attended list if this not an example activity and its a vaild id
         $attended = array();
         if ( isset( $_POST['time'] ) && is_array( $_POST['time'] ) && isset( $nice_settings['time_slots'] ) ) {
           foreach ($_POST['time'] as $uid => $times) {
@@ -63,6 +63,14 @@ class Activities_Admin_Utility {
           }
         }
         $nice_settings['attended'] = $attended;
+
+        //Only get plan spesifications if this not an example activity and its a vaild id
+        if ( isset( $_POST['session_map'] ) && is_array( $_POST['session_map'] ) ) {
+          $plan = Activities_Plan::load( acts_validate_id( $_POST['plan_id'] ) );
+          foreach ($_POST['session_map'] as $session_id => $text) {
+            // code...
+          }
+        }
       }
 
       if ( isset( $_POST['acts_nice_logo_id'] ) ) {

@@ -309,7 +309,6 @@
 
 			session_map[session] = text;
 		});
-		console.log(session_map);
 
 		function update_sessions_textareas() {
 			var input = $('#plan_sessions');

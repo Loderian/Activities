@@ -135,7 +135,8 @@ class Activities_Options {
               'end' => false,
               'responsible' => true,
               'location' => true,
-              'categories' => false
+              'categories' => false,
+              'plan' => false
             );
             break;
         }

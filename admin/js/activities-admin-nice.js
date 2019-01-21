@@ -162,6 +162,15 @@
     //Activity nice members control
     if ($('#acts-nice-settings').length) {
       var prev_times;
+      var session_map = {};
+      var session_html = '<div session="1" class="acts-nice-session-text">' + $('div[session=1]').html() + '</div>';
+
+      $('.acts-nice-session-text').each( function(index, elem) {
+        var session = $(elem).attr('session');
+        var text = $(elem).find('div').html();
+
+        session_map[session] = text;
+      });
 
       function append_checkbox_html(start, end) {
         $('div.acts-nice-user-time').each( function(index, elem) {
@@ -175,9 +184,27 @@
             if (i < attended.length && attended.charAt(i) == '1') {
               checked = 'checked="checked"';
             }
-            $(elem).append('<input type="checkbox" name="time[' + id + '][' + i + ']" time=' + i + ' ' + checked + '/>')
+            $(elem).append('<input type="checkbox" name="time[' + id + '][' + i + ']" time=' + i + ' ' + checked + '/>');
           }
         });
+
+        var plan_box = $('#acts-nice-preview-plan > div');
+        for (var session = start + 1; session <= end; session++) {
+          if ($('div[session=' + session + ']').length) {
+            continue;
+          }
+          $(plan_box).append(session_html);
+          var new_session = $(plan_box).find('.acts-nice-session-text:last');
+          $(new_session).attr('session', session);
+          $(new_session).find('b span').html(session);
+          $(new_session).find('div').attr('name', 'session_map[' + session + ']');
+          if (session_map.hasOwnProperty(session)) {
+            $(new_session).find('div').html(session_map[session]);
+          }
+          else {
+            new_session.find('div').html('');
+          }
+        }
       }
 
       function update_sessions() {
@@ -206,16 +233,23 @@
         if (prev_times == times || exist == times - 1) {
           return;
         }
+
+        var last_time = $('[time]:last').attr('time') + 1;
         if (times > prev_times) {
           append_checkbox_html(prev_times, times);
         }
-        else if (prev_times > times) {
+        else if (prev_times > times || last_time > times) {
+          if (isNaN(prev_times)) {
+            prev_times = last_time;
+          }
           for (var i = prev_times - 1; i >= times; i--) {
             $('input[type="checkbox"][time=' + i + ']').remove();
+            if (i > 0) {
+              $('div[session=' + (i + 1) + ']').remove();
+            }
           }
         }
         else {
-          //If prev_times is NaN (page refresh)
           $('div.acts-nice-user-time').html('');
           append_checkbox_html(0, times);
         }
@@ -648,11 +682,10 @@
       $(document).on( 'click', '.acts-nice-plan-edit', function() {
         var textfield = $(this).parent().find('div');
         var name = $(textfield).attr('name');
-        var session = $(textfield).attr('session');
         var text = $(textfield).html();
 
         $(textfield).replaceWith( function() {
-          return $('<textarea />', {session: session, name: name}).append(text);
+          return $('<textarea />', {name: name}).append(text);
         });
       });
     }

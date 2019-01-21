@@ -52,7 +52,8 @@ class Activities_Activity_List_Table extends Activities_List_Table {
       'u.display_name AS responsible',
       'first.meta_value AS first_name',
       'last.meta_value AS last_name',
-      'l.name AS location'
+      'l.name AS location',
+      'p.name AS plan'
     );
   }
 
@@ -67,8 +68,12 @@ class Activities_Activity_List_Table extends Activities_List_Table {
     $sql_joins = "LEFT JOIN $wpdb->users u ON i.responsible_id = u.ID ";
     $sql_joins .= "LEFT JOIN $wpdb->usermeta first ON i.responsible_id = first.user_id AND first.meta_key = 'first_name' ";
     $sql_joins .= "LEFT JOIN $wpdb->usermeta last ON i.responsible_id = last.user_id AND last.meta_key = 'last_name' ";
+
     $location_table = Activities::get_table_name( 'location' );
     $sql_joins .= "LEFT JOIN $location_table l ON i.location_id = l.location_id ";
+
+    $plan_table = Activities::get_table_name( 'plan' );
+    $sql_joins .= "LEFT JOIN $plan_table p ON i.plan_id = p.plan_id ";
 
     return $sql_joins;
   }
@@ -222,6 +227,10 @@ class Activities_Activity_List_Table extends Activities_List_Table {
       'categories' => array(
         'hidden' => !$options['categories'],
         'sortable' => false
+      ),
+      'plan' => array(
+        'hidden' => !$options['plan'],
+        'sortable' => false
       )
     );
 
@@ -254,8 +263,8 @@ class Activities_Activity_List_Table extends Activities_List_Table {
       }
       return stripslashes( wp_filter_nohtml_kses( $display ) );
     }
-    else if ( $key == 'location' ) {
-      return $item['location'] === null ? '&mdash;' : stripslashes( wp_filter_nohtml_kses( $item['location'] ) );
+    else if ( $key == 'location' || $key == 'plan' ) {
+      return $item[$key] === null ? '&mdash;' : stripslashes( wp_filter_nohtml_kses( $item[$key] ) );
     }
     else if ( $key == 'categories' ) {
       return stripslashes( wp_filter_nohtml_kses( implode( ', ', Activities_Category::get_act_categories( $item['activity_id'], true ) ) ) );

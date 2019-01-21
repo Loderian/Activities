@@ -505,15 +505,18 @@ class Activities_Activity {
       return false;
     }
 
-    $table_name = Activities::get_table_name( 'activity_meta' );
-
     $id = $settings['activity_id'];
     unset( $settings['activity_id'] );
 
     //Meta settings for reports
     foreach (array( 'attended', 'session_map' ) as $key) {
       if ( array_key_exists( $key, $settings ) ) {
-        self::update_meta( $id, $key, $settings[$key] );
+        if ( !empty( $settings[$key]  ) ) {
+          self::update_meta( $id, $key, $settings[$key] );
+        }
+        else {
+          self::delete_meta( $id, $key );
+        }
         unset( $settings[$key] );
       }
     }

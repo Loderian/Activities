@@ -81,7 +81,7 @@
 		if ($('#acts_name').length) {
 			var columns = ['short_desc', 'long_desc', 'start', 'end', 'responsible',
 										 'location', 'address', 'description', 'city', 'postcode',
-										 'country', 'categories'];
+										 'country', 'categories', 'plan'];
 
 			function toggleColumn(column) {
 				return function() {

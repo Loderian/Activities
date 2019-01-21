@@ -32,9 +32,11 @@ class Activities_Admin_Utility {
         die( esc_html__( 'Could not verify activity report data integrity.', 'activities' ) );
       }
 
+      $plan = Activities_Plan::load( acts_validate_id( $_POST['plan_id'] ) );
+
       if ( isset( $_POST['time_slots'] ) ) {
         $time_slots = acts_validate_id( $_POST['time_slots'] ); //Time slots uses the same properies as an id
-        if ( $time_slots >= 0 ) {
+        if ( $time_slots >= 0 && ( $plan === null || $time_slots != $plan['sessions'] ) ) {
           $nice_settings['time_slots'] = $time_slots;
         }
       }
@@ -65,13 +67,13 @@ class Activities_Admin_Utility {
         $nice_settings['attended'] = $attended;
 
         //Only get plan spesifications if this not an example activity and its a vaild id
+        $session_map = array();
         if ( isset( $_POST['session_map'] ) && is_array( $_POST['session_map'] ) ) {
-          $plan = Activities_Plan::load( acts_validate_id( $_POST['plan_id'] ) );
           $existing_map = array();
           if ( $plan !== null ){
             $existing_map = $plan['session_map'];
           }
-          $nice_settings['session_map'] = array();
+
           foreach ($_POST['session_map'] as $session_id => $text) {
             $session_id = acts_validate_id( $session_id );
             $text = sanitize_textarea_field( $text );
@@ -79,10 +81,11 @@ class Activities_Admin_Utility {
               continue;
             }
             if ( !array_key_exists( $session_id, $existing_map ) || $existing_map[$session_id] !== $text ) {
-              $nice_settings['session_map'][$session_id] = $text;
+              $session_map[$session_id] = $text;
             }
           }
         }
+        $nice_settings['session_map'] = $session_map;
       }
 
       if ( isset( $_POST['acts_nice_logo_id'] ) ) {
@@ -427,6 +430,10 @@ class Activities_Admin_Utility {
 
       case 'sessions':
         return esc_html__( 'Sessions', 'activities' );
+        break;
+
+      case 'plan':
+        return esc_html__( 'Plan', 'activities' );
         break;
 
       default:

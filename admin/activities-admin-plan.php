@@ -50,7 +50,7 @@ function acts_plan_management( $title, $action, $map = null ) {
   $output .= '<ul class="acts-single-column">';
   $output .= '<li>' . esc_html__( 'Name', 'activities' ) . '<span class="acts-req-mark"> *</span></li>';
   $output .= '<li><input type="text" name="name" maxlength="200" value="' . esc_attr( stripslashes( $map['name'] ) ) . '" /></li>';
-  $output .= '<li>' . esc_html__( 'Slots', 'activities' ) . '</li>';
+  $output .= '<li>' . esc_html__( 'Sessions', 'activities' ) . '</li>';
   $output .= '<li><input type="number" id="plan_sessions" min="1" max="50" name="sessions" value="' . esc_attr( stripslashes( $map['sessions'] ) )  . '" /></li>';
   $output .= '</ul>';
 

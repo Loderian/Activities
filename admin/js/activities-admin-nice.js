@@ -163,9 +163,9 @@
     if ($('#acts-nice-settings').length) {
       var prev_times;
       var session_map = {};
-      var session_html = '<div session="1" class="acts-nice-session-text">' + $('div[session=1]').html() + '</div>';
+      var session_html = '<div session="1" class="acts-nice-session">' + $('div[session=1]').html() + '</div>';
 
-      $('.acts-nice-session-text').each( function(index, elem) {
+      $('.acts-nice-session').each( function(index, elem) {
         var session = $(elem).attr('session');
         var text = $(elem).find('div').html();
 
@@ -194,15 +194,15 @@
             continue;
           }
           $(plan_box).append(session_html);
-          var new_session = $(plan_box).find('.acts-nice-session-text:last');
+          var new_session = $(plan_box).find('.acts-nice-session:last');
           $(new_session).attr('session', session);
           $(new_session).find('b span').html(session);
-          $(new_session).find('div').attr('name', 'session_map[' + session + ']');
+          $(new_session).find('.acts-nice-session-text').attr('name', 'session_map[' + session + ']');
           if (session_map.hasOwnProperty(session)) {
-            $(new_session).find('div').html(session_map[session]);
+            $(new_session).find('.acts-nice-session-text').html(session_map[session]);
           }
           else {
-            new_session.find('div').html('');
+            new_session.find('.acts-nice-session-text').html('');
           }
         }
       }
@@ -234,7 +234,7 @@
           return;
         }
 
-        var last_time = $('[time]:last').attr('time') + 1;
+        var last_time = parseInt($('[time]:last').attr('time')) + 1;
         if (times > prev_times) {
           append_checkbox_html(prev_times, times);
         }
@@ -679,14 +679,23 @@
 
     //Activity nice plans
     if ($('#acts-nice-preview-plan').length) {
+      function expand_text(session) {
+        $('div[session=' + session + '] .acts-nice-session-text').toggle();
+      }
+      $(document).on( 'click', '.acts-nice-plan-expand', function() {
+        expand_text($(this).parent().attr('session'));
+      });
       $(document).on( 'click', '.acts-nice-plan-edit', function() {
-        var textfield = $(this).parent().find('div');
+        var textfield = $(this).parent().find('.acts-nice-session-text');
         var name = $(textfield).attr('name');
         var text = $(textfield).html();
+        var css = $(textfield).attr('class');
 
         $(textfield).replaceWith( function() {
-          return $('<textarea />', {name: name}).append(text);
+          return $('<textarea />', {class: css, name: name}).append(text);
         });
+
+        expand_text($(this).parent().attr('session'));
       });
     }
   });

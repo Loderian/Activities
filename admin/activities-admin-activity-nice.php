@@ -175,7 +175,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   if ( $current_url != null ) {
     $output .= get_submit_button( esc_html__( 'Save', 'activities' ), 'button-primary',  'save_nice_settings', true, array( 'id' => '' ) );
 
-    $output .= '<div id="acts-nice-preview-plan" class="acts-box-padding">';
+    $output .= '<div id="acts-nice-preview-plan">';
     $output .= acts_build_plans_box( $activity['plan_id'], $nice_settings['session_map'], $nice_settings['time_slots'] );
     $output .= '</div>';
   }
@@ -947,7 +947,10 @@ function acts_nice_meta_key_set() {
 /**
  * Builds the plan box under the activity report
  *
- * @return string
+ * @param   int     $plan_id Plan saved to activity
+ * @param   array   $session_map Mapping of session texts
+ * @param   int     $time_slots Amount of time slots (sessions)
+ * @return  string
  */
 function acts_build_plans_box( $plan_id, $session_map, $time_slots ) {
   $plan = Activities_Plan::load( $plan_id );
@@ -983,12 +986,17 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots ) {
 /**
  * Builds a single session text box
  *
+ * @param   int        $session_id Session
+ * @param   string     $text Session text
  * @return string
  */
 function acts_build_session_box( $session_id, $text ) {
-  $output = '<div session="' . $session_id . '" class="acts-nice-session-text">';
-  $output .= '<b>' . esc_html__( 'Session', 'activities' ) . ' <span>' . $session_id  . '</span></b> | <span class="acts-nice-plan-edit">' . esc_html__( 'Edit', 'activities' ) . '<span class="dashicons dashicons-edit"></span></span></br>';
-  $output .= '<div name="session_map[' . $session_id . ']">' . esc_html( $text ) . '</div>';
+  $output = '<div session="' . $session_id . '" class="acts-nice-session">';
+  $output .= '<b>' . esc_html__( 'Session', 'activities' ) . ' <span>' . $session_id . '</span></b>';
+  $output .= ' | <span class="acts-nice-plan-expand">' . esc_html__( 'Expand', 'activities' ) . '</span>';
+  $output .= ' | <span class="acts-nice-plan-edit">' . esc_html__( 'Edit', 'activities' ) . '<span class="dashicons dashicons-edit"></span></span>';
+  $output .= '</br>';
+  $output .= '<div class="acts-nice-session-text" name="session_map[' . $session_id . ']">' . esc_html( $text ) . '</div>';
   $output .= '</div>';
 
   return $output;

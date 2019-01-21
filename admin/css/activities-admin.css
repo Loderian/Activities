@@ -549,6 +549,7 @@
   width: 36%;
 }
 
+.acts-nice-plan-expand,
 .acts-nice-plan-edit,
 .acts-user-quick-edit {
   color: #0073aa;
@@ -571,6 +572,7 @@
   font-size: 16px;
 }
 
+.acts-nice-plan-expand:hover,
 .acts-nice-plan-edit:hover,
 .acts-user-quick-edit:hover {
   color: #0085ba;
@@ -698,23 +700,28 @@
   left: 54px;
 }
 
-.acts-nice-session-text {
+.acts-nice-session {
   margin-bottom: 10px;
 }
 
-.acts-nice-session-text b,
-.acts-nice-session-text .acts-nice-plan-edit, {
+.acts-nice-session b,
+.acts-nice-session .acts-nice-plan-edit, {
   font-size: 14px;
 }
 
+.acts-nice-plan-expand .dashicons,
 .acts-nice-plan-edit .dashicons {
-  visibility: hidden;
   width: 16px;
   height: 16px;
   font-size: 16px;
   vertical-align: middle;
 }
 
+.acts-nice-plan-edit .dashicons {
+  visibility: hidden;
+}
+
+.acts-nice-plan-expand:hover,
 .acts-nice-plan-edit:hover {
   cursor: pointer;
 }
@@ -723,8 +730,12 @@
   visibility: visible;
 }
 
-.acts-nice-session-text textarea {
-  white-space: pre-line;
+.acts-nice-session-text {
+  white-space: pre-wrap;
+  display: none;
+}
+
+.acts-nice-session textarea.acts-nice-session-text {
   width: 100%;
   height: 7.8em;
 }

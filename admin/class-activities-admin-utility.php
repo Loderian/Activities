@@ -67,11 +67,14 @@ class Activities_Admin_Utility {
         $nice_settings['attended'] = $attended;
 
         //Only get plan spesifications if this not an example activity and its a vaild id
-        $session_map = array();
+        $session_map = Activities_Activity::get_meta( $id, 'session_map' );
+        if ( $session_map == null ) {
+          $session_map = array();
+        }
         if ( isset( $_POST['session_map'] ) && is_array( $_POST['session_map'] ) ) {
-          $existing_map = array();
+          $plan_map = array();
           if ( $plan !== null ){
-            $existing_map = $plan['session_map'];
+            $plan_map = $plan['session_map'];
           }
 
           foreach ($_POST['session_map'] as $session_id => $text) {
@@ -80,7 +83,7 @@ class Activities_Admin_Utility {
             if ( $session_id === 0 ) {
               continue;
             }
-            if ( !array_key_exists( $session_id, $existing_map ) || $existing_map[$session_id] !== $text ) {
+            if ( !array_key_exists( $session_id, $plan_map ) || $plan_map[$session_id] !== $text ) {
               $session_map[$session_id] = $text;
             }
           }

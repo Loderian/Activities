@@ -67,8 +67,20 @@ class Activities_Admin_Utility {
         //Only get plan spesifications if this not an example activity and its a vaild id
         if ( isset( $_POST['session_map'] ) && is_array( $_POST['session_map'] ) ) {
           $plan = Activities_Plan::load( acts_validate_id( $_POST['plan_id'] ) );
+          $existing_map = array();
+          if ( $plan !== null ){
+            $existing_map = $plan['session_map'];
+          }
+          $nice_settings['session_map'] = array();
           foreach ($_POST['session_map'] as $session_id => $text) {
-            // code...
+            $session_id = acts_validate_id( $session_id );
+            $text = sanitize_textarea_field( $text );
+            if ( $session_id === 0 ) {
+              continue;
+            }
+            if ( !array_key_exists( $session_id, $existing_map ) || $existing_map[$session_id] !== $text ) {
+              $nice_settings['session_map'][$session_id] = $text;
+            }
           }
         }
       }

@@ -416,7 +416,7 @@ class Activities_Activity {
    *
    * @param   int             $activity_id Activity id
    * @param   string          $meta_key Meta key
-   * @return  string|null     Meta value, null on no value
+   * @return  mixed|null      Meta value, null if no value
    */
   static function get_meta( $activity_id, $meta_key ) {
     global $wpdb;
@@ -434,6 +434,7 @@ class Activities_Activity {
     if ( is_serialized( $val ) ) {
       $val = @unserialize( $val );
     }
+
     return $val;
   }
 
@@ -509,8 +510,13 @@ class Activities_Activity {
     $id = $settings['activity_id'];
     unset( $settings['activity_id'] );
 
-    self::update_meta( $id, 'attended', $settings['attended'] );
-    unset( $settings['attended'] );
+    //Meta settings for reports
+    foreach (array( 'attended', 'session_map' ) as $key) {
+      if ( array_key_exists( $key, $settings ) ) {
+        self::update_meta( $id, $key, $settings[$key] );
+        unset( $settings[$key] );
+      }
+    }
 
     $default_settings = Activities_Options::get_option( ACTIVITIES_NICE_SETTINGS_KEY );
 
@@ -544,12 +550,10 @@ class Activities_Activity {
     }
     global $wpdb;
 
-    $table_name = Activities::get_table_name( 'activity_meta' );
-
     $settings = self::get_meta( $id, 'nice_settings' );
 
     if ( $settings === null ) {
-      return false;
+      $settings = array();
     }
 
     $default_settings = Activities_Options::get_option( ACTIVITIES_NICE_SETTINGS_KEY );
@@ -559,12 +563,34 @@ class Activities_Activity {
     }
 
     foreach ($default_settings as $key => $value) {
+      if ( $key === 'time_slots' && !array_key_exists( 'time_slots', $settings ) ) {
+        $act_table = Activities::get_table_name( 'activity' );
+        $plan_talbe = Activities::get_table_name( 'plan' );
+
+        $sessions = $wpdb->get_var( $wpdb->prepare(
+          "SELECT p.sessions
+          FROM $act_table a
+          LEFT JOIN $plan_talbe p ON a.plan_id = p.plan_id
+          WHERE activity_id = %d
+          ",
+          $id
+        ));
+
+        if ( $sessions !== null ) {
+          $settings['time_slots'] = $sessions;
+        }
+      }
+
       if ( !array_key_exists( $key, $settings ) ) {
         $settings[$key] = $value;
       }
     }
 
     $settings['attended'] = self::get_meta( $id, 'attended' );
+    $settings['session_map'] = self::get_meta( $id, 'session_map' );
+    if ( $settings['session_map'] === null ) {
+      $settings['session_map'] = array();
+    }
 
     return $settings;
   }

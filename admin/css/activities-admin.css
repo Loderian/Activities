@@ -1018,6 +1018,11 @@
     background-color: #fff;
   }
 
+  .acts-nice-new-response,
+  .acts-nice-new-plan,
+  .acts-nice-session-empty,
+  .acts-nice-print-hidden,
+  .acts-nice-session-edit,
   .notice,
   .button,
   .button-primary,
@@ -1051,6 +1056,8 @@
   }
 
   #acts-nice-preview,
+  #acts-nice-preview-report,
+  #acts-nice-preview-plan,
   #acts-nice-wrap {
     page-break-inside: auto;
   }
@@ -1066,5 +1073,17 @@
     page-break-before: auto;
     page-break-inside: avoid;
     page-break-after: auto;
+  }
+
+  #acts-nice-preview-report {
+    page-break-after: always;
+  }
+
+  .acts-nice-session-hidden {
+    display: block !important;
+  }
+
+  div.acts-nice-session-text {
+    min-height: 4em;
   }
 }

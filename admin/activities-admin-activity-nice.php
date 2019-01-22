@@ -1030,7 +1030,7 @@ function acts_build_session_box( $session_id, $text, $last_session ) {
 
   $output = '<li session="' . $session_id . '" class="acts-nice-session">';
   $output .= '<b class="acts-nice-session-expand">' . esc_html__( 'Session', 'activities' ) . ' <span >' . $session_id . '</span><span class="dashicons' . $arrow . '"></span></b>';
-  $output .= ' | <span class="acts-nice-session-edit">' . esc_html__( 'Edit', 'activities' ) . '<span class="dashicons dashicons-edit"></span></span>';
+  $output .= '<span class="acts-nice-print-hidden"> | </span><span class="acts-nice-session-edit">' . esc_html__( 'Edit', 'activities' ) . '<span class="dashicons dashicons-edit"></span></span>';
   $output .= '</br>';
 
   $output .= '<div class="acts-nice-session-text' . $hidden . '" name="session_map[' . $session_id . ']">' . $empty_text . esc_html( $text ) . '</div>';

@@ -417,6 +417,9 @@ class Activities_Admin {
 		elseif ( $screen->id == $prefix . '_page_activities-admin-locations' ) {
 			return 'location';
 		}
+    elseif ( $screen->id == $prefix . '_page_activities-admin-plans' ) {
+      return 'plan';
+    }
 		elseif ( !$table_pages && $screen->id == $prefix . '_page_activities-admin-import' ) {
 			return 'import';
 		}
@@ -550,7 +553,7 @@ class Activities_Admin {
 				$checked = $show ? 'checked' : '';
 				$return .=
 				'<label for="acts_' . esc_attr( $name ) . '">
-				<input type="checkbox" name="acts_columns[' . esc_attr( $name ) . ']" id="acts_' . esc_attr( $name ) . '" ' . $checked . ' />'
+				<input type="checkbox" name="acts_columns[' . esc_attr( $name ) . ']" id="acts_' . esc_attr( $name ) . '" ' . $checked . ' key="' . esc_attr( $name ) . '" />'
 				. wp_filter_nohtml_kses( Activities_Admin_Utility::get_column_display( $name ) )
 				. '</label>';
 			}

@@ -79,9 +79,11 @@
 
 		//Show/hide columns in list tables
 		if ($('#acts_name').length) {
-			var columns = ['short_desc', 'long_desc', 'start', 'end', 'responsible',
-										 'location', 'address', 'description', 'city', 'postcode',
-										 'country', 'categories', 'plan'];
+			var columns = [];
+
+			$('.metabox-prefs [key]').each( function(index, elem) {
+				columns.push($(elem).attr('key'));
+			});
 
 			function toggleColumn(column) {
 				return function() {

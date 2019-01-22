@@ -251,6 +251,7 @@
   height: 150px;
 }
 
+.acts-nice-session-list,
 .acts-plan-textareas {
   display: flex;
   flex-direction: row;
@@ -259,6 +260,7 @@
   width: 100%;
 }
 
+.acts-nice-session-list .acts-nice-session,
 .acts-plan-textareas li {
   width: 49%;
 }
@@ -549,8 +551,7 @@
   width: 36%;
 }
 
-.acts-nice-plan-expand,
-.acts-nice-plan-edit,
+.acts-nice-session-edit,
 .acts-user-quick-edit {
   color: #0073aa;
 }
@@ -572,8 +573,7 @@
   font-size: 16px;
 }
 
-.acts-nice-plan-expand:hover,
-.acts-nice-plan-edit:hover,
+.acts-nice-session-edit:hover,
 .acts-user-quick-edit:hover {
   color: #0085ba;
 }
@@ -705,34 +705,40 @@
 }
 
 .acts-nice-session b,
-.acts-nice-session .acts-nice-plan-edit, {
+.acts-nice-session .acts-nice-session-edit, {
   font-size: 14px;
 }
 
-.acts-nice-plan-expand .dashicons,
-.acts-nice-plan-edit .dashicons {
+.acts-nice-session-expand .dashicons,
+.acts-nice-session-edit .dashicons {
   width: 16px;
   height: 16px;
   font-size: 16px;
   vertical-align: middle;
 }
 
-.acts-nice-plan-edit .dashicons {
+.acts-nice-session-expand .dashicons {
+  display: none;
+}
+
+.acts-nice-session-edit .dashicons {
   visibility: hidden;
 }
 
-.acts-nice-plan-expand:hover,
-.acts-nice-plan-edit:hover {
+.acts-nice-session-edit:hover {
   cursor: pointer;
 }
 
-.acts-nice-plan-edit:hover .dashicons {
+.acts-nice-session-edit:hover .dashicons {
   visibility: visible;
 }
 
 .acts-nice-session-text {
   white-space: pre-wrap;
-  display: none;
+}
+
+.acts-nice-session-empty {
+  color: grey;
 }
 
 .acts-nice-session textarea.acts-nice-session-text {
@@ -815,6 +821,14 @@
   .acts-nice-user-time {
     width: 100% !important;
     border-right: 1px solid black !important;
+  }
+
+  .acts-nice-session-list {
+    flex-direction: column;
+  }
+
+  .acts-nice-session-list .acts-nice-session {
+    width: 100%;
   }
 }
 
@@ -911,6 +925,29 @@
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-height: 782px) {
+  .acts-nice-session-hidden {
+    display: none;
+  }
+
+  .acts-nice-session-expand .dashicons {
+    display: inline;
+  }
+
+  .acts-nice-session-expand {
+    color: #0073aa;
+  }
+
+  .acts-nice-session-expand:hover {
+    cursor: pointer;
+  }
+
+  .acts-nice-session-expand:hover {
+    color: #0085ba;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and down) */
 @media only screen and (max-width: 1200px) {
 
 }

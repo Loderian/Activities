@@ -154,6 +154,24 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     $output .= '</div>';
   }
 
+  //Find the last session marked to make the mark session buttons more intelligent
+  $last_session = 1;
+  if ( isset( $nice_settings['attended'] ) ) {
+    foreach ($nice_settings['attended']  as $uid => $sessions) {
+      for ($t=$nice_settings['time_slots'] - 1; $t >= 0; $t--) {
+        if ( isset( $sessions[$t] ) && $sessions[$t] == '1' ) {
+          if ( $t + 2 > $last_session ) {
+            $last_session = $t + 2; //Add 1 for array offset and 1 for next session
+          }
+          break;
+        }
+      }
+    }
+  }
+  if ($last_session > $nice_settings['time_slots']) {
+    $last_session = $nice_settings['time_slots'];
+  }
+
 	if ( $current_url != null ) {
     $output .= '<h1 id="activities-title">' . esc_html__( 'Activity Report Management', 'activities' ) . '</h1>';
 
@@ -176,7 +194,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     $output .= get_submit_button( esc_html__( 'Save', 'activities' ), 'button-primary',  'save_nice_settings', true, array( 'id' => '' ) );
 
     $output .= '<div id="acts-nice-preview-plan">';
-    $output .= acts_build_plans_box( $activity['plan_id'], $nice_settings['session_map'], $nice_settings['time_slots'] );
+    $output .= acts_build_plans_box( $activity['plan_id'], $nice_settings['session_map'], $nice_settings['time_slots'], $last_session );
     $output .= '</div>';
   }
 
@@ -252,25 +270,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
   $output .= get_submit_button( esc_html__( 'Mark: On', 'activities'), 'button', 'mark_session_on', false, 'mark="on"' ) . ' ';
   $output .= get_submit_button( esc_html__( 'Mark: Off', 'activities'), 'button', 'mark_session_off', false, 'mark="off"');
 
-  //Find the last session marked to make the mark session buttons more intelligent
-  $last_session = 1;
-  if ( isset( $nice_settings['attended'] ) ) {
-    foreach ($nice_settings['attended']  as $uid => $sessions) {
-      for ($t=$nice_settings['time_slots'] - 1; $t >= 0; $t--) {
-        if ( isset( $sessions[$t] ) && $sessions[$t] == '1' ) {
-          if ( $t + 2 > $last_session ) {
-            $last_session = $t + 2; //Add 1 for array offset and 1 for display of next session
-          }
-          break;
-        }
-      }
-    }
-  }
-  if ($last_session > $nice_settings['time_slots']) {
-    $last_session = $nice_settings['time_slots'];
-  }
-
-  $output .= ' <input type="number" min="1" placeholder="1" id="acts-time-mark" value="' . $last_session . '" />';
+  $output .= ' <input type="number" min="1" placeholder="1" id="acts-time-mark" value="' . $last_session. '" />';
   $output .= '</div>';
 
 	$output .= '</div>';
@@ -950,9 +950,10 @@ function acts_nice_meta_key_set() {
  * @param   int     $plan_id Plan saved to activity
  * @param   array   $session_map Mapping of session texts
  * @param   int     $time_slots Amount of time slots (sessions)
+ * @param   int     $last_session The last session someone attended
  * @return  string
  */
-function acts_build_plans_box( $plan_id, $session_map, $time_slots ) {
+function acts_build_plans_box( $plan_id, $session_map, $time_slots, $last_session ) {
   $plan = Activities_Plan::load( $plan_id );
 
   $plan_map = array();
@@ -966,7 +967,7 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots ) {
 
   $output = '<div class="acts-box-padding">';
   $output .= '<h3>' . esc_html( ucfirst( acts_get_multi_item_translation( 'plan', $sessions ) ) ) . '</h3>';
-
+  $output .= '<ul class="acts-nice-session-list">';
   for ($session_id=1; $session_id <= $sessions; $session_id++) {
     $text = '';
     if ( array_key_exists( $session_id, $session_map ) ) {
@@ -975,8 +976,9 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots ) {
     elseif ( array_key_exists( $session_id, $plan_map ) ) {
       $text = $plan_map[$session_id];
     }
-    $output .= acts_build_session_box( $session_id, $text );
+    $output .= acts_build_session_box( $session_id, $text, $last_session );
   }
+  $output .= '</ul>';
   $output .= '<input type="hidden" name="plan_id" value="' . esc_attr( $plan_id ) . '" />';
   $output .= '</div>';
 
@@ -988,16 +990,28 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots ) {
  *
  * @param   int        $session_id Session
  * @param   string     $text Session text
- * @return string
+ * @param   int         $last_session The last session someone attended
+ * @return  string
  */
-function acts_build_session_box( $session_id, $text ) {
-  $output = '<div session="' . $session_id . '" class="acts-nice-session">';
-  $output .= '<b>' . esc_html__( 'Session', 'activities' ) . ' <span>' . $session_id . '</span></b>';
-  $output .= ' | <span class="acts-nice-plan-expand">' . esc_html__( 'Expand', 'activities' ) . '</span>';
-  $output .= ' | <span class="acts-nice-plan-edit">' . esc_html__( 'Edit', 'activities' ) . '<span class="dashicons dashicons-edit"></span></span>';
+function acts_build_session_box( $session_id, $text, $last_session ) {
+  $empty_text = '';
+  if ( $text == '' ) {
+    $empty_text = '<div class="acts-nice-session-empty">' . esc_html__( 'Empty', 'activities' ) . '</div>';
+  }
+  $arrow = ' dashicons-arrow-down';
+  $hidden = ' acts-nice-session-hidden';
+  if ( $session_id == $last_session) {
+    $hidden = '';
+    $arrow = ' dashicons-arrow-up';
+  }
+
+  $output = '<li session="' . $session_id . '" class="acts-nice-session">';
+  $output .= '<b class="acts-nice-session-expand">' . esc_html__( 'Session', 'activities' ) . ' <span >' . $session_id . '</span><span class="dashicons' . $arrow . '"></span></b>';
+  $output .= ' | <span class="acts-nice-session-edit">' . esc_html__( 'Edit', 'activities' ) . '<span class="dashicons dashicons-edit"></span></span>';
   $output .= '</br>';
-  $output .= '<div class="acts-nice-session-text" name="session_map[' . $session_id . ']">' . esc_html( $text ) . '</div>';
-  $output .= '</div>';
+
+  $output .= '<div class="acts-nice-session-text' . $hidden . '" name="session_map[' . $session_id . ']">' . $empty_text . esc_html( $text ) . '</div>';
+  $output .= '</li>';
 
   return $output;
 }

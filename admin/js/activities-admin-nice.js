@@ -163,7 +163,6 @@
     if ($('#acts-nice-settings').length) {
       var prev_times;
       var session_map = {};
-      var session_html = '<div session="1" class="acts-nice-session">' + $('div[session=1]').html() + '</div>';
 
       $('.acts-nice-session').each( function(index, elem) {
         var session = $(elem).attr('session');
@@ -188,21 +187,21 @@
           }
         });
 
-        var plan_box = $('#acts-nice-preview-plan > div');
+        var plan_box = $('.acts-nice-session-list');
         for (var session = start + 1; session <= end; session++) {
-          if ($('div[session=' + session + ']').length) {
+          if ($('.acts-nice-session[session=' + session + ']').length) {
             continue;
           }
-          $(plan_box).append(session_html);
+          $(plan_box).append($('.acts-nice-session[session=1]').clone());
           var new_session = $(plan_box).find('.acts-nice-session:last');
           $(new_session).attr('session', session);
-          $(new_session).find('b span').html(session);
+          $(new_session).find('b span:first').html(session);
           $(new_session).find('.acts-nice-session-text').attr('name', 'session_map[' + session + ']');
           if (session_map.hasOwnProperty(session)) {
             $(new_session).find('.acts-nice-session-text').html(session_map[session]);
           }
           else {
-            new_session.find('.acts-nice-session-text').html('');
+            new_session.find('.acts-nice-session-text').html('<div class="acts-nice-session-empty">' + acts_i18n_nice.empty + '</div>');
           }
         }
       }
@@ -245,7 +244,7 @@
           for (var i = prev_times - 1; i >= times; i--) {
             $('input[type="checkbox"][time=' + i + ']').remove();
             if (i > 0) {
-              $('div[session=' + (i + 1) + ']').remove();
+              $('.acts-nice-session[session=' + (i + 1) + ']').remove();
             }
           }
         }
@@ -680,19 +679,30 @@
     //Activity nice plans
     if ($('#acts-nice-preview-plan').length) {
       function expand_text(session) {
-        $('div[session=' + session + '] .acts-nice-session-text').toggle();
+        var session_li = $('.acts-nice-session[session=' + session + ']');
+        $(session_li).find('.acts-nice-session-text').toggleClass('acts-nice-session-hidden');
+        $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-down');
+        $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-up');
       }
-      $(document).on( 'click', '.acts-nice-plan-expand', function() {
-        expand_text($(this).parent().attr('session'));
+      $(document).on( 'click', '.acts-nice-session-expand', function() {
+        var height = $('html').height();
+        if (height <= 782) {
+          expand_text($(this).parent().attr('session'));
+        }
       });
-      $(document).on( 'click', '.acts-nice-plan-edit', function() {
+      $(document).on( 'click', '.acts-nice-session-edit', function() {
         var textfield = $(this).parent().find('.acts-nice-session-text');
+        var placeholder = '';
+        if ($(textfield).find('.acts-nice-session-empty').length) {
+          placeholder = $(textfield).find('.acts-nice-session-empty').html();
+          $(textfield).find('.acts-nice-session-empty').remove();
+        }
         var name = $(textfield).attr('name');
         var text = $(textfield).html();
         var css = $(textfield).attr('class');
 
         $(textfield).replaceWith( function() {
-          return $('<textarea />', {class: css, name: name}).append(text);
+          return $('<textarea />', {class: css, name: name, placeholder: placeholder}).append(text);
         });
 
         expand_text($(this).parent().attr('session'));

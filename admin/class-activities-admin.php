@@ -87,7 +87,8 @@ class Activities_Admin {
 
     wp_register_script( $this->plugin_name . '-admin-nice-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-nice.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
 		wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n_nice', array(
-			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' )
+			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' ),
+      'empty' => esc_html__( 'Empty', 'activities' )
 		) );
 
     //Enqueue such that selectize works on WooCommerce pages

@@ -964,12 +964,14 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots, $last_sessio
     if ( $plan['sessions'] > $time_slots ) {
       $sessions = $plan['sessions'];
     }
-    $plan_name = '(' . $plan['name'] . ')';
+    $plan_name = $plan['name'];
   }
 
   $output = '<div class="acts-box-padding">';
   $output .= '<h3>' . esc_html( ucfirst( acts_get_multi_item_translation( 'plan', $sessions ) ) );
-  $output .= ' <span style="color: grey;">' . esc_html( $plan_name ) . '</span>';
+  if ( $plan_name != '' ) {
+    $output .= ' <span style="color: grey;">(<span class="acts-nice-plan-name">' . esc_html( $plan_name ) . '</span>)</span>';
+  }
   $output .= '</h3>';
 
   $output .= '<ul class="acts-nice-session-list">';
@@ -985,14 +987,19 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots, $last_sessio
   }
   $output .= '</ul>';
 
-  $output .= '<div>';
-  $output .= '<span class="acts-nice-new-response"></span>';
-
-  $output .= '<span class="acts-nice-new-plan">';
-  $output .= '<input type="text" maxlength="200" placeholder="' . esc_html__( 'Plan Name', 'activities' ) . '" name="new_plan_name" /> ';
-  $output .= get_submit_button( __( 'Create new plan', 'activities' ), 'button-primary', 'create_plan', false );
-  $output .= '</span>';
-  $output .= '</div>';
+  if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
+    $output .= '<div>';
+    $output .= '<span class="acts-nice-new-response"></span>';
+    $output .= '<span class="acts-nice-new-plan">';
+    $output .= '<input type="text" maxlength="200" placeholder="' . esc_html__( 'Plan name', 'activities' ) . '" name="plan_name" value="' . esc_attr( $plan_name ) . '" /> ';
+    $button = __( 'Create plan', 'activities' );
+    if ( $plan_name != '' ) {
+      $button = __( 'Update plan', 'activities' );
+    }
+    $output .= get_submit_button( $button, 'button-primary', 'create_plan', false );
+    $output .= '</span>';
+    $output .= '</div>';
+  }
 
   $output .= '<div class="clear"></div>';
 

@@ -678,16 +678,23 @@
 
     //Activity nice plans
     if ($('#acts-nice-preview-plan').length) {
-      function expand_text(session) {
+      function expand_text(session, edit) {
         var session_li = $('.acts-nice-session[session=' + session + ']');
-        $(session_li).find('.acts-nice-session-text').toggleClass('acts-nice-session-hidden');
-        $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-down');
-        $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-up');
+        if (edit) {
+          $(session_li).find('.acts-nice-session-text').toggleClass('acts-nice-session-hidden', false);
+          $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-down', false);
+          $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-up', true);
+        }
+        else {
+          $(session_li).find('.acts-nice-session-text').toggleClass('acts-nice-session-hidden');
+          $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-down');
+          $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-up');
+        }
       }
       $(document).on( 'click', '.acts-nice-session-expand', function() {
         var height = $('html').height();
         if (height <= 782) {
-          expand_text($(this).parent().attr('session'));
+          expand_text($(this).parent().attr('session'), false);
         }
       });
       $(document).on( 'click', '.acts-nice-session-edit', function() {
@@ -703,13 +710,26 @@
           return $('<textarea />', {class: css, name: name}).append(text);
         });
 
-        expand_text($(this).parent().attr('session'));
+        expand_text($(this).parent().attr('session'), true);
+      });
+
+      var plan_name = '';
+      if ($('.acts-nice-plan-name').length) {
+        plan_name = $('.acts-nice-plan-name').html();
+      }
+      $('input[name=plan_name]').on( 'input', function(event) {
+        if ($(event.target).val() == plan_name) {
+          $('#create_plan').val(acts_i18n_nice.update_plan);
+        }
+        else {
+          $('#create_plan').val(acts_i18n_nice.create_plan);
+        }
       });
 
       $('#create_plan').click( function(event) {
         event.preventDefault();
 
-        var name = $('input[name=new_plan_name]').val();
+        var name = $('input[name=plan_name]').val();
         if (name === '') {
           return;
         }
@@ -737,6 +757,7 @@
           type: 'POST',
           data: {
             action: 'acts_create_plan',
+            item_id: $('input[name=plan_id]').val(),
             name: name,
             session_map: session_map,
             sessions: sessions,

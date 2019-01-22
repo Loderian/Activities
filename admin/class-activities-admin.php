@@ -88,7 +88,9 @@ class Activities_Admin {
     wp_register_script( $this->plugin_name . '-admin-nice-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-nice.js', array( 'jquery', 'wp-color-picker' ), $this->version, false );
 		wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n_nice', array(
 			'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' ),
-      'empty' => esc_html__( 'Empty', 'activities' )
+      'empty' => esc_html__( 'Empty', 'activities' ),
+      'create_plan' => __( 'Create plan', 'activities' ),
+      'update_plan' => __( 'Update plan', 'activities' )
 		) );
 
     //Enqueue such that selectize works on WooCommerce pages
@@ -1021,6 +1023,18 @@ class Activities_Admin {
    */
   public function ajax_create_plan() {
     $plan_map = Activities_Admin_Utility::get_plan_post_values();
+    if ( $plan_map['plan_id'] > 0 ) {
+      $plan = Activities_Plan::load( $plan_map['plan_id'] );
+      if ( $plan['name'] === $plan_map['name'] ) {
+        $update = Activities_Plan::update( $plan_map );
+        if ( $update ) {
+          wp_send_json_success( esc_html__( 'Plan updated!' ) );
+        }
+        else {
+          wp_send_json_error( esc_html__( 'Error!' ) );
+        }
+      }
+    }
     if ( Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
       wp_send_json_error( sprintf( esc_html__( '%s already exists!' ), ('<b>' . $plan_map['name'] . '</b>') ) );
     }

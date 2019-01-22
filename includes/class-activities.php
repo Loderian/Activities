@@ -180,6 +180,7 @@ class Activities {
 		$this->loader->add_action( 'wp_ajax_acts_get_member_info', $plugin_admin, 'ajax_get_member_info' );
     $this->loader->add_action( 'wp_ajax_acts_get_user_info', $plugin_admin, 'ajax_get_user_info' );
     $this->loader->add_action( 'wp_ajax_acts_quick_save', $plugin_admin, 'ajax_acts_quick_save' );
+    $this->loader->add_action( 'wp_ajax_acts_create_plan', $plugin_admin, 'ajax_create_plan' );
     $this->loader->add_action( 'wp_ajax_acts_insert_cat', $plugin_admin, 'ajax_insert_cat' );
     $this->loader->add_action( 'wp_ajax_acts_update_cat', $plugin_admin, 'ajax_update_cat' );
     $this->loader->add_action( 'wp_ajax_acts_delete_cat', $plugin_admin, 'ajax_delete_cat' );

@@ -230,10 +230,11 @@ class Activities_Admin_Utility {
    * @return array Plan info
    */
   static function get_plan_post_values() {
+    $sessions = acts_validate_id( $_POST['sessions'] );
     $plan_map = array(
       'name' => substr( sanitize_text_field( $_POST['name'] ), 0, 200 ),
       'description' => substr( sanitize_textarea_field( $_POST['description'] ), 0, 65535 ),
-      'sessions' => acts_validate_id( $_POST['sessions'] )
+      'sessions' => ($sessions > 0 ? $sessions : 1)
     );
 
     $session_text = array();

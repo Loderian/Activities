@@ -956,6 +956,7 @@ function acts_nice_meta_key_set() {
 function acts_build_plans_box( $plan_id, $session_map, $time_slots, $last_session ) {
   $plan = Activities_Plan::load( $plan_id );
 
+  $plan_name = '';
   $plan_map = array();
   $sessions = $time_slots;
   if ( $plan !== null ) {
@@ -963,10 +964,14 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots, $last_sessio
     if ( $plan['sessions'] > $time_slots ) {
       $sessions = $plan['sessions'];
     }
+    $plan_name = '(' . $plan['name'] . ')';
   }
 
   $output = '<div class="acts-box-padding">';
-  $output .= '<h3>' . esc_html( ucfirst( acts_get_multi_item_translation( 'plan', $sessions ) ) ) . '</h3>';
+  $output .= '<h3>' . esc_html( ucfirst( acts_get_multi_item_translation( 'plan', $sessions ) ) );
+  $output .= ' <span style="color: grey;">' . esc_html( $plan_name ) . '</span>';
+  $output .= '</h3>';
+
   $output .= '<ul class="acts-nice-session-list">';
   for ($session_id=1; $session_id <= $sessions; $session_id++) {
     $text = '';
@@ -979,9 +984,20 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots, $last_sessio
     $output .= acts_build_session_box( $session_id, $text, $last_session );
   }
   $output .= '</ul>';
-  $output .= '<input type="hidden" name="plan_id" value="' . esc_attr( $plan_id ) . '" />';
+
+  $output .= '<div>';
+  $output .= '<span class="acts-nice-new-response"></span>';
+
+  $output .= '<span class="acts-nice-new-plan">';
+  $output .= '<input type="text" maxlength="200" placeholder="' . esc_html__( 'Plan Name', 'activities' ) . '" name="new_plan_name" /> ';
+  $output .= get_submit_button( __( 'Create new plan', 'activities' ), 'button-primary', 'create_plan', false );
+  $output .= '</span>';
   $output .= '</div>';
 
+  $output .= '<div class="clear"></div>';
+
+  $output .= '<input type="hidden" name="plan_id" value="' . esc_attr( $plan_id ) . '" />';
+  $output .= '</div>';
   return $output;
 }
 
@@ -1001,8 +1017,8 @@ function acts_build_session_box( $session_id, $text, $last_session ) {
   $arrow = ' dashicons-arrow-down';
   $hidden = ' acts-nice-session-hidden';
   if ( $session_id == $last_session) {
-    $hidden = '';
     $arrow = ' dashicons-arrow-up';
+    $hidden = '';
   }
 
   $output = '<li session="' . $session_id . '" class="acts-nice-session">';

@@ -692,9 +692,7 @@
       });
       $(document).on( 'click', '.acts-nice-session-edit', function() {
         var textfield = $(this).parent().find('.acts-nice-session-text');
-        var placeholder = '';
         if ($(textfield).find('.acts-nice-session-empty').length) {
-          placeholder = $(textfield).find('.acts-nice-session-empty').html();
           $(textfield).find('.acts-nice-session-empty').remove();
         }
         var name = $(textfield).attr('name');
@@ -702,10 +700,59 @@
         var css = $(textfield).attr('class');
 
         $(textfield).replaceWith( function() {
-          return $('<textarea />', {class: css, name: name, placeholder: placeholder}).append(text);
+          return $('<textarea />', {class: css, name: name}).append(text);
         });
 
         expand_text($(this).parent().attr('session'));
+      });
+
+      $('#create_plan').click( function(event) {
+        event.preventDefault();
+
+        var name = $('input[name=new_plan_name]').val();
+        if (name === '') {
+          return;
+        }
+        var sessions = 0;
+        var session_map = {};
+        $('.acts-nice-session[session]').each( function(index, elem) {
+          var session = $(elem).attr('session');
+          if($(elem).find('.acts-nice-session-text .acts-nice-session-empty').length) {
+            $(elem).find('.acts-nice-session-text .acts-nice-session-empty').remove();
+          }
+          var text = '';
+          if ($(elem).find('div.acts-nice-session-text').length) {
+            text = $(elem).find('div.acts-nice-session-text').html();
+          }
+          else {
+            text = $(elem).find('textarea.acts-nice-session-text').val();
+          }
+
+          session_map[session] = text;
+          sessions++;
+        });
+
+        $.ajax({
+          url: ajaxurl,
+          type: 'POST',
+          data: {
+            action: 'acts_create_plan',
+            name: name,
+            session_map: session_map,
+            sessions: sessions,
+            description: ''
+          },
+          dataType: 'json',
+          success: function(resp) {
+            $('.acts-nice-new-response').toggleClass('acts-response-success', resp.success);
+            $('.acts-nice-new-response').toggleClass('acts-response-error', !resp.success);
+
+            $('.acts-nice-new-response').html(resp.data);
+          },
+          error: function(jqXHR, text, error) {
+            console.error(text);
+          }
+        });
       });
     }
   });

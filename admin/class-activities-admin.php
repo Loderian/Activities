@@ -1015,4 +1015,22 @@ class Activities_Admin {
 
     wp_send_json_error( 'Invalid id' );
   }
+
+  /**
+   * Ajax callback for creating plans on the report page
+   */
+  public function ajax_create_plan() {
+    $plan_map = Activities_Admin_Utility::get_plan_post_values();
+    if ( Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
+      wp_send_json_error( sprintf( esc_html__( '%s already exists!' ), ('<b>' . $plan_map['name'] . '</b>') ) );
+    }
+    $insert = Activities_Plan::insert( $plan_map );
+
+    if ( $insert ) {
+      wp_send_json_success( esc_html__( 'Plan created!' ) );
+    }
+
+    wp_send_json_error( esc_html__( 'Error!' ) );
+  }
+
 }

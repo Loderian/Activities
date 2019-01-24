@@ -42,14 +42,14 @@
         if (show) {
           $(this).find('span:first-child ul').show();
           $(this).siblings('.acts-nice-col2').show();
-          $(this).find('.acts-nice-colapse').show();
+          $(this).find('.acts-nice-collapse').show();
           $(this).find('.acts-nice-expand').hide();
         }
         else {
           //Reset all styles to make browser css rules if the device is rotated
           $(this).find('span:first-child ul').attr('style', '');
           $(this).siblings('.acts-nice-col2').attr('style', '');
-          $(this).find('.acts-nice-colapse').attr('style', '');
+          $(this).find('.acts-nice-collapse').attr('style', '');
           $(this).find('.acts-nice-expand').attr('style', '');
         }
         show = !show;

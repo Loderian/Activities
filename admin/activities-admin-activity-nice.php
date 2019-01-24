@@ -615,7 +615,7 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
 
       $col2 = '<span class="acts-nice-user-name" key="user_email">' . stripslashes( wp_filter_nohtml_kses( $user_info['user_email'] ) ) . '</span>';
     }
-    $col1 .= '<span class="dashicons acts-nice-expand"></span><span class="dashicons acts-nice-colapse"></span>';
+    $col1 .= '<span class="dashicons acts-nice-expand"></span><span class="dashicons acts-nice-collapse"></span>';
     $col1 .= '<ul class="acts-nice-prepared">';
 
     $col2 .= '<ul class="acts-nice-prepared">';
@@ -1013,7 +1013,7 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots, $last_sessio
  *
  * @param   int        $session_id Session
  * @param   string     $text Session text
- * @param   int         $last_session The last session someone attended
+ * @param   int        $last_session The next session after someone attended
  * @return  string
  */
 function acts_build_session_box( $session_id, $text, $last_session ) {
@@ -1023,7 +1023,7 @@ function acts_build_session_box( $session_id, $text, $last_session ) {
   }
   $arrow = ' dashicons-arrow-down';
   $hidden = ' acts-nice-session-hidden';
-  if ( $session_id == $last_session) {
+  if ( $session_id == $last_session || $session_id == $last_session - 1 ) {
     $arrow = ' dashicons-arrow-up';
     $hidden = '';
   }

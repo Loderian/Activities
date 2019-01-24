@@ -3,7 +3,7 @@ Contributors: loderian
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: activities, events, courses, classes, report
 Requires at least: 4.6
-Tested up to: 5.0.0
+Tested up to: 5.0.3
 Stable tag: trunk
 Requires PHP: 7.0.32
 License: GPLv3 or later
@@ -151,10 +151,24 @@ List of data options
 
 == Changelog ==
 
+= 1.1.0 =
+
+* Feature: You can now create plans for your activities
+* Feature: Plans can be seen on the report page when added to an activity
+* Feature: Each report can have their own text for each session without changing the existing plan
+* Feature: Plans can be updated or added as a new plan with the changes you've made on a report
+* Enhancement: Added additional save buttons on the report page when the settings box is hidden
+* Enhancement: Filters are now collapsed on small devices, press the to expand
+* Fix: Changed the default value of datetime columns to NULL to avoid errors in the db
+* Fix: Activities on products can now be fully removed
+* Fix: Handling past orders with variable products should now work correctly
+* Fix: Browser tab title should now be correct
+
 = 1.0.5 =
 
 * Feature: Added categories to activities
 * Feature: You can now duplicate activities
+* Enhancement: Added activity settings to variable products in WooCommerce
 
 = 1.0.4 =
 
@@ -187,6 +201,10 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+
+You can now create plans for your activities!
 
 = 1.0.5 =
 

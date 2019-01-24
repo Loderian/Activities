@@ -43,7 +43,7 @@ function acts_plan_management( $title, $action, $map = null ) {
 
   $output .= Activities_Admin::get_messages();
 
-  $output .= '<form action="' . esc_url( $current_url ) . '" method="post" class="acts-form acts-create-form">';
+  $output .= '<form action="' . esc_url( $current_url ) . '" method="post" id="acts-plan-form" class="acts-form acts-create-form">';
   $output .= '<div class="acts-create-wrap acts-box-wrap acts-box-padding">';
   $output .= '<h3>' . esc_html__( 'Plan Info', 'activities' ) . '</h3>';
   $output .= '<div class="acts-form-columns">';

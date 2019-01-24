@@ -699,6 +699,8 @@ class Activities_Admin {
 				return $admin_title;
 			}
 		}
+
+    return $admin_title;
 	}
 
 	/**

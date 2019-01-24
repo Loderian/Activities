@@ -73,6 +73,10 @@
   height: 31px;
 }
 
+#activities-filter-wrap b .dashicons {
+  float: right;
+}
+
 .acts-filter-buttons {
   vertical-align: bottom;
   margin-top: 10px;
@@ -255,6 +259,10 @@
   min-width: 230px;
 }
 
+#acts-plan-form {
+  width: 100%;
+}
+
 #acts-plan-desc {
   height: 150px;
 }
@@ -271,6 +279,10 @@
 .acts-nice-session-list .acts-nice-session,
 .acts-plan-textareas li {
   width: 49%;
+}
+
+.acts-plan-textareas li textarea {
+  height: 5em;
 }
 
 #acts-import-table {
@@ -767,8 +779,14 @@
 /* Small devices (portrait tablets and large phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .acts-quick-edit-group,
-  .acts-single-column {
+  .acts-single-column,
+  .acts-plan-textareas li {
     width: 100%;
+  }
+
+  .acts-plan-textareas {
+    flex-direction: column;
+    flex-wrap: nowrap;
   }
 
   .acts-edit-types-options .selectize-control {
@@ -818,18 +836,18 @@
   }
 
   .acts-nice-expand,
-  .acts-nice-colapse {
+  .acts-nice-collapse {
     float: right;
   }
 
   .acts-nice-expand::before  {
     content: "\f140";
   }
-  .acts-nice-colapse::before  {
+  .acts-nice-collapse::before  {
     content: "\f142";
   }
 
-  .acts-nice-colapse,
+  .acts-nice-collapse,
   .acts-nice-col2,
   .acts-nice-col1 span:first-child ul {
     display: none;
@@ -875,6 +893,27 @@
     margin-bottom: 15px;
   }
 
+  .acts-filters-title {
+    color: #0073aa;
+    cursor: pointer;
+  }
+
+  .acts-filters-title:hover {
+    color: #0085ba;
+  }
+
+  .acts-filters-expand::before  {
+    content: "\f140";
+  }
+
+  .acts-filters-collapse::before  {
+    content: "\f142";
+  }
+
+  .acts-filters-hidden {
+    display: none;
+  }
+
   #acts-nice-settings {
     right: -12px !important;
     padding-right: 12px !important;
@@ -912,6 +951,25 @@
   }
 }
 
+@media only screen and (max-height: 782px) {
+  .acts-nice-session-hidden {
+    display: none;
+  }
+
+  .acts-nice-session-expand .dashicons {
+    display: inline;
+  }
+
+  .acts-nice-session-expand {
+    color: #0073aa;
+    cursor: pointer;
+  }
+
+  .acts-nice-session-expand:hover {
+    color: #0085ba;
+  }
+}
+
 /* Around this width the report needs to be resized to fit */
 @media only screen and (max-width: 872px) {
   #acts-nice-preview {
@@ -939,29 +997,6 @@
 
   .acts-create-extra-wrap {
     width: 100%;
-  }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (max-height: 782px) {
-  .acts-nice-session-hidden {
-    display: none;
-  }
-
-  .acts-nice-session-expand .dashicons {
-    display: inline;
-  }
-
-  .acts-nice-session-expand {
-    color: #0073aa;
-  }
-
-  .acts-nice-session-expand:hover {
-    cursor: pointer;
-  }
-
-  .acts-nice-session-expand:hover {
-    color: #0085ba;
   }
 }
 

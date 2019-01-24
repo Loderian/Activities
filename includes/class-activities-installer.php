@@ -64,7 +64,7 @@ class Activities_Installer {
 
     $sql_activity = "CREATE TABLE $table_name (
       activity_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-      name varchar(200) NOT NULL UNIQUE,
+      name varchar(180) NOT NULL UNIQUE,
       short_desc tinytext DEFAULT '' NOT NULL,
       long_desc text DEFAULT '' NOT NULL,
       location_id bigint(20) UNSIGNED,
@@ -113,14 +113,13 @@ class Activities_Installer {
 
     $sql_location = "CREATE TABLE $table_name (
       location_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-      name varchar(200) DEFAULT '' NOT NULL,
+      name varchar(180) NOT NULL UNIQUE,
       address varchar(255) DEFAULT '' NOT NULL,
       postcode varchar(12) DEFAULT '' NOT NULL,
       city varchar(100) DEFAULT '' NOT NULL,
       description text DEFAULT '' NOT NULL,
       country varchar(2) DEFAULT '' NOT NULL,
       PRIMARY KEY  (location_id),
-      KEY location_name (name),
       KEY location_add (address)
     ) $charset_collate;";
 
@@ -162,11 +161,10 @@ class Activities_Installer {
 
     $sql_plan = "CREATE TABLE $table_name (
       plan_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-      name varchar(200) NOT NULL,
+      name varchar(180) NOT NULL UNIQUE,
       description text DEFAULT '' NOT NULL,
       sessions smallint(5) NOT NULL,
-      PRIMARY KEY  (plan_id),
-      KEY name (name)
+      PRIMARY KEY  (plan_id)
     ) $charset_collate;";
 
     dbDelta( $sql_plan );
@@ -178,15 +176,15 @@ class Activities_Installer {
   public function install_plans_session_table() {
     global $wpdb;
 
-    $table_name = Activities::get_table_name( 'plan_slot' );
+    $table_name = Activities::get_table_name( 'plan_session' );
 
     $charset_collate = $wpdb->get_charset_collate();
 
     $sql_plan_slot = "CREATE TABLE $table_name (
-      plan_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+      plan_id bigint(20) UNSIGNED NOT NULL,
       session_id smallint(5) NOT NULL,
       text text DEFAULT '' NOT NULL,
-      PRIMARY KEY  (plan_id,slot_id)
+      PRIMARY KEY  (plan_id,session_id)
     ) $charset_collate;";
 
     dbDelta( $sql_plan_slot );

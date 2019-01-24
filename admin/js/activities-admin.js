@@ -361,6 +361,12 @@
 		$('#plan_sessions').on( 'input', function() {
 			update_sessions_textareas();
 		});
+
+		$('.acts-filters-title').click( function() {
+			$(this).find('.dashicons').toggleClass('acts-filters-expand');
+			$(this).find('.dashicons').toggleClass('acts-filters-collapse');
+			$('#activities-filter-wrap form').toggleClass('acts-filters-hidden');
+		});
 	});
 
 })(jQuery);

@@ -38,7 +38,6 @@ class Activities_WooCommerce {
     add_action( 'woocommerce_update_new_customer_past_order', array( __CLASS__, 'resolve_past_order' ), 10, 2 );
     add_action( 'activities_archive_activity', array( __CLASS__, 'remove_selected_activities' ) );
     add_filter( 'woocommerce_prevent_admin_access', array( __CLASS__, 'prevent_access_to_admin' ) );
-
   }
 
   /**
@@ -150,15 +149,17 @@ class Activities_WooCommerce {
       $existing = array( $existing );
     }
 
-    foreach ($selected_acts as $a_id) {
-      $a_id = acts_validate_id( $a_id );
-      if ( $a_id ) {
-        $key = array_search( $a_id, $existing );
-        if ( $key === false && Activities_Activity::exists( $a_id ) ) {
-          add_post_meta( $product_id, self::selected_acts_key, $a_id );
-        }
-        else {
-          unset( $existing[$key] );
+    if ( is_array( $selected_acts ) ) {
+      foreach ($selected_acts as $a_id) {
+        $a_id = acts_validate_id( $a_id );
+        if ( $a_id ) {
+          $key = array_search( $a_id, $existing );
+          if ( $key === false && Activities_Activity::exists( $a_id ) ) {
+            add_post_meta( $product_id, self::selected_acts_key, $a_id );
+          }
+          else {
+            unset( $existing[$key] );
+          }
         }
       }
     }
@@ -182,20 +183,21 @@ class Activities_WooCommerce {
       return;
     }
 
+    $acts = array();
     if ( isset( $_POST[self::selected_acts_key] ) && is_array( $_POST[self::selected_acts_key] ) ) {
-      self::product_save( $post_id, $_POST[self::selected_acts_key] );
+      $acts = $_POST[self::selected_acts_key] ;
     }
 
-    if ( isset( $_POST['handle_past_orders'] ) && !empty( get_post_meta( $post_id, self::selected_acts_key ) ) ) {
+    self::product_save( $post_id, $acts );
+
+    if ( isset( $_POST['handle_past_orders'] ) ) {
       $from_date = sanitize_text_field( $_POST['handle_past_orders_from'] );
       foreach (self::get_orders_by_product_ids( array( $post_id ), $from_date ) as $order_id) {
         self::order_complete( $order_id );
       }
-      if ( $product->get_type() == 'variable' ) {
-        foreach ($product->get_children() as $v_id) {
-          foreach (self::get_orders_by_product_ids( array( $v_id ), $from_date ) as $order_id) {
-            self::order_complete( $order_id );
-          }
+      if ( $product->is_type( 'variable' ) ) {
+        foreach (self::get_orders_by_product_ids( $product->get_children(), $from_date ) as $v_order_id) {
+          self::order_complete( $v_order_id );
         }
       }
     }
@@ -205,9 +207,12 @@ class Activities_WooCommerce {
    *  Callback for saving product variations
    */
   static function product_variation_save( $variation_id, $index ) {
+    $acts = array();
     if ( isset( $_POST['multi' . self::selected_acts_key][$index] ) && is_array( $_POST['multi' . self::selected_acts_key][$index] ) ) {
-      self::product_save( $variation_id, $_POST['multi' . self::selected_acts_key][$index] );
+      $acts = $_POST['multi' . self::selected_acts_key][$index];
     }
+
+    self::product_save( $variation_id, $acts );
   }
 
   /**
@@ -215,6 +220,7 @@ class Activities_WooCommerce {
    *
    * @param   array   $product_ids Array of product ids
    * @param   string  $from_date Only get order after this date
+   * @param   string  $variation Whether this is a product variation or not
    * @return  array   Array of order ids
    */
   static function get_orders_by_product_ids( $product_ids, $from_date = '' ) {
@@ -224,11 +230,19 @@ class Activities_WooCommerce {
       return array();
     }
 
-    $ids = array();
-    foreach ($product_ids as $value) {
-      $ids[] = sprintf( '\'%d\'', $value );
+    $prod_ids = array();
+    $var_ids = array();
+    foreach ($product_ids as $prod_id) {
+      $product = wc_get_product( $prod_id );
+      if ( $product->is_type( 'variation' ) ) {
+        $var_ids[] = sprintf( '\'%d\'', $prod_id );
+      }
+      else {
+        $prod_ids[] = sprintf( '\'%d\'', $prod_id );
+      }
     }
-    $ids = implode( ', ', $ids );
+    $prod_ids = implode( ', ', $prod_ids );
+    $var_ids = implode( ', ', $var_ids );
 
     $date = Activities_Admin_Utility::validate_date( $from_date . ' 00:00:00', 'Y-m-d H:i:s', false );
     $date_filter = '';
@@ -236,18 +250,29 @@ class Activities_WooCommerce {
       $date_filter = sprintf( 'AND posts.post_date >= \'%s\'', $date );
     }
 
-    return $wpdb->get_col("
-      SELECT order_items.order_id
-      FROM {$wpdb->prefix}woocommerce_order_items as order_items
-      LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
-      LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
-      WHERE posts.post_type = 'shop_order'
-      AND posts.post_status = 'wc-completed'
-      AND order_items.order_item_type = 'line_item'
-      AND order_item_meta.meta_key = '_product_id'
-      AND order_item_meta.meta_value IN ($ids)
-      $date_filter"
-    );
+    $all_orders = array();
+    foreach (array( '_product_id' => $prod_ids, '_variation_id' => $var_ids) as $key => $ids) {
+      if ( empty( $ids ) ) {
+        continue;
+      }
+      $all_orders = array_merge(
+        $wpdb->get_col("
+        SELECT order_items.order_id
+        FROM {$wpdb->prefix}woocommerce_order_items as order_items
+        LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
+        LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
+        WHERE posts.post_type = 'shop_order'
+        AND posts.post_status = 'wc-completed'
+        AND order_items.order_item_type = 'line_item'
+        AND order_item_meta.meta_key = '$key'
+        AND order_item_meta.meta_value IN ($ids)
+        $date_filter"
+      ),
+        $all_orders
+      );
+    }
+
+    return $all_orders;
   }
 
   /**
@@ -592,6 +617,12 @@ class Activities_WooCommerce {
     return $coupons_display;
   }
 
+  /**
+   * Prevent admin access filter
+   *
+   * @param   bool  $prevent_admin_access Whether admin access is prevented or not
+   * @return  bool  Prevent admin access or not
+   */
   static function prevent_access_to_admin( $prevent_admin_access ) {
     if ( !current_user_can( ACTIVITIES_ACCESS_ACTIVITIES ) ) {
       return $prevent_admin_access;

@@ -118,8 +118,6 @@ abstract class Activities_List_Table {
   		$current_url = remove_query_arg( 'paged', $current_url );
   	}
 
-    $this->current_url = $current_url;
-
     $this->items = $wpdb->get_results(
       "SELECT $sql_select
        FROM $table_name i
@@ -130,6 +128,8 @@ abstract class Activities_List_Table {
       ",
       ARRAY_A
     );
+
+    $this->current_url = $current_url;
   	//Url ready, start output building
 
   	$output .= $this->field_filters( $filters );
@@ -532,8 +532,8 @@ abstract class Activities_List_Table {
    */
   protected function field_filters( $filters ) {
   	$output = '<div id="activities-filter-wrap" class="acts-box-wrap acts-box-padding">';
-  	$output .= '<b>' . esc_html__( 'Filters', 'activities' ) . '</b>';
-  	$output .= '<form action="' . esc_url( $this->current_url ) . '" method="post" class="acts-form">';
+  	$output .= '<b class="acts-filters-title">' . esc_html__( 'Filters', 'activities' ) . '<span class="dashicons acts-filters-expand"></span></b>';
+  	$output .= '<form class="acts-filters-hidden" action="' . esc_url( $this->current_url ) . '" method="post" class="acts-form">';
 
   	foreach ($filters as $key => $value) {
       $output .= '<div>';
@@ -564,7 +564,9 @@ abstract class Activities_List_Table {
     $output .= get_submit_button( esc_html__( 'Apply', 'activities' ), 'button', 'apply_filters', false ) . ' ';
     $output .= get_submit_button( esc_html__( 'Clear', 'activities' ), 'button', 'clear_filters', false );
     $output .= '</div>';
-  	$output .= '</form></div>';
+
+  	$output .= '</form>';
+    $output .= '</div>';
 
   	return $output;
   }

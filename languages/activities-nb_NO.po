@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: activities\n"
-"POT-Creation-Date: 2019-01-08 16:30+0100\n"
-"PO-Revision-Date: 2019-01-08 16:37+0100\n"
+"POT-Creation-Date: 2019-01-24 15:42+0100\n"
+"PO-Revision-Date: 2019-01-24 15:48+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: admin/activities-admin-activities.php:23
 #: admin/activities-admin-archive.php:23 admin/activities-admin-export.php:23
 #: admin/activities-admin-import.php:21 admin/activities-admin-locations.php:23
-#: admin/activities-admin-options.php:21
+#: admin/activities-admin-options.php:21 admin/activities-admin-plans.php:23
 msgid "Access Denied"
 msgstr "Tilgang Nektet"
 
@@ -87,7 +87,7 @@ msgid "Archive Activities"
 msgstr "Arkiver Aktiviteter"
 
 #: admin/activities-admin-activities.php:141
-#: includes/class-activities-list-table.php:247
+#: includes/class-activities-activity-list-table.php:162
 msgid "Change Location"
 msgstr "Endre sted"
 
@@ -97,7 +97,7 @@ msgstr "Endre ansvarlig bruker"
 
 #: admin/activities-admin-activities.php:149
 #: admin/activities-admin-activities.php:192
-#: includes/class-activities-list-table.php:249
+#: includes/class-activities-activity-list-table.php:164
 msgid "Change Participants"
 msgstr "Endre deltakere"
 
@@ -108,9 +108,9 @@ msgstr "Velg en lagringsmetode."
 #. Plugin Name of the plugin/theme
 #: admin/activities-admin-activities.php:202
 #: admin/activities-admin-import.php:40 admin/activities-admin-import.php:280
-#: admin/class-activities-admin.php:112 admin/class-activities-admin.php:114
-#: admin/class-activities-admin.php:182 admin/class-activities-admin.php:393
-#: includes/class-activities-woocommerce.php:52
+#: admin/class-activities-admin.php:118 admin/class-activities-admin.php:120
+#: admin/class-activities-admin.php:202 admin/class-activities-admin.php:413
+#: includes/class-activities-woocommerce.php:51
 msgid "Activities"
 msgstr "Aktiviteter"
 
@@ -147,378 +147,418 @@ msgstr ""
 "Rapport innstillinger er oppdatert for %s, og har gjort standard for alle "
 "aktiviteter."
 
-#: admin/activities-admin-activity-nice.php:88
+#: admin/activities-admin-activity-nice.php:85
 msgid "First Name"
 msgstr "Fornavn"
 
-#: admin/activities-admin-activity-nice.php:89
+#: admin/activities-admin-activity-nice.php:86
 msgid "Last Name"
 msgstr "Etternavn"
 
-#: admin/activities-admin-activity-nice.php:90
+#: admin/activities-admin-activity-nice.php:87
 msgid "User"
 msgstr "Bruker"
 
-#: admin/activities-admin-activity-nice.php:103
+#: admin/activities-admin-activity-nice.php:100
 msgid "Billing"
 msgstr "Fakturering"
 
-#: admin/activities-admin-activity-nice.php:104
+#: admin/activities-admin-activity-nice.php:101
 msgid "Shipping"
 msgstr "Frakt"
 
-#: admin/activities-admin-activity-nice.php:144
-#: admin/activities-admin-activity-nice.php:290
+#: admin/activities-admin-activity-nice.php:141
+#: admin/activities-admin-activity-nice.php:294
 msgid "Custom Fields"
 msgstr "Egendefinerte felter"
 
-#: admin/activities-admin-activity-nice.php:152
-#: admin/activities-admin-activity-nice.php:337
-#: admin/activities-admin-activity.php:77
-#: admin/activities-admin-activity.php:158
+#: admin/activities-admin-activity-nice.php:149
+#: admin/activities-admin-activity-nice.php:194
+#: admin/activities-admin-activity-nice.php:341
+#: admin/activities-admin-activity-nice.php:362
+#: admin/activities-admin-activity.php:78
+#: admin/activities-admin-activity.php:173
 #: admin/activities-admin-location.php:84
-#: admin/activities-admin-options.php:196 admin/class-activities-admin.php:545
+#: admin/activities-admin-options.php:196 admin/activities-admin-plan.php:86
+#: admin/class-activities-admin.php:568
 msgid "Save"
 msgstr "Lagre"
 
-#: admin/activities-admin-activity-nice.php:154
+#: admin/activities-admin-activity-nice.php:151
 msgid "Open user page"
 msgstr "Åpne bruker siden"
 
-#: admin/activities-admin-activity-nice.php:161
+#: admin/activities-admin-activity-nice.php:176
 msgid "Activity Report Management"
 msgstr "Aktivitetsrapport Behandling"
 
-#: admin/activities-admin-activity-nice.php:166
-#: admin/class-activities-admin.php:673
+#: admin/activities-admin-activity-nice.php:181
+#: admin/class-activities-admin.php:696
 msgid "Report"
 msgstr "Rapport"
 
-#: admin/activities-admin-activity-nice.php:186
+#: admin/activities-admin-activity-nice.php:211
 #: admin/activities-admin-archive.php:58
 msgid "Activity"
 msgstr "Aktivitet"
 
-#: admin/activities-admin-activity-nice.php:214
+#: admin/activities-admin-activity-nice.php:239
 msgid "Settings"
 msgstr "Innstillinger"
 
-#: admin/activities-admin-activity-nice.php:216
-msgid "default"
-msgstr "standard"
-
-#: admin/activities-admin-activity-nice.php:216
-msgid "custom"
-msgstr "egendefinert"
-
-#: admin/activities-admin-activity-nice.php:220
+#: admin/activities-admin-activity-nice.php:242
 msgid "Header"
 msgstr "Toppfelt"
 
-#: admin/activities-admin-activity-nice.php:222
+#: admin/activities-admin-activity-nice.php:244
 msgid "Logo"
 msgstr "Logo"
 
-#: admin/activities-admin-activity-nice.php:223
+#: admin/activities-admin-activity-nice.php:245
 msgid "Select Logo"
 msgstr "Velg Logo"
 
-#: admin/activities-admin-activity-nice.php:224
+#: admin/activities-admin-activity-nice.php:246
 msgid "Remove Logo"
 msgstr "Fjern Logo"
 
-#: admin/activities-admin-activity-nice.php:232
-#: admin/activities-admin-activity.php:87
+#: admin/activities-admin-activity-nice.php:254
+#: admin/activities-admin-activity.php:88
 msgid "Activity Info"
 msgstr "Aktivitetsinformasjon"
 
-#: admin/activities-admin-activity-nice.php:235
-#: admin/activities-admin-activity-nice.php:407
+#: admin/activities-admin-activity-nice.php:257
+#: admin/activities-admin-activity-nice.php:412
 msgid "Start"
 msgstr "Start"
 
-#: admin/activities-admin-activity-nice.php:236
-#: admin/activities-admin-activity-nice.php:412
+#: admin/activities-admin-activity-nice.php:258
+#: admin/activities-admin-activity-nice.php:417
 msgid "End"
 msgstr "Slutt"
 
-#: admin/activities-admin-activity-nice.php:237
-#: admin/activities-admin-activity.php:92
-#: admin/class-activities-admin-utility.php:379
+#: admin/activities-admin-activity-nice.php:259
+#: admin/activities-admin-activity.php:93
+#: admin/class-activities-admin-utility.php:386
 msgid "Short Description"
 msgstr "Kort Beskrivelse"
 
-#: admin/activities-admin-activity-nice.php:238
+#: admin/activities-admin-activity-nice.php:260
 msgid "Location Address"
 msgstr "Stedsadresse"
 
-#: admin/activities-admin-activity-nice.php:239
+#: admin/activities-admin-activity-nice.php:261
 msgid "Responsible User"
 msgstr "Ansvarlig Bruker"
 
-#: admin/activities-admin-activity-nice.php:240
-#: admin/activities-admin-activity.php:94
-#: admin/class-activities-admin-utility.php:383
+#: admin/activities-admin-activity-nice.php:262
+#: admin/activities-admin-activity.php:95
+#: admin/class-activities-admin-utility.php:390
 msgid "Long Description"
 msgstr "Lang Beskrivelse"
 
-#: admin/activities-admin-activity-nice.php:245
-#: admin/activities-admin-activity-nice.php:466
+#: admin/activities-admin-activity-nice.php:267
+#: admin/activities-admin-activity-nice.php:471
+#: admin/activities-admin-plan.php:53
+#: admin/class-activities-admin-utility.php:436
 msgid "Sessions"
 msgstr "Økter"
 
-#: admin/activities-admin-activity-nice.php:247
+#: admin/activities-admin-activity-nice.php:269
 msgid "Mark Sessions"
 msgstr "Merk økter"
 
-#: admin/activities-admin-activity-nice.php:248
+#: admin/activities-admin-activity-nice.php:270
 msgid "Mark: On"
 msgstr "Merk: På"
 
-#: admin/activities-admin-activity-nice.php:249
+#: admin/activities-admin-activity-nice.php:271
 msgid "Mark: Off"
 msgstr "Merk: Av"
 
-#: admin/activities-admin-activity-nice.php:277
+#: admin/activities-admin-activity-nice.php:281
 msgid "Participant Info"
 msgstr "Deltaker info"
 
-#: admin/activities-admin-activity-nice.php:278
+#: admin/activities-admin-activity-nice.php:282
 msgid "Reload Info"
 msgstr "Oppdater info"
 
-#: admin/activities-admin-activity-nice.php:281
+#: admin/activities-admin-activity-nice.php:285
 msgid "Prepared Setups"
 msgstr "Klargjorte oppsett"
 
-#: admin/activities-admin-activity-nice.php:290
-#: admin/activities-admin-activity-nice.php:321
+#: admin/activities-admin-activity-nice.php:294
+#: admin/activities-admin-activity-nice.php:325
 msgid "advanced"
 msgstr "avansert"
 
-#: admin/activities-admin-activity-nice.php:291
+#: admin/activities-admin-activity-nice.php:295
 msgid "Type in usermeta key, then press reload info."
 msgstr "Skriv inn en bruker-meta felt, også trykk på Oppdater info."
 
-#: admin/activities-admin-activity-nice.php:292
+#: admin/activities-admin-activity-nice.php:296
 msgid "Seperate multiple fields in one line by a comma."
 msgstr "Skill flere felt på en linje med et komma."
 
-#: admin/activities-admin-activity-nice.php:309
-#: admin/activities-admin-activity-nice.php:314
+#: admin/activities-admin-activity-nice.php:313
+#: admin/activities-admin-activity-nice.php:318
 #, php-format
 msgid "%s Column"
 msgstr "%s-kolonne"
 
-#: admin/activities-admin-activity-nice.php:309
-#: admin/activities-admin-activity-nice.php:461
+#: admin/activities-admin-activity-nice.php:313
+#: admin/activities-admin-activity-nice.php:466
 #: admin/activities-admin-generic.php:89 admin/activities-admin-import.php:45
 msgid "Participants"
 msgstr "Deltakere"
 
-#: admin/activities-admin-activity-nice.php:314
-#: admin/activities-admin-activity-nice.php:465
+#: admin/activities-admin-activity-nice.php:318
+#: admin/activities-admin-activity-nice.php:470
 msgid "Additional Info"
 msgstr "Tillegg Info"
 
-#: admin/activities-admin-activity-nice.php:321
+#: admin/activities-admin-activity-nice.php:325
 msgid "Color Fields"
 msgstr "Fargefelt"
 
-#: admin/activities-admin-activity-nice.php:322
+#: admin/activities-admin-activity-nice.php:326
 msgid "Colorize usermeta data for quicker identification."
 msgstr "Fargelegg bruker data for raskere identifikasjon."
 
-#: admin/activities-admin-activity-nice.php:339
+#: admin/activities-admin-activity-nice.php:343
 msgid "Print"
 msgstr "Print"
 
-#: admin/activities-admin-activity-nice.php:340
+#: admin/activities-admin-activity-nice.php:344
 msgid "Folder Print"
 msgstr "Mappe Print"
 
-#: admin/activities-admin-activity-nice.php:342
+#: admin/activities-admin-activity-nice.php:346
 #: admin/activities-admin-import.php:249 admin/activities-admin-import.php:305
 #: admin/activities-admin-import.php:420 admin/activities-admin-import.php:543
-#: includes/class-activities-woocommerce.php:383
-#: includes/class-activities-woocommerce.php:540
+#: includes/class-activities-woocommerce.php:408
+#: includes/class-activities-woocommerce.php:565
 msgid "Return"
 msgstr "Retuner"
 
-#: admin/activities-admin-activity-nice.php:346
+#: admin/activities-admin-activity-nice.php:350
 msgid "Make default"
 msgstr "Angi som standard"
 
-#: admin/activities-admin-activity-nice.php:347
+#: admin/activities-admin-activity-nice.php:351
 msgid "Reset to default"
 msgstr "Reset til standard"
 
-#: admin/activities-admin-activity-nice.php:401
+#: admin/activities-admin-activity-nice.php:406
 msgid "Activity Participants List"
 msgstr "Aktivitetsdeltakere Liste"
 
-#: admin/activities-admin-activity-nice.php:425
-#: admin/activities-admin-activity.php:121
+#: admin/activities-admin-activity-nice.php:430
+#: admin/activities-admin-activity.php:122
 #: admin/activities-admin-generic.php:54
 #: admin/activities-admin-locations.php:62
 #: admin/activities-admin-locations.php:92
 #: admin/activities-admin-locations.php:100
-#: admin/class-activities-admin-utility.php:401
+#: admin/class-activities-admin-utility.php:408
 msgid "Location"
 msgstr "Sted"
 
-#: admin/activities-admin-activity-nice.php:442
-#: admin/activities-admin-activity.php:103
+#: admin/activities-admin-activity-nice.php:447
+#: admin/activities-admin-activity.php:104
 #: admin/activities-admin-generic.php:68
-#: admin/class-activities-admin-utility.php:396
+#: admin/class-activities-admin-utility.php:403
 msgid "Responsible"
 msgstr "Ansvarlig"
 
-#: admin/activities-admin-activity-nice.php:458
+#: admin/activities-admin-activity-nice.php:463
 msgid "Participant"
 msgstr "Deltaker"
 
-#: admin/activities-admin-activity-nice.php:539
+#: admin/activities-admin-activity-nice.php:544
 msgid "This activity has no participants."
 msgstr "Denne aktiviteten har ingen deltakere."
 
-#: admin/activities-admin-activity-nice.php:706
+#: admin/activities-admin-activity-nice.php:711
 msgid "Wordpress User Info"
 msgstr "WordPress Bruker Info"
 
-#: admin/activities-admin-activity-nice.php:709
+#: admin/activities-admin-activity-nice.php:714
 msgid "Woocommerce Billing Info"
 msgstr "Woocommerce Fakturerings Info"
 
-#: admin/activities-admin-activity-nice.php:710
+#: admin/activities-admin-activity-nice.php:715
 msgid "Woocommerce Shipping Info"
 msgstr "Woocommerce Sendings Info"
 
-#: admin/activities-admin-activity-nice.php:793
-#: admin/activities-admin-activity-nice.php:794
-#: admin/activities-admin-activity-nice.php:800
-#: admin/activities-admin-activity-nice.php:801
+#: admin/activities-admin-activity-nice.php:798
+#: admin/activities-admin-activity-nice.php:799
+#: admin/activities-admin-activity-nice.php:805
+#: admin/activities-admin-activity-nice.php:806
 #, php-format
 msgid "Address %d"
 msgstr "Adresselinje %d"
 
-#: admin/activities-admin-activity-nice.php:795
-#: admin/activities-admin-activity-nice.php:802
+#: admin/activities-admin-activity-nice.php:800
+#: admin/activities-admin-activity-nice.php:807
 #: admin/activities-admin-location.php:55
-#: admin/class-activities-admin-utility.php:413
+#: admin/class-activities-admin-utility.php:420
 msgid "City"
 msgstr "By"
 
-#: admin/activities-admin-activity-nice.php:796
-#: admin/activities-admin-activity-nice.php:803
+#: admin/activities-admin-activity-nice.php:801
+#: admin/activities-admin-activity-nice.php:808
 #: admin/activities-admin-location.php:53
-#: admin/class-activities-admin-utility.php:417
+#: admin/class-activities-admin-utility.php:424
 msgid "Postcode"
 msgstr "Postnummer"
 
-#: admin/activities-admin-activity-nice.php:797
+#: admin/activities-admin-activity-nice.php:802
 #: admin/activities-admin-export.php:268
 msgid "Phone"
 msgstr "Mobilnummer"
 
-#: admin/activities-admin-activity-nice.php:879
+#: admin/activities-admin-activity-nice.php:884
 #: admin/activities-admin-location.php:65
 msgid "No Country"
 msgstr "Ingen land"
 
-#: admin/activities-admin-activity.php:50
+#: admin/activities-admin-activity-nice.php:994
+msgid "Plan name"
+msgstr "Plan navn"
+
+#: admin/activities-admin-activity-nice.php:995
+#: admin/class-activities-admin.php:92
+msgid "Create plan"
+msgstr "Opprett plan"
+
+#: admin/activities-admin-activity-nice.php:997
+#: admin/class-activities-admin.php:93
+msgid "Update plan"
+msgstr "Oppdater plan"
+
+#: admin/activities-admin-activity-nice.php:1022
+#: admin/class-activities-admin.php:91
+msgid "Empty"
+msgstr "Tom"
+
+#: admin/activities-admin-activity-nice.php:1032
+#: admin/class-activities-admin.php:85
+msgid "Session"
+msgstr "Økt"
+
+#: admin/activities-admin-activity-nice.php:1033
+#: includes/class-activities-activity-list-table.php:339
+#: includes/class-activities-location-list-table.php:119
+#: includes/class-activities-plan-list-table.php:97
+msgid "Edit"
+msgstr "Rediger"
+
+#: admin/activities-admin-activity.php:51
 msgid "No Category Parent"
 msgstr "Ingen Forelderkategori"
 
-#: admin/activities-admin-activity.php:66
+#: admin/activities-admin-activity.php:67
 msgid "Category"
 msgstr "Kategori"
 
-#: admin/activities-admin-activity.php:68
-#: admin/activities-admin-activity.php:90 admin/activities-admin-export.php:269
-#: admin/activities-admin-location.php:49
-#: admin/class-activities-admin-utility.php:375
-#: admin/class-activities-admin.php:528
+#: admin/activities-admin-activity.php:69
+#: admin/activities-admin-activity.php:91 admin/activities-admin-export.php:269
+#: admin/activities-admin-location.php:49 admin/activities-admin-plan.php:51
+#: admin/class-activities-admin-utility.php:382
+#: admin/class-activities-admin.php:551
 msgid "Name"
 msgstr "Navn"
 
-#: admin/activities-admin-activity.php:69
-#: admin/activities-admin-activity.php:182
+#: admin/activities-admin-activity.php:70
+#: admin/activities-admin-activity.php:197
 msgid "Category Name"
 msgstr "Kategorinavn"
 
-#: admin/activities-admin-activity.php:70
+#: admin/activities-admin-activity.php:71
 msgid "Category Parent"
 msgstr "Forelderkategori"
 
-#: admin/activities-admin-activity.php:73
-#: admin/activities-admin-location.php:72
-#: admin/class-activities-admin-utility.php:409
+#: admin/activities-admin-activity.php:74
+#: admin/activities-admin-location.php:72 admin/activities-admin-plan.php:58
+#: admin/class-activities-admin-utility.php:416
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: admin/activities-admin-activity.php:78
-#: includes/class-activities-list-table.php:260
-#: includes/class-activities-list-table.php:267
-#: includes/class-activities-list-table.php:535
-#: includes/class-activities-list-table.php:542
+#: admin/activities-admin-activity.php:79
+#: includes/class-activities-activity-list-table.php:174
+#: includes/class-activities-activity-list-table.php:352
+#: includes/class-activities-location-list-table.php:39
+#: includes/class-activities-location-list-table.php:120
+#: includes/class-activities-plan-list-table.php:51
+#: includes/class-activities-plan-list-table.php:98
 msgid "Delete"
 msgstr "Slett"
 
-#: admin/activities-admin-activity.php:99
+#: admin/activities-admin-activity.php:100
 msgid "Start date"
 msgstr "Startdato"
 
-#: admin/activities-admin-activity.php:101
+#: admin/activities-admin-activity.php:102
 msgid "End date"
 msgstr "Sluttdato"
 
-#: admin/activities-admin-activity.php:113
+#: admin/activities-admin-activity.php:114
 #: admin/activities-admin-generic.php:75
 msgid "No Responsible"
 msgstr "Ingen ansvarlig"
 
-#: admin/activities-admin-activity.php:130
+#: admin/activities-admin-activity.php:131
 #: admin/activities-admin-generic.php:61
 msgid "No Location"
 msgstr "Ingen sted"
 
-#: admin/activities-admin-activity.php:138
+#: admin/activities-admin-activity.php:136 admin/activities-admin-plans.php:89
+#: admin/activities-admin-plans.php:97
+#: admin/class-activities-admin-utility.php:440
+msgid "Plan"
+msgstr "Plan"
+
+#: admin/activities-admin-activity.php:145
+msgid "No Plan"
+msgstr "Ingen Plan"
+
+#: admin/activities-admin-activity.php:153
 msgid "Activity Participants"
 msgstr "Aktivitetsdeltakere"
 
-#: admin/activities-admin-activity.php:154
-#: admin/activities-admin-location.php:80
+#: admin/activities-admin-activity.php:169
+#: admin/activities-admin-location.php:80 admin/activities-admin-plan.php:82
 msgid "Create"
 msgstr "Opprett"
 
-#: admin/activities-admin-activity.php:166
-#: includes/class-activities-list-table.php:266
-#: includes/class-activities-list-table.php:541
+#: admin/activities-admin-activity.php:181
+#: includes/class-activities-activity-list-table.php:173
+#: includes/class-activities-activity-list-table.php:351
 msgid "Activate"
 msgstr "Aktiver"
 
-#: admin/activities-admin-activity.php:168
-#: admin/activities-admin-generic.php:127
-#: admin/activities-admin-generic.php:157
-#: admin/activities-admin-location.php:89
+#: admin/activities-admin-activity.php:183
+#: admin/activities-admin-generic.php:132
+#: admin/activities-admin-generic.php:162
+#: admin/activities-admin-location.php:89 admin/activities-admin-plan.php:91
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: admin/activities-admin-activity.php:180
-#: admin/class-activities-admin-utility.php:425
+#: admin/activities-admin-activity.php:195
+#: admin/class-activities-admin-utility.php:432
 msgid "Categories"
 msgstr "Kategorier"
 
-#: admin/activities-admin-activity.php:186
+#: admin/activities-admin-activity.php:201
 msgid "Create Category"
 msgstr "Opprett kategori"
 
-#: admin/activities-admin-activity.php:194
+#: admin/activities-admin-activity.php:209
 msgid "Primary"
 msgstr "Primær"
 
-#: admin/activities-admin-activity.php:195
+#: admin/activities-admin-activity.php:210
 msgid "Additional"
 msgstr "Tillegg"
 
@@ -539,7 +579,7 @@ msgstr "Aktiver Aktiviteter"
 msgid "Delete Activities"
 msgstr "Slett Aktiviteter"
 
-#: admin/activities-admin-archive.php:103 admin/class-activities-admin.php:119
+#: admin/activities-admin-archive.php:103 admin/class-activities-admin.php:126
 msgid "Activities Archive"
 msgstr "Aktivitetsarkiv"
 
@@ -577,7 +617,7 @@ msgstr "%d brukere mangler data"
 msgid "You are not allowed to export this activity."
 msgstr "Du har ikke lov til å eksportere denne aktiviteten."
 
-#: admin/activities-admin-export.php:144 admin/class-activities-admin.php:117
+#: admin/activities-admin-export.php:144 admin/class-activities-admin.php:124
 msgid "Activities Export"
 msgstr "Aktiviteter Eksport"
 
@@ -597,9 +637,9 @@ msgstr "Velg Bruker Data"
 msgid "Select Delimiter"
 msgstr "Velg Skilletegn"
 
-#: admin/activities-admin-export.php:186 admin/class-activities-admin.php:117
-#: includes/class-activities-list-table.php:527
-#: includes/class-activities-list-table.php:540
+#: admin/activities-admin-export.php:186 admin/class-activities-admin.php:124
+#: includes/class-activities-activity-list-table.php:342
+#: includes/class-activities-activity-list-table.php:349
 msgid "Export"
 msgstr "Eksporter"
 
@@ -674,7 +714,7 @@ msgstr "Advarsel: Aktiviteter kan ikke gjenopprettes etter sletting."
 
 #: admin/activities-admin-generic.php:113
 #: admin/activities-admin-location.php:51
-#: admin/class-activities-admin-utility.php:405
+#: admin/class-activities-admin-utility.php:412
 msgid "Address"
 msgstr "Adresse"
 
@@ -687,34 +727,61 @@ msgstr "Er du sikker på at du vil slette %d steder?"
 msgid "Warning: Locations cannot be recovered after deletion."
 msgstr "Advarsel: Steder kan ikke gjenopprettes etter sletting."
 
-#: admin/activities-admin-generic.php:126
-#: admin/activities-admin-generic.php:156
+#: admin/activities-admin-generic.php:123
+#, php-format
+msgid "Are you sure you want to delete %d plans?"
+msgstr "Er du sikker på at du vil slette %d planer?"
+
+#: admin/activities-admin-generic.php:124
+msgid "Warning: Plans cannot be recovered after deletion."
+msgstr "Advarsel: Planer kan ikke gjenopprettes etter sletting."
+
+#: admin/activities-admin-generic.php:131
+#: admin/activities-admin-generic.php:161
 msgid "Confirm"
 msgstr "Bekreft"
 
-#: admin/activities-admin-generic.php:146
+#: admin/activities-admin-generic.php:151
 #, php-format
 msgid "Delete %s"
 msgstr "Slett %s"
 
-#: admin/activities-admin-generic.php:149
+#: admin/activities-admin-generic.php:154
 #, php-format
 msgid "Selected %s"
 msgstr "Valgte %s"
 
-#: admin/activities-admin-generic.php:151
+#: admin/activities-admin-generic.php:156
 #, php-format
 msgid "Are you sure you want to delete this %s?"
 msgstr "Er du sikker på at du vil slette denne %s?"
 
-#: admin/activities-admin-generic.php:152
+#: admin/activities-admin-generic.php:157
 #, php-format
 msgid "Warning: %s cannot be recovered after deletion."
 msgstr "Advarsel: %s kan ikke gjenopprettes etter sletting."
 
-#: admin/activities-admin-generic.php:190
+#: admin/activities-admin-generic.php:195
 msgid "None"
 msgstr "Ingen"
+
+#: admin/activities-admin-generic.php:275
+msgid "activity"
+msgid_plural "activities"
+msgstr[0] "aktivitet"
+msgstr[1] "aktiviteter"
+
+#: admin/activities-admin-generic.php:279
+msgid "location"
+msgid_plural "locations"
+msgstr[0] "sted"
+msgstr[1] "steder"
+
+#: admin/activities-admin-generic.php:283
+msgid "plan"
+msgid_plural "plans"
+msgstr[0] "plan"
+msgstr[1] "planer"
 
 #: admin/activities-admin-import.php:31
 msgid "Select Importer"
@@ -732,7 +799,7 @@ msgstr "Importer aktiviteter fra en CSV-fil."
 msgid "Import activities and participants from a CSV file."
 msgstr "Importer aktiviteter og deltakere fra en CSV-fil."
 
-#: admin/activities-admin-import.php:61 admin/class-activities-admin.php:116
+#: admin/activities-admin-import.php:61 admin/class-activities-admin.php:123
 msgid "Activities Import"
 msgstr "Aktiviteter Import"
 
@@ -847,7 +914,7 @@ msgid "Archived activities cannot be changed."
 msgstr "Arkiverte aktiviteter kan ikke endres."
 
 #: admin/activities-admin-import.php:248 admin/activities-admin-import.php:304
-#: admin/class-activities-admin.php:116
+#: admin/class-activities-admin.php:123
 msgid "Import"
 msgstr "Importer"
 
@@ -927,7 +994,7 @@ msgstr "Sted Info"
 
 #: admin/activities-admin-location.php:57
 #: admin/activities-admin-options.php:474
-#: admin/class-activities-admin-utility.php:421
+#: admin/class-activities-admin-utility.php:428
 msgid "Country"
 msgstr "Land"
 
@@ -961,7 +1028,7 @@ msgid "An error occured updating location: %s"
 msgstr "Det oppstod en feil under oppdatering av sted: %s"
 
 #: admin/activities-admin-locations.php:115
-#: includes/class-activities-list-table.php:259
+#: includes/class-activities-location-list-table.php:38
 msgid "Change Address"
 msgstr "Endre adresse"
 
@@ -970,7 +1037,7 @@ msgid "Delete Locations"
 msgstr "Slett Steder"
 
 #: admin/activities-admin-locations.php:145
-#: admin/class-activities-admin.php:115
+#: admin/class-activities-admin.php:121
 msgid "Locations"
 msgstr "Steder"
 
@@ -1002,7 +1069,7 @@ msgstr "Kan være Ansvarlig"
 msgid "Options has been updated."
 msgstr "Innstillingene er oppdatert."
 
-#: admin/activities-admin-options.php:162 admin/class-activities-admin.php:118
+#: admin/activities-admin-options.php:162 admin/class-activities-admin.php:125
 msgid "Activities Options"
 msgstr "Aktiviteter Innstillinger"
 
@@ -1187,81 +1254,140 @@ msgstr "Se og redigere tilordnede aktiviteter"
 msgid "Textarea"
 msgstr "Tekstområde"
 
+#: admin/activities-admin-plan.php:48
+msgid "Plan Info"
+msgstr "Plan Info"
+
+#: admin/activities-admin-plan.php:69
+#, php-format
+msgid "Session %d"
+msgstr "Økt %d"
+
+#: admin/activities-admin-plans.php:34 admin/activities-admin-plans.php:49
+#: admin/activities-admin-plans.php:61
+msgid "Create New Plan"
+msgstr "Opprett Ny Plan"
+
+#: admin/activities-admin-plans.php:39 admin/activities-admin-plans.php:85
+#: admin/activities-admin-plans.php:91
+msgid "Edit Plan"
+msgstr "Rediger Plan"
+
+#: admin/activities-admin-plans.php:48
+msgid "The plan must have a name."
+msgstr "Planen må ha et navn."
+
+#: admin/activities-admin-plans.php:56
+#, php-format
+msgid "An error occured creating plan: %s"
+msgstr "Det oppstod en feil under oppretting av plan: %s"
+
+#: admin/activities-admin-plans.php:60
+#, php-format
+msgid "An plan with name: %s already exists."
+msgstr "En plan med navn: %s finnes allerede."
+
+#: admin/activities-admin-plans.php:72 admin/activities-admin-plans.php:79
+#, php-format
+msgid "An error occured updating plan: %s"
+msgstr "Det oppstod en feil under oppdatering av plan: %s"
+
+#: admin/activities-admin-plans.php:83
+#, php-format
+msgid "A plan with name %s already exists."
+msgstr "Det finnes allerede en plan med navnet %s."
+
+#: admin/activities-admin-plans.php:112
+msgid "Delete Plans"
+msgstr "Slette Planer"
+
+#: admin/activities-admin-plans.php:134 admin/class-activities-admin.php:122
+msgid "Plans"
+msgstr "Planer"
+
+#: admin/activities-admin-plans.php:136
+msgid "Create new plan"
+msgstr "Opprett ny plan"
+
 #: admin/class-activities-admin-utility.php:32
 msgid "Could not verify activity report data integrity."
 msgstr "Kan ikke bekrefte dataintegritet for aktivitetsrapport."
 
-#: admin/class-activities-admin-utility.php:387
+#: admin/class-activities-admin-utility.php:394
 msgid "Start Date"
 msgstr "Startdato"
 
-#: admin/class-activities-admin-utility.php:391
+#: admin/class-activities-admin-utility.php:398
 msgid "End Date"
 msgstr "Sluttdato"
 
-#: admin/class-activities-admin.php:87
+#: admin/class-activities-admin.php:90
 msgid "Select a logo for the activity report"
 msgstr "Velg en logo for aktivitetsrapporten"
 
-#: admin/class-activities-admin.php:112
+#: admin/class-activities-admin.php:118
 msgid "Activities Admin Page"
 msgstr "Aktiviteter Admin Side"
 
-#: admin/class-activities-admin.php:115
+#: admin/class-activities-admin.php:121
 msgid "Activities Locations"
 msgstr "Aktiviteter Steder"
 
-#: admin/class-activities-admin.php:118
+#: admin/class-activities-admin.php:122
+msgid "Activities Plans"
+msgstr "Aktivitetesplaner"
+
+#: admin/class-activities-admin.php:125
 msgid "Options"
 msgstr "Innstillinger"
 
-#: admin/class-activities-admin.php:119
+#: admin/class-activities-admin.php:126
 msgctxt "Noun"
 msgid "Archive"
 msgstr "Arkiv"
 
-#: admin/class-activities-admin.php:196
+#: admin/class-activities-admin.php:216
 msgid "Archived Activites"
 msgstr "Arkiverte Aktiviteter"
 
-#: admin/class-activities-admin.php:248
+#: admin/class-activities-admin.php:268
 #, php-format
 msgid "%s has been created."
 msgstr "%s er opprettet."
 
-#: admin/class-activities-admin.php:257
+#: admin/class-activities-admin.php:277
 #, php-format
 msgid "%s has been updated."
 msgstr "%s er oppdatert."
 
-#: admin/class-activities-admin.php:266
+#: admin/class-activities-admin.php:286
 #, php-format
 msgid "%s must have a name."
 msgstr "%s må ha et navn."
 
-#: admin/class-activities-admin.php:275
+#: admin/class-activities-admin.php:295
 #, php-format
 msgid "%s has been deleted."
 msgstr "%s er slettet."
 
-#: admin/class-activities-admin.php:436
+#: admin/class-activities-admin.php:459
 msgid "activities"
 msgstr "aktiviteter"
 
-#: admin/class-activities-admin.php:440
+#: admin/class-activities-admin.php:463
 msgid "locations"
 msgstr "steder"
 
-#: admin/class-activities-admin.php:444
+#: admin/class-activities-admin.php:467
 msgid "archived activities"
 msgstr "arkiverte aktiviteter"
 
-#: admin/class-activities-admin.php:449
+#: admin/class-activities-admin.php:472
 #, php-format
 msgid "This screen allows you to edit your %s."
 msgstr "Dette skjermbildet lar deg redigere %s."
 
-#: admin/class-activities-admin.php:452
+#: admin/class-activities-admin.php:475
 msgid ""
 "This is the activity report screen where you customize and print/save your "
 "reports."
@@ -1269,12 +1395,12 @@ msgstr ""
 "Dette er aktivitetsrapport skjermbildet der du tilpasser og skriver ut/"
 "lagrer rapportene."
 
-#: admin/class-activities-admin.php:456
+#: admin/class-activities-admin.php:479
 #, php-format
 msgid "This screen gives you access to all your %s."
 msgstr "Dette skjermbildet gir deg tilgang til alle dine %s."
 
-#: admin/class-activities-admin.php:461
+#: admin/class-activities-admin.php:484
 msgid ""
 "This screen gives you the options to either import activities or "
 "participants."
@@ -1282,23 +1408,23 @@ msgstr ""
 "Dette skjermbildet gir deg alternativer til enten å importere aktiviteter "
 "eller deltakere."
 
-#: admin/class-activities-admin.php:465
+#: admin/class-activities-admin.php:488
 msgid "Export activity participant data to send email, sms and more."
 msgstr "Eksportere aktivitet deltaker data til å sende e-post, SMS og mer."
 
-#: admin/class-activities-admin.php:478
+#: admin/class-activities-admin.php:501
 msgid "This is where you can edit the standard settings for activity reports."
 msgstr "Her kan du redigere standardinnstillingene for aktivitetsrapporter."
 
-#: admin/class-activities-admin.php:482
+#: admin/class-activities-admin.php:505
 msgid "Settings related to the WooCommerce plugin."
 msgstr "Innstillinger knyttet til WooCommerce pluginen."
 
-#: admin/class-activities-admin.php:487
+#: admin/class-activities-admin.php:510
 msgid "This general settings page for this plugin."
 msgstr "Dette er innstillings siden for denne utvidelsen."
 
-#: admin/class-activities-admin.php:488
+#: admin/class-activities-admin.php:511
 msgid ""
 "If you are using a mulitisite, the settings here is only set for the current "
 "blog."
@@ -1306,54 +1432,71 @@ msgstr ""
 "Hvis du bruker en mulitisite, er innstillingene her bare angitt for "
 "gjeldende blogg."
 
-#: admin/class-activities-admin.php:489
+#: admin/class-activities-admin.php:512
 msgid "The WooCommerce tab will only show if the plugin is active."
 msgstr "WooCommerce fanen ville bare vises hvis utvidelsen er aktiv."
 
-#: admin/class-activities-admin.php:498
+#: admin/class-activities-admin.php:521
 msgid "Overview"
 msgstr "Oversikt"
 
-#: admin/class-activities-admin.php:499
+#: admin/class-activities-admin.php:522
 msgid "A documentation page will be available soon!"
 msgstr "En dokumentasjon side vil snart være tilgjengelig!"
 
-#: admin/class-activities-admin.php:523
+#: admin/class-activities-admin.php:546
 msgid "Show Columns"
 msgstr "Vis kolonner"
 
-#: admin/class-activities-admin.php:539
+#: admin/class-activities-admin.php:562
 #: includes/class-activities-pagination.php:125
 msgid "Results Per Page"
 msgstr "Resultater pr. side"
 
-#: admin/class-activities-admin.php:735
+#: admin/class-activities-admin.php:760
 msgid "Archived"
 msgstr "Arkivert"
 
-#: admin/class-activities-admin.php:738
+#: admin/class-activities-admin.php:763
 msgid "Active"
 msgstr "Aktiv"
 
-#: admin/class-activities-admin.php:758
+#: admin/class-activities-admin.php:783
 msgid "You have to login to join."
 msgstr "Du må logge inn for å delta."
 
-#: admin/class-activities-admin.php:761
+#: admin/class-activities-admin.php:786
 msgid "You can no longer join this activity."
 msgstr "Du kan ikke lenger bli med på denne aktiviteten."
 
-#: admin/class-activities-admin.php:773
+#: admin/class-activities-admin.php:798
 msgid "You are not allowed to join this activity."
 msgstr "Du har ikke tillatelse til å bli med på denne aktiviteten."
 
-#: admin/class-activities-admin.php:784 public/class-activities-public.php:77
+#: admin/class-activities-admin.php:809 public/class-activities-public.php:77
 msgid "Join"
 msgstr "Meld deg på"
 
-#: admin/class-activities-admin.php:786 public/class-activities-public.php:73
+#: admin/class-activities-admin.php:811 public/class-activities-public.php:73
 msgid "Unjoin"
 msgstr "Meld deg ut"
+
+#: admin/class-activities-admin.php:1036
+msgid "Plan updated!"
+msgstr "Plan oppdatert!"
+
+#: admin/class-activities-admin.php:1039 admin/class-activities-admin.php:1052
+msgid "Error!"
+msgstr "Feil!"
+
+#: admin/class-activities-admin.php:1044
+#, php-format
+msgid "%s already exists!"
+msgstr "%s finnes allerede!"
+
+#: admin/class-activities-admin.php:1049
+msgid "Plan created!"
+msgstr "Plan opprettet!"
 
 #: admin/class-activities-bulk-action.php:42
 #, php-format
@@ -1395,7 +1538,35 @@ msgstr "%d steder fikk adressen endret."
 msgid "%d locations has been deleted."
 msgstr "%d steder er slettet."
 
-#: includes/class-activities-activity.php:284
+#: admin/class-activities-bulk-action.php:207
+#, php-format
+msgid "%d plans has been deleted."
+msgstr "%d planer er slettet."
+
+#: includes/class-activities-activity-list-table.php:163
+msgid "Change Responsible"
+msgstr "Endre ansvarlig"
+
+#: includes/class-activities-activity-list-table.php:167
+msgctxt "To archive"
+msgid "Archive"
+msgstr "Arkiver"
+
+#: includes/class-activities-activity-list-table.php:319
+#: includes/class-activities-list-table.php:481
+msgid "Show more details"
+msgstr "Vis flere detaljer"
+
+#: includes/class-activities-activity-list-table.php:336
+#: includes/class-activities-activity-list-table.php:348
+msgid "View"
+msgstr "Vis"
+
+#: includes/class-activities-activity-list-table.php:344
+msgid "Duplicate"
+msgstr "Dupliser"
+
+#: includes/class-activities-activity.php:224
 msgid "Copy"
 msgstr "Kopi"
 
@@ -1403,75 +1574,43 @@ msgstr "Kopi"
 msgid "Activity Categories"
 msgstr "Aktivitetskategorier"
 
-#: includes/class-activities-list-table.php:248
-msgid "Change Responsible"
-msgstr "Endre ansvarlig"
-
-#: includes/class-activities-list-table.php:252
-msgctxt "To archive"
-msgid "Archive"
-msgstr "Arkiver"
-
-#: includes/class-activities-list-table.php:378
+#: includes/class-activities-list-table.php:359
 msgid "Select All"
 msgstr "Velg Alle"
 
-#: includes/class-activities-list-table.php:521
-#: includes/class-activities-list-table.php:539
-msgid "View"
-msgstr "Vis"
+#: includes/class-activities-list-table.php:516
+#, php-format
+msgid "No %s found."
+msgstr "Ingen %s funnet."
 
-#: includes/class-activities-list-table.php:524
-#: includes/class-activities-list-table.php:534
-msgid "Edit"
-msgstr "Rediger"
-
-#: includes/class-activities-list-table.php:529
-msgid "Duplicate"
-msgstr "Dupliser"
-
-#: includes/class-activities-list-table.php:551
-msgid "Show more details"
-msgstr "Vis flere detaljer"
-
-#: includes/class-activities-list-table.php:600
+#: includes/class-activities-list-table.php:535
 msgid "Filters"
 msgstr "Filtre"
 
-#: includes/class-activities-list-table.php:613
+#: includes/class-activities-list-table.php:548
 msgid "No Category Filter"
 msgstr "Ingen kategorifilter"
 
-#: includes/class-activities-list-table.php:621
+#: includes/class-activities-list-table.php:556
 #, php-format
 msgid "Filter %s"
 msgstr "Filtrer %s"
 
-#: includes/class-activities-list-table.php:629
-#: includes/class-activities-list-table.php:651
+#: includes/class-activities-list-table.php:564
+#: includes/class-activities-list-table.php:589
 #: includes/class-activities-pagination.php:127
 msgid "Apply"
 msgstr "Bruk"
 
-#: includes/class-activities-list-table.php:630
+#: includes/class-activities-list-table.php:565
 msgid "Clear"
 msgstr "Tøm"
 
-#: includes/class-activities-list-table.php:646
+#: includes/class-activities-list-table.php:584
 msgid "Bulk Actions"
 msgstr "Massehandlinger"
 
-#: includes/class-activities-pagination.php:148
-#, php-format
-msgid "%d locations"
-msgstr "%d steder"
-
-#: includes/class-activities-pagination.php:148
-#, php-format
-msgid "%d activities"
-msgstr "%d aktiviteter"
-
-#: includes/class-activities-pagination.php:163
+#: includes/class-activities-pagination.php:164
 msgid "of"
 msgstr "av"
 
@@ -2431,83 +2570,83 @@ msgstr "Zambia"
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
-#: includes/class-activities-woocommerce.php:80
-#: includes/class-activities-woocommerce.php:82
+#: includes/class-activities-woocommerce.php:79
+#: includes/class-activities-woocommerce.php:81
 msgid "Select Activities"
 msgstr "Velg Aktiviteter"
 
-#: includes/class-activities-woocommerce.php:84
+#: includes/class-activities-woocommerce.php:83
 msgid "Users who orders this product will be added to the selected activities."
 msgstr ""
 "Brukere som bestiller dette produktet vil bli lagt til de valgte "
 "aktivitetene."
 
-#: includes/class-activities-woocommerce.php:113
+#: includes/class-activities-woocommerce.php:112
 msgid "Handle past orders"
 msgstr "Hånter tidligere ordrer"
 
-#: includes/class-activities-woocommerce.php:114
+#: includes/class-activities-woocommerce.php:113
 msgid "Add users to selected activities who have already bought the product"
 msgstr "Legg til brukere i valgte aktiviteter som allerede har kjøpt produktet"
 
-#: includes/class-activities-woocommerce.php:122
+#: includes/class-activities-woocommerce.php:121
 msgid "Handle orders from"
 msgstr "Håndter ordrer fra"
 
-#: includes/class-activities-woocommerce.php:124
+#: includes/class-activities-woocommerce.php:123
 msgid "Only select orders from this date and onwards"
 msgstr "Velg bare ordrer fra denne datoen og etter"
 
-#: includes/class-activities-woocommerce.php:345
+#: includes/class-activities-woocommerce.php:370
 msgid "Converting guest customers"
 msgstr "Konverterer gjeste kunder"
 
-#: includes/class-activities-woocommerce.php:355
+#: includes/class-activities-woocommerce.php:380
 msgid "Order"
 msgstr "Ordre"
 
-#: includes/class-activities-woocommerce.php:359
+#: includes/class-activities-woocommerce.php:384
 msgid "Guest already converted or user orders already updated."
 msgstr ""
 "Gjesten er allerede konvertert, eller bruker ordrer som allerede er "
 "oppdatert."
 
-#: includes/class-activities-woocommerce.php:366
+#: includes/class-activities-woocommerce.php:391
 #, php-format
 msgid "Created User: %s"
 msgstr "Opprettet bruker: %s"
 
-#: includes/class-activities-woocommerce.php:370
+#: includes/class-activities-woocommerce.php:395
 #, php-format
 msgid "Updated Orders For: %s"
 msgstr "Oppdaterte ordrer for: %s"
 
-#: includes/class-activities-woocommerce.php:374
+#: includes/class-activities-woocommerce.php:399
 msgid "Could not create user (no email found)"
 msgstr "Kan ikke opprette bruker (ingen e-post funnet)"
 
-#: includes/class-activities-woocommerce.php:382
+#: includes/class-activities-woocommerce.php:407
 #, php-format
 msgid "Created %s users."
 msgstr "Opprettet %s brukere."
 
-#: includes/class-activities-woocommerce.php:490
+#: includes/class-activities-woocommerce.php:515
 msgid "You are not allowed to delete users!"
 msgstr "Du har ikke lov til å slette brukere!"
 
-#: includes/class-activities-woocommerce.php:494
+#: includes/class-activities-woocommerce.php:519
 msgid "Deleting guest users"
 msgstr "Sletter gjestebrukere"
 
-#: includes/class-activities-woocommerce.php:528
+#: includes/class-activities-woocommerce.php:553
 msgid "Deleted user"
 msgstr "Slettet bruker"
 
-#: includes/class-activities-woocommerce.php:531
+#: includes/class-activities-woocommerce.php:556
 msgid "An error occured deleting"
 msgstr "Det oppstod en feil under sletting"
 
-#: includes/class-activities-woocommerce.php:539
+#: includes/class-activities-woocommerce.php:564
 #, php-format
 msgid "Deleted %d users."
 msgstr "Slettet %d brukere."
@@ -2531,6 +2670,18 @@ msgstr "Mikal Naustdal"
 #. Author URI of the plugin/theme
 msgid "https://github.com/Loderian"
 msgstr "https://github.com/Loderian"
+
+#~ msgid "default"
+#~ msgstr "standard"
+
+#~ msgid "custom"
+#~ msgstr "egendefinert"
+
+#~ msgid "%d locations"
+#~ msgstr "%d steder"
+
+#~ msgid "%d activities"
+#~ msgstr "%d aktiviteter"
 
 #~ msgid "An error occured updating location: %s "
 #~ msgstr "Det oppstod en feil under oppdatering av sted: %s"

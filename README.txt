@@ -26,6 +26,7 @@ For example, when a customer is buying participation on a yoga retreat the custo
 
 Activities has name, start/end dates and two description of different sizes.
 They can also be assigned a location, they are created separately for easy reuse.
+If you have plans for the activity, they can be created separately and be reused on unlimited activities. The plans can be viewed on the activity report page.
 In addition each activity can have a responsible user who can be granted access to view and/or edit their assigned activities.
 Activities can be archived to get a 'history' and reduce the amount of activities on the 'main' list.
 
@@ -158,7 +159,7 @@ List of data options
 * Feature: Each report can have their own text for each session without changing the existing plan
 * Feature: Plans can be updated or added as a new plan with the changes you've made on a report
 * Enhancement: Added additional save buttons on the report page when the settings box is hidden
-* Enhancement: Filters are now collapsed on small devices, press the to expand
+* Enhancement: Filters are now collapsed on small devices and can be expanded
 * Fix: Changed the default value of datetime columns to NULL to avoid errors in the db
 * Fix: Activities on products can now be fully removed
 * Fix: Handling past orders with variable products should now work correctly

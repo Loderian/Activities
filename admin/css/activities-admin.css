@@ -255,7 +255,7 @@
 }
 
 .acts-single-column {
-  width: 49%;
+  width: 49.5%;
   min-width: 230px;
 }
 
@@ -269,16 +269,14 @@
 
 .acts-nice-session-list,
 .acts-plan-textareas {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
+  column-count: 2;
+  column-fill: balance;
 }
 
-.acts-nice-session-list .acts-nice-session,
+.acts-nice-session-list li,
 .acts-plan-textareas li {
-  width: 49%;
+  display: inline-block;
+  width: 100%;
 }
 
 .acts-plan-textareas li textarea {

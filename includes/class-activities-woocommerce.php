@@ -38,6 +38,8 @@ class Activities_WooCommerce {
     add_action( 'woocommerce_update_new_customer_past_order', array( __CLASS__, 'resolve_past_order' ), 10, 2 );
     add_action( 'activities_archive_activity', array( __CLASS__, 'remove_selected_activities' ) );
     add_filter( 'woocommerce_prevent_admin_access', array( __CLASS__, 'prevent_access_to_admin' ) );
+    add_filter( 'manage_product_posts_columns', array( __CLASS__, 'product_column' ) );
+    add_action( 'manage_product_posts_custom_column', array( __CLASS__, 'display_product_column' ), 10, 2 );
   }
 
   /**
@@ -56,18 +58,33 @@ class Activities_WooCommerce {
   }
 
   /**
+   * Callback for adding acts to product column
+   *
+   * @param   array $post_columns Existing columns
+   * @return  array
+   */
+  static function product_column( $post_columns ) {
+    $post_columns['activities_activities'] = __( 'Activities', 'activities' );
+    return $post_columns;
+  }
+  /**
    * Echo select activity field
+   *
+   * @param int $id Post Id
+   * @param int $index Index for varaible products
    */
   static function get_activity_select( $id, $index = false ) {
     if ( $index === false ) {
       $name = self::selected_acts_key . '[]';
       $elem_id = 'acts_select_activities';
       $class = 'long';
+      $hidden_name = 'acts_save';
     }
     else {
       $name = 'multi' . self::selected_acts_key . '[' . $index . '][]';
       $elem_id = 'acts_select_activities_' . $index;
       $class = 'short';
+      $hidden_name = 'acts_save_' . $index;
     }
 
     woocommerce_wp_select(
@@ -84,6 +101,9 @@ class Activities_WooCommerce {
         'custom_attributes' => array( 'multiple' => 'multiple' )
       )
     );
+
+    //Required to prevent qucik saving from deleting acts on products
+    echo '<input type="hidden" value="' . esc_attr( $id ) . '" name="' . $hidden_name . '" />';
 
     echo '
     <script>
@@ -138,6 +158,27 @@ class Activities_WooCommerce {
   }
 
   /**
+   * Callback for displaying product column
+   *
+   * @param string $column_name
+   * @param int    $post_id
+   */
+  static function display_product_column( $column_name, $post_id ) {
+    if ( $column_name == 'activities_activities' ) {
+      $acts = get_post_meta( $post_id, self::selected_acts_key );
+
+      $get_name = function( $id ) {
+        $act = Activities_Activity::load( $id );
+        if ( $act ) {
+          return $act['name'];
+        }
+      };
+
+      echo implode( ', ', array_map( $get_name, $acts ) );
+    }
+  }
+
+  /**
    * Save activities to product
    *
    * @param int   $product_id Product id
@@ -188,7 +229,9 @@ class Activities_WooCommerce {
       $acts = $_POST[self::selected_acts_key] ;
     }
 
-    self::product_save( $post_id, $acts );
+    if ( isset( $_POST['acts_save'] ) && acts_validate_id( $_POST['acts_save'] ) == $post_id ) {
+      self::product_save( $post_id, $acts );
+    }
 
     if ( isset( $_POST['handle_past_orders'] ) ) {
       $from_date = sanitize_text_field( $_POST['handle_past_orders_from'] );
@@ -212,7 +255,9 @@ class Activities_WooCommerce {
       $acts = $_POST['multi' . self::selected_acts_key][$index];
     }
 
-    self::product_save( $variation_id, $acts );
+    if ( isset( $_POST['acts_save_' . $index] ) && acts_validate_id( $_POST['acts_save_' . $index] ) == $variation_id ) {
+      self::product_save( $variation_id, $acts );
+    }
   }
 
   /**

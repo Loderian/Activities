@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: activities\n"
-"POT-Creation-Date: 2019-01-24 15:42+0100\n"
-"PO-Revision-Date: 2019-01-24 15:48+0100\n"
+"POT-Creation-Date: 2019-02-10 14:06+0100\n"
+"PO-Revision-Date: 2019-02-10 14:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -110,7 +110,8 @@ msgstr "Velg en lagringsmetode."
 #: admin/activities-admin-import.php:40 admin/activities-admin-import.php:280
 #: admin/class-activities-admin.php:118 admin/class-activities-admin.php:120
 #: admin/class-activities-admin.php:202 admin/class-activities-admin.php:413
-#: includes/class-activities-woocommerce.php:51
+#: includes/class-activities-woocommerce.php:53
+#: includes/class-activities-woocommerce.php:67
 msgid "Activities"
 msgstr "Aktiviteter"
 
@@ -337,8 +338,8 @@ msgstr "Mappe Print"
 #: admin/activities-admin-activity-nice.php:346
 #: admin/activities-admin-import.php:249 admin/activities-admin-import.php:305
 #: admin/activities-admin-import.php:420 admin/activities-admin-import.php:543
-#: includes/class-activities-woocommerce.php:408
-#: includes/class-activities-woocommerce.php:565
+#: includes/class-activities-woocommerce.php:453
+#: includes/class-activities-woocommerce.php:610
 msgid "Return"
 msgstr "Retuner"
 
@@ -2570,83 +2571,83 @@ msgstr "Zambia"
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
-#: includes/class-activities-woocommerce.php:79
-#: includes/class-activities-woocommerce.php:81
+#: includes/class-activities-woocommerce.php:96
+#: includes/class-activities-woocommerce.php:98
 msgid "Select Activities"
 msgstr "Velg Aktiviteter"
 
-#: includes/class-activities-woocommerce.php:83
+#: includes/class-activities-woocommerce.php:100
 msgid "Users who orders this product will be added to the selected activities."
 msgstr ""
 "Brukere som bestiller dette produktet vil bli lagt til de valgte "
 "aktivitetene."
 
-#: includes/class-activities-woocommerce.php:112
+#: includes/class-activities-woocommerce.php:132
 msgid "Handle past orders"
 msgstr "Hånter tidligere ordrer"
 
-#: includes/class-activities-woocommerce.php:113
+#: includes/class-activities-woocommerce.php:133
 msgid "Add users to selected activities who have already bought the product"
 msgstr "Legg til brukere i valgte aktiviteter som allerede har kjøpt produktet"
 
-#: includes/class-activities-woocommerce.php:121
+#: includes/class-activities-woocommerce.php:141
 msgid "Handle orders from"
 msgstr "Håndter ordrer fra"
 
-#: includes/class-activities-woocommerce.php:123
+#: includes/class-activities-woocommerce.php:143
 msgid "Only select orders from this date and onwards"
 msgstr "Velg bare ordrer fra denne datoen og etter"
 
-#: includes/class-activities-woocommerce.php:370
+#: includes/class-activities-woocommerce.php:415
 msgid "Converting guest customers"
 msgstr "Konverterer gjeste kunder"
 
-#: includes/class-activities-woocommerce.php:380
+#: includes/class-activities-woocommerce.php:425
 msgid "Order"
 msgstr "Ordre"
 
-#: includes/class-activities-woocommerce.php:384
+#: includes/class-activities-woocommerce.php:429
 msgid "Guest already converted or user orders already updated."
 msgstr ""
 "Gjesten er allerede konvertert, eller bruker ordrer som allerede er "
 "oppdatert."
 
-#: includes/class-activities-woocommerce.php:391
+#: includes/class-activities-woocommerce.php:436
 #, php-format
 msgid "Created User: %s"
 msgstr "Opprettet bruker: %s"
 
-#: includes/class-activities-woocommerce.php:395
+#: includes/class-activities-woocommerce.php:440
 #, php-format
 msgid "Updated Orders For: %s"
 msgstr "Oppdaterte ordrer for: %s"
 
-#: includes/class-activities-woocommerce.php:399
+#: includes/class-activities-woocommerce.php:444
 msgid "Could not create user (no email found)"
 msgstr "Kan ikke opprette bruker (ingen e-post funnet)"
 
-#: includes/class-activities-woocommerce.php:407
+#: includes/class-activities-woocommerce.php:452
 #, php-format
 msgid "Created %s users."
 msgstr "Opprettet %s brukere."
 
-#: includes/class-activities-woocommerce.php:515
+#: includes/class-activities-woocommerce.php:560
 msgid "You are not allowed to delete users!"
 msgstr "Du har ikke lov til å slette brukere!"
 
-#: includes/class-activities-woocommerce.php:519
+#: includes/class-activities-woocommerce.php:564
 msgid "Deleting guest users"
 msgstr "Sletter gjestebrukere"
 
-#: includes/class-activities-woocommerce.php:553
+#: includes/class-activities-woocommerce.php:598
 msgid "Deleted user"
 msgstr "Slettet bruker"
 
-#: includes/class-activities-woocommerce.php:556
+#: includes/class-activities-woocommerce.php:601
 msgid "An error occured deleting"
 msgstr "Det oppstod en feil under sletting"
 
-#: includes/class-activities-woocommerce.php:564
+#: includes/class-activities-woocommerce.php:609
 #, php-format
 msgid "Deleted %d users."
 msgstr "Slettet %d brukere."

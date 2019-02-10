@@ -693,9 +693,7 @@
       }
       $(document).on( 'click', '.acts-nice-session-expand', function() {
         var height = $('html').height();
-        if (height <= 782) {
-          expand_text($(this).parent().attr('session'), false);
-        }
+        expand_text($(this).parent().attr('session'), false);
       });
       $(document).on( 'click', '.acts-nice-session-edit', function() {
         var textfield = $(this).parent().find('.acts-nice-session-text');

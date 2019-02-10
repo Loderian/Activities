@@ -152,6 +152,14 @@ List of data options
 
 == Changelog ==
 
+= 1.1.1 =
+
+* Feature: Added a column on the products page which displays activities assigned to the product
+* Tweak: Plans on the report are now collapsed on all devices
+* Tweak: Plans are now listed vertically instead of horizontally
+* Fix: Plans are now gets extra padding, just as the report, when using the folder print button
+* Fix: Quick editing products should no longer delete activities on the product
+
 = 1.1.0 =
 
 * Feature: You can now create plans for your activities
@@ -202,6 +210,12 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+
+Added column to the product page to display activities assigned to products.
+Fixed a bug where activities would be removed from products when quick edited.
+And more...
 
 = 1.1.0 =
 

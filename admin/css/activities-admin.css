@@ -37,15 +37,17 @@
 .acts-delete-button.button {
   background-color: #cc0000;
   border-color: #4d0000;
-  color: #4d0000;
-  box-shadow: 0 1px #4d0000;
+  color: #000000;
+  -webkit-box-shadow: 0 1px #4d0000;
+          box-shadow: 0 1px #4d0000;
 }
 
 .acts-delete-button.button:hover {
   background-color: #d40000;
   border-color: #4d0000;
-  color: #4d0000;
-  box-shadow: 0 1px #4d0000;
+  color: #000000;
+  -webkit-box-shadow: 0 1px #4d0000;
+          box-shadow: 0 1px #4d0000;
 }
 
 #activities-title a {
@@ -269,8 +271,10 @@
 
 .acts-nice-session-list,
 .acts-plan-textareas {
-  column-count: 2;
-  column-fill: balance;
+  -webkit-column-count: 2;
+          column-count: 2;
+  -webkit-column-fill: balance;
+          column-fill: balance;
 }
 
 .acts-nice-session-list li,
@@ -745,8 +749,21 @@
   vertical-align: middle;
 }
 
-.acts-nice-session-expand .dashicons {
+.acts-nice-session-hidden {
   display: none;
+}
+
+.acts-nice-session-expand .dashicons {
+  display: inline;
+}
+
+.acts-nice-session-expand {
+  color: #0073aa;
+  cursor: pointer;
+}
+
+.acts-nice-session-expand:hover {
+  color: #0085ba;
 }
 
 .acts-nice-session-edit .dashicons {
@@ -777,14 +794,8 @@
 /* Small devices (portrait tablets and large phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .acts-quick-edit-group,
-  .acts-single-column,
-  .acts-plan-textareas li {
+  .acts-single-column {
     width: 100%;
-  }
-
-  .acts-plan-textareas {
-    flex-direction: column;
-    flex-wrap: nowrap;
   }
 
   .acts-edit-types-options .selectize-control {
@@ -857,8 +868,10 @@
     border-right: 1px solid black !important;
   }
 
+  .acts-plan-textareas,
   .acts-nice-session-list {
-    flex-direction: column;
+    -webkit-column-count: 1;
+            column-count: 1;
   }
 
   .acts-nice-session-list .acts-nice-session {
@@ -946,25 +959,6 @@
         -ms-flex-positive: 1;
             flex-grow: 1;
     border-bottom: none;
-  }
-}
-
-@media only screen and (max-height: 782px) {
-  .acts-nice-session-hidden {
-    display: none;
-  }
-
-  .acts-nice-session-expand .dashicons {
-    display: inline;
-  }
-
-  .acts-nice-session-expand {
-    color: #0073aa;
-    cursor: pointer;
-  }
-
-  .acts-nice-session-expand:hover {
-    color: #0085ba;
   }
 }
 
@@ -1114,6 +1108,14 @@
 
   .acts-nice-session-hidden {
     display: block !important;
+  }
+
+  .acts-nice-session-expand {
+    color: inherit;
+  }
+
+  .acts-nice-session-expand .dashicons {
+    display: none;
   }
 
   div.acts-nice-session-text {

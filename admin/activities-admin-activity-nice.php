@@ -395,7 +395,7 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
 	}
 
 
-	$output =	'<div id="acts-nice-wrap">';
+	$output =	'<div class="acts-nice-wrap">';
   $output .= '<div id="acts-nice-header">';
   $output .= esc_html( do_shortcode( stripslashes( $nice_settings['header'] ) ) );
   $output .= '</div>';
@@ -967,7 +967,7 @@ function acts_build_plans_box( $plan_id, $session_map, $time_slots, $last_sessio
     $plan_name = $plan['name'];
   }
 
-  $output = '<div class="acts-box-padding">';
+  $output = '<div class="acts-nice-wrap">';
   $output .= '<h3>' . esc_html( ucfirst( acts_get_multi_item_translation( 'plan', $sessions ) ) );
   if ( $plan_name != '' ) {
     $output .= ' <span style="color: grey;">(<span class="acts-nice-plan-name">' . esc_html( $plan_name ) . '</span>)</span>';

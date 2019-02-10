@@ -522,7 +522,7 @@
   font-size: 20px;
 }
 
-#acts-nice-wrap {
+.acts-nice-wrap {
   padding: 3mm 7mm 10mm 7mm;
   position: relative;
 }
@@ -1084,14 +1084,14 @@
     border: none;
   }
 
-  #acts-nice-wrap {
+  .acts-nice-wrap {
     margin: 0;
   }
 
   #acts-nice-preview,
   #acts-nice-preview-report,
   #acts-nice-preview-plan,
-  #acts-nice-wrap {
+  .acts-nice-wrap {
     page-break-inside: auto;
   }
 

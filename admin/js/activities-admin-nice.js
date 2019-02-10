@@ -670,9 +670,9 @@
       $('#folder_print').click( function(event) {
         event.preventDefault();
 
-        $('#acts-nice-wrap').css('padding-left', '20mm');
+        $('.acts-nice-wrap').css('padding-left', '20mm');
         window.print();
-        $('#acts-nice-wrap').css('padding-left', '7mm');
+        $('.acts-nice-wrap').css('padding-left', '7mm');
       });
     }
 

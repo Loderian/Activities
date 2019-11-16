@@ -47,13 +47,13 @@ class Activities_Admin_Utility {
 
         //Only get attended list if this not an example activity and its a vaild id
         $attended = array();
-        if ( isset( $_POST['time'] ) && is_array( $_POST['time'] ) && isset( $nice_settings['time_slots'] ) ) {
+        if ( isset( $_POST['time'] ) && is_array( $_POST['time'] ) && isset( $time_slots ) ) {
           foreach ($_POST['time'] as $uid => $times) {
             $uid = acts_validate_id( $uid );
             if ( $uid ) {
               //Stored as a string to make it easier to send to JavaScript and reduce size use when many boxes are checked
               $attended[$uid] = '';
-              for ($t=0; $t < $nice_settings['time_slots']; $t++) {
+              for ($t=0; $t < $time_slots; $t++) {
                 if ( isset( $times[$t] ) ) {
                   $attended[$uid] .= '1';
                 }

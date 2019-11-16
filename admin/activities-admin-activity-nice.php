@@ -35,32 +35,6 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
       Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occured during saving report setting for %s.', 'activities' ), $activity['name'] ) );
     }
 	}
-	else if ( isset( $_POST['reset_nice_settings'] ) && isset( $_POST['item_id'] ) ) {
-    $id = acts_validate_id( $_POST['item_id'] );
-    if ( $id ) {
-  		Activities_Activity::delete_meta( $id, ACTIVITIES_NICE_SETTINGS_KEY );
-
-  		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings has been reset for %s.', 'activities' ), $activity['name'] ) );
-    }
-    else {
-      Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occured during resetting report setting for %s.', 'activities' ), $activity['name'] ) );
-    }
-	}
-  else if ( isset( $_POST['default_nice_settings'] ) && $current_url != null  ) {
-    $settings = Activities_Admin_Utility::get_activity_nice_settings();
-    if ( isset( $settings['activity_id'] ) && $settings['activity_id'] ) {
-  		Activities_Activity::delete_meta( $settings['activity_id'], ACTIVITIES_NICE_SETTINGS_KEY );
-      unset( $settings['activity_id'] );
-      unset( $settings['attended'] );
-
-      Activities_Options::update_option( ACTIVITIES_NICE_SETTINGS_KEY, $settings );
-
-  		Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings updated for %s, and made default for all activities.', 'activities' ), $activity['name'] ) );
-    }
-    else {
-      Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occured during saving report setting for %s.', 'activities' ), $activity['name'] ) );
-    }
-  }
 
 	$nice_settings = Activities_Activity::get_nice_settings( $activity['activity_id'] );
   if ( !$nice_settings ) {
@@ -345,11 +319,6 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
     $output .= wp_nonce_field( 'activities_nice', ACTIVITIES_ADMIN_NICE_NONCE, true, false );
 		$output .= '<a href="' . esc_url( $current_url ) . '" class="button">' . esc_html__( 'Return', 'activities' ) . '</a>';
     $output .= '</p>';
-    $output .= '<hr class="acts-nice-splitter">';
-    $output .= '<p>';
-    $output .= get_submit_button( esc_html__( 'Make default', 'activities' ), 'button-primary',  'default_nice_settings', false );
-    $output .= get_submit_button( esc_html__( 'Reset to default', 'activities' ), 'button right',  'reset_nice_settings', false );
-    $output .= '</p>';
 		$output .= '</div>';
 	}
 	$output .= '<input type="hidden" value="' . esc_attr( $activity['activity_id'] ) . '" id="item-id" name="item_id" />';
@@ -488,7 +457,7 @@ function acts_activity_nice_page( $activity, $nice_settings ) {
             foreach ($coupons_display[$id] as $order_id) {
               $order = wc_get_order($order_id);
               if ( !empty( $order ) ) {
-                foreach ($order->get_used_coupons() as $code) {
+                foreach ($order->get_coupon_codes() as $code) {
                   if ( isset( $coupons_selected[$code] ) && !isset( $coupon_list[$code] )  ) {
                     $coupon_list[$code] = $code;
                   }

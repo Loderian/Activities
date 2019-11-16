@@ -528,7 +528,7 @@ class Activities_Activity {
     }
 
     foreach ($default_settings as $key => $value) {
-      if ( $settings[$key] == $value ) {
+      if ( isset( $settings[$key] ) && $settings[$key] == $value ) {
         unset( $settings[$key] );
       }
     }

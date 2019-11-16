@@ -151,10 +151,10 @@ class Activities_Pagination {
     $output .= '<span class="pagination-links">';
     if ( $this->total_items > $this->items_per_page ) {
       if ( $current_page > 1 ) {
-        $output .= '<a href="' . esc_url( remove_query_arg( 'paged', $current_url ) ) . '" class="first-page">&laquo;</a> ';
+        $output .= '<a href="' . esc_url( remove_query_arg( 'paged', $current_url ) ) . '" class="first-page button">&laquo;</a> ';
 
         $stepback_url = add_query_arg( 'paged', $current_page - 1, $current_url );
-        $output .= '<a href="' . esc_url( $stepback_url ) . '" class="prev-page">&lsaquo;</a> ';
+        $output .= '<a href="' . esc_url( $stepback_url ) . '" class="prev-page button">&lsaquo;</a> ';
       }
       else {
         $output .= '<span class="tablenav-pages-navspan">&laquo;</span> ';
@@ -165,9 +165,9 @@ class Activities_Pagination {
 
       if ( $current_page < $this->total_pages) {
         $stepforward_url = add_query_arg( 'paged', $current_page + 1, $current_url );
-        $output .= '<a href="' . esc_url( $stepforward_url ) . '" class="next-page">&rsaquo;</a> ';
+        $output .= '<a href="' . esc_url( $stepforward_url ) . '" class="next-page button">&rsaquo;</a> ';
 
-        $output .= '<a href="' . esc_url( add_query_arg( 'paged', $this->total_pages, $current_url ) ) . '" class="last-page">&raquo;</a>';
+        $output .= '<a href="' . esc_url( add_query_arg( 'paged', $this->total_pages, $current_url ) ) . '" class="last-page button">&raquo;</a>';
       }
       else {
         $output .= '<span class="tablenav-pages-navspan">&rsaquo;</span> ';

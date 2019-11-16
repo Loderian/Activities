@@ -3,7 +3,7 @@ Contributors: loderian
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: activities, events, courses, classes, report
 Requires at least: 4.6
-Tested up to: 5.0.3
+Tested up to: 5.3.0
 Stable tag: trunk
 Requires PHP: 7.0.32
 License: GPLv3 or later
@@ -152,6 +152,12 @@ List of data options
 
 == Changelog ==
 
+= 1.1.2 =
+
+* Tweak: Removed Make Default and Reset to Default as they seemed unnecessary
+* Fix: Made pagination links into buttons
+* Fix: Saving attended checkboxes should now work for activities with with a plan with more sessions than the default report sessions
+
 = 1.1.1 =
 
 * Feature: Added a column on the products page which displays activities assigned to the product
@@ -210,6 +216,11 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+
+Fixed a bug related saving sessions checkboxes on activity reports and the look of pagination buttons.
+Tested primary features with WordPress 5.3. Removed activity report default buttons as they seemed unnecessary.
 
 = 1.1.1 =
 

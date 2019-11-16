@@ -56,7 +56,7 @@ class Activities {
 			$this->version = ACTIVITIES_VERSION;
 		}
 		else {
-			$this->version = '1.1.1';
+			$this->version = '1.1.2';
 		}
 		$this->plugin_name = 'activities';
 

@@ -1,7 +1,7 @@
 <?php
 
 if ( !defined( 'WPINC' ) ) {
-  die;
+    die;
 }
 
 /**
@@ -16,16 +16,16 @@ if ( !defined( 'WPINC' ) ) {
  */
 class Activities_Activator {
 
-	/**
-	 * Creates tables and adds capabilities to administrators
-	 *
-	 * @since    1.0.0
-	 */
-	public static function activate() {
-		require_once dirname( __FILE__ ) . '/class-activities-installer.php';
+    /**
+     * Creates tables and adds capabilities to administrators
+     *
+     * @since    1.0.0
+     */
+    public static function activate() {
+        require_once dirname( __FILE__ ) . '/class-activities-installer.php';
 
-		$installer = new Activities_Installer;
-		$installer->install_all_default_tables();
-		$installer->add_capabilities();
-	}
+        $installer = new Activities_Installer;
+        $installer->install_all_default_tables();
+        $installer->add_capabilities();
+    }
 }

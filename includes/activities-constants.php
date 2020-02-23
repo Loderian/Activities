@@ -10,7 +10,7 @@
  */
 
 if ( !defined( 'WPINC' ) ) {
-  die;
+    die;
 }
 
 define( 'ACTIVITIES_RESPONSIBLE_SAME', '_activities_responsible_same' );
@@ -37,7 +37,7 @@ define( 'ACTIVITIES_ARCHIVE_LIST_KEY', 'activity_archive_list' );
 
 define( 'ACTIVITIES_RESPONSIBLE_KEY', 'responsible_permission' );
 
-define( 'ACTIVITIES_NICE_SETTINGS_KEY', 'nice_settings');
+define( 'ACTIVITIES_NICE_SETTINGS_KEY', 'nice_settings' );
 
 define( 'ACTIVITIES_QUICK_EDIT_TYPES_KEY', 'quick_edit_types' );
 
@@ -55,7 +55,7 @@ define( 'ACTIVITIES_LOCATION_NONCE', 'activities-location-nonce' );
 
 define( 'ACTIVITIES_ADMIN_OPTIONS_NONCE', 'activities-admin-nonce' );
 
-define( 'ACTIVITIES_ADMIN_NICE_NONCE', 'activities-nice-nonce');
+define( 'ACTIVITIES_ADMIN_NICE_NONCE', 'activities-nice-nonce' );
 
 define( 'ACTIVITIES_WOOCOMMERCE_CONVERT_KEY', 'activities_convert_guest' );
 

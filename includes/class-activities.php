@@ -106,7 +106,7 @@ class Activities {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-activities-public.php';
 
-	  require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-list-table.php';
+	    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-list-table.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-responsible.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-activity.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-user-activity.php';
@@ -118,14 +118,14 @@ class Activities {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-woocommerce.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-csv-importer.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-utility.php';
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-category.php';
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-updater.php';
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan.php';
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan-session.php';
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-item.php';
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-activity-list-table.php';
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-location-list-table.php';
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan-list-table.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-category.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-updater.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan-session.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-item.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-activity-list-table.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-location-list-table.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan-list-table.php';
 
 		if ( is_admin() ) {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin.php';
@@ -141,8 +141,8 @@ class Activities {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-import.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin-utility.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-bulk-action.php';
-      require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-plans.php';
-      require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-plan.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-plans.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-plan.php';
 		}
 
 		$this->loader = new Activities_Loader();
@@ -178,12 +178,12 @@ class Activities {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'init_woocommerce' );
 
 		$this->loader->add_action( 'wp_ajax_acts_get_member_info', $plugin_admin, 'ajax_get_member_info' );
-    $this->loader->add_action( 'wp_ajax_acts_get_user_info', $plugin_admin, 'ajax_get_user_info' );
-    $this->loader->add_action( 'wp_ajax_acts_quick_save', $plugin_admin, 'ajax_acts_quick_save' );
-    $this->loader->add_action( 'wp_ajax_acts_create_plan', $plugin_admin, 'ajax_create_plan' );
-    $this->loader->add_action( 'wp_ajax_acts_insert_cat', $plugin_admin, 'ajax_insert_cat' );
-    $this->loader->add_action( 'wp_ajax_acts_update_cat', $plugin_admin, 'ajax_update_cat' );
-    $this->loader->add_action( 'wp_ajax_acts_delete_cat', $plugin_admin, 'ajax_delete_cat' );
+		$this->loader->add_action( 'wp_ajax_acts_get_user_info', $plugin_admin, 'ajax_get_user_info' );
+        $this->loader->add_action( 'wp_ajax_acts_quick_save', $plugin_admin, 'ajax_acts_quick_save' );
+        $this->loader->add_action( 'wp_ajax_acts_create_plan', $plugin_admin, 'ajax_create_plan' );
+        $this->loader->add_action( 'wp_ajax_acts_insert_cat', $plugin_admin, 'ajax_insert_cat' );
+        $this->loader->add_action( 'wp_ajax_acts_update_cat', $plugin_admin, 'ajax_update_cat' );
+        $this->loader->add_action( 'wp_ajax_acts_delete_cat', $plugin_admin, 'ajax_delete_cat' );
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'activities_admin_menu' );
 

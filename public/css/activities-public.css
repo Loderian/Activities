@@ -1,20 +1,24 @@
 .acts-join-form button:disabled {
-  opacity: 0.60;
+    opacity: 0.60;
 }
 
 .acts-loader {
-  border: 2px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 2px solid #3498db;
-  width: 15px;
-  height: 15px;
-  animation: acts-loader-spin 2s linear infinite;
-  z-index: 2;
-  display: inline-block;
-  vertical-align: middle;
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 2px solid #3498db;
+    width: 15px;
+    height: 15px;
+    animation: acts-loader-spin 2s linear infinite;
+    z-index: 2;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 @keyframes acts-loader-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

@@ -7,6 +7,8 @@ if ( !defined( 'WPINC' ) ) {
 /**
  * Plan class
  *
+ * @property string id
+ * @property string name
  * @since      1.1.0
  * @package    Activities
  * @subpackage Activities/admin

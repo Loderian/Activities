@@ -21,6 +21,7 @@ class Activities_Updater {
     static $db_updates = array(
         '1.0.1' => array( __CLASS__, 'db_update_1_0_1' ),
         '1.1.0' => array( __CLASS__, 'db_update_1_1_0' )
+        //'1.2.0' => array( __CLASS__, 'db_update_1_2_0' ) //TODO Add version when update when new tables are "ready"
     );
 
     static function init() {
@@ -28,7 +29,7 @@ class Activities_Updater {
     }
 
     /**
-     * Update to the newset version
+     * Update to the newest version
      */
     static function update() {
         require_once dirname( __FILE__ ) . '/class-activities-installer.php';
@@ -83,6 +84,26 @@ class Activities_Updater {
             $installer = new Activities_Installer();
             $installer->install_plans_table();
             $installer->install_plans_session_table();
+        } catch ( Exception $e ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Update db to version 1.2.0
+     *
+     * @return bool Returns true on successful update
+     */
+    static function db_update_1_2_0() {
+        global $wpdb;
+
+        try {
+            $installer = new Activities_Installer();
+            $installer->install_participant_table();
+            $installer->install_participant_meta_table();
+            $installer->install_participant_activity_table();
         } catch ( Exception $e ) {
             return false;
         }

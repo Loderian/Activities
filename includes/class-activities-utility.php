@@ -15,10 +15,10 @@ if ( !defined( 'WPINC' ) ) {
 class Activities_Utility {
     /**
      * Gets full name of a user, or their display name.
-     * Can add email to make it easier to indentify users with the same name.
+     * Can add email to make it easier to identify users with the same name.
      *
      * @param int|WP_User $user user_id or WP_User object
-     * @param bool $email True to display email in parentices
+     * @param bool $email True to display email in parentheses
      *
      * @return  string        User name to display
      */

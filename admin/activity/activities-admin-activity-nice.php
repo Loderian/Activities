@@ -32,7 +32,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
             Activities_Activity::save_nice_settings( $settings );
             Activities_Admin::add_success_message( sprintf( esc_html__( 'Report settings updated for %s.', 'activities' ), $activity['name'] ) );
         } else {
-            Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occured during saving report setting for %s.', 'activities' ), $activity['name'] ) );
+            Activities_Admin::add_success_message( sprintf( esc_html__( 'An error occurred during saving report setting for %s.', 'activities' ), $activity['name'] ) );
         }
     }
 
@@ -61,7 +61,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
         ), esc_html__( 'User', 'activities' ) );
         $output .= '<div class="acts-quick-edit-group">';
         $output .= '<span class="acts-quick-img-wrap">';
-        $output .= '<img src="" id="acts-user-avatar" alt="' . esc_attr__( 'User image', 'activities' ) . '" />';
+        $output .= '<img src="" id="acts-user-avatar" alt="' . esc_attr__( 'User avatar', 'activities' ) . '" />';
         $output .= '<div class="acts-nice-loader"></div>';
         $output .= '</span>';
         $output .= '</div>';

@@ -19,14 +19,7 @@ if ( !defined( 'WPINC' ) ) {
  * @return string Admin page for activities or activity
  */
 function activities_admin_activities_page() {
-    if ( !current_user_can( ACTIVITIES_ACCESS_ACTIVITIES ) ) {
-        wp_die( esc_html__( 'Access Denied', 'activities' ) );
-    }
-
-    $current_url = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    $current_url = remove_query_arg( 'action', $current_url );
-    $current_url = remove_query_arg( 'item_id', $current_url );
-    $current_url = remove_query_arg( '_wpnonce', $current_url );
+    $current_url = activities_admin_access_activities( activities_admin_item_page_args() );
 
     if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
         return acts_activity_management( esc_html__( 'Create New Activity', 'activities' ), 'create' );
@@ -58,7 +51,7 @@ function activities_admin_activities_page() {
                 exit;
             }
 
-            Activities_Admin::add_error_message( esc_html__( 'An error occured during duplication of activity.', 'activities' ) );
+            Activities_Admin::add_error_message( esc_html__( 'An error occurred during duplication of activity.', 'activities' ) );
         } else {
             Activities_Admin::add_error_message( esc_html__( 'You do not have permission to duplicate activities.', 'activities' ) );
         }
@@ -77,7 +70,7 @@ function activities_admin_activities_page() {
                 if ( Activities_Activity::insert( $act_map ) ) {
                     Activities_Admin::add_create_success_message( $act_map['name'] );
                 } else {
-                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured creating activity: %s', 'activities' ), $act_map['name'] ) );
+                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred creating activity: %s', 'activities' ), $act_map['name'] ) );
                 }
             } else {
                 Activities_Admin::add_error_message( sprintf( esc_html__( 'An activity with name: %s already exists.', 'activities' ), $act_map['name'] ) );
@@ -99,13 +92,13 @@ function activities_admin_activities_page() {
             return acts_activity_management( esc_html__( 'Edit Activity', 'activities' ), 'edit', $act_map );
         }
         if ( $act->id === '' ) {
-            Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating activity: %s ', 'activities' ), $act_map['name'] ) );
+            Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred updating activity: %s ', 'activities' ), $act_map['name'] ) );
         } elseif ( Activities_Admin_Utility::can_access_act( 'edit', $act->id ) ) {
             if ( $act->name === $act_map['name'] || !Activities_Activity::exists( $act_map['name'], 'name' ) ) {
                 if ( Activities_Activity::update( $act_map ) !== false ) {
                     Activities_Admin::add_update_success_message( $act_map['name'] );
                 } else {
-                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating activity: %s ', 'activities' ), $act->name ) );
+                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred updating activity: %s ', 'activities' ), $act->name ) );
                 }
             } else {
                 Activities_Admin::add_error_message( sprintf( esc_html__( 'An activity with name: %s already exists.', 'activities' ), $act_map['name'] ) );

@@ -128,21 +128,22 @@ class Activities {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan-list-table.php';
 
 		if ( is_admin() ) {
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-activity.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-options.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-activities.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-locations.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-archive.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-activity-nice.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-generic.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-location.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-export.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-import.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin-utility.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-bulk-action.php';
-            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-plans.php';
-            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-plan.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-generic.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-access.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin-utility.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-activity.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-activities.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-archive.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-activity-nice.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/options/activities-admin-options.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/location/activities-admin-location.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/location/activities-admin-locations.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/import-export/activities-admin-export.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/import-export/activities-admin-import.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/bulk/class-activities-bulk-action.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/plan/activities-admin-plans.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/plan/activities-admin-plan.php';
 		}
 
 		$this->loader = new Activities_Loader();

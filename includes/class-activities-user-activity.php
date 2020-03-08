@@ -109,7 +109,7 @@ class Activities_User_Activity {
      * Inserts if a new relation is found
      * Deletes a relation if it's not found
      *
-     * @param string|array $value String of comma seperated ids to enter or array of ids
+     * @param string|array $value String of comma separated ids to enter or array of ids
      * @param int $static_id Id from where the change was made (user_id on user pages or activity_id from activity edit page)
      * @param string $static_field Name of the $static_id (user_id or activity_id)
      *

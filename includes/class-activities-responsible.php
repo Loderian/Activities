@@ -50,7 +50,7 @@ class Activities_Responsible {
     }
 
     /**
-     * Retrieve responsibility restriction thats on a user
+     * Retrieve responsibility restriction that's on a user
      *
      * @param int $user_id User to retrieve data for
      * @param string $key Restriction key

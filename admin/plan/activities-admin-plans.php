@@ -19,14 +19,7 @@ if ( !defined( 'WPINC' ) ) {
  * @return string Admin page for plans
  */
 function activities_admin_plans_page() {
-    if ( !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
-        wp_die( esc_html__( 'Access Denied', 'activities' ) );
-    }
-
-    $current_url = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    $current_url = remove_query_arg( 'action', $current_url );
-    $current_url = remove_query_arg( 'item_id', $current_url );
-    $current_url = remove_query_arg( '_wpnonce', $current_url );
+    $current_url = activities_admin_access_activities( array ( 'action', 'item_id', '_wpnonce' ) );
 
     if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
         return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create' );
@@ -49,7 +42,7 @@ function activities_admin_plans_page() {
             if ( Activities_Plan::insert( $plan_map ) ) {
                 Activities_Admin::add_create_success_message( $plan_map['name'] );
             } else {
-                Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured creating plan: %s', 'activities' ), $plan_map['name'] ) );
+                Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred creating plan: %s', 'activities' ), $plan_map['name'] ) );
             }
         } else {
             Activities_Admin::add_error_message( sprintf( esc_html__( 'An plan with name: %s already exists.', 'activities' ), $plan_map['name'] ) );
@@ -64,12 +57,12 @@ function activities_admin_plans_page() {
         if ( $plan_map['name'] != '' ) {
             $plan = new Activities_Plan( acts_validate_id( $_POST['item_id'] ) );
             if ( $plan->id === '' ) {
-                Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating plan: %s', 'activities' ), $plan_map['name'] ) );
+                Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred updating plan: %s', 'activities' ), $plan_map['name'] ) );
             } elseif ( $plan->name === $plan_map['name'] || !Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
                 if ( Activities_Plan::update( $plan_map ) !== false ) {
                     Activities_Admin::add_update_success_message( stripslashes( wp_filter_nohtml_kses( $plan_map['name'] ) ) );
                 } else {
-                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating plan: %s', 'activities' ), $plan->name ) );
+                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred updating plan: %s', 'activities' ), $plan->name ) );
                 }
             } else {
                 Activities_Admin::add_error_message( sprintf( esc_html__( 'A plan with name %s already exists.', 'activities' ), $plan_map['name'] ) );

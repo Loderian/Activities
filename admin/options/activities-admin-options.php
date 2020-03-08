@@ -247,7 +247,7 @@ function activities_options_general() {
         echo '<option value="' . $option_key . '" ' . ( $res_per === $option_key ? 'selected' : '' ) . '>' . $option_display . '</option>';
     }
     echo '</select>';
-    echo '<p class="acts-grey">' . esc_html__( "This will be in addtion to role permissions.\nAn admin will always be able to view and edit their assigned activities,\nwhatever the responsible permission setting is set to.", 'activities' ) . '</p>';
+    echo '<p class="acts-grey">' . esc_html__( "This will be in addition to role permissions.\nAn admin will always be able to view and edit their assigned activities,\nwhatever the responsible permission setting is set to.", 'activities' ) . '</p>';
     echo '</div>';
 
     $act_roles_options = array(
@@ -364,7 +364,7 @@ function activities_options_woocommerce() {
     echo '<div>';
     echo '<h2>' . esc_html__( 'WooCommerce Guest Customers', 'activities' ) . '</h2>';
     $checked = Activities_Options::get_option( ACTIVITIES_WOOCOMMERCE_CONVERT_KEY ) ? 'checked' : '';
-    echo '<b>' . esc_html__( 'Enable Guest Coversion', 'activities' ) . '</b> <input type="checkbox" name="' . ACTIVITIES_WOOCOMMERCE_CONVERT_KEY . '" ' . $checked . ' /></br>';
+    echo '<b>' . esc_html__( 'Enable Guest Conversion', 'activities' ) . '</b> <input type="checkbox" name="' . ACTIVITIES_WOOCOMMERCE_CONVERT_KEY . '" ' . $checked . ' /></br>';
     echo '<i class="acts-grey">' . esc_html__( "Enables automatic conversion of guest customers to users.\nThis allows guests to be added to activities.", 'activities' ) . '</i></br></br>';
     echo '</div>';
 

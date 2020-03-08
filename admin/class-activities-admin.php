@@ -531,7 +531,7 @@ class Activities_Admin {
             $screen->add_help_tab( array(
                 'id'      => 'acts_overview',
                 'title'   => __( 'Overview', 'activities' ),
-                'content' => '<p>' . $overview_text . '</br></br>' . esc_html__( 'A documentation page will be available soon!', 'activities' ) . '</p>'
+                'content' => '<p>' . $overview_text . '</br></br>' . esc_html__( 'A documentation page will be available sometime!', 'activities' ) . '</p>'
             ) );
         }
     }

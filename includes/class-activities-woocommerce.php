@@ -14,7 +14,7 @@ if ( !defined( 'WPINC' ) ) {
  */
 class Activities_WooCommerce {
     /**
-     * Key for identifying user who where made by guest convertion
+     * Key for identifying user who where made by guest conversion
      */
     const guest_key = '_activities_guest';
 
@@ -76,7 +76,7 @@ class Activities_WooCommerce {
      * Echo select activity field
      *
      * @param int $id Post Id
-     * @param int $index Index for varaible products
+     * @param int|false $index Index for variable products, or false for non variable
      */
     static function get_activity_select( $id, $index = false ) {
         if ( $index === false ) {
@@ -106,7 +106,7 @@ class Activities_WooCommerce {
             )
         );
 
-        //Required to prevent qucik saving from deleting acts on products
+        //Required to prevent quick saving from deleting acts on products
         echo '<input type="hidden" value="' . esc_attr( $id ) . '" name="' . $hidden_name . '" />';
 
         echo '
@@ -268,7 +268,6 @@ class Activities_WooCommerce {
      *
      * @param array $product_ids Array of product ids
      * @param string $from_date Only get order after this date
-     * @param string $variation Whether this is a product variation or not
      *
      * @return  array   Array of order ids
      */
@@ -593,7 +592,7 @@ class Activities_WooCommerce {
                 $count++;
                 echo '<li>' . esc_html__( 'Deleted user', 'activities' ) . ': ' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</li>';
             } else {
-                echo '<li style="color: darkred">' . esc_html__( 'An error occured deleting', 'activities' ) . ': ' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</li>';
+                echo '<li style="color: darkred">' . esc_html__( 'An error occurred deleting', 'activities' ) . ': ' . stripslashes( wp_filter_nohtml_kses( $name ) ) . '</li>';
             }
             $i++;
             echo '</ul>';

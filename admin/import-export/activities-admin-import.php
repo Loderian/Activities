@@ -91,7 +91,7 @@ function activities_import_page_selected( $type = 'activities' ) {
         $selected_columns = array();
         $filename         = sanitize_file_name( $_POST['filename'] );
         if ( validate_file( $filename ) !== 0 || !is_array( $_POST['map'] ) ) {
-            Activities_Admin::add_error_message( __( 'An error occured.', 'activities' ) );
+            Activities_Admin::add_error_message( __( 'An error occurred.', 'activities' ) );
         } else {
             $mapping = $_POST['map'];
             foreach ( $_POST['map'] as $column => $header ) {

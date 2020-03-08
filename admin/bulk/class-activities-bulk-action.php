@@ -143,7 +143,7 @@ class Activities_Bulk_Action {
             }
         }
 
-        Activities_Admin::add_success_message( sprintf( esc_html__( '%d activites has been activated.', 'activities' ), $this->succ ) );
+        Activities_Admin::add_success_message( sprintf( esc_html__( '%d activities has been activated.', 'activities' ), $this->succ ) );
     }
 
     /**
@@ -158,7 +158,7 @@ class Activities_Bulk_Action {
             }
         }
 
-        Activities_Admin::add_success_message( sprintf( esc_html__( '%d activites has been deleted.', 'activities' ), $this->succ ) );
+        Activities_Admin::add_success_message( sprintf( esc_html__( '%d activities has been deleted.', 'activities' ), $this->succ ) );
     }
 
     /**

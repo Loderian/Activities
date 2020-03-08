@@ -35,7 +35,7 @@ class Activities_Admin_Utility {
             $plan = Activities_Plan::load( acts_validate_id( $_POST['plan_id'] ) );
 
             if ( isset( $_POST['time_slots'] ) ) {
-                $time_slots = acts_validate_id( $_POST['time_slots'] ); //Time slots uses the same properies as an id
+                $time_slots = acts_validate_id( $_POST['time_slots'] ); //Time slots uses the same properties as an id
                 if ( $time_slots >= 0 && ( $plan === null || $time_slots != $plan['sessions'] ) ) {
                     $nice_settings['time_slots'] = $time_slots;
                 }
@@ -65,7 +65,7 @@ class Activities_Admin_Utility {
                 }
                 $nice_settings['attended'] = $attended;
 
-                //Only get plan spesifications if this not an example activity and its a vaild id
+                //Only get plan specifications if this not an example activity and its a valid id
                 $session_map = Activities_Activity::get_meta( $id, 'session_map' );
                 if ( $session_map == null ) {
                     $session_map = array();
@@ -107,10 +107,7 @@ class Activities_Admin_Utility {
                 $nice_settings[ $a_key ] = isset( $_POST[ $a_key ] );
             }
 
-            $meta_fields = $wpdb->get_col(
-                "SELECT DISTINCT meta_key
-        FROM $wpdb->usermeta"
-            );
+            $meta_fields = $wpdb->get_col( "SELECT DISTINCT meta_key FROM $wpdb->usermeta" );
             $custom      = array();
             if ( isset( $_POST['nice_custom'] ) && is_array( $_POST['nice_custom'] ) ) {
                 foreach ( $_POST['nice_custom'] as $col => $texts ) {

@@ -50,7 +50,7 @@ function activities_admin_locations_page() {
                 if ( Activities_Location::insert( $loc_map ) ) {
                     Activities_Admin::add_create_success_message( stripslashes( wp_filter_nohtml_kses( $loc_map['name'] ) ) );
                 } else {
-                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured creating location: %s', 'activities' ), $loc_map['name'] ) );
+                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred creating location: %s', 'activities' ), $loc_map['name'] ) );
                 }
             } else {
                 Activities_Admin::add_name_error_message( esc_html__( 'Location', 'activities' ) );
@@ -65,12 +65,12 @@ function activities_admin_locations_page() {
             if ( $loc_map['name'] != '' ) {
                 $loc = new Activities_Location( acts_validate_id( $_POST['item_id'] ) );
                 if ( $loc->id === '' ) {
-                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating location: %s', 'activities' ), $loc_map['name'] ) );
+                    Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred updating location: %s', 'activities' ), $loc_map['name'] ) );
                 } elseif ( $loc->name === $loc_map['name'] || !Activities_Location::exists( $loc_map['name'], 'name' ) ) {
                     if ( Activities_Location::update( $loc_map ) !== false ) {
                         Activities_Admin::add_update_success_message( stripslashes( wp_filter_nohtml_kses( $loc_map['name'] ) ) );
                     } else {
-                        Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occured updating location: %s', 'activities' ), $loc->name ) );
+                        Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred updating location: %s', 'activities' ), $loc->name ) );
                     }
                 } else {
                     Activities_Admin::add_error_message( sprintf( esc_html__( 'A location with name %s already exists.', 'activities' ), $loc_map['name'] ) );

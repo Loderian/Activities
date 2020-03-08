@@ -27,9 +27,9 @@ class Activities_Activity {
     /**
      * Loads activity info based on id
      *
-     * @param int $id Activity id
+     * @param string $id Activity id
      */
-    function __construct( $id ) {
+    function __construct( string $id ) {
         $this->activity = self::load( $id );
     }
 
@@ -51,11 +51,11 @@ class Activities_Activity {
      *    - otherwise it searches the activity_meta table
      *
      *
-     * @param string $name Proprety to get
+     * @param string $name Property to get
      *
      * @return  mixed   Data found for $name key, '' if not data was found
      */
-    function __get( $name ) {
+    function __get( string $name ) {
         if ( !is_array( $this->activity ) ) {
             return '';
         }
@@ -121,7 +121,7 @@ class Activities_Activity {
      *
      * @return  bool        True if the activity exists, false otherwise
      */
-    static function exists( $act_id, $check_by = 'id' ) {
+    static function exists( string $act_id, string $check_by = 'id' ) {
         return Activities_Item::exists( $act_id, 'activity', $check_by );
     }
 
@@ -133,7 +133,7 @@ class Activities_Activity {
      *
      * @return  bool        True if the activity is archived, false otherwise
      */
-    static function is_archived( $act_id, $check_by = 'id' ) {
+    static function is_archived( $act_id, string $check_by = 'id' ) {
         global $wpdb;
 
         $activity_table = Activities::get_table_name( 'activity' );
@@ -156,7 +156,7 @@ class Activities_Activity {
      *
      * @return  int|bool  False if it could not be inserted, new activity id otherwise
      */
-    static function insert( $act_map ) {
+    static function insert( array $act_map ) {
         $act = Activities_Item::insert( 'activity', $act_map );
 
         if ( $act ) {
@@ -185,7 +185,7 @@ class Activities_Activity {
      *
      * @return  bool  False if it could not be updated, True otherwise
      */
-    static function update( $act_map ) {
+    static function update( array $act_map ) {
         if ( !isset( $act_map['activity_id'] ) || self::is_archived( $act_map['activity_id'] ) ) {
             return false;
         }
@@ -220,7 +220,7 @@ class Activities_Activity {
      *
      * @return  int|bool   New activity id, false on error
      */
-    static function duplicate( $activity_id ) {
+    static function duplicate( int $activity_id ) {
         $activity = self::load( $activity_id );
 
         if ( $activity !== null ) {
@@ -264,7 +264,7 @@ class Activities_Activity {
      *
      * @return  array|null  Associative array of activity info, or null if error
      */
-    static function load( $activity_id ) {
+    static function load( int $activity_id ) {
         global $wpdb;
 
         $activity = Activities_Item::load( 'activity', $activity_id );
@@ -295,7 +295,7 @@ class Activities_Activity {
      *
      * @return  Activities_Activity|null  Activity object, or null if error
      */
-    static function load_by_name( $name ) {
+    static function load_by_name( string $name ) {
         global $wpdb;
 
         $table_name = Activities::get_table_name( 'activity' );
@@ -322,7 +322,7 @@ class Activities_Activity {
      *
      * @return  int|bool  False if error or number of affected rows (0 or 1)
      */
-    static function archive( $activity_id, $reverse = '' ) {
+    static function archive( int $activity_id, string $reverse = '' ) {
         global $wpdb;
 
         $table_name = Activities::get_table_name( 'activity' );
@@ -354,7 +354,7 @@ class Activities_Activity {
      *
      * @return  bool  True if the activity was deleted, false otherwise
      */
-    static function delete( $activity_id, $override = false ) {
+    static function delete( int $activity_id, bool $override = false ) {
         global $wpdb;
 
         if ( !$override && !self::is_archived( $activity_id ) ) {
@@ -393,7 +393,7 @@ class Activities_Activity {
      *
      * @return  array   meta_key => meta_value
      */
-    static function get_all_meta( $activity_id, $unserialize = true ) {
+    static function get_all_meta( int $activity_id, bool $unserialize = true ) {
         global $wpdb;
 
         $meta_table = Activities::get_table_name( 'activity_meta' );
@@ -430,7 +430,7 @@ class Activities_Activity {
      *
      * @return  mixed|null      Meta value, null if no value
      */
-    static function get_meta( $activity_id, $meta_key ) {
+    static function get_meta( int $activity_id, string $meta_key ) {
         global $wpdb;
 
         $meta_table = Activities::get_table_name( 'activity_meta' );
@@ -460,7 +460,7 @@ class Activities_Activity {
      *
      * @return  bool      False on error
      */
-    static function update_meta( $activity_id, $meta_key, $meta_value, $serialize = true ) {
+    static function update_meta( int $activity_id, string $meta_key, $meta_value, bool $serialize = true ) {
         global $wpdb;
 
         $meta_table = Activities::get_table_name( 'activity_meta' );
@@ -489,11 +489,12 @@ class Activities_Activity {
     /**
      * Deletes meta data for activities
      *
-     * @param int $id Activity id
+     * @param int $activity_id Activity id
+     * @param string $meta_key Meta to delete
      *
      * @return  int|bool    Number of rows affected (should be 1), or false on error
      */
-    static function delete_meta( $activity_id, $meta_key ) {
+    static function delete_meta( int $activity_id, string $meta_key ) {
         global $wpdb;
 
         $table_name = Activities::get_table_name( 'activity_meta' );
@@ -508,12 +509,11 @@ class Activities_Activity {
     /**
      * Get an activity meta value
      *
-     * @param int $activity_id Activity id
-     * @param string $meta_key Meta key
+     * @param array $settings Settings to save
      *
      * @return  string    Meta value
      */
-    static function save_nice_settings( $settings ) {
+    static function save_nice_settings( array $settings ) {
         if ( !array_key_exists( 'activity_id', $settings ) || is_null( $settings['activity_id'] ) ) {
             return false;
         }
@@ -558,9 +558,9 @@ class Activities_Activity {
      *
      * @param int $id Activity id
      *
-     * @return  array    Nice Settings
+     * @return  array|false    Nice Settings, or false if does not exist
      */
-    static function get_nice_settings( $id ) {
+    static function get_nice_settings( int $id ) {
         if ( $id <= 0 ) {
             return false;
         }
@@ -618,7 +618,7 @@ class Activities_Activity {
      *
      * @param int $user_id User id
      */
-    static function deleted_user( $user_id ) {
+    static function deleted_user( int $user_id ) {
         global $wpdb;
 
         $wpdb->update(
@@ -638,7 +638,7 @@ class Activities_Activity {
      * @param int $user_id User id
      * @param int $blog_id Blog id
      */
-    static function remove_user_from_blog( $user_id, $blog_id ) {
+    static function remove_user_from_blog( int $user_id, int $blog_id ) {
         if ( is_multisite() ) {
             switch_to_blog( $blog_id );
         }
@@ -662,7 +662,7 @@ class Activities_Activity {
      *
      * @param int $loc_id Location id
      */
-    static function deleted_location( $loc_id ) {
+    static function deleted_location( int $loc_id ) {
         global $wpdb;
 
         $wpdb->update(
@@ -681,7 +681,7 @@ class Activities_Activity {
      *
      * @param int $plan_id Plan id
      */
-    static function deleted_plan( $plan_id ) {
+    static function deleted_plan( int $plan_id ) {
         global $wpdb;
 
         $wpdb->update(
@@ -700,7 +700,7 @@ class Activities_Activity {
      *
      * @return  array     Array of column names
      */
-    static function get_columns( $type = 'none' ) {
+    static function get_columns( string $type = 'none' ) {
         $strings = array( 'name', 'short_desc', 'long_desc', 'start', 'end' );
         $ints    = array( 'responsible_id', 'location_id', 'archive', 'plan_id' );
 
@@ -722,5 +722,4 @@ class Activities_Activity {
         }
     }
 }
-
 Activities_Activity::init();

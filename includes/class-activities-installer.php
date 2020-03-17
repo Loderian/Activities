@@ -34,9 +34,15 @@ class Activities_Installer {
             $this->install_activity_table();
             $this->install_user_activity_table();
             $this->install_activity_meta_table();
-            $this->install_participant_table();
-            $this->install_participant_meta_table();
-            $this->install_participant_activity_table();
+            $this->install_plans_table();
+            $this->install_plans_session_table();
+
+            //Version work in progress
+            if ( version_compare( ACTIVITIES_DB_VERSION, '1.2.0' ) >= 0 ) {
+                $this->install_participant_table();
+                $this->install_participant_meta_table();
+                $this->install_participant_activity_table();
+            }
 
             Activities_Category::add_uncategorized();
 
@@ -76,6 +82,7 @@ class Activities_Installer {
             end datetime DEFAULT NULL,
             responsible_id bigint(20) UNSIGNED,
             archive boolean DEFAULT 0 NOT NULL,
+            plan_id bigint(20) UNSIGNED,
             PRIMARY KEY  (activity_id),
             KEY activity_res (responsible_id),
             KEY activity_loc (location_id),
@@ -157,7 +164,7 @@ class Activities_Installer {
     }
 
     /**
-     * Installs plans talbe
+     * Installs plans table
      */
     public function install_plans_table() {
         global $wpdb;
@@ -179,7 +186,7 @@ class Activities_Installer {
     }
 
     /**
-     * Installs plans talbe
+     * Installs plans table
      */
     public function install_plans_session_table() {
         global $wpdb;
@@ -215,7 +222,7 @@ class Activities_Installer {
             first_name varchar(50) DEFAULT '',
             last_name varchar(50) DEFAULT '',
             email varchar(50) DEFAULT '',
-            wp_user bigint(20) DEFAULT NULL
+            wp_user bigint(20) DEFAULT NULL,
             PRIMARY KEY  (user_id))
             $charset_collate;";
 
@@ -238,8 +245,8 @@ class Activities_Installer {
             user_id bigint(20) UNSIGNED NOT NULL,
             meta_key varchar(255) DEFAULT NULL,
             meta_value longtext DEFAULT NULL,
-            PRIMARY KEY  (ameta_id),
-            KEY activity_id (activity_id),
+            PRIMARY KEY  (umeta_id),
+            KEY activity_id (user_id),
             KEY meta_key (meta_key)) 
             $charset_collate;";
 

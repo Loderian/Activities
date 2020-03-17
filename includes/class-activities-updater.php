@@ -20,7 +20,8 @@ class Activities_Updater {
      */
     static $db_updates = array(
         '1.0.1' => array( __CLASS__, 'db_update_1_0_1' ),
-        '1.1.0' => array( __CLASS__, 'db_update_1_1_0' )
+        '1.1.0' => array( __CLASS__, 'db_update_1_1_0' ),
+        '1.1.1' => array( __CLASS__, 'db_update_1_1_1' )
         //'1.2.0' => array( __CLASS__, 'db_update_1_2_0' ) //TODO Add version when update when new tables are "ready"
     );
 
@@ -74,7 +75,7 @@ class Activities_Updater {
             $wpdb->query( "ALTER TABLE $acts_table MODIFY COLUMN start datetime DEFAULT NULL;" );
             $wpdb->query( "ALTER TABLE $acts_table MODIFY COLUMN end datetime DEFAULT NULL;" );
             $wpdb->query( "ALTER TABLE $acts_table MODIFY COLUMN name VARCHAR(180) NOT NULL;" );
-            $wpdb->query( "ALTER TABLE $acts_table ADD plan_id bigint(20);" );
+            $wpdb->query( "ALTER TABLE $acts_table ADD plan_id bigint(20) UNSIGNED;" );
             $wpdb->query( "ALTER TABLE $acts_table ADD INDEX activity_plan (plan_id);" );
 
             $locs_table = Activities::get_table_name( 'location' );
@@ -92,13 +93,29 @@ class Activities_Updater {
     }
 
     /**
+     * Update db to version 1.1.1
+     *
+     * Ensures all tables are installed for those under version 1.1.1
+     *
+     * @return bool Returns true on successful update
+     */
+    static function db_update_1_1_1() {
+        try {
+            $installer = new Activities_Installer();
+            $installer->install_all_default_tables();
+        } catch ( Exception $e ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Update db to version 1.2.0
      *
      * @return bool Returns true on successful update
      */
     static function db_update_1_2_0() {
-        global $wpdb;
-
         try {
             $installer = new Activities_Installer();
             $installer->install_participant_table();

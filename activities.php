@@ -28,7 +28,7 @@ if ( !defined( 'WPINC' ) ) {
  * Current plugin version
  */
 define( 'ACTIVITIES_VERSION', '1.1.2' );
-define( 'ACTIVITIES_DB_VERSION', '1.1.0' );
+define( 'ACTIVITIES_DB_VERSION', '1.1.1' );
 
 /**
  * Activities activation

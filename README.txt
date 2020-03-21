@@ -152,6 +152,11 @@ List of data options
 
 == Changelog ==
 
+= 1.1.3 =
+
+* Fix: Installer should now work correctly
+* Fix: Uninstaller now removes plan tables
+
 = 1.1.2 =
 
 * Tweak: Removed Make Default and Reset to Default as they seemed unnecessary
@@ -216,6 +221,10 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.3 =
+
+Installer and uninstaller fix.
 
 = 1.1.2 =
 

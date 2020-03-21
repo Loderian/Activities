@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Activities\n"
-"POT-Creation-Date: 2019-02-10 14:06+0100\n"
+"POT-Creation-Date: 2020-03-21 19:03+0100\n"
 "PO-Revision-Date: 2018-09-05 18:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: activities.php\n"
@@ -21,1145 +21,1388 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: admin/activities-admin-activities.php:23
-#: admin/activities-admin-archive.php:23 admin/activities-admin-export.php:23
-#: admin/activities-admin-import.php:21 admin/activities-admin-locations.php:23
-#: admin/activities-admin-options.php:21 admin/activities-admin-plans.php:23
+#: admin/activities-admin-access.php:23
+#: admin/activity/activities-admin-archive.php:23
+#: admin/import-export/activities-admin-export.php:21
+#: admin/import-export/activities-admin-import.php:21
+#: admin/location/activities-admin-locations.php:23
+#: admin/options/activities-admin-options.php:21
 msgid "Access Denied"
 msgstr ""
 
-#: admin/activities-admin-activities.php:34
-#: admin/activities-admin-activities.php:82
-#: admin/activities-admin-activities.php:94
-msgid "Create New Activity"
-msgstr ""
-
-#: admin/activities-admin-activities.php:40
-#: admin/activities-admin-activities.php:109
-#: admin/activities-admin-activities.php:126
-msgid "Edit Activity"
-msgstr ""
-
-#: admin/activities-admin-activities.php:43
-msgid "You do not have permission to edit this activity."
-msgstr ""
-
-#: admin/activities-admin-activities.php:54
-msgid "You do not have permission to view this activity."
-msgstr ""
-
-#: admin/activities-admin-activities.php:68
-msgid "An error occured during duplication of activity."
-msgstr ""
-
-#: admin/activities-admin-activities.php:71
-msgid "You do not have permission to duplicate activities."
-msgstr ""
-
-#: admin/activities-admin-activities.php:81
-#: admin/activities-admin-activities.php:108
-msgid "The activity must have a name."
-msgstr ""
-
-#: admin/activities-admin-activities.php:89
-#, php-format
-msgid "An error occured creating activity: %s"
-msgstr ""
-
-#: admin/activities-admin-activities.php:93
-#: admin/activities-admin-activities.php:124
-#, php-format
-msgid "An activity with name: %s already exists."
-msgstr ""
-
-#: admin/activities-admin-activities.php:98
-msgid "You do not have permission to create activities."
-msgstr ""
-
-#: admin/activities-admin-activities.php:112
-#: admin/activities-admin-activities.php:120
-#, php-format
-msgid "An error occured updating activity: %s "
-msgstr ""
-
-#: admin/activities-admin-activities.php:130
-msgid "You do not have permission to update this activity."
-msgstr ""
-
-#: admin/activities-admin-activities.php:137
-#: admin/activities-admin-import.php:297
-msgid "Archive Activities"
-msgstr ""
-
-#: admin/activities-admin-activities.php:141
-#: includes/class-activities-activity-list-table.php:162
-msgid "Change Location"
-msgstr ""
-
-#: admin/activities-admin-activities.php:145
-msgid "Change Responsible User"
-msgstr ""
-
-#: admin/activities-admin-activities.php:149
-#: admin/activities-admin-activities.php:192
-#: includes/class-activities-activity-list-table.php:164
-msgid "Change Participants"
-msgstr ""
-
-#: admin/activities-admin-activities.php:188
-msgid "Select a save method."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-#: admin/activities-admin-activities.php:202
-#: admin/activities-admin-import.php:40 admin/activities-admin-import.php:280
-#: admin/class-activities-admin.php:118 admin/class-activities-admin.php:120
-#: admin/class-activities-admin.php:202 admin/class-activities-admin.php:413
-#: includes/class-activities-woocommerce.php:53
-#: includes/class-activities-woocommerce.php:67
-msgid "Activities"
-msgstr ""
-
-#: admin/activities-admin-activities.php:204
-msgid "Create new activity"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:32
-#, php-format
-msgid "Report settings updated for %s."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:35
-#: admin/activities-admin-activity-nice.php:61
-#, php-format
-msgid "An error occured during saving report setting for %s."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:43
-#, php-format
-msgid "Report settings has been reset for %s."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:46
-#, php-format
-msgid "An error occured during resetting report setting for %s."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:58
-#, php-format
-msgid "Report settings updated for %s, and made default for all activities."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:85
-msgid "First Name"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:86
-msgid "Last Name"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:87
-msgid "User"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:100
-msgid "Billing"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:101
-msgid "Shipping"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:141
-#: admin/activities-admin-activity-nice.php:294
-msgid "Custom Fields"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:149
-#: admin/activities-admin-activity-nice.php:194
-#: admin/activities-admin-activity-nice.php:341
-#: admin/activities-admin-activity-nice.php:362
-#: admin/activities-admin-activity.php:78
-#: admin/activities-admin-activity.php:173
-#: admin/activities-admin-location.php:84
-#: admin/activities-admin-options.php:196 admin/activities-admin-plan.php:86
-#: admin/class-activities-admin.php:568
-msgid "Save"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:151
-msgid "Open user page"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:176
-msgid "Activity Report Management"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:181
-#: admin/class-activities-admin.php:696
-msgid "Report"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:211
-#: admin/activities-admin-archive.php:58
-msgid "Activity"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:239
-msgid "Settings"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:242
-msgid "Header"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:244
-msgid "Logo"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:245
-msgid "Select Logo"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:246
-msgid "Remove Logo"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:254
-#: admin/activities-admin-activity.php:88
-msgid "Activity Info"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:257
-#: admin/activities-admin-activity-nice.php:412
-msgid "Start"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:258
-#: admin/activities-admin-activity-nice.php:417
-msgid "End"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:259
-#: admin/activities-admin-activity.php:93
-#: admin/class-activities-admin-utility.php:386
-msgid "Short Description"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:260
-msgid "Location Address"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:261
-msgid "Responsible User"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:262
-#: admin/activities-admin-activity.php:95
-#: admin/class-activities-admin-utility.php:390
-msgid "Long Description"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:267
-#: admin/activities-admin-activity-nice.php:471
-#: admin/activities-admin-plan.php:53
-#: admin/class-activities-admin-utility.php:436
-msgid "Sessions"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:269
-msgid "Mark Sessions"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:270
-msgid "Mark: On"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:271
-msgid "Mark: Off"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:281
-msgid "Participant Info"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:282
-msgid "Reload Info"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:285
-msgid "Prepared Setups"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:294
-#: admin/activities-admin-activity-nice.php:325
-msgid "advanced"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:295
-msgid "Type in usermeta key, then press reload info."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:296
-msgid "Seperate multiple fields in one line by a comma."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:313
-#: admin/activities-admin-activity-nice.php:318
-#, php-format
-msgid "%s Column"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:313
-#: admin/activities-admin-activity-nice.php:466
-#: admin/activities-admin-generic.php:89 admin/activities-admin-import.php:45
-msgid "Participants"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:318
-#: admin/activities-admin-activity-nice.php:470
-msgid "Additional Info"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:325
-msgid "Color Fields"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:326
-msgid "Colorize usermeta data for quicker identification."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:343
-msgid "Print"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:344
-msgid "Folder Print"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:346
-#: admin/activities-admin-import.php:249 admin/activities-admin-import.php:305
-#: admin/activities-admin-import.php:420 admin/activities-admin-import.php:543
-#: includes/class-activities-woocommerce.php:453
-#: includes/class-activities-woocommerce.php:610
-msgid "Return"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:350
-msgid "Make default"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:351
-msgid "Reset to default"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:406
-msgid "Activity Participants List"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:430
-#: admin/activities-admin-activity.php:122
-#: admin/activities-admin-generic.php:54
-#: admin/activities-admin-locations.php:62
-#: admin/activities-admin-locations.php:92
-#: admin/activities-admin-locations.php:100
-#: admin/class-activities-admin-utility.php:408
-msgid "Location"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:447
-#: admin/activities-admin-activity.php:104
-#: admin/activities-admin-generic.php:68
-#: admin/class-activities-admin-utility.php:403
-msgid "Responsible"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:463
-msgid "Participant"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:544
-msgid "This activity has no participants."
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:711
-msgid "Wordpress User Info"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:714
-msgid "Woocommerce Billing Info"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:715
-msgid "Woocommerce Shipping Info"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:798
-#: admin/activities-admin-activity-nice.php:799
-#: admin/activities-admin-activity-nice.php:805
-#: admin/activities-admin-activity-nice.php:806
-#, php-format
-msgid "Address %d"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:800
-#: admin/activities-admin-activity-nice.php:807
-#: admin/activities-admin-location.php:55
-#: admin/class-activities-admin-utility.php:420
-msgid "City"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:801
-#: admin/activities-admin-activity-nice.php:808
-#: admin/activities-admin-location.php:53
-#: admin/class-activities-admin-utility.php:424
-msgid "Postcode"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:802
-#: admin/activities-admin-export.php:268
-msgid "Phone"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:884
-#: admin/activities-admin-location.php:65
-msgid "No Country"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:994
-msgid "Plan name"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:995
-#: admin/class-activities-admin.php:92
-msgid "Create plan"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:997
-#: admin/class-activities-admin.php:93
-msgid "Update plan"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:1022
-#: admin/class-activities-admin.php:91
-msgid "Empty"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:1032
-#: admin/class-activities-admin.php:85
-msgid "Session"
-msgstr ""
-
-#: admin/activities-admin-activity-nice.php:1033
-#: includes/class-activities-activity-list-table.php:339
-#: includes/class-activities-location-list-table.php:119
-#: includes/class-activities-plan-list-table.php:97
-msgid "Edit"
-msgstr ""
-
-#: admin/activities-admin-activity.php:51
-msgid "No Category Parent"
-msgstr ""
-
-#: admin/activities-admin-activity.php:67
-msgid "Category"
-msgstr ""
-
-#: admin/activities-admin-activity.php:69
-#: admin/activities-admin-activity.php:91 admin/activities-admin-export.php:269
-#: admin/activities-admin-location.php:49 admin/activities-admin-plan.php:51
-#: admin/class-activities-admin-utility.php:382
-#: admin/class-activities-admin.php:551
-msgid "Name"
-msgstr ""
-
-#: admin/activities-admin-activity.php:70
-#: admin/activities-admin-activity.php:197
-msgid "Category Name"
-msgstr ""
-
-#: admin/activities-admin-activity.php:71
-msgid "Category Parent"
-msgstr ""
-
-#: admin/activities-admin-activity.php:74
-#: admin/activities-admin-location.php:72 admin/activities-admin-plan.php:58
-#: admin/class-activities-admin-utility.php:416
-msgid "Description"
-msgstr ""
-
-#: admin/activities-admin-activity.php:79
-#: includes/class-activities-activity-list-table.php:174
-#: includes/class-activities-activity-list-table.php:352
-#: includes/class-activities-location-list-table.php:39
-#: includes/class-activities-location-list-table.php:120
-#: includes/class-activities-plan-list-table.php:51
-#: includes/class-activities-plan-list-table.php:98
-msgid "Delete"
-msgstr ""
-
-#: admin/activities-admin-activity.php:100
-msgid "Start date"
-msgstr ""
-
-#: admin/activities-admin-activity.php:102
-msgid "End date"
-msgstr ""
-
-#: admin/activities-admin-activity.php:114
-#: admin/activities-admin-generic.php:75
-msgid "No Responsible"
-msgstr ""
-
-#: admin/activities-admin-activity.php:131
-#: admin/activities-admin-generic.php:61
-msgid "No Location"
-msgstr ""
-
-#: admin/activities-admin-activity.php:136 admin/activities-admin-plans.php:89
-#: admin/activities-admin-plans.php:97
-#: admin/class-activities-admin-utility.php:440
-msgid "Plan"
-msgstr ""
-
-#: admin/activities-admin-activity.php:145
-msgid "No Plan"
-msgstr ""
-
-#: admin/activities-admin-activity.php:153
-msgid "Activity Participants"
-msgstr ""
-
-#: admin/activities-admin-activity.php:169
-#: admin/activities-admin-location.php:80 admin/activities-admin-plan.php:82
-msgid "Create"
-msgstr ""
-
-#: admin/activities-admin-activity.php:181
-#: includes/class-activities-activity-list-table.php:173
-#: includes/class-activities-activity-list-table.php:351
-msgid "Activate"
-msgstr ""
-
-#: admin/activities-admin-activity.php:183
-#: admin/activities-admin-generic.php:132
-#: admin/activities-admin-generic.php:162
-#: admin/activities-admin-location.php:89 admin/activities-admin-plan.php:91
-msgid "Cancel"
-msgstr ""
-
-#: admin/activities-admin-activity.php:195
-#: admin/class-activities-admin-utility.php:432
-msgid "Categories"
-msgstr ""
-
-#: admin/activities-admin-activity.php:201
-msgid "Create Category"
-msgstr ""
-
-#: admin/activities-admin-activity.php:209
-msgid "Primary"
-msgstr ""
-
-#: admin/activities-admin-activity.php:210
-msgid "Additional"
-msgstr ""
-
-#: admin/activities-admin-archive.php:36
-msgid "Archived Activity"
-msgstr ""
-
-#: admin/activities-admin-archive.php:51
-#, php-format
-msgid "%s has been activated."
-msgstr ""
-
-#: admin/activities-admin-archive.php:72
-msgid "Activate Activities"
-msgstr ""
-
-#: admin/activities-admin-archive.php:76
-msgid "Delete Activities"
-msgstr ""
-
-#: admin/activities-admin-archive.php:103 admin/class-activities-admin.php:126
-msgid "Activities Archive"
-msgstr ""
-
-#: admin/activities-admin-export.php:61
-msgid "Select an activity."
-msgstr ""
-
-#: admin/activities-admin-export.php:64
-msgid "Select user data to export."
-msgstr ""
-
-#: admin/activities-admin-export.php:90
-#, php-format
-msgid "User data found for %s:"
-msgstr ""
-
-#: admin/activities-admin-export.php:91
-msgid "Copied!"
-msgstr ""
-
-#: admin/activities-admin-export.php:93
-msgid "No data found."
-msgstr ""
-
-#: admin/activities-admin-export.php:108
-msgid "Notice:"
-msgstr ""
-
-#: admin/activities-admin-export.php:108
-#, php-format
-msgid "%d users missing data"
-msgstr ""
-
-#: admin/activities-admin-export.php:139
-msgid "You are not allowed to export this activity."
-msgstr ""
-
-#: admin/activities-admin-export.php:144 admin/class-activities-admin.php:124
-msgid "Activities Export"
-msgstr ""
-
-#: admin/activities-admin-export.php:149
-msgid "Export Activity Participant Data"
-msgstr ""
-
-#: admin/activities-admin-export.php:150
-msgid "Select Activity"
-msgstr ""
-
-#: admin/activities-admin-export.php:163
-msgid "Select User Data"
-msgstr ""
-
-#: admin/activities-admin-export.php:178
-msgid "Select Delimiter"
-msgstr ""
-
-#: admin/activities-admin-export.php:186 admin/class-activities-admin.php:124
-#: includes/class-activities-activity-list-table.php:342
-#: includes/class-activities-activity-list-table.php:349
-msgid "Export"
-msgstr ""
-
-#: admin/activities-admin-export.php:267
-msgid "Email"
-msgstr ""
-
-#: admin/activities-admin-export.php:275
-#, php-format
-msgid "Comma (%s)"
-msgstr ""
-
-#: admin/activities-admin-export.php:276
-#, php-format
-msgid "Semicolon (%s)"
-msgstr ""
-
-#: admin/activities-admin-export.php:277
-msgid "Newline"
-msgstr ""
-
-#: admin/activities-admin-generic.php:40
+#: admin/activities-admin-generic.php:39
 msgid "Selected Locations"
 msgstr ""
 
-#: admin/activities-admin-generic.php:43
+#: admin/activities-admin-generic.php:41
 msgid "Selected Activities"
 msgstr ""
 
-#: admin/activities-admin-generic.php:47
+#: admin/activities-admin-generic.php:45
 msgid "Bulk Action"
 msgstr ""
 
-#: admin/activities-admin-generic.php:50
+#: admin/activities-admin-generic.php:48
 #, php-format
 msgid "Are you sure you want to archive %d activities?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:82
+#: admin/activities-admin-generic.php:52
+#: admin/activity/activities-admin-activity-nice.php:397
+#: admin/activity/activities-admin-activity.php:121
+#: admin/class-activities-admin-utility.php:407
+#: admin/location/activities-admin-locations.php:56
+#: admin/location/activities-admin-locations.php:82
+#: admin/location/activities-admin-locations.php:89
+msgid "Location"
+msgstr ""
+
+#: admin/activities-admin-generic.php:59
+#: admin/activity/activities-admin-activity.php:130
+msgid "No Location"
+msgstr ""
+
+#: admin/activities-admin-generic.php:65
+#: admin/activity/activities-admin-activity-nice.php:412
+#: admin/activity/activities-admin-activity.php:103
+#: admin/class-activities-admin-utility.php:402
+msgid "Responsible"
+msgstr ""
+
+#: admin/activities-admin-generic.php:72
+#: admin/activity/activities-admin-activity.php:113
+msgid "No Responsible"
+msgstr ""
+
+#: admin/activities-admin-generic.php:78
 msgid "Select a Save Method"
 msgstr ""
 
-#: admin/activities-admin-generic.php:84
+#: admin/activities-admin-generic.php:80
 msgid "Method"
 msgstr ""
 
-#: admin/activities-admin-generic.php:85
+#: admin/activities-admin-generic.php:81
 msgid "Replace"
 msgstr ""
 
-#: admin/activities-admin-generic.php:86
+#: admin/activities-admin-generic.php:82
 msgid "Add"
 msgstr ""
 
-#: admin/activities-admin-generic.php:87
+#: admin/activities-admin-generic.php:83
 msgid "Remove"
 msgstr ""
 
-#: admin/activities-admin-generic.php:104
+#: admin/activities-admin-generic.php:85
+#: admin/activity/activities-admin-activity-nice.php:285
+#: admin/activity/activities-admin-activity-nice.php:430
+#: admin/import-export/activities-admin-import.php:46
+#: admin/participant/activities-admin-participants.php:25
+msgid "Participants"
+msgstr ""
+
+#: admin/activities-admin-generic.php:99
 #, php-format
 msgid "Are you sure you want to activate %d activities?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:108
+#: admin/activities-admin-generic.php:103
 #, php-format
 msgid "Are you sure you want to delete %d activities?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:109
+#: admin/activities-admin-generic.php:104
 msgid "Warning: Activities cannot be recovered after deletion."
 msgstr ""
 
-#: admin/activities-admin-generic.php:113
-#: admin/activities-admin-location.php:51
-#: admin/class-activities-admin-utility.php:412
+#: admin/activities-admin-generic.php:108
+#: admin/class-activities-admin-utility.php:411
+#: admin/location/activities-admin-location.php:52
 msgid "Address"
 msgstr ""
 
-#: admin/activities-admin-generic.php:118
+#: admin/activities-admin-generic.php:113
 #, php-format
 msgid "Are you sure you want to delete %d locations?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:119
+#: admin/activities-admin-generic.php:114
 msgid "Warning: Locations cannot be recovered after deletion."
 msgstr ""
 
-#: admin/activities-admin-generic.php:123
+#: admin/activities-admin-generic.php:118
 #, php-format
 msgid "Are you sure you want to delete %d plans?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:124
+#: admin/activities-admin-generic.php:119
 msgid "Warning: Plans cannot be recovered after deletion."
 msgstr ""
 
-#: admin/activities-admin-generic.php:131
-#: admin/activities-admin-generic.php:161
+#: admin/activities-admin-generic.php:126
+#: admin/activities-admin-generic.php:157
 msgid "Confirm"
 msgstr ""
 
-#: admin/activities-admin-generic.php:151
+#: admin/activities-admin-generic.php:127
+#: admin/activities-admin-generic.php:158
+#: admin/activity/activities-admin-activity.php:181
+#: admin/location/activities-admin-location.php:90
+#: admin/plan/activities-admin-plan.php:90
+msgid "Cancel"
+msgstr ""
+
+#: admin/activities-admin-generic.php:147
 #, php-format
 msgid "Delete %s"
 msgstr ""
 
-#: admin/activities-admin-generic.php:154
+#: admin/activities-admin-generic.php:150
 #, php-format
 msgid "Selected %s"
 msgstr ""
 
-#: admin/activities-admin-generic.php:156
+#: admin/activities-admin-generic.php:152
 #, php-format
 msgid "Are you sure you want to delete this %s?"
 msgstr ""
 
-#: admin/activities-admin-generic.php:157
+#: admin/activities-admin-generic.php:153
 #, php-format
 msgid "Warning: %s cannot be recovered after deletion."
 msgstr ""
 
-#: admin/activities-admin-generic.php:195
+#: admin/activities-admin-generic.php:191
 msgid "None"
 msgstr ""
 
-#: admin/activities-admin-generic.php:275
+#: admin/activities-admin-generic.php:271
 msgid "activity"
 msgid_plural "activities"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/activities-admin-generic.php:279
+#: admin/activities-admin-generic.php:275
 msgid "location"
 msgid_plural "locations"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/activities-admin-generic.php:283
+#: admin/activities-admin-generic.php:279
 msgid "plan"
 msgid_plural "plans"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/activities-admin-import.php:31
-msgid "Select Importer"
+#: admin/activity/activities-admin-activities.php:25
+#: admin/activity/activities-admin-activities.php:67
+#: admin/activity/activities-admin-activities.php:78
+msgid "Create New Activity"
 msgstr ""
 
-#: admin/activities-admin-import.php:41 admin/activities-admin-import.php:46
-msgid "Run Importer"
+#: admin/activity/activities-admin-activities.php:30
+#: admin/activity/activities-admin-activities.php:92
+#: admin/activity/activities-admin-activities.php:107
+msgid "Edit Activity"
 msgstr ""
 
-#: admin/activities-admin-import.php:42
-msgid "Import activities from a CSV file."
+#: admin/activity/activities-admin-activities.php:32
+msgid "You do not have permission to edit this activity."
 msgstr ""
 
-#: admin/activities-admin-import.php:47
-msgid "Import activities and participants from a CSV file."
+#: admin/activity/activities-admin-activities.php:41
+msgid "You do not have permission to view this activity."
 msgstr ""
 
-#: admin/activities-admin-import.php:61 admin/class-activities-admin.php:123
+#: admin/activity/activities-admin-activities.php:54
+msgid "An error occurred during duplication of activity."
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:56
+msgid "You do not have permission to duplicate activities."
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:65
+#: admin/activity/activities-admin-activities.php:90
+msgid "The activity must have a name."
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:73
+#, php-format
+msgid "An error occurred creating activity: %s"
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:76
+#: admin/activity/activities-admin-activities.php:104
+#, php-format
+msgid "An activity with name: %s already exists."
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:81
+msgid "You do not have permission to create activities."
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:95
+#: admin/activity/activities-admin-activities.php:101
+#, php-format
+msgid "An error occurred updating activity: %s "
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:110
+msgid "You do not have permission to update this activity."
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:116
+#: admin/import-export/activities-admin-import.php:296
+msgid "Archive Activities"
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:120
+#: includes/class-activities-activity-list-table.php:161
+msgid "Change Location"
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:124
+msgid "Change Responsible User"
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:128
+#: admin/activity/activities-admin-activities.php:170
+#: includes/class-activities-activity-list-table.php:163
+msgid "Change Participants"
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:166
+msgid "Select a save method."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: admin/activity/activities-admin-activities.php:180
+#: admin/class-activities-admin.php:122 admin/class-activities-admin.php:124
+#: admin/class-activities-admin.php:227 admin/class-activities-admin.php:436
+#: admin/import-export/activities-admin-import.php:41
+#: admin/import-export/activities-admin-import.php:279
+#: includes/class-activities-woocommerce.php:55
+#: includes/class-activities-woocommerce.php:70
+msgid "Activities"
+msgstr ""
+
+#: admin/activity/activities-admin-activities.php:182
+msgid "Create new activity"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:33
+#, php-format
+msgid "Report settings updated for %s."
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:35
+#, php-format
+msgid "An error occurred during saving report setting for %s."
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:59
+msgid "First Name"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:60
+msgid "Last Name"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:61
+msgid "User"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:64
+msgid "User avatar"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:74
+msgid "Billing"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:75
+msgid "Shipping"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:113
+#: admin/activity/activities-admin-activity-nice.php:266
+msgid "Custom Fields"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:121
+#: admin/activity/activities-admin-activity-nice.php:166
+#: admin/activity/activities-admin-activity-nice.php:313
+#: admin/activity/activities-admin-activity-nice.php:329
+#: admin/activity/activities-admin-activity.php:77
+#: admin/activity/activities-admin-activity.php:172
+#: admin/class-activities-admin.php:581
+#: admin/location/activities-admin-location.php:85
+#: admin/options/activities-admin-options.php:190
+#: admin/plan/activities-admin-plan.php:85
+msgid "Save"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:123
+msgid "Open user page"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:148
+msgid "Activity Report Management"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:153
+#: admin/class-activities-admin.php:712
+msgid "Report"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:183
+#: admin/activity/activities-admin-archive.php:53
+msgid "Activity"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:211
+msgid "Settings"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:214
+msgid "Header"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:216
+msgid "Logo"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:217
+msgid "Select Logo"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:218
+msgid "Remove Logo"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:226
+#: admin/activity/activities-admin-activity.php:87
+msgid "Activity Info"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:229
+#: admin/activity/activities-admin-activity-nice.php:379
+msgid "Start"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:230
+#: admin/activity/activities-admin-activity-nice.php:384
+msgid "End"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:231
+#: admin/activity/activities-admin-activity.php:92
+#: admin/class-activities-admin-utility.php:385
+msgid "Short Description"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:232
+msgid "Location Address"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:233
+msgid "Responsible User"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:234
+#: admin/activity/activities-admin-activity.php:94
+#: admin/class-activities-admin-utility.php:389
+msgid "Long Description"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:239
+#: admin/activity/activities-admin-activity-nice.php:435
+#: admin/class-activities-admin-utility.php:435
+#: admin/plan/activities-admin-plan.php:52
+msgid "Sessions"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:241
+msgid "Mark Sessions"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:242
+msgid "Mark: On"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:243
+msgid "Mark: Off"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:253
+msgid "Participant Info"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:254
+msgid "Reload Info"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:257
+msgid "Prepared Setups"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:266
+#: admin/activity/activities-admin-activity-nice.php:297
+msgid "advanced"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:267
+msgid "Type in usermeta key, then press reload info."
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:268
+msgid "Separate multiple fields in one line by a comma."
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:285
+#: admin/activity/activities-admin-activity-nice.php:290
+#, php-format
+msgid "%s Column"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:290
+#: admin/activity/activities-admin-activity-nice.php:434
+msgid "Additional Info"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:297
+msgid "Color Fields"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:298
+msgid "Colorize usermeta data for quicker identification."
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:315
+msgid "Print"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:316
+msgid "Folder Print"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:318
+#: admin/import-export/activities-admin-import.php:244
+#: admin/import-export/activities-admin-import.php:304
+#: admin/import-export/activities-admin-import.php:417
+#: admin/import-export/activities-admin-import.php:538
+#: includes/class-activities-woocommerce.php:449
+#: includes/class-activities-woocommerce.php:604
+msgid "Return"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:373
+msgid "Activity Participants List"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:428
+msgid "Participant"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:506
+msgid "This activity has no participants."
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:674
+msgid "Wordpress User Info"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:677
+msgid "Woocommerce Billing Info"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:678
+msgid "Woocommerce Shipping Info"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:762
+#: admin/activity/activities-admin-activity-nice.php:763
+#: admin/activity/activities-admin-activity-nice.php:769
+#: admin/activity/activities-admin-activity-nice.php:770
+#, php-format
+msgid "Address %d"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:764
+#: admin/activity/activities-admin-activity-nice.php:771
+#: admin/class-activities-admin-utility.php:419
+#: admin/location/activities-admin-location.php:56
+msgid "City"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:765
+#: admin/activity/activities-admin-activity-nice.php:772
+#: admin/class-activities-admin-utility.php:423
+#: admin/location/activities-admin-location.php:54
+msgid "Postcode"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:766
+#: admin/import-export/activities-admin-export.php:256
+msgid "Phone"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:850
+#: admin/location/activities-admin-location.php:66
+msgid "No Country"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:959
+msgid "Plan name"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:960
+#: admin/class-activities-admin.php:96
+msgid "Create plan"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:962
+#: admin/class-activities-admin.php:97
+msgid "Update plan"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:989
+#: admin/class-activities-admin.php:95
+msgid "Empty"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:999
+#: admin/class-activities-admin.php:86
+msgid "Session"
+msgstr ""
+
+#: admin/activity/activities-admin-activity-nice.php:1000
+#: includes/class-activities-activity-list-table.php:330
+#: includes/class-activities-location-list-table.php:117
+#: includes/class-activities-plan-list-table.php:98
+msgid "Edit"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:50
+msgid "No Category Parent"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:66
+msgid "Category"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:68
+#: admin/activity/activities-admin-activity.php:90
+#: admin/class-activities-admin-utility.php:381
+#: admin/class-activities-admin.php:564
+#: admin/import-export/activities-admin-export.php:257
+#: admin/location/activities-admin-location.php:50
+#: admin/plan/activities-admin-plan.php:50
+msgid "Name"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:69
+#: admin/activity/activities-admin-activity.php:195
+msgid "Category Name"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:70
+msgid "Category Parent"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:73
+#: admin/class-activities-admin-utility.php:415
+#: admin/location/activities-admin-location.php:73
+#: admin/plan/activities-admin-plan.php:57
+msgid "Description"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:78
+#: includes/class-activities-activity-list-table.php:172
+#: includes/class-activities-activity-list-table.php:342
+#: includes/class-activities-location-list-table.php:39
+#: includes/class-activities-location-list-table.php:118
+#: includes/class-activities-plan-list-table.php:51
+#: includes/class-activities-plan-list-table.php:99
+msgid "Delete"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:99
+msgid "Start date"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:101
+msgid "End date"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:135
+#: admin/class-activities-admin-utility.php:439
+#: admin/plan/activities-admin-plans.php:74
+#: admin/plan/activities-admin-plans.php:81
+msgid "Plan"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:144
+msgid "No Plan"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:152
+msgid "Activity Participants"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:168
+#: admin/location/activities-admin-location.php:81
+#: admin/plan/activities-admin-plan.php:81
+msgid "Create"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:179
+#: includes/class-activities-activity-list-table.php:171
+#: includes/class-activities-activity-list-table.php:341
+msgid "Activate"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:193
+#: admin/class-activities-admin-utility.php:431
+msgid "Categories"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:199
+msgid "Create Category"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:207
+msgid "Primary"
+msgstr ""
+
+#: admin/activity/activities-admin-activity.php:208
+msgid "Additional"
+msgstr ""
+
+#: admin/activity/activities-admin-archive.php:34
+msgid "Archived Activity"
+msgstr ""
+
+#: admin/activity/activities-admin-archive.php:47
+#, php-format
+msgid "%s has been activated."
+msgstr ""
+
+#: admin/activity/activities-admin-archive.php:65
+msgid "Activate Activities"
+msgstr ""
+
+#: admin/activity/activities-admin-archive.php:69
+msgid "Delete Activities"
+msgstr ""
+
+#: admin/activity/activities-admin-archive.php:95
+#: admin/class-activities-admin.php:148
+msgid "Activities Archive"
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:42
+#, php-format
+msgid "%d activities has been archived"
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:62
+#, php-format
+msgid "%d activities had their location changed."
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:82
+#, php-format
+msgid "%d activities had their responsible person changed."
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:131
+#, php-format
+msgid "%d activities had their members changed."
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:146
+#, php-format
+msgid "%d activities has been activated."
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:161
+#, php-format
+msgid "%d activities has been deleted."
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:177
+#, php-format
+msgid "%d locations had their address changed."
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:192
+#, php-format
+msgid "%d locations has been deleted."
+msgstr ""
+
+#: admin/bulk/class-activities-bulk-action.php:207
+#, php-format
+msgid "%d plans has been deleted."
+msgstr ""
+
+#: admin/class-activities-admin-utility.php:32
+msgid "Could not verify activity report data integrity."
+msgstr ""
+
+#: admin/class-activities-admin-utility.php:393
+msgid "Start Date"
+msgstr ""
+
+#: admin/class-activities-admin-utility.php:397
+msgid "End Date"
+msgstr ""
+
+#: admin/class-activities-admin-utility.php:427
+#: admin/location/activities-admin-location.php:58
+#: admin/options/activities-admin-options.php:468
+msgid "Country"
+msgstr ""
+
+#: admin/class-activities-admin.php:94
+msgid "Select a logo for the activity report"
+msgstr ""
+
+#: admin/class-activities-admin.php:122
+msgid "Activities Admin Page"
+msgstr ""
+
+#: admin/class-activities-admin.php:128
+msgid "Activities Locations"
+msgstr ""
+
+#: admin/class-activities-admin.php:128
+#: admin/location/activities-admin-locations.php:131
+msgid "Locations"
+msgstr ""
+
+#: admin/class-activities-admin.php:132
+msgid "Activities Plans"
+msgstr ""
+
+#: admin/class-activities-admin.php:132
+#: admin/plan/activities-admin-plans.php:115
+msgid "Plans"
+msgstr ""
+
+#: admin/class-activities-admin.php:136
+#: admin/import-export/activities-admin-import.php:63
 msgid "Activities Import"
 msgstr ""
 
-#: admin/activities-admin-import.php:64
+#: admin/class-activities-admin.php:136
+#: admin/import-export/activities-admin-import.php:243
+#: admin/import-export/activities-admin-import.php:303
+msgid "Import"
+msgstr ""
+
+#: admin/class-activities-admin.php:140
+#: admin/import-export/activities-admin-export.php:132
+msgid "Activities Export"
+msgstr ""
+
+#: admin/class-activities-admin.php:140
+#: admin/import-export/activities-admin-export.php:173
+#: includes/class-activities-activity-list-table.php:333
+#: includes/class-activities-activity-list-table.php:339
+msgid "Export"
+msgstr ""
+
+#: admin/class-activities-admin.php:144
+#: admin/options/activities-admin-options.php:159
+msgid "Activities Options"
+msgstr ""
+
+#: admin/class-activities-admin.php:144
+msgid "Options"
+msgstr ""
+
+#: admin/class-activities-admin.php:148
+msgctxt "Noun"
+msgid "Archive"
+msgstr ""
+
+#: admin/class-activities-admin.php:241
+msgid "Archived Activites"
+msgstr ""
+
+#: admin/class-activities-admin.php:293
+#, php-format
+msgid "%s has been created."
+msgstr ""
+
+#: admin/class-activities-admin.php:302
+#, php-format
+msgid "%s has been updated."
+msgstr ""
+
+#: admin/class-activities-admin.php:311
+#, php-format
+msgid "%s must have a name."
+msgstr ""
+
+#: admin/class-activities-admin.php:320
+#, php-format
+msgid "%s has been deleted."
+msgstr ""
+
+#: admin/class-activities-admin.php:473
+msgid "activities"
+msgstr ""
+
+#: admin/class-activities-admin.php:477
+msgid "locations"
+msgstr ""
+
+#: admin/class-activities-admin.php:481
+msgid "archived activities"
+msgstr ""
+
+#: admin/class-activities-admin.php:486
+#, php-format
+msgid "This screen allows you to edit your %s."
+msgstr ""
+
+#: admin/class-activities-admin.php:488
+msgid ""
+"This is the activity report screen where you customize and print/save your "
+"reports."
+msgstr ""
+
+#: admin/class-activities-admin.php:491
+#, php-format
+msgid "This screen gives you access to all your %s."
+msgstr ""
+
+#: admin/class-activities-admin.php:496
+msgid ""
+"This screen gives you the options to either import activities or "
+"participants."
+msgstr ""
+
+#: admin/class-activities-admin.php:500
+msgid "Export activity participant data to send email, sms and more."
+msgstr ""
+
+#: admin/class-activities-admin.php:513
+msgid "This is where you can edit the standard settings for activity reports."
+msgstr ""
+
+#: admin/class-activities-admin.php:517
+msgid "Settings related to the WooCommerce plugin."
+msgstr ""
+
+#: admin/class-activities-admin.php:522
+msgid "This general settings page for this plugin."
+msgstr ""
+
+#: admin/class-activities-admin.php:523
+msgid ""
+"If you are using a mulitisite, the settings here is only set for the current "
+"blog."
+msgstr ""
+
+#: admin/class-activities-admin.php:524
+msgid "The WooCommerce tab will only show if the plugin is active."
+msgstr ""
+
+#: admin/class-activities-admin.php:533
+msgid "Overview"
+msgstr ""
+
+#: admin/class-activities-admin.php:534
+msgid "A documentation page will be available sometime!"
+msgstr ""
+
+#: admin/class-activities-admin.php:559
+msgid "Show Columns"
+msgstr ""
+
+#: admin/class-activities-admin.php:575
+#: includes/class-activities-pagination.php:125
+msgid "Results Per Page"
+msgstr ""
+
+#: admin/class-activities-admin.php:773
+msgid "Archived"
+msgstr ""
+
+#: admin/class-activities-admin.php:775
+msgid "Active"
+msgstr ""
+
+#: admin/class-activities-admin.php:792
+msgid "You have to login to join."
+msgstr ""
+
+#: admin/class-activities-admin.php:795
+msgid "You can no longer join this activity."
+msgstr ""
+
+#: admin/class-activities-admin.php:807
+msgid "You are not allowed to join this activity."
+msgstr ""
+
+#: admin/class-activities-admin.php:818 public/class-activities-public.php:77
+msgid "Join"
+msgstr ""
+
+#: admin/class-activities-admin.php:820 public/class-activities-public.php:74
+msgid "Unjoin"
+msgstr ""
+
+#: admin/class-activities-admin.php:1042
+msgid "Plan updated!"
+msgstr ""
+
+#: admin/class-activities-admin.php:1044 admin/class-activities-admin.php:1057
+msgid "Error!"
+msgstr ""
+
+#: admin/class-activities-admin.php:1049
+#, php-format
+msgid "%s already exists!"
+msgstr ""
+
+#: admin/class-activities-admin.php:1054
+msgid "Plan created!"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:56
+msgid "Select an activity."
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:58
+msgid "Select user data to export."
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:83
+#, php-format
+msgid "User data found for %s:"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:84
+msgid "Copied!"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:86
+msgid "No data found."
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:99
+msgid "Notice:"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:99
+#, php-format
+msgid "%d users missing data"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:127
+msgid "You are not allowed to export this activity."
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:137
+msgid "Export Activity Participant Data"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:138
+msgid "Select Activity"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:151
+msgid "Select User Data"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:165
+msgid "Select Delimiter"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:255
+msgid "Email"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:263
+#, php-format
+msgid "Comma (%s)"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:264
+#, php-format
+msgid "Semicolon (%s)"
+msgstr ""
+
+#: admin/import-export/activities-admin-export.php:265
+msgid "Newline"
+msgstr ""
+
+#: admin/import-export/activities-admin-import.php:32
+msgid "Select Importer"
+msgstr ""
+
+#: admin/import-export/activities-admin-import.php:42
+#: admin/import-export/activities-admin-import.php:47
+msgid "Run Importer"
+msgstr ""
+
+#: admin/import-export/activities-admin-import.php:43
+msgid "Import activities from a CSV file."
+msgstr ""
+
+#: admin/import-export/activities-admin-import.php:48
+msgid "Import activities and participants from a CSV file."
+msgstr ""
+
+#: admin/import-export/activities-admin-import.php:65
 msgid "Participants Import"
 msgstr ""
 
-#: admin/activities-admin-import.php:67
+#: admin/import-export/activities-admin-import.php:67
 msgid "No Importer Selected"
 msgstr ""
 
-#: admin/activities-admin-import.php:90
+#: admin/import-export/activities-admin-import.php:87
 msgid "Could not validate file."
 msgstr ""
 
-#: admin/activities-admin-import.php:98
-msgid "An error occured."
+#: admin/import-export/activities-admin-import.php:94
+msgid "An error occurred."
 msgstr ""
 
-#: admin/activities-admin-import.php:104
+#: admin/import-export/activities-admin-import.php:99
 msgid "Two headers cannot be mapped to the same column."
 msgstr ""
 
-#: admin/activities-admin-import.php:136
+#: admin/import-export/activities-admin-import.php:129
 #, php-format
 msgid "To import activities the file has to have one header called %s or %s."
 msgstr ""
 
-#: admin/activities-admin-import.php:137
+#: admin/import-export/activities-admin-import.php:130
 msgid ""
 "Other headers can be called whatever you want, you get to map them in the "
 "next step."
 msgstr ""
 
-#: admin/activities-admin-import.php:138 admin/activities-admin-import.php:152
+#: admin/import-export/activities-admin-import.php:131
+#: admin/import-export/activities-admin-import.php:145
 #, php-format
 msgid ""
 "The data is expected to be delimited by a semicolon %s. Order does not "
 "matter."
 msgstr ""
 
-#: admin/activities-admin-import.php:139
+#: admin/import-export/activities-admin-import.php:132
 msgid ""
 "You can archive imported activities by selecting the option for it during "
 "the next step."
 msgstr ""
 
-#: admin/activities-admin-import.php:140 admin/activities-admin-import.php:155
+#: admin/import-export/activities-admin-import.php:133
+#: admin/import-export/activities-admin-import.php:148
 msgid "Example CSV data"
 msgstr ""
 
-#: admin/activities-admin-import.php:145 admin/activities-admin-import.php:161
+#: admin/import-export/activities-admin-import.php:138
+#: admin/import-export/activities-admin-import.php:154
 msgid "Next"
 msgstr ""
 
-#: admin/activities-admin-import.php:150
+#: admin/import-export/activities-admin-import.php:143
 msgid ""
 "To import participants and activities the file must have exactly two headers."
 msgstr ""
 
-#: admin/activities-admin-import.php:151
+#: admin/import-export/activities-admin-import.php:144
 msgid ""
 "Headers can be called whatever you want, you get to map them in the next "
 "step."
 msgstr ""
 
-#: admin/activities-admin-import.php:153
+#: admin/import-export/activities-admin-import.php:146
 msgid "You can have multiple activities and participants in the two columns."
 msgstr ""
 
-#: admin/activities-admin-import.php:154
+#: admin/import-export/activities-admin-import.php:147
 msgid ""
 "You can create and archive imported activities by selecting the option for "
 "it during the next step."
 msgstr ""
 
-#: admin/activities-admin-import.php:165
+#: admin/import-export/activities-admin-import.php:158
 msgid "No importer selected."
 msgstr ""
 
-#: admin/activities-admin-import.php:176
+#: admin/import-export/activities-admin-import.php:169
 msgid "Upload File"
 msgstr ""
 
-#: admin/activities-admin-import.php:213 admin/activities-admin-import.php:275
+#: admin/import-export/activities-admin-import.php:208
+#: admin/import-export/activities-admin-import.php:274
 msgid "Select fields mapping"
 msgstr ""
 
-#: admin/activities-admin-import.php:224
+#: admin/import-export/activities-admin-import.php:219
 msgid "Don't Import"
 msgstr ""
 
-#: admin/activities-admin-import.php:239
+#: admin/import-export/activities-admin-import.php:234
 msgid "Update Existing Activities"
 msgstr ""
 
-#: admin/activities-admin-import.php:241
+#: admin/import-export/activities-admin-import.php:236
 msgid "Archive Imported Activities"
 msgstr ""
 
-#: admin/activities-admin-import.php:243 admin/activities-admin-import.php:299
+#: admin/import-export/activities-admin-import.php:238
+#: admin/import-export/activities-admin-import.php:298
 msgid "Archived activities cannot be changed."
 msgstr ""
 
-#: admin/activities-admin-import.php:248 admin/activities-admin-import.php:304
-#: admin/class-activities-admin.php:123
-msgid "Import"
-msgstr ""
-
-#: admin/activities-admin-import.php:255
+#: admin/import-export/activities-admin-import.php:250
 #, php-format
 msgid "No header called %s or %s found."
 msgstr ""
 
-#: admin/activities-admin-import.php:270
+#: admin/import-export/activities-admin-import.php:268
 msgid "Expected exactly two headers."
 msgstr ""
 
-#: admin/activities-admin-import.php:279
+#: admin/import-export/activities-admin-import.php:278
 msgid "Users"
 msgstr ""
 
-#: admin/activities-admin-import.php:295
+#: admin/import-export/activities-admin-import.php:294
 msgid "Create Activities That Dosn't Exist"
 msgstr ""
 
-#: admin/activities-admin-import.php:328
+#: admin/import-export/activities-admin-import.php:328
 msgid "Importing activities"
 msgstr ""
 
-#: admin/activities-admin-import.php:383
+#: admin/import-export/activities-admin-import.php:383
 msgid "Created activity: "
 msgstr ""
 
-#: admin/activities-admin-import.php:392
+#: admin/import-export/activities-admin-import.php:391
 msgid "Updated activity: "
 msgstr ""
 
-#: admin/activities-admin-import.php:398
+#: admin/import-export/activities-admin-import.php:396
 msgid "Could not create activity"
 msgstr ""
 
-#: admin/activities-admin-import.php:402
+#: admin/import-export/activities-admin-import.php:399
 msgid "Invalid name."
 msgstr ""
 
-#: admin/activities-admin-import.php:415
+#: admin/import-export/activities-admin-import.php:412
 #, php-format
 msgid "Created %d activities!"
 msgstr ""
 
-#: admin/activities-admin-import.php:417
+#: admin/import-export/activities-admin-import.php:414
 #, php-format
 msgid "Updated %d activities!"
 msgstr ""
 
-#: admin/activities-admin-import.php:441
+#: admin/import-export/activities-admin-import.php:438
 msgid "Importing participants"
 msgstr ""
 
-#: admin/activities-admin-import.php:514
+#: admin/import-export/activities-admin-import.php:510
 #, php-format
 msgid "Created %d activities."
 msgstr ""
 
-#: admin/activities-admin-import.php:517
+#: admin/import-export/activities-admin-import.php:513
 #, php-format
 msgid "Added %d participants."
 msgstr ""
 
-#: admin/activities-admin-import.php:521
+#: admin/import-export/activities-admin-import.php:516
 msgid "No Changes."
 msgstr ""
 
-#: admin/activities-admin-import.php:540
+#: admin/import-export/activities-admin-import.php:535
 #, php-format
 msgid "Archived %d activities!"
 msgstr ""
 
-#: admin/activities-admin-location.php:46
+#: admin/location/activities-admin-location.php:47
 msgid "Location Info"
 msgstr ""
 
-#: admin/activities-admin-location.php:57
-#: admin/activities-admin-options.php:474
-#: admin/class-activities-admin-utility.php:428
-msgid "Country"
-msgstr ""
-
-#: admin/activities-admin-locations.php:33
-#: admin/activities-admin-locations.php:51
-#: admin/activities-admin-locations.php:64
+#: admin/location/activities-admin-locations.php:31
+#: admin/location/activities-admin-locations.php:47
+#: admin/location/activities-admin-locations.php:58
 msgid "Create New Location"
 msgstr ""
 
-#: admin/activities-admin-locations.php:38
-#: admin/activities-admin-locations.php:88
-#: admin/activities-admin-locations.php:94
+#: admin/location/activities-admin-locations.php:35
+#: admin/location/activities-admin-locations.php:79
+#: admin/location/activities-admin-locations.php:84
 msgid "Edit Location"
 msgstr ""
 
-#: admin/activities-admin-locations.php:49
-#: admin/activities-admin-locations.php:86
+#: admin/location/activities-admin-locations.php:45
+#: admin/location/activities-admin-locations.php:76
 #, php-format
 msgid "A location with name %s already exists."
 msgstr ""
 
-#: admin/activities-admin-locations.php:58
+#: admin/location/activities-admin-locations.php:53
 #, php-format
-msgid "An error occured creating location: %s"
+msgid "An error occurred creating location: %s"
 msgstr ""
 
-#: admin/activities-admin-locations.php:75
-#: admin/activities-admin-locations.php:82
+#: admin/location/activities-admin-locations.php:68
+#: admin/location/activities-admin-locations.php:73
 #, php-format
-msgid "An error occured updating location: %s"
+msgid "An error occurred updating location: %s"
 msgstr ""
 
-#: admin/activities-admin-locations.php:115
+#: admin/location/activities-admin-locations.php:102
 #: includes/class-activities-location-list-table.php:38
 msgid "Change Address"
 msgstr ""
 
-#: admin/activities-admin-locations.php:119
+#: admin/location/activities-admin-locations.php:106
 msgid "Delete Locations"
 msgstr ""
 
-#: admin/activities-admin-locations.php:145
-#: admin/class-activities-admin.php:121
-msgid "Locations"
-msgstr ""
-
-#: admin/activities-admin-locations.php:146
+#: admin/location/activities-admin-locations.php:132
 msgid "Create new location"
 msgstr ""
 
-#: admin/activities-admin-options.php:36 admin/activities-admin-options.php:208
+#: admin/options/activities-admin-options.php:36
+#: admin/options/activities-admin-options.php:202
 msgid "View Activities"
 msgstr ""
 
-#: admin/activities-admin-options.php:37 admin/activities-admin-options.php:209
+#: admin/options/activities-admin-options.php:37
+#: admin/options/activities-admin-options.php:203
 msgid "Administer Activities"
 msgstr ""
 
-#: admin/activities-admin-options.php:38 admin/activities-admin-options.php:210
+#: admin/options/activities-admin-options.php:38
+#: admin/options/activities-admin-options.php:204
 msgid "Administer Activities Options"
 msgstr ""
 
-#: admin/activities-admin-options.php:41
+#: admin/options/activities-admin-options.php:41
 msgid "Can be Member"
 msgstr ""
 
-#: admin/activities-admin-options.php:42 admin/activities-admin-options.php:214
+#: admin/options/activities-admin-options.php:42
+#: admin/options/activities-admin-options.php:208
 msgid "Can be Responsible"
 msgstr ""
 
-#: admin/activities-admin-options.php:145
+#: admin/options/activities-admin-options.php:144
 msgid "Options has been updated."
 msgstr ""
 
-#: admin/activities-admin-options.php:162 admin/class-activities-admin.php:125
-msgid "Activities Options"
-msgstr ""
-
-#: admin/activities-admin-options.php:213
+#: admin/options/activities-admin-options.php:207
 msgid "Can be Participant"
 msgstr ""
 
-#: admin/activities-admin-options.php:220
+#: admin/options/activities-admin-options.php:214
 msgid "Permissions"
 msgstr ""
 
-#: admin/activities-admin-options.php:224
-#: admin/activities-admin-options.php:269
+#: admin/options/activities-admin-options.php:218
+#: admin/options/activities-admin-options.php:263
 msgid "Roles"
 msgstr ""
 
-#: admin/activities-admin-options.php:248
+#: admin/options/activities-admin-options.php:242
 msgid "Responsible Users"
 msgstr ""
 
-#: admin/activities-admin-options.php:249
+#: admin/options/activities-admin-options.php:243
 msgid "Allow responsible users to:"
 msgstr ""
 
-#: admin/activities-admin-options.php:256
+#: admin/options/activities-admin-options.php:250
 msgid ""
-"This will be in addtion to role permissions.\n"
+"This will be in addition to role permissions.\n"
 "An admin will always be able to view and edit their assigned activities,\n"
 "whatever the responsible permission setting is set to."
 msgstr ""
 
-#: admin/activities-admin-options.php:265
+#: admin/options/activities-admin-options.php:259
 msgid "Activity Roles"
 msgstr ""
 
-#: admin/activities-admin-options.php:294
+#: admin/options/activities-admin-options.php:288
 msgid "Activities Deletion"
 msgstr ""
 
-#: admin/activities-admin-options.php:295
+#: admin/options/activities-admin-options.php:289
 msgid "Delete plugin data on uninstall"
 msgstr ""
 
-#: admin/activities-admin-options.php:297
+#: admin/options/activities-admin-options.php:291
 msgid ""
 "Makes the plugin delete all off it's data on uninstall, only the current "
 "blog."
 msgstr ""
 
-#: admin/activities-admin-options.php:299
+#: admin/options/activities-admin-options.php:293
 #, php-format
 msgid "With the exception of user created from %s guest customers."
 msgstr ""
 
-#: admin/activities-admin-options.php:299
+#: admin/options/activities-admin-options.php:293
 #, php-format
 msgid "You can delete those with the button in the %s tab."
 msgstr ""
 
-#: admin/activities-admin-options.php:305
+#: admin/options/activities-admin-options.php:299
 msgid "Better user search"
 msgstr ""
 
-#: admin/activities-admin-options.php:306
+#: admin/options/activities-admin-options.php:300
 msgid "Improve user search"
 msgstr ""
 
-#: admin/activities-admin-options.php:308
+#: admin/options/activities-admin-options.php:302
 msgid ""
 "Allows you to search users by their first name and last name.\n"
 "Might make searching slower."
 msgstr ""
 
-#: admin/activities-admin-options.php:313
+#: admin/options/activities-admin-options.php:307
 msgid "Quick edit types"
 msgstr ""
 
-#: admin/activities-admin-options.php:330
+#: admin/options/activities-admin-options.php:324
 msgid "Select special input types for quick user edit"
 msgstr ""
 
-#: admin/activities-admin-options.php:344
+#: admin/options/activities-admin-options.php:338
 msgid "Activity Report Default Settings"
 msgstr ""
 
-#: admin/activities-admin-options.php:347
+#: admin/options/activities-admin-options.php:341
 msgid "Activity name"
 msgstr ""
 
-#: admin/activities-admin-options.php:350
+#: admin/options/activities-admin-options.php:344
 msgid ""
 "(short description)\n"
 "    This is a example activity"
 msgstr ""
 
-#: admin/activities-admin-options.php:352
+#: admin/options/activities-admin-options.php:346
 msgid ""
 "(long description)\n"
 "    If a user does not some data, like an address, it will not be shown.\n"
@@ -1167,379 +1410,154 @@ msgid ""
 "users."
 msgstr ""
 
-#: admin/activities-admin-options.php:371
+#: admin/options/activities-admin-options.php:365
 msgid "WooCommerce Guest Customers"
 msgstr ""
 
-#: admin/activities-admin-options.php:373
-msgid "Enable Guest Coversion"
+#: admin/options/activities-admin-options.php:367
+msgid "Enable Guest Conversion"
 msgstr ""
 
-#: admin/activities-admin-options.php:374
+#: admin/options/activities-admin-options.php:368
 msgid ""
 "Enables automatic conversion of guest customers to users.\n"
 "This allows guests to be added to activities."
 msgstr ""
 
-#: admin/activities-admin-options.php:388
+#: admin/options/activities-admin-options.php:382
 msgid "Coupons on activities report"
 msgstr ""
 
-#: admin/activities-admin-options.php:392
+#: admin/options/activities-admin-options.php:386
 msgid "Coupons"
 msgstr ""
 
-#: admin/activities-admin-options.php:392
+#: admin/options/activities-admin-options.php:386
 msgid "Display on activity report"
 msgstr ""
 
-#: admin/activities-admin-options.php:408
+#: admin/options/activities-admin-options.php:402
 msgid "Actions"
 msgstr ""
 
-#: admin/activities-admin-options.php:409
+#: admin/options/activities-admin-options.php:403
 msgid "Convert Guests Customers"
 msgstr ""
 
-#: admin/activities-admin-options.php:412
+#: admin/options/activities-admin-options.php:406
 msgid "Delete All Converted Users"
 msgstr ""
 
-#: admin/activities-admin-options.php:430
+#: admin/options/activities-admin-options.php:423
 msgid "Could not verify options."
 msgstr ""
 
-#: admin/activities-admin-options.php:442
+#: admin/options/activities-admin-options.php:436
 msgid "General"
 msgstr ""
 
-#: admin/activities-admin-options.php:443
+#: admin/options/activities-admin-options.php:437
 msgid "Activity Report"
 msgstr ""
 
-#: admin/activities-admin-options.php:460
+#: admin/options/activities-admin-options.php:454
 msgid "Same as their role permissions"
 msgstr ""
 
-#: admin/activities-admin-options.php:461
+#: admin/options/activities-admin-options.php:455
 msgid "View assigned activities"
 msgstr ""
 
-#: admin/activities-admin-options.php:462
+#: admin/options/activities-admin-options.php:456
 msgid "View and edit assigned activities"
 msgstr ""
 
-#: admin/activities-admin-options.php:473
+#: admin/options/activities-admin-options.php:467
 msgid "Textarea"
 msgstr ""
 
-#: admin/activities-admin-plan.php:48
+#: admin/participant/activities-admin-participants.php:27
+msgid "Create new participant"
+msgstr ""
+
+#: admin/plan/activities-admin-plan.php:47
 msgid "Plan Info"
 msgstr ""
 
-#: admin/activities-admin-plan.php:69
+#: admin/plan/activities-admin-plan.php:68
 #, php-format
 msgid "Session %d"
 msgstr ""
 
-#: admin/activities-admin-plans.php:34 admin/activities-admin-plans.php:49
-#: admin/activities-admin-plans.php:61
+#: admin/plan/activities-admin-plans.php:25
+#: admin/plan/activities-admin-plans.php:39
+#: admin/plan/activities-admin-plans.php:50
 msgid "Create New Plan"
 msgstr ""
 
-#: admin/activities-admin-plans.php:39 admin/activities-admin-plans.php:85
-#: admin/activities-admin-plans.php:91
+#: admin/plan/activities-admin-plans.php:29
+#: admin/plan/activities-admin-plans.php:71
+#: admin/plan/activities-admin-plans.php:76
 msgid "Edit Plan"
 msgstr ""
 
-#: admin/activities-admin-plans.php:48
+#: admin/plan/activities-admin-plans.php:37
 msgid "The plan must have a name."
 msgstr ""
 
-#: admin/activities-admin-plans.php:56
+#: admin/plan/activities-admin-plans.php:45
 #, php-format
-msgid "An error occured creating plan: %s"
+msgid "An error occurred creating plan: %s"
 msgstr ""
 
-#: admin/activities-admin-plans.php:60
+#: admin/plan/activities-admin-plans.php:48
 #, php-format
 msgid "An plan with name: %s already exists."
 msgstr ""
 
-#: admin/activities-admin-plans.php:72 admin/activities-admin-plans.php:79
+#: admin/plan/activities-admin-plans.php:60
+#: admin/plan/activities-admin-plans.php:65
 #, php-format
-msgid "An error occured updating plan: %s"
+msgid "An error occurred updating plan: %s"
 msgstr ""
 
-#: admin/activities-admin-plans.php:83
+#: admin/plan/activities-admin-plans.php:68
 #, php-format
 msgid "A plan with name %s already exists."
 msgstr ""
 
-#: admin/activities-admin-plans.php:112
+#: admin/plan/activities-admin-plans.php:94
 msgid "Delete Plans"
 msgstr ""
 
-#: admin/activities-admin-plans.php:134 admin/class-activities-admin.php:122
-msgid "Plans"
-msgstr ""
-
-#: admin/activities-admin-plans.php:136
+#: admin/plan/activities-admin-plans.php:117
 msgid "Create new plan"
 msgstr ""
 
-#: admin/class-activities-admin-utility.php:32
-msgid "Could not verify activity report data integrity."
-msgstr ""
-
-#: admin/class-activities-admin-utility.php:394
-msgid "Start Date"
-msgstr ""
-
-#: admin/class-activities-admin-utility.php:398
-msgid "End Date"
-msgstr ""
-
-#: admin/class-activities-admin.php:90
-msgid "Select a logo for the activity report"
-msgstr ""
-
-#: admin/class-activities-admin.php:118
-msgid "Activities Admin Page"
-msgstr ""
-
-#: admin/class-activities-admin.php:121
-msgid "Activities Locations"
-msgstr ""
-
-#: admin/class-activities-admin.php:122
-msgid "Activities Plans"
-msgstr ""
-
-#: admin/class-activities-admin.php:125
-msgid "Options"
-msgstr ""
-
-#: admin/class-activities-admin.php:126
-msgctxt "Noun"
-msgid "Archive"
-msgstr ""
-
-#: admin/class-activities-admin.php:216
-msgid "Archived Activites"
-msgstr ""
-
-#: admin/class-activities-admin.php:268
-#, php-format
-msgid "%s has been created."
-msgstr ""
-
-#: admin/class-activities-admin.php:277
-#, php-format
-msgid "%s has been updated."
-msgstr ""
-
-#: admin/class-activities-admin.php:286
-#, php-format
-msgid "%s must have a name."
-msgstr ""
-
-#: admin/class-activities-admin.php:295
-#, php-format
-msgid "%s has been deleted."
-msgstr ""
-
-#: admin/class-activities-admin.php:459
-msgid "activities"
-msgstr ""
-
-#: admin/class-activities-admin.php:463
-msgid "locations"
-msgstr ""
-
-#: admin/class-activities-admin.php:467
-msgid "archived activities"
-msgstr ""
-
-#: admin/class-activities-admin.php:472
-#, php-format
-msgid "This screen allows you to edit your %s."
-msgstr ""
-
-#: admin/class-activities-admin.php:475
-msgid ""
-"This is the activity report screen where you customize and print/save your "
-"reports."
-msgstr ""
-
-#: admin/class-activities-admin.php:479
-#, php-format
-msgid "This screen gives you access to all your %s."
-msgstr ""
-
-#: admin/class-activities-admin.php:484
-msgid ""
-"This screen gives you the options to either import activities or "
-"participants."
-msgstr ""
-
-#: admin/class-activities-admin.php:488
-msgid "Export activity participant data to send email, sms and more."
-msgstr ""
-
-#: admin/class-activities-admin.php:501
-msgid "This is where you can edit the standard settings for activity reports."
-msgstr ""
-
-#: admin/class-activities-admin.php:505
-msgid "Settings related to the WooCommerce plugin."
-msgstr ""
-
-#: admin/class-activities-admin.php:510
-msgid "This general settings page for this plugin."
-msgstr ""
-
-#: admin/class-activities-admin.php:511
-msgid ""
-"If you are using a mulitisite, the settings here is only set for the current "
-"blog."
-msgstr ""
-
-#: admin/class-activities-admin.php:512
-msgid "The WooCommerce tab will only show if the plugin is active."
-msgstr ""
-
-#: admin/class-activities-admin.php:521
-msgid "Overview"
-msgstr ""
-
-#: admin/class-activities-admin.php:522
-msgid "A documentation page will be available soon!"
-msgstr ""
-
-#: admin/class-activities-admin.php:546
-msgid "Show Columns"
-msgstr ""
-
-#: admin/class-activities-admin.php:562
-#: includes/class-activities-pagination.php:125
-msgid "Results Per Page"
-msgstr ""
-
-#: admin/class-activities-admin.php:760
-msgid "Archived"
-msgstr ""
-
-#: admin/class-activities-admin.php:763
-msgid "Active"
-msgstr ""
-
-#: admin/class-activities-admin.php:783
-msgid "You have to login to join."
-msgstr ""
-
-#: admin/class-activities-admin.php:786
-msgid "You can no longer join this activity."
-msgstr ""
-
-#: admin/class-activities-admin.php:798
-msgid "You are not allowed to join this activity."
-msgstr ""
-
-#: admin/class-activities-admin.php:809 public/class-activities-public.php:77
-msgid "Join"
-msgstr ""
-
-#: admin/class-activities-admin.php:811 public/class-activities-public.php:73
-msgid "Unjoin"
-msgstr ""
-
-#: admin/class-activities-admin.php:1036
-msgid "Plan updated!"
-msgstr ""
-
-#: admin/class-activities-admin.php:1039 admin/class-activities-admin.php:1052
-msgid "Error!"
-msgstr ""
-
-#: admin/class-activities-admin.php:1044
-#, php-format
-msgid "%s already exists!"
-msgstr ""
-
-#: admin/class-activities-admin.php:1049
-msgid "Plan created!"
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:42
-#, php-format
-msgid "%d activities has been archived"
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:62
-#, php-format
-msgid "%d activities had their location changed."
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:82
-#, php-format
-msgid "%d activities had their responsible person changed."
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:131
-#, php-format
-msgid "%d activities had their members changed."
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:146
-#, php-format
-msgid "%d activites has been activated."
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:161
-#, php-format
-msgid "%d activites has been deleted."
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:177
-#, php-format
-msgid "%d locations had their address changed."
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:192
-#, php-format
-msgid "%d locations has been deleted."
-msgstr ""
-
-#: admin/class-activities-bulk-action.php:207
-#, php-format
-msgid "%d plans has been deleted."
-msgstr ""
-
-#: includes/class-activities-activity-list-table.php:163
+#: includes/class-activities-activity-list-table.php:162
 msgid "Change Responsible"
 msgstr ""
 
-#: includes/class-activities-activity-list-table.php:167
+#: includes/class-activities-activity-list-table.php:166
 msgctxt "To archive"
 msgid "Archive"
 msgstr ""
 
-#: includes/class-activities-activity-list-table.php:319
-#: includes/class-activities-list-table.php:481
+#: includes/class-activities-activity-list-table.php:309
+#: includes/class-activities-list-table.php:482
 msgid "Show more details"
 msgstr ""
 
-#: includes/class-activities-activity-list-table.php:336
-#: includes/class-activities-activity-list-table.php:348
+#: includes/class-activities-activity-list-table.php:327
+#: includes/class-activities-activity-list-table.php:338
 msgid "View"
 msgstr ""
 
-#: includes/class-activities-activity-list-table.php:344
+#: includes/class-activities-activity-list-table.php:335
 msgid "Duplicate"
 msgstr ""
 
-#: includes/class-activities-activity.php:224
+#: includes/class-activities-activity.php:231
 msgid "Copy"
 msgstr ""
 
@@ -1547,39 +1565,39 @@ msgstr ""
 msgid "Activity Categories"
 msgstr ""
 
-#: includes/class-activities-list-table.php:359
+#: includes/class-activities-list-table.php:358
 msgid "Select All"
 msgstr ""
 
-#: includes/class-activities-list-table.php:516
+#: includes/class-activities-list-table.php:519
 #, php-format
 msgid "No %s found."
 msgstr ""
 
-#: includes/class-activities-list-table.php:535
+#: includes/class-activities-list-table.php:540
 msgid "Filters"
 msgstr ""
 
-#: includes/class-activities-list-table.php:548
+#: includes/class-activities-list-table.php:553
 msgid "No Category Filter"
 msgstr ""
 
-#: includes/class-activities-list-table.php:556
+#: includes/class-activities-list-table.php:561
 #, php-format
 msgid "Filter %s"
 msgstr ""
 
-#: includes/class-activities-list-table.php:564
-#: includes/class-activities-list-table.php:589
+#: includes/class-activities-list-table.php:569
+#: includes/class-activities-list-table.php:593
 #: includes/class-activities-pagination.php:127
 msgid "Apply"
 msgstr ""
 
-#: includes/class-activities-list-table.php:565
+#: includes/class-activities-list-table.php:570
 msgid "Clear"
 msgstr ""
 
-#: includes/class-activities-list-table.php:584
+#: includes/class-activities-list-table.php:588
 msgid "Bulk Actions"
 msgstr ""
 
@@ -1587,1035 +1605,1035 @@ msgstr ""
 msgid "of"
 msgstr ""
 
-#: includes/class-activities-utility.php:56
+#: includes/class-activities-utility.php:57
 msgid "Afghanistan"
 msgstr ""
 
-#: includes/class-activities-utility.php:57
+#: includes/class-activities-utility.php:58
 msgid "Albania"
 msgstr ""
 
-#: includes/class-activities-utility.php:58
+#: includes/class-activities-utility.php:59
 msgid "Algeria"
 msgstr ""
 
-#: includes/class-activities-utility.php:59
+#: includes/class-activities-utility.php:60
 msgid "American Samoa"
 msgstr ""
 
-#: includes/class-activities-utility.php:60
+#: includes/class-activities-utility.php:61
 msgid "Andorra"
 msgstr ""
 
-#: includes/class-activities-utility.php:61
+#: includes/class-activities-utility.php:62
 msgid "Angola"
 msgstr ""
 
-#: includes/class-activities-utility.php:62
+#: includes/class-activities-utility.php:63
 msgid "Anguilla"
 msgstr ""
 
-#: includes/class-activities-utility.php:63
+#: includes/class-activities-utility.php:64
 msgid "Antarctica"
 msgstr ""
 
-#: includes/class-activities-utility.php:64
+#: includes/class-activities-utility.php:65
 msgid "Antigua and Barbuda"
 msgstr ""
 
-#: includes/class-activities-utility.php:65
+#: includes/class-activities-utility.php:66
 msgid "Argentina"
 msgstr ""
 
-#: includes/class-activities-utility.php:66
+#: includes/class-activities-utility.php:67
 msgid "Armenia"
 msgstr ""
 
-#: includes/class-activities-utility.php:67
+#: includes/class-activities-utility.php:68
 msgid "Aruba"
 msgstr ""
 
-#: includes/class-activities-utility.php:68
+#: includes/class-activities-utility.php:69
 msgid "Australia"
 msgstr ""
 
-#: includes/class-activities-utility.php:69
+#: includes/class-activities-utility.php:70
 msgid "Austria"
 msgstr ""
 
-#: includes/class-activities-utility.php:70
+#: includes/class-activities-utility.php:71
 msgid "Azerbaijan"
 msgstr ""
 
-#: includes/class-activities-utility.php:71
+#: includes/class-activities-utility.php:72
 msgid "Bahamas"
 msgstr ""
 
-#: includes/class-activities-utility.php:72
+#: includes/class-activities-utility.php:73
 msgid "Bahrain"
 msgstr ""
 
-#: includes/class-activities-utility.php:73
+#: includes/class-activities-utility.php:74
 msgid "Bangladesh"
 msgstr ""
 
-#: includes/class-activities-utility.php:74
+#: includes/class-activities-utility.php:75
 msgid "Barbados"
 msgstr ""
 
-#: includes/class-activities-utility.php:75
+#: includes/class-activities-utility.php:76
 msgid "Belarus"
 msgstr ""
 
-#: includes/class-activities-utility.php:76
+#: includes/class-activities-utility.php:77
 msgid "Belgium"
 msgstr ""
 
-#: includes/class-activities-utility.php:77
+#: includes/class-activities-utility.php:78
 msgid "Belize"
 msgstr ""
 
-#: includes/class-activities-utility.php:78
+#: includes/class-activities-utility.php:79
 msgid "Benin"
 msgstr ""
 
-#: includes/class-activities-utility.php:79
+#: includes/class-activities-utility.php:80
 msgid "Bermuda"
 msgstr ""
 
-#: includes/class-activities-utility.php:80
+#: includes/class-activities-utility.php:81
 msgid "Bhutan"
 msgstr ""
 
-#: includes/class-activities-utility.php:81
+#: includes/class-activities-utility.php:82
 msgid "Bolivia"
 msgstr ""
 
-#: includes/class-activities-utility.php:82
+#: includes/class-activities-utility.php:83
 msgid "Bosnia and Herzegovina"
 msgstr ""
 
-#: includes/class-activities-utility.php:83
+#: includes/class-activities-utility.php:84
 msgid "Botswana"
 msgstr ""
 
-#: includes/class-activities-utility.php:84
+#: includes/class-activities-utility.php:85
 msgid "Bouvet Island"
 msgstr ""
 
-#: includes/class-activities-utility.php:85
+#: includes/class-activities-utility.php:86
 msgid "Brazil"
 msgstr ""
 
-#: includes/class-activities-utility.php:86
+#: includes/class-activities-utility.php:87
 msgid "British Indian Ocean Territory"
 msgstr ""
 
-#: includes/class-activities-utility.php:87
+#: includes/class-activities-utility.php:88
 msgid "Brunei Darussalam"
 msgstr ""
 
-#: includes/class-activities-utility.php:88
+#: includes/class-activities-utility.php:89
 msgid "Bulgaria"
 msgstr ""
 
-#: includes/class-activities-utility.php:89
+#: includes/class-activities-utility.php:90
 msgid "Burkina Faso"
 msgstr ""
 
-#: includes/class-activities-utility.php:90
+#: includes/class-activities-utility.php:91
 msgid "Burundi"
 msgstr ""
 
-#: includes/class-activities-utility.php:91
+#: includes/class-activities-utility.php:92
 msgid "Cambodia"
 msgstr ""
 
-#: includes/class-activities-utility.php:92
+#: includes/class-activities-utility.php:93
 msgid "Cameroon"
 msgstr ""
 
-#: includes/class-activities-utility.php:93
+#: includes/class-activities-utility.php:94
 msgid "Canada"
 msgstr ""
 
-#: includes/class-activities-utility.php:94
+#: includes/class-activities-utility.php:95
 msgid "Cape Verde"
 msgstr ""
 
-#: includes/class-activities-utility.php:95
+#: includes/class-activities-utility.php:96
 msgid "Cayman Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:96
+#: includes/class-activities-utility.php:97
 msgid "Central African Republic"
 msgstr ""
 
-#: includes/class-activities-utility.php:97
+#: includes/class-activities-utility.php:98
 msgid "Chad"
 msgstr ""
 
-#: includes/class-activities-utility.php:98
+#: includes/class-activities-utility.php:99
 msgid "Chile"
 msgstr ""
 
-#: includes/class-activities-utility.php:99
+#: includes/class-activities-utility.php:100
 msgid "China"
 msgstr ""
 
-#: includes/class-activities-utility.php:100
+#: includes/class-activities-utility.php:101
 msgid "Christmas Island"
 msgstr ""
 
-#: includes/class-activities-utility.php:101
+#: includes/class-activities-utility.php:102
 msgid "Cocos (Keeling) Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:102
+#: includes/class-activities-utility.php:103
 msgid "Colombia"
 msgstr ""
 
-#: includes/class-activities-utility.php:103
+#: includes/class-activities-utility.php:104
 msgid "Comoros"
 msgstr ""
 
-#: includes/class-activities-utility.php:104
+#: includes/class-activities-utility.php:105
 msgid "Congo"
 msgstr ""
 
-#: includes/class-activities-utility.php:105
+#: includes/class-activities-utility.php:106
 msgid "Congo, the Democratic Republic of the"
 msgstr ""
 
-#: includes/class-activities-utility.php:106
+#: includes/class-activities-utility.php:107
 msgid "Cook Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:107
+#: includes/class-activities-utility.php:108
 msgid "Costa Rica"
 msgstr ""
 
-#: includes/class-activities-utility.php:108
+#: includes/class-activities-utility.php:109
 msgid "Cote D'Ivoire"
 msgstr ""
 
-#: includes/class-activities-utility.php:109
+#: includes/class-activities-utility.php:110
 msgid "Croatia"
 msgstr ""
 
-#: includes/class-activities-utility.php:110
+#: includes/class-activities-utility.php:111
 msgid "Cuba"
 msgstr ""
 
-#: includes/class-activities-utility.php:111
+#: includes/class-activities-utility.php:112
 msgid "Cyprus"
 msgstr ""
 
-#: includes/class-activities-utility.php:112
+#: includes/class-activities-utility.php:113
 msgid "Czech Republic"
 msgstr ""
 
-#: includes/class-activities-utility.php:113
+#: includes/class-activities-utility.php:114
 msgid "Denmark"
 msgstr ""
 
-#: includes/class-activities-utility.php:114
+#: includes/class-activities-utility.php:115
 msgid "Djibouti"
 msgstr ""
 
-#: includes/class-activities-utility.php:115
+#: includes/class-activities-utility.php:116
 msgid "Dominica"
 msgstr ""
 
-#: includes/class-activities-utility.php:116
+#: includes/class-activities-utility.php:117
 msgid "Dominican Republic"
 msgstr ""
 
-#: includes/class-activities-utility.php:117
+#: includes/class-activities-utility.php:118
 msgid "Ecuador"
 msgstr ""
 
-#: includes/class-activities-utility.php:118
+#: includes/class-activities-utility.php:119
 msgid "Egypt"
 msgstr ""
 
-#: includes/class-activities-utility.php:119
+#: includes/class-activities-utility.php:120
 msgid "El Salvador"
 msgstr ""
 
-#: includes/class-activities-utility.php:120
+#: includes/class-activities-utility.php:121
 msgid "Equatorial Guinea"
 msgstr ""
 
-#: includes/class-activities-utility.php:121
+#: includes/class-activities-utility.php:122
 msgid "Eritrea"
 msgstr ""
 
-#: includes/class-activities-utility.php:122
+#: includes/class-activities-utility.php:123
 msgid "Estonia"
 msgstr ""
 
-#: includes/class-activities-utility.php:123
+#: includes/class-activities-utility.php:124
 msgid "Ethiopia"
 msgstr ""
 
-#: includes/class-activities-utility.php:124
+#: includes/class-activities-utility.php:125
 msgid "Falkland Islands (Malvinas)"
 msgstr ""
 
-#: includes/class-activities-utility.php:125
+#: includes/class-activities-utility.php:126
 msgid "Faroe Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:126
+#: includes/class-activities-utility.php:127
 msgid "Fiji"
 msgstr ""
 
-#: includes/class-activities-utility.php:127
+#: includes/class-activities-utility.php:128
 msgid "Finland"
 msgstr ""
 
-#: includes/class-activities-utility.php:128
+#: includes/class-activities-utility.php:129
 msgid "France"
 msgstr ""
 
-#: includes/class-activities-utility.php:129
+#: includes/class-activities-utility.php:130
 msgid "French Guiana"
 msgstr ""
 
-#: includes/class-activities-utility.php:130
+#: includes/class-activities-utility.php:131
 msgid "French Polynesia"
 msgstr ""
 
-#: includes/class-activities-utility.php:131
+#: includes/class-activities-utility.php:132
 msgid "French Southern Territories"
 msgstr ""
 
-#: includes/class-activities-utility.php:132
+#: includes/class-activities-utility.php:133
 msgid "Gabon"
 msgstr ""
 
-#: includes/class-activities-utility.php:133
+#: includes/class-activities-utility.php:134
 msgid "Gambia"
 msgstr ""
 
-#: includes/class-activities-utility.php:134
+#: includes/class-activities-utility.php:135
 msgid "Georgia"
 msgstr ""
 
-#: includes/class-activities-utility.php:135
+#: includes/class-activities-utility.php:136
 msgid "Germany"
 msgstr ""
 
-#: includes/class-activities-utility.php:136
+#: includes/class-activities-utility.php:137
 msgid "Ghana"
 msgstr ""
 
-#: includes/class-activities-utility.php:137
+#: includes/class-activities-utility.php:138
 msgid "Gibraltar"
 msgstr ""
 
-#: includes/class-activities-utility.php:138
+#: includes/class-activities-utility.php:139
 msgid "Greece"
 msgstr ""
 
-#: includes/class-activities-utility.php:139
+#: includes/class-activities-utility.php:140
 msgid "Greenland"
 msgstr ""
 
-#: includes/class-activities-utility.php:140
+#: includes/class-activities-utility.php:141
 msgid "Grenada"
 msgstr ""
 
-#: includes/class-activities-utility.php:141
+#: includes/class-activities-utility.php:142
 msgid "Guadeloupe"
 msgstr ""
 
-#: includes/class-activities-utility.php:142
+#: includes/class-activities-utility.php:143
 msgid "Guam"
 msgstr ""
 
-#: includes/class-activities-utility.php:143
+#: includes/class-activities-utility.php:144
 msgid "Guatemala"
 msgstr ""
 
-#: includes/class-activities-utility.php:144
+#: includes/class-activities-utility.php:145
 msgid "Guinea"
 msgstr ""
 
-#: includes/class-activities-utility.php:145
+#: includes/class-activities-utility.php:146
 msgid "Guinea-Bissau"
 msgstr ""
 
-#: includes/class-activities-utility.php:146
+#: includes/class-activities-utility.php:147
 msgid "Guyana"
 msgstr ""
 
-#: includes/class-activities-utility.php:147
+#: includes/class-activities-utility.php:148
 msgid "Haiti"
 msgstr ""
 
-#: includes/class-activities-utility.php:148
+#: includes/class-activities-utility.php:149
 msgid "Heard Island and Mcdonald Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:149
+#: includes/class-activities-utility.php:150
 msgid "Holy See (Vatican City State)"
 msgstr ""
 
-#: includes/class-activities-utility.php:150
+#: includes/class-activities-utility.php:151
 msgid "Honduras"
 msgstr ""
 
-#: includes/class-activities-utility.php:151
+#: includes/class-activities-utility.php:152
 msgid "Hong Kong"
 msgstr ""
 
-#: includes/class-activities-utility.php:152
+#: includes/class-activities-utility.php:153
 msgid "Hungary"
 msgstr ""
 
-#: includes/class-activities-utility.php:153
+#: includes/class-activities-utility.php:154
 msgid "Iceland"
 msgstr ""
 
-#: includes/class-activities-utility.php:154
+#: includes/class-activities-utility.php:155
 msgid "India"
 msgstr ""
 
-#: includes/class-activities-utility.php:155
+#: includes/class-activities-utility.php:156
 msgid "Indonesia"
 msgstr ""
 
-#: includes/class-activities-utility.php:156
+#: includes/class-activities-utility.php:157
 msgid "Iran, Islamic Republic of"
 msgstr ""
 
-#: includes/class-activities-utility.php:157
+#: includes/class-activities-utility.php:158
 msgid "Iraq"
 msgstr ""
 
-#: includes/class-activities-utility.php:158
+#: includes/class-activities-utility.php:159
 msgid "Ireland"
 msgstr ""
 
-#: includes/class-activities-utility.php:159
+#: includes/class-activities-utility.php:160
 msgid "Israel"
 msgstr ""
 
-#: includes/class-activities-utility.php:160
+#: includes/class-activities-utility.php:161
 msgid "Italy"
 msgstr ""
 
-#: includes/class-activities-utility.php:161
+#: includes/class-activities-utility.php:162
 msgid "Jamaica"
 msgstr ""
 
-#: includes/class-activities-utility.php:162
+#: includes/class-activities-utility.php:163
 msgid "Japan"
 msgstr ""
 
-#: includes/class-activities-utility.php:163
+#: includes/class-activities-utility.php:164
 msgid "Jordan"
 msgstr ""
 
-#: includes/class-activities-utility.php:164
+#: includes/class-activities-utility.php:165
 msgid "Kazakhstan"
 msgstr ""
 
-#: includes/class-activities-utility.php:165
+#: includes/class-activities-utility.php:166
 msgid "Kenya"
 msgstr ""
 
-#: includes/class-activities-utility.php:166
+#: includes/class-activities-utility.php:167
 msgid "Kiribati"
 msgstr ""
 
-#: includes/class-activities-utility.php:167
+#: includes/class-activities-utility.php:168
 msgid "Korea, Democratic People's Republic of"
 msgstr ""
 
-#: includes/class-activities-utility.php:168
+#: includes/class-activities-utility.php:169
 msgid "Korea, Republic of"
 msgstr ""
 
-#: includes/class-activities-utility.php:169
+#: includes/class-activities-utility.php:170
 msgid "Kuwait"
 msgstr ""
 
-#: includes/class-activities-utility.php:170
+#: includes/class-activities-utility.php:171
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: includes/class-activities-utility.php:171
+#: includes/class-activities-utility.php:172
 msgid "Lao People's Democratic Republic"
 msgstr ""
 
-#: includes/class-activities-utility.php:172
+#: includes/class-activities-utility.php:173
 msgid "Latvia"
 msgstr ""
 
-#: includes/class-activities-utility.php:173
+#: includes/class-activities-utility.php:174
 msgid "Lebanon"
 msgstr ""
 
-#: includes/class-activities-utility.php:174
+#: includes/class-activities-utility.php:175
 msgid "Lesotho"
 msgstr ""
 
-#: includes/class-activities-utility.php:175
+#: includes/class-activities-utility.php:176
 msgid "Liberia"
 msgstr ""
 
-#: includes/class-activities-utility.php:176
+#: includes/class-activities-utility.php:177
 msgid "Libyan Arab Jamahiriya"
 msgstr ""
 
-#: includes/class-activities-utility.php:177
+#: includes/class-activities-utility.php:178
 msgid "Liechtenstein"
 msgstr ""
 
-#: includes/class-activities-utility.php:178
+#: includes/class-activities-utility.php:179
 msgid "Lithuania"
 msgstr ""
 
-#: includes/class-activities-utility.php:179
+#: includes/class-activities-utility.php:180
 msgid "Luxembourg"
 msgstr ""
 
-#: includes/class-activities-utility.php:180
+#: includes/class-activities-utility.php:181
 msgid "Macao"
 msgstr ""
 
-#: includes/class-activities-utility.php:181
+#: includes/class-activities-utility.php:182
 msgid "Macedonia, the Former Yugoslav Republic of"
 msgstr ""
 
-#: includes/class-activities-utility.php:182
+#: includes/class-activities-utility.php:183
 msgid "Madagascar"
 msgstr ""
 
-#: includes/class-activities-utility.php:183
+#: includes/class-activities-utility.php:184
 msgid "Malawi"
 msgstr ""
 
-#: includes/class-activities-utility.php:184
+#: includes/class-activities-utility.php:185
 msgid "Malaysia"
 msgstr ""
 
-#: includes/class-activities-utility.php:185
+#: includes/class-activities-utility.php:186
 msgid "Maldives"
 msgstr ""
 
-#: includes/class-activities-utility.php:186
+#: includes/class-activities-utility.php:187
 msgid "Mali"
 msgstr ""
 
-#: includes/class-activities-utility.php:187
+#: includes/class-activities-utility.php:188
 msgid "Malta"
 msgstr ""
 
-#: includes/class-activities-utility.php:188
+#: includes/class-activities-utility.php:189
 msgid "Marshall Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:189
+#: includes/class-activities-utility.php:190
 msgid "Martinique"
 msgstr ""
 
-#: includes/class-activities-utility.php:190
+#: includes/class-activities-utility.php:191
 msgid "Mauritania"
 msgstr ""
 
-#: includes/class-activities-utility.php:191
+#: includes/class-activities-utility.php:192
 msgid "Mauritius"
 msgstr ""
 
-#: includes/class-activities-utility.php:192
+#: includes/class-activities-utility.php:193
 msgid "Mayotte"
 msgstr ""
 
-#: includes/class-activities-utility.php:193
+#: includes/class-activities-utility.php:194
 msgid "Mexico"
 msgstr ""
 
-#: includes/class-activities-utility.php:194
+#: includes/class-activities-utility.php:195
 msgid "Micronesia, Federated States of"
 msgstr ""
 
-#: includes/class-activities-utility.php:195
+#: includes/class-activities-utility.php:196
 msgid "Moldova, Republic of"
 msgstr ""
 
-#: includes/class-activities-utility.php:196
+#: includes/class-activities-utility.php:197
 msgid "Monaco"
 msgstr ""
 
-#: includes/class-activities-utility.php:197
+#: includes/class-activities-utility.php:198
 msgid "Mongolia"
 msgstr ""
 
-#: includes/class-activities-utility.php:198
+#: includes/class-activities-utility.php:199
 msgid "Montserrat"
 msgstr ""
 
-#: includes/class-activities-utility.php:199
+#: includes/class-activities-utility.php:200
 msgid "Morocco"
 msgstr ""
 
-#: includes/class-activities-utility.php:200
+#: includes/class-activities-utility.php:201
 msgid "Mozambique"
 msgstr ""
 
-#: includes/class-activities-utility.php:201
+#: includes/class-activities-utility.php:202
 msgid "Myanmar"
 msgstr ""
 
-#: includes/class-activities-utility.php:202
+#: includes/class-activities-utility.php:203
 msgid "Namibia"
 msgstr ""
 
-#: includes/class-activities-utility.php:203
+#: includes/class-activities-utility.php:204
 msgid "Nauru"
 msgstr ""
 
-#: includes/class-activities-utility.php:204
+#: includes/class-activities-utility.php:205
 msgid "Nepal"
 msgstr ""
 
-#: includes/class-activities-utility.php:205
+#: includes/class-activities-utility.php:206
 msgid "Netherlands"
 msgstr ""
 
-#: includes/class-activities-utility.php:206
+#: includes/class-activities-utility.php:207
 msgid "Netherlands Antilles"
 msgstr ""
 
-#: includes/class-activities-utility.php:207
+#: includes/class-activities-utility.php:208
 msgid "New Caledonia"
 msgstr ""
 
-#: includes/class-activities-utility.php:208
+#: includes/class-activities-utility.php:209
 msgid "New Zealand"
 msgstr ""
 
-#: includes/class-activities-utility.php:209
+#: includes/class-activities-utility.php:210
 msgid "Nicaragua"
 msgstr ""
 
-#: includes/class-activities-utility.php:210
+#: includes/class-activities-utility.php:211
 msgid "Niger"
 msgstr ""
 
-#: includes/class-activities-utility.php:211
+#: includes/class-activities-utility.php:212
 msgid "Nigeria"
 msgstr ""
 
-#: includes/class-activities-utility.php:212
+#: includes/class-activities-utility.php:213
 msgid "Niue"
 msgstr ""
 
-#: includes/class-activities-utility.php:213
+#: includes/class-activities-utility.php:214
 msgid "Norfolk Island"
 msgstr ""
 
-#: includes/class-activities-utility.php:214
+#: includes/class-activities-utility.php:215
 msgid "Northern Mariana Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:215
+#: includes/class-activities-utility.php:216
 msgid "Norway"
 msgstr ""
 
-#: includes/class-activities-utility.php:216
+#: includes/class-activities-utility.php:217
 msgid "Oman"
 msgstr ""
 
-#: includes/class-activities-utility.php:217
+#: includes/class-activities-utility.php:218
 msgid "Pakistan"
 msgstr ""
 
-#: includes/class-activities-utility.php:218
+#: includes/class-activities-utility.php:219
 msgid "Palau"
 msgstr ""
 
-#: includes/class-activities-utility.php:219
+#: includes/class-activities-utility.php:220
 msgid "Palestinian Territory, Occupied"
 msgstr ""
 
-#: includes/class-activities-utility.php:220
+#: includes/class-activities-utility.php:221
 msgid "Panama"
 msgstr ""
 
-#: includes/class-activities-utility.php:221
+#: includes/class-activities-utility.php:222
 msgid "Papua New Guinea"
 msgstr ""
 
-#: includes/class-activities-utility.php:222
+#: includes/class-activities-utility.php:223
 msgid "Paraguay"
 msgstr ""
 
-#: includes/class-activities-utility.php:223
+#: includes/class-activities-utility.php:224
 msgid "Peru"
 msgstr ""
 
-#: includes/class-activities-utility.php:224
+#: includes/class-activities-utility.php:225
 msgid "Philippines"
 msgstr ""
 
-#: includes/class-activities-utility.php:225
+#: includes/class-activities-utility.php:226
 msgid "Pitcairn"
 msgstr ""
 
-#: includes/class-activities-utility.php:226
+#: includes/class-activities-utility.php:227
 msgid "Poland"
 msgstr ""
 
-#: includes/class-activities-utility.php:227
+#: includes/class-activities-utility.php:228
 msgid "Portugal"
 msgstr ""
 
-#: includes/class-activities-utility.php:228
+#: includes/class-activities-utility.php:229
 msgid "Puerto Rico"
 msgstr ""
 
-#: includes/class-activities-utility.php:229
+#: includes/class-activities-utility.php:230
 msgid "Qatar"
 msgstr ""
 
-#: includes/class-activities-utility.php:230
+#: includes/class-activities-utility.php:231
 msgid "Reunion"
 msgstr ""
 
-#: includes/class-activities-utility.php:231
+#: includes/class-activities-utility.php:232
 msgid "Romania"
 msgstr ""
 
-#: includes/class-activities-utility.php:232
+#: includes/class-activities-utility.php:233
 msgid "Russian Federation"
 msgstr ""
 
-#: includes/class-activities-utility.php:233
+#: includes/class-activities-utility.php:234
 msgid "Rwanda"
 msgstr ""
 
-#: includes/class-activities-utility.php:234
+#: includes/class-activities-utility.php:235
 msgid "Saint Helena"
 msgstr ""
 
-#: includes/class-activities-utility.php:235
+#: includes/class-activities-utility.php:236
 msgid "Saint Kitts and Nevis"
 msgstr ""
 
-#: includes/class-activities-utility.php:236
+#: includes/class-activities-utility.php:237
 msgid "Saint Lucia"
 msgstr ""
 
-#: includes/class-activities-utility.php:237
+#: includes/class-activities-utility.php:238
 msgid "Saint Pierre and Miquelon"
 msgstr ""
 
-#: includes/class-activities-utility.php:238
+#: includes/class-activities-utility.php:239
 msgid "Saint Vincent and the Grenadines"
 msgstr ""
 
-#: includes/class-activities-utility.php:239
+#: includes/class-activities-utility.php:240
 msgid "Samoa"
 msgstr ""
 
-#: includes/class-activities-utility.php:240
+#: includes/class-activities-utility.php:241
 msgid "San Marino"
 msgstr ""
 
-#: includes/class-activities-utility.php:241
+#: includes/class-activities-utility.php:242
 msgid "Sao Tome and Principe"
 msgstr ""
 
-#: includes/class-activities-utility.php:242
+#: includes/class-activities-utility.php:243
 msgid "Saudi Arabia"
 msgstr ""
 
-#: includes/class-activities-utility.php:243
+#: includes/class-activities-utility.php:244
 msgid "Senegal"
 msgstr ""
 
-#: includes/class-activities-utility.php:244
+#: includes/class-activities-utility.php:245
 msgid "Serbia and Montenegro"
 msgstr ""
 
-#: includes/class-activities-utility.php:245
+#: includes/class-activities-utility.php:246
 msgid "Seychelles"
 msgstr ""
 
-#: includes/class-activities-utility.php:246
+#: includes/class-activities-utility.php:247
 msgid "Sierra Leone"
 msgstr ""
 
-#: includes/class-activities-utility.php:247
+#: includes/class-activities-utility.php:248
 msgid "Singapore"
 msgstr ""
 
-#: includes/class-activities-utility.php:248
+#: includes/class-activities-utility.php:249
 msgid "Slovakia"
 msgstr ""
 
-#: includes/class-activities-utility.php:249
+#: includes/class-activities-utility.php:250
 msgid "Slovenia"
 msgstr ""
 
-#: includes/class-activities-utility.php:250
+#: includes/class-activities-utility.php:251
 msgid "Solomon Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:251
+#: includes/class-activities-utility.php:252
 msgid "Somalia"
 msgstr ""
 
-#: includes/class-activities-utility.php:252
+#: includes/class-activities-utility.php:253
 msgid "South Africa"
 msgstr ""
 
-#: includes/class-activities-utility.php:253
+#: includes/class-activities-utility.php:254
 msgid "South Georgia and the South Sandwich Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:254
+#: includes/class-activities-utility.php:255
 msgid "Spain"
 msgstr ""
 
-#: includes/class-activities-utility.php:255
+#: includes/class-activities-utility.php:256
 msgid "Sri Lanka"
 msgstr ""
 
-#: includes/class-activities-utility.php:256
+#: includes/class-activities-utility.php:257
 msgid "Sudan"
 msgstr ""
 
-#: includes/class-activities-utility.php:257
+#: includes/class-activities-utility.php:258
 msgid "Suriname"
 msgstr ""
 
-#: includes/class-activities-utility.php:258
+#: includes/class-activities-utility.php:259
 msgid "Svalbard and Jan Mayen"
 msgstr ""
 
-#: includes/class-activities-utility.php:259
+#: includes/class-activities-utility.php:260
 msgid "Swaziland"
 msgstr ""
 
-#: includes/class-activities-utility.php:260
+#: includes/class-activities-utility.php:261
 msgid "Sweden"
 msgstr ""
 
-#: includes/class-activities-utility.php:261
+#: includes/class-activities-utility.php:262
 msgid "Switzerland"
 msgstr ""
 
-#: includes/class-activities-utility.php:262
+#: includes/class-activities-utility.php:263
 msgid "Syrian Arab Republic"
 msgstr ""
 
-#: includes/class-activities-utility.php:263
+#: includes/class-activities-utility.php:264
 msgid "Taiwan, Province of China"
 msgstr ""
 
-#: includes/class-activities-utility.php:264
+#: includes/class-activities-utility.php:265
 msgid "Tajikistan"
 msgstr ""
 
-#: includes/class-activities-utility.php:265
+#: includes/class-activities-utility.php:266
 msgid "Tanzania, United Republic of"
 msgstr ""
 
-#: includes/class-activities-utility.php:266
+#: includes/class-activities-utility.php:267
 msgid "Thailand"
 msgstr ""
 
-#: includes/class-activities-utility.php:267
+#: includes/class-activities-utility.php:268
 msgid "Timor-Leste"
 msgstr ""
 
-#: includes/class-activities-utility.php:268
+#: includes/class-activities-utility.php:269
 msgid "Togo"
 msgstr ""
 
-#: includes/class-activities-utility.php:269
+#: includes/class-activities-utility.php:270
 msgid "Tokelau"
 msgstr ""
 
-#: includes/class-activities-utility.php:270
+#: includes/class-activities-utility.php:271
 msgid "Tonga"
 msgstr ""
 
-#: includes/class-activities-utility.php:271
+#: includes/class-activities-utility.php:272
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: includes/class-activities-utility.php:272
+#: includes/class-activities-utility.php:273
 msgid "Tunisia"
 msgstr ""
 
-#: includes/class-activities-utility.php:273
+#: includes/class-activities-utility.php:274
 msgid "Turkey"
 msgstr ""
 
-#: includes/class-activities-utility.php:274
+#: includes/class-activities-utility.php:275
 msgid "Turkmenistan"
 msgstr ""
 
-#: includes/class-activities-utility.php:275
+#: includes/class-activities-utility.php:276
 msgid "Turks and Caicos Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:276
+#: includes/class-activities-utility.php:277
 msgid "Tuvalu"
 msgstr ""
 
-#: includes/class-activities-utility.php:277
+#: includes/class-activities-utility.php:278
 msgid "Uganda"
 msgstr ""
 
-#: includes/class-activities-utility.php:278
+#: includes/class-activities-utility.php:279
 msgid "Ukraine"
 msgstr ""
 
-#: includes/class-activities-utility.php:279
+#: includes/class-activities-utility.php:280
 msgid "United Arab Emirates"
 msgstr ""
 
-#: includes/class-activities-utility.php:280
+#: includes/class-activities-utility.php:281
 msgid "United Kingdom"
 msgstr ""
 
-#: includes/class-activities-utility.php:281
+#: includes/class-activities-utility.php:282
 msgid "United States"
 msgstr ""
 
-#: includes/class-activities-utility.php:282
+#: includes/class-activities-utility.php:283
 msgid "United States Minor Outlying Islands"
 msgstr ""
 
-#: includes/class-activities-utility.php:283
+#: includes/class-activities-utility.php:284
 msgid "Uruguay"
 msgstr ""
 
-#: includes/class-activities-utility.php:284
+#: includes/class-activities-utility.php:285
 msgid "Uzbekistan"
 msgstr ""
 
-#: includes/class-activities-utility.php:285
+#: includes/class-activities-utility.php:286
 msgid "Vanuatu"
 msgstr ""
 
-#: includes/class-activities-utility.php:286
+#: includes/class-activities-utility.php:287
 msgid "Venezuela"
 msgstr ""
 
-#: includes/class-activities-utility.php:287
+#: includes/class-activities-utility.php:288
 msgid "Viet Nam"
 msgstr ""
 
-#: includes/class-activities-utility.php:288
+#: includes/class-activities-utility.php:289
 msgid "Virgin Islands, British"
 msgstr ""
 
-#: includes/class-activities-utility.php:289
+#: includes/class-activities-utility.php:290
 msgid "Virgin Islands, U.s."
 msgstr ""
 
-#: includes/class-activities-utility.php:290
+#: includes/class-activities-utility.php:291
 msgid "Wallis and Futuna"
 msgstr ""
 
-#: includes/class-activities-utility.php:291
+#: includes/class-activities-utility.php:292
 msgid "Western Sahara"
 msgstr ""
 
-#: includes/class-activities-utility.php:292
+#: includes/class-activities-utility.php:293
 msgid "Yemen"
 msgstr ""
 
-#: includes/class-activities-utility.php:293
+#: includes/class-activities-utility.php:294
 msgid "Zambia"
 msgstr ""
 
-#: includes/class-activities-utility.php:294
+#: includes/class-activities-utility.php:295
 msgid "Zimbabwe"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:96
-#: includes/class-activities-woocommerce.php:98
+#: includes/class-activities-woocommerce.php:100
+#: includes/class-activities-woocommerce.php:102
 msgid "Select Activities"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:100
+#: includes/class-activities-woocommerce.php:104
 msgid "Users who orders this product will be added to the selected activities."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:132
+#: includes/class-activities-woocommerce.php:136
 msgid "Handle past orders"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:133
+#: includes/class-activities-woocommerce.php:137
 msgid "Add users to selected activities who have already bought the product"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:141
+#: includes/class-activities-woocommerce.php:145
 msgid "Handle orders from"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:143
+#: includes/class-activities-woocommerce.php:147
 msgid "Only select orders from this date and onwards"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:415
+#: includes/class-activities-woocommerce.php:414
 msgid "Converting guest customers"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:425
+#: includes/class-activities-woocommerce.php:424
 msgid "Order"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:429
+#: includes/class-activities-woocommerce.php:428
 msgid "Guest already converted or user orders already updated."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:436
+#: includes/class-activities-woocommerce.php:434
 #, php-format
 msgid "Created User: %s"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:440
+#: includes/class-activities-woocommerce.php:437
 #, php-format
 msgid "Updated Orders For: %s"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:444
+#: includes/class-activities-woocommerce.php:440
 msgid "Could not create user (no email found)"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:452
+#: includes/class-activities-woocommerce.php:448
 #, php-format
 msgid "Created %s users."
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:560
+#: includes/class-activities-woocommerce.php:556
 msgid "You are not allowed to delete users!"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:564
+#: includes/class-activities-woocommerce.php:561
 msgid "Deleting guest users"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:598
+#: includes/class-activities-woocommerce.php:593
 msgid "Deleted user"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:601
-msgid "An error occured deleting"
+#: includes/class-activities-woocommerce.php:595
+msgid "An error occurred deleting"
 msgstr ""
 
-#: includes/class-activities-woocommerce.php:609
+#: includes/class-activities-woocommerce.php:603
 #, php-format
 msgid "Deleted %d users."
 msgstr ""

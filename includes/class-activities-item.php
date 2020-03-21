@@ -213,12 +213,3 @@ class Activities_Item {
         return $where;
     }
 }
-
-//class ItemType extends SplType {
-//    const __default = self::Activity;
-//
-//    const Activity = 1;
-//    const Location = 2;
-//    const Plan = 3;
-//    const User = 4;
-//}

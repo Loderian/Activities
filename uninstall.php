@@ -72,7 +72,9 @@ function activtities_uninstall_site() {
         $activity_table,
         Activities::get_table_name( 'activity_meta' ),
         Activities::get_table_name( 'user_activity' ),
-        Activities::get_table_name( 'location' )
+        Activities::get_table_name( 'location' ),
+        Activities::get_table_name( 'plan' ),
+        Activities::get_table_name( 'plan_session' )
     );
 
     foreach ( $tables as $table_name ) {

@@ -173,7 +173,7 @@ class Activities_Item {
      *
      * @return  array     Array of column names
      */
-    static function get_columns( String $item_type, String $type = 'none' ) {
+    static function get_columns( $item_type, $type = 'none' ) {
         switch ( $item_type ) {
             case 'activity':
                 return Activities_Activity::get_columns( $type );

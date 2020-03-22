@@ -95,14 +95,16 @@ class Activities_Updater {
     /**
      * Update db to version 1.1.1
      *
-     * Ensures all tables are installed for those under version 1.1.1
+     * Some tables where not installed correctly for earlier versions of the plugin
      *
      * @return bool Returns true on successful update
      */
     static function db_update_1_1_1() {
         try {
             $installer = new Activities_Installer();
-            $installer->install_all_default_tables();
+            $installer->install_activity_table();
+            $installer->install_plans_table();
+            $installer->install_plans_session_table();
         } catch ( Exception $e ) {
             return false;
         }

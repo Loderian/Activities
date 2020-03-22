@@ -44,9 +44,6 @@ class Activities_Installer {
                 $this->install_participant_activity_table();
             }
 
-            Activities_Category::register_category_taxonomy();
-            Activities_Category::add_uncategorized();
-
             update_option( 'activities_db_version', ACTIVITIES_DB_VERSION );
         }
     }

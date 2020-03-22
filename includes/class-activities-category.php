@@ -50,6 +50,9 @@ class Activities_Category {
                 'sort'         => true
             )
         );
+        if ( wp_count_terms( self::taxonomy ) == 0 ) {
+            self::add_uncategorized();
+        }
     }
 
     /**

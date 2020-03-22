@@ -476,13 +476,6 @@
     vertical-align: top;
 }
 
-.acts-nice-custom li input[col],
-.acts-nice-custom li .delete-custom,
-.acts-nice-custom li #add-color,
-.acts-nice-custom li .delete-color {
-    font-size: 20px;
-}
-
 .acts-nice-custom li.acts-nice-custom-split:not(:last-child) {
     padding-bottom: 5px;
     border-bottom: 1px dashed grey;
@@ -647,7 +640,7 @@
 }
 
 .acts-nice-compressed-info {
-    width: 75%;
+    width: 80%;
     display: inline-block;
 }
 
@@ -655,7 +648,7 @@
     display: inline-block;
     float: right;
     vertical-align: top;
-    width: 25%;
+    width: 20%;
     text-align: right;
 }
 

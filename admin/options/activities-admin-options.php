@@ -389,8 +389,8 @@ function activities_options_woocommerce() {
         echo '<tbody>';
         foreach ( $coupons as $coupon ) {
             echo '<tr>';
-            $checked = isset( $coupons_display[ $coupon->post_title ] ) ? 'checked' : '';
-            echo '<td>' . stripslashes( wp_filter_nohtml_kses( ucfirst( $coupon->post_title ) ) ) . '</td><td><input type="checkbox" name="' . esc_attr( ACTIVITIES_NICE_WC_COUPONS_KEY . '[' . $coupon->post_title ) . ']" ' . $checked . ' /></td>';
+            $checked = isset( $coupons_display[ $coupon->post_name ] ) ? 'checked' : '';
+            echo '<td>' . stripslashes( wp_filter_nohtml_kses( ucfirst( $coupon->post_title ) ) ) . '</td><td><input type="checkbox" name="' . esc_attr( ACTIVITIES_NICE_WC_COUPONS_KEY . '[' . $coupon->post_name ) . ']" ' . $checked . ' /></td>';
             echo '</tr>';
         }
         echo '</tbody>';

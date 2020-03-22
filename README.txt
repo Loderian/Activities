@@ -3,7 +3,7 @@ Contributors: loderian
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: activities, events, courses, classes, report
 Requires at least: 4.6
-Tested up to: 5.3.0
+Tested up to: 5.3.2
 Stable tag: trunk
 Requires PHP: 7.0.32
 License: GPLv3 or later
@@ -156,6 +156,7 @@ List of data options
 
 * Fix: Installer should now work correctly
 * Fix: Uninstaller now removes plan tables
+* Fix: Some WooCommerce coupons would not display on activity report
 
 = 1.1.2 =
 
@@ -225,6 +226,7 @@ List of data options
 = 1.1.3 =
 
 Installer and uninstaller fix.
+Fixed display of WooCommerce coupons on activity report, you may need to update plugin options for which coupons to display.
 
 = 1.1.2 =
 

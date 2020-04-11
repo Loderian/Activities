@@ -165,13 +165,18 @@ class Activities_Activity_List_Table extends Activities_List_Table {
                 if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
                     $actions['archive'] = esc_html_x( 'Archive', 'To archive', 'activities' );
                 }
+
             }
         } else {
-            $actions = array(
-                'activate' => esc_html__( 'Activate', 'activities' ),
-                'delete_a' => esc_html__( 'Delete', 'activities' )
-            );
+            if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
+                $actions = array(
+                    'activate' => esc_html__( 'Activate', 'activities' ),
+                    'delete_a' => esc_html__( 'Delete', 'activities' )
+                );
+            }
         }
+
+        $actions['export_user_data'] = esc_html__( 'Export', 'activities' );
 
         return $actions;
     }

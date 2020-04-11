@@ -71,7 +71,7 @@ class Activities_Public {
             }
             if ( !Activities_User_Activity::exists( get_current_user_id(), $id ) ) {
                 Activities_User_Activity::insert( get_current_user_id(), $id );
-                $text = esc_html__( 'Unjoin', 'activities' );
+                $text = esc_html__( 'Leave', 'activities' );
             } else {
                 Activities_User_Activity::delete( get_current_user_id(), $id );
                 $text = esc_html__( 'Join', 'activities' );

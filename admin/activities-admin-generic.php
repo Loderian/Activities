@@ -172,7 +172,7 @@ function acts_confirm_item_delete_page( $display, $item_id, $name, $current_url 
  *    - array class => Select classes
  *    - array selected => Values selected
  *    - bool multiple => true for multiple select
- *        - bool|string blank => false to remove the blank choice (stars with a selected value) or text for blank field
+ *    - bool|string blank => false to remove the blank choice (stars with a selected value) or text for blank field
  *    - bool disabled => true to disable
  *
  * @return string Select html
@@ -226,7 +226,7 @@ function acts_build_select( $data, $settings ) {
  *      - array class => Select classes
  *      - array selected => Values selected
  *      - string multiple => 'multiple' for multiple select
- *          - bool|string blank => true to remove the blank choice (stars with a selected value) or text for blank field
+ *      - bool|string blank => true to remove the blank choice (stars with a selected value) or text for blank field
  *
  * @param bool $responsible_filter Filter activities by current user id, if they cant view activities the list will be empty
  *
@@ -257,7 +257,7 @@ function acts_build_select_items( $type, $settings, $responsible_filter = false 
 }
 
 /**
- * Gets traslation for 1 or more items
+ * Gets translation for 1 or more items
  *
  * @param string $type Item type
  * @param int $number Number of items

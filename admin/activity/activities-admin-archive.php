@@ -68,6 +68,16 @@ function activities_admin_archive_page() {
                 case 'delete_a':
                     $title = esc_html__( 'Delete Activities', 'activities' );
                     break;
+
+                case 'export_user_data':
+                    $url = add_query_arg( array(
+                      'page' => 'activities-admin-export',
+                      'acts' => implode( ',', $_POST['selected_activities'] ),
+                      'archive' => 1
+                    ), $current_url );
+                    if ( wp_safe_redirect( $url ) ) {
+                        exit;
+                    }
             }
             if ( isset( $title ) && is_array( $_POST['selected_activities'] ) ) {
                 $names = Activities_Admin_Utility::get_item_names( $_POST['selected_activities'] );

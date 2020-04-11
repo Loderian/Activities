@@ -127,6 +127,15 @@ function activities_admin_activities_page() {
             case 'change_members':
                 $header = esc_html__( 'Change Participants', 'activities' );
                 break;
+
+            case 'export_user_data':
+                $url = add_query_arg( array(
+                    'page' => 'activities-admin-export',
+                    'acts' => implode( ',', $_POST['selected_activities'] )
+                ), $current_url );
+                if ( wp_safe_redirect( $url ) ) {
+                    exit;
+                }
         }
 
         if ( isset( $header ) && is_array( $_POST['selected_activities'] ) ) {

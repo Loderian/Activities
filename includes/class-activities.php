@@ -126,6 +126,7 @@ class Activities {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-activity-list-table.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-location-list-table.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-activities-plan-list-table.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/activities-shortcode.php';
 
 		if ( is_admin() ) {
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-generic.php';
@@ -202,7 +203,7 @@ class Activities {
 		$this->loader->add_action( 'wp_login', $plugin_admin, 'remove_guest_flag', 10, 2 );
 		$this->loader->add_filter( 'admin_title', $plugin_admin, 'set_activity_nice_title', 10, 2 );
 
-		add_shortcode( 'acts', array( $plugin_admin, 'acts_shortcode' ) );
+		add_shortcode( 'acts', 'acts_shortcode' );
 	}
 
 	/**

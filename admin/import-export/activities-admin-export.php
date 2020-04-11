@@ -17,23 +17,19 @@ if ( !defined( 'WPINC' ) ) {
  * Builds export page for activities
  */
 function activities_export_page() {
-    if ( !current_user_can( ACTIVITIES_ACCESS_ACTIVITIES ) ) {
-        wp_die( esc_html__( 'Access Denied', 'activities' ) );
-    }
+    $current_url = activities_admin_access_activities( array ( 'item_id', 'acts' ) );
 
-    $current_url = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    $current_url = remove_query_arg( 'item_id', $current_url );
-
-    $act_id = 0;
-    if ( isset( $_POST['selected_activity'] ) ) {
-        $act_id = $_POST['selected_activity'];
+    $act_ids = array();
+    if ( isset( $_POST['selected_activities'] ) ) {
+        $act_ids = $_POST['selected_activities'];
     } elseif ( isset( $_GET['item_id'] ) ) {
-        $act_id = $_GET['item_id'];
+        $act_ids = array( $_GET['item_id'] );
+    } elseif ( isset( $_GET['acts'] ) ) {
+        $act_ids = explode( ',', $_GET['acts'] );
     }
-    $act_id = acts_validate_id( $act_id );
-    if ( !$act_id ) {
-        $act_id = '';
-    }
+    $act_ids = array_filter( $act_ids, "acts_validate_id");
+
+    $archive = isset( $_GET['archive'] ) && $_GET['archive'] == 1;
 
     $user_meta = null;
     if ( isset( $_POST['user_meta'] ) ) {
@@ -52,8 +48,8 @@ function activities_export_page() {
     }
 
     if ( isset( $_POST['export_data'] ) ) {
-        if ( $act_id === '' ) {
-            Activities_Admin::add_error_message( esc_html__( 'Select an activity.', 'activities' ) );
+        if ( sizeof( $act_ids ) == 0 ) {
+            Activities_Admin::add_error_message( esc_html__( 'Select one or more activities.', 'activities' ) );
         } elseif ( $user_meta === null ) {
             Activities_Admin::add_error_message( esc_html__( 'Select user data to export.', 'activities' ) );
         } else {
@@ -61,9 +57,12 @@ function activities_export_page() {
             $notice = '';
             $users  = '';
             Activities_Options::update_user_option( 'export', $user_meta, $delimiter );
-            $act        = new Activities_Activity( $act_id );
-            $user_ids   = $act->members;
-            $data       = array();
+            $user_ids = array();
+            foreach ( $act_ids as $act_id ) {
+                $act = new Activities_Activity( $act_id );
+                $user_ids = array_unique( array_merge( $user_ids, $act->members ), SORT_REGULAR );
+            }
+            $data = array();
             $user_count = count( $user_ids );
             foreach ( $user_ids as $user_id ) {
                 switch ( $user_meta ) {
@@ -80,6 +79,7 @@ function activities_export_page() {
                         break;
                 }
             }
+            $data = array_unique( $data, SORT_REGULAR );
             $export .= '<h3>' . sprintf( esc_html__( 'User data found for %s:', 'activities' ), stripslashes( wp_filter_nohtml_kses( acts_get_export_options()[ $user_meta ] ) ) );
             $export .= ' <span id="acts-export-copied">' . esc_html__( 'Copied!', 'activities' ) . '<span class="dashicons dashicons-yes"></span></span></h3>';
             if ( count( $data ) === 0 ) {
@@ -121,28 +121,33 @@ function activities_export_page() {
         }
     }
 
-    if ( $act_id && Activities_Responsible::current_user_restricted_view() ) {
-        $act = new Activities_Activity( $act_id );
+    if ( $act_ids && Activities_Responsible::current_user_restricted_view() ) {
+        $act = new Activities_Activity( $act_ids );
         if ( $act->responsible_id != get_current_user_id() ) {
             Activities_Admin::add_error_message( esc_html__( 'You are not allowed to export this activity.', 'activities' ) );
-            $act_id = '';
+            $act_ids = '';
         }
     }
 
-    echo '<h1>' . esc_html__( 'Activities Export', 'activities' ) . '</h1>';
+    $title = $archive ? esc_html__( 'Activities Archive Export', 'activities' ) : esc_html__( 'Activities Export', 'activities' );
+    echo '<h1>' . $title;
+    $button_text = $archive ? esc_html__( 'Active Activities', 'activities' ) : esc_html__( 'Archived Activities', 'activities' );
+    echo '<a href="' . esc_url( add_query_arg( array( 'archive' => intval( !$archive ) ), $current_url ) ) . '" class="page-title-action">' . $button_text  . '</a>';
+    echo '</h1>';
 
     echo Activities_Admin::get_messages();
 
     echo '<form action="' . esc_url( $current_url ) . '" method="post">';
-    echo '<h3>' . esc_html__( 'Export Activity Participant Data', 'activities' ) . '</h3>';
-    echo '<label for="acts_select_activity" class="acts-export-label">' . esc_html__( 'Select Activity', 'activities' ) . '</label>';
+    echo '<h3>' . esc_html__( 'Export Activities Participant Data', 'activities' ) . '</h3>';
+    echo '<label for="acts_select_activity" class="acts-export-label">' . esc_html__( 'Select Activities', 'activities' ) . '</label>';
     echo acts_build_select_items(
-        'all_activities',
+        (!$archive ? 'activity' : 'activity_archive'),
         array(
-            'name'     => 'selected_activity',
+            'name'     => 'selected_activities[]',
             'id'       => 'acts_select_activity_export',
             'class'    => array( 'acts-export-select' ),
-            'selected' => $act_id,
+            'selected' => $act_ids,
+            'multiple' => 'multiple',
             'blank'    => false,
         ),
         Activities_Responsible::current_user_restricted_view()

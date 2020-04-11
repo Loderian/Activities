@@ -18,6 +18,9 @@
  * License URI:       https://www.gnu.org/licenses/gpl-3.0-standalone.html
  * Text Domain:       activities
  * Domain Path:       /languages
+ *
+ * WC requires at least: 3.9.2
+ * WC tested up to: 3.9.2
  */
 
 if ( !defined( 'WPINC' ) ) {

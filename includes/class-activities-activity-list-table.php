@@ -154,29 +154,24 @@ class Activities_Activity_List_Table extends Activities_List_Table {
      * @return array List of bulk actions
      */
     protected function get_bulk_actions() {
-        $actions = array();
+        $actions = array(
+            'export_user_data' => esc_html__( 'Export', 'activities' )
+        );
         if ( !$this->archive ) {
             if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) {
-                $actions = array(
-                    'change_location'    => esc_html__( 'Change Location', 'activities' ),
-                    'change_responsible' => esc_html__( 'Change Responsible', 'activities' ),
-                    'change_members'     => esc_html__( 'Change Participants', 'activities' )
-                );
+                $actions['change_location'] = esc_html__( 'Change Location', 'activities' );
+                $actions['change_responsible'] = esc_html__( 'Change Responsible', 'activities' );
+                $actions['change_members'] = esc_html__( 'Change Participants', 'activities' );
                 if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
                     $actions['archive'] = esc_html_x( 'Archive', 'To archive', 'activities' );
                 }
-
             }
         } else {
             if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) ) {
-                $actions = array(
-                    'activate' => esc_html__( 'Activate', 'activities' ),
-                    'delete_a' => esc_html__( 'Delete', 'activities' )
-                );
+                $actions['activate'] = esc_html__( 'Activate', 'activities' );
+                $actions['delete_a'] = esc_html__( 'Delete', 'activities' );
             }
         }
-
-        $actions['export_user_data'] = esc_html__( 'Export', 'activities' );
 
         return $actions;
     }

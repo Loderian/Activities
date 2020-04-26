@@ -17,7 +17,7 @@ if ( !defined( 'WPINC' ) ) {
  * Builds export page for activities
  */
 function activities_export_page() {
-    $current_url = activities_admin_access_activities( array ( 'item_id', 'acts' ) );
+    $current_url = activities_admin_access_activities( array( 'item_id', 'acts' ) );
 
     $act_ids = array();
     if ( isset( $_POST['selected_activities'] ) ) {
@@ -27,7 +27,7 @@ function activities_export_page() {
     } elseif ( isset( $_GET['acts'] ) ) {
         $act_ids = explode( ',', $_GET['acts'] );
     }
-    $act_ids = array_filter( $act_ids, "acts_validate_id");
+    $act_ids = array_filter( $act_ids, "acts_validate_id" );
 
     $archive = isset( $_GET['archive'] ) && $_GET['archive'] == 1;
 
@@ -59,41 +59,45 @@ function activities_export_page() {
             Activities_Options::update_user_option( 'export', $user_meta, $delimiter );
             $user_ids = array();
             foreach ( $act_ids as $act_id ) {
-                $act = new Activities_Activity( $act_id );
+                $act      = new Activities_Activity( $act_id );
                 $user_ids = array_unique( array_merge( $user_ids, $act->members ), SORT_REGULAR );
             }
-            $data = array();
+            $data       = array();
             $user_count = count( $user_ids );
             foreach ( $user_ids as $user_id ) {
                 switch ( $user_meta ) {
                     case 'email':
-                        $data[ $user_id ] = acts_get_user_email( $user_id );
+                        $data[$user_id] = acts_get_user_email( $user_id );
                         break;
 
                     case 'phone':
-                        $data[ $user_id ] = acts_get_user_phone( $user_id );
+                        $data[$user_id] = acts_get_user_phone( $user_id );
                         break;
 
                     case 'name':
-                        $data[ $user_id ] = Activities_Utility::get_user_name( $user_id, false );
+                        $data[$user_id] = Activities_Utility::get_user_name( $user_id, false );
                         break;
                 }
             }
-            $data = array_unique( $data, SORT_REGULAR );
-            $export .= '<h3>' . sprintf( esc_html__( 'User data found for %s:', 'activities' ), stripslashes( wp_filter_nohtml_kses( acts_get_export_options()[ $user_meta ] ) ) );
+            $export .= '<h3>' . sprintf( esc_html__( 'User data found for %s:', 'activities' ), stripslashes( wp_filter_nohtml_kses( acts_get_export_options()[$user_meta] ) ) );
             $export .= ' <span id="acts-export-copied">' . esc_html__( 'Copied!', 'activities' ) . '<span class="dashicons dashicons-yes"></span></span></h3>';
             if ( count( $data ) === 0 ) {
                 $export .= '<p>' . esc_html__( 'No data found.', 'activities' ) . '</p>';
             } else {
                 $export .= '<div id="acts-export-results" class="acts-box-wrap">';
-                foreach ( $data as $key => $value ) {
-                    $value = trim( $value );
-                    if ( $value === '' ) {
-                        unset( $data[ $key ] );
-                        $users .= '<a href="' . get_edit_user_link( $key ) . '" >' . esc_html( Activities_Utility::get_user_name( $key ) ) . '</a></br>';
+                foreach ( $data as $user_id => $user_data ) {
+                    $user_data = trim( $user_data );
+                    if ( $user_data === '' ) {
+                        unset( $data[$user_id] );
+                        $users .= '<a href="' . get_edit_user_link( $user_id ) . '" >' . esc_html( Activities_Utility::get_user_name( $user_id ) ) . '</a></br>';
                     } else {
-                        $data[ $key ] = esc_html( $value );
+                        $data[$user_id] = esc_html( $user_data );
                     }
+                }
+                if ( $user_meta != 'name' ) {
+                    $unique_data = array_unique( $data, SORT_REGULAR );
+                } else {
+                    $unique_data = $data;
                 }
                 if ( count( $data ) < $user_count ) {
                     $notice .= '</br><b>' . esc_html__( 'Notice:', 'activities' ) . ' </b>' . sprintf( esc_html__( '%d users missing data', 'activities' ), ( $user_count - count( $data ) ) ) . '</br>';
@@ -113,7 +117,7 @@ function activities_export_page() {
                         break;
                 }
 
-                $export .= implode( $delimiter_char, $data );
+                $export .= implode( $delimiter_char, $unique_data );
                 $export .= '</div>';
             }
             $export .= $notice;
@@ -132,7 +136,7 @@ function activities_export_page() {
     $title = $archive ? esc_html__( 'Activities Archive Export', 'activities' ) : esc_html__( 'Activities Export', 'activities' );
     echo '<h1>' . $title;
     $button_text = $archive ? esc_html__( 'Active Activities', 'activities' ) : esc_html__( 'Archived Activities', 'activities' );
-    echo '<a href="' . esc_url( add_query_arg( array( 'archive' => intval( !$archive ) ), $current_url ) ) . '" class="page-title-action">' . $button_text  . '</a>';
+    echo ' <a href="' . esc_url( add_query_arg( array( 'archive' => intval( !$archive ) ), $current_url ) ) . '" class="page-title-action">' . $button_text . '</a>';
     echo '</h1>';
 
     echo Activities_Admin::get_messages();
@@ -141,7 +145,7 @@ function activities_export_page() {
     echo '<h3>' . esc_html__( 'Export Activities Participant Data', 'activities' ) . '</h3>';
     echo '<label for="acts_select_activity" class="acts-export-label">' . esc_html__( 'Select Activities', 'activities' ) . '</label>';
     echo acts_build_select_items(
-        (!$archive ? 'activity' : 'activity_archive'),
+        ( !$archive ? 'activity' : 'activity_archive' ),
         array(
             'name'     => 'selected_activities[]',
             'id'       => 'acts_select_activity_export',
@@ -184,8 +188,8 @@ function activities_export_page() {
     }
 
     $mapping = array();
-    foreach ( acts_get_export_options() as $key => $value ) {
-        $mapping[] = $key . ': "' . wp_filter_nohtml_kses( Activities_Options::get_user_option( 'export', $key ) ) . '"';
+    foreach ( acts_get_export_options() as $user_id => $user_data ) {
+        $mapping[] = $user_id . ': "' . wp_filter_nohtml_kses( Activities_Options::get_user_option( 'export', $user_id ) ) . '"';
     }
 
     $js_map = 'var defaults = {' . implode( ', ', $mapping ) . '};';
@@ -239,10 +243,9 @@ function acts_get_user_phone( $user_id ) {
         return $user->billing_phone;
     } else {
         $p_numbers = $wpdb->get_col( $wpdb->prepare(
-            "SELECT meta_value
-      FROM {$wpdb->usermeta}
-      WHERE meta_key LIKE '%phone%' AND user_id = %d
-      ",
+            "SELECT meta_value 
+            FROM {$wpdb->usermeta}
+            WHERE meta_key LIKE '%phone%' AND user_id = %d",
             $user_id
         ) );
         foreach ( $p_numbers as $p_number ) {

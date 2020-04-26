@@ -14,6 +14,16 @@
     vertical-align: middle;
 }
 
+.acts-join-image {
+    position: relative;
+    z-index: 1;
+}
+.acts-join-image img .acts-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
 @keyframes acts-loader-spin {
     0% {
         transform: rotate(0deg);

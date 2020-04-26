@@ -8,9 +8,19 @@ if ( !defined( 'WPINC' ) ) {
  * Activity class
  *
  * @property string id
+ * @property string ID
  * @property string name
+ * @property string short_desc
+ * @property string long_desc
+ * @property string start
+ * @property string end
  * @property array members
+ * @property array location_id
  * @property string responsible_id
+ * @property string archive
+ * @property WP_User responsible
+ * @property Activities_Location location
+ * @property array nice_settings
  * @since      1.0.0
  * @package    Activities
  * @subpackage Activities/includes

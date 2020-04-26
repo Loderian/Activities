@@ -70,15 +70,13 @@ class Activities_Public {
                 wp_send_json_error();
             }
             if ( !Activities_User_Activity::exists( get_current_user_id(), $id ) ) {
-                Activities_User_Activity::insert( get_current_user_id(), $id );
-                $text = esc_html__( 'Leave', 'activities' );
+                $joined = Activities_User_Activity::insert( get_current_user_id(), $id );
             } else {
-                Activities_User_Activity::delete( get_current_user_id(), $id );
-                $text = esc_html__( 'Join', 'activities' );
+                $joined = !Activities_User_Activity::delete( get_current_user_id(), $id );
             }
             $act   = new Activities_Activity( $id );
             $count = count( $act->members );
-            wp_send_json_success( array( 'text' => $text, 'count' => $count, 'id' => $id ) );
+            wp_send_json_success( array( 'joined' => $joined, 'count' => $count, 'id' => $id ) );
         } else {
             wp_send_json_error();
         }

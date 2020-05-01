@@ -14,11 +14,28 @@
     vertical-align: middle;
 }
 
-.acts-join-image {
+.acts-join-image  {
+    display: inline-block;
     position: relative;
     z-index: 1;
+    text-decoration: none;
 }
-.acts-join-image img .acts-loader {
+
+.acts-join-image[disabled="disabled"] img  {
+    opacity: 50%;
+    background-color: #6e6e6e;
+}
+
+.acts-join-image img  {
+    display: inline;
+    position: relative;
+    z-index: -1;
+}
+
+.acts-join-image .acts-loader {
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    display: inline-block;
     position: absolute;
     top: 50%;
     left: 50%;

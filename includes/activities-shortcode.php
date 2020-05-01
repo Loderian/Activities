@@ -167,6 +167,7 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
             case 'join_link':
                 $join_clickable =
                     '<a class="acts-join-link acts-join" 
+                        href="#"
                         acts_join_text="' . esc_attr( $join_text ) . '" 
                         acts_leave_text="' . esc_attr( $leave_text ) . '" 
                         value="' . esc_attr( $act->ID ) . '"
@@ -177,7 +178,7 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
             case 'join_image':
                 $join_clickable =
                     '<a class="acts-join-image acts-join" 
-                        href=""
+                        href="#"
                         acts_join_text="' . esc_attr( $join_text ) . '" 
                         acts_leave_text="' . esc_attr( $leave_text ) . '"
                         acts_alt_join_text="' . esc_attr( $default_join_text ) . '" 

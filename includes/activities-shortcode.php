@@ -142,24 +142,24 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
 
     $default_join_text = sprintf( __( 'Join %s', 'activities' ), $act->name );
     $default_leave_text = sprintf( __( 'Leave %s', 'activities' ), $act->name );
-    $join_text = isset( $shortcode_data['join_text'] ) ? $shortcode_data['join_text'] : $default_join_text;
-    $leave_text = isset( $shortcode_data['leave_text'] ) ? $shortcode_data['leave_text'] : $default_leave_text;
+    $join_text = isset( $shortcode_data['join'] ) ? $shortcode_data['join'] : $default_join_text;
+    $leave_text = isset( $shortcode_data['leave'] ) ? $shortcode_data['leave'] : $default_leave_text;
     $button_filter = apply_filters(
         'activities_' . $get,
         array(
             'allowed'            => true,
             'cant_join_response' => '',
-            'join_text'          => $join_text,
-            'leave_text'         => $leave_text
+            'join'          => $join_text,
+            'leave'         => $leave_text
         ),
         $act->ID
     );
     if ( $button_filter['allowed'] ) {
         if ( Activities_User_Activity::exists( get_current_user_id(), $act->ID ) ) {
-            $text = $button_filter['leave_text'];
+            $text = $button_filter['leave'];
             $alt_text = $default_leave_text;
         } else {
-            $text = $button_filter['join_text'];
+            $text = $button_filter['join'];
             $alt_text = $default_join_text;
         }
 

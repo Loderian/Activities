@@ -151,7 +151,7 @@ function activities_export_page() {
             'id'       => 'acts_select_activity_export',
             'class'    => array( 'acts-export-select' ),
             'selected' => $act_ids,
-            'multiple' => 'multiple',
+            'multiple' => true,
             'blank'    => false,
         ),
         Activities_Responsible::current_user_restricted_view()

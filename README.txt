@@ -3,7 +3,7 @@ Contributors: loderian
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: activities, events, courses, classes, report
 Requires at least: 4.6
-Tested up to: 5.3.2
+Tested up to: 5.4.1
 Stable tag: trunk
 Requires PHP: 7.0.32
 License: GPLv3 or later
@@ -128,8 +128,16 @@ List of data options
   * `start` = Start Date
   * `end` = End Date
   * `members` = How many users who are currently participating/listed
-  * `button` = A join/unjoin button for posted activities. Lets users join an activity by simply clicking it
   * `archive` = 'Archived' if the activity is archived (users cannot join) or 'Active' if not (users can join)
+  * `join_button` = A join/leave button for activities. Lets users join an activity by simply clicking it.
+    - `join` = Text for joining in button
+    - `leave` = Text for leaving in button
+  * `join_link` = A join/leave link for activities.
+    - `join` = Link text for joining
+    - `leave` = Link text for leaving
+  * `join_image` = A join/leave image for activities.
+    - `join` = Image link for joining activity
+    - `leave` = Image link for leaving activity
 - Location:
   * `loc_name` or `loc` = Name
   * `loc_address` = Address
@@ -151,6 +159,13 @@ List of data options
 5. The Activities general options screen
 
 == Changelog ==
+
+= 1.1.4 =
+
+* Feature: Export participant data from multiple activities at once
+* Feature: Added shortcode option for join/leave link and image
+* Feature: Customize text for shortcode join/leave button/link/image
+* Fix: Join button was not working in some browsers
 
 = 1.1.3 =
 
@@ -222,6 +237,10 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.4 =
+
+Export participant data from multiple activities at once. Join/leave link and image options added to shortcode.
 
 = 1.1.3 =
 

@@ -49,7 +49,9 @@
 
         //Activity export select activity
         if ($('#acts_select_activity_export').length) {
-            $('#acts_select_activity_export').selectize({});
+            $('#acts_select_activity_export').selectize({
+                plugins: ['remove_button']
+            });
         }
 
         //Activity bulk selectize

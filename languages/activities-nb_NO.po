@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: activities\n"
-"POT-Creation-Date: 2020-03-21 19:03+0100\n"
-"PO-Revision-Date: 2020-03-21 19:10+0100\n"
+"POT-Creation-Date: 2020-05-02 22:36+0200\n"
+"PO-Revision-Date: 2020-05-02 22:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nb_NO\n"
@@ -18,7 +18,6 @@ msgstr ""
 
 #: admin/activities-admin-access.php:23
 #: admin/activity/activities-admin-archive.php:23
-#: admin/import-export/activities-admin-export.php:21
 #: admin/import-export/activities-admin-import.php:21
 #: admin/location/activities-admin-locations.php:23
 #: admin/options/activities-admin-options.php:21
@@ -254,7 +253,7 @@ msgid "Archive Activities"
 msgstr "Arkiver Aktiviteter"
 
 #: admin/activity/activities-admin-activities.php:120
-#: includes/class-activities-activity-list-table.php:161
+#: includes/class-activities-activity-list-table.php:162
 msgid "Change Location"
 msgstr "Endre sted"
 
@@ -263,17 +262,17 @@ msgid "Change Responsible User"
 msgstr "Endre ansvarlig bruker"
 
 #: admin/activity/activities-admin-activities.php:128
-#: admin/activity/activities-admin-activities.php:170
-#: includes/class-activities-activity-list-table.php:163
+#: admin/activity/activities-admin-activities.php:179
+#: includes/class-activities-activity-list-table.php:164
 msgid "Change Participants"
 msgstr "Endre deltakere"
 
-#: admin/activity/activities-admin-activities.php:166
+#: admin/activity/activities-admin-activities.php:175
 msgid "Select a save method."
 msgstr "Velg en lagringsmetode."
 
 #. Plugin Name of the plugin/theme
-#: admin/activity/activities-admin-activities.php:180
+#: admin/activity/activities-admin-activities.php:189
 #: admin/class-activities-admin.php:122 admin/class-activities-admin.php:124
 #: admin/class-activities-admin.php:227 admin/class-activities-admin.php:436
 #: admin/import-export/activities-admin-import.php:41
@@ -283,7 +282,7 @@ msgstr "Velg en lagringsmetode."
 msgid "Activities"
 msgstr "Aktiviteter"
 
-#: admin/activity/activities-admin-activities.php:182
+#: admin/activity/activities-admin-activities.php:191
 msgid "Create new activity"
 msgstr "Opprett ny aktivitet"
 
@@ -540,7 +539,7 @@ msgid "Postcode"
 msgstr "Postnummer"
 
 #: admin/activity/activities-admin-activity-nice.php:766
-#: admin/import-export/activities-admin-export.php:256
+#: admin/import-export/activities-admin-export.php:264
 msgid "Phone"
 msgstr "Mobilnummer"
 
@@ -592,7 +591,7 @@ msgstr "Kategori"
 #: admin/activity/activities-admin-activity.php:90
 #: admin/class-activities-admin-utility.php:381
 #: admin/class-activities-admin.php:564
-#: admin/import-export/activities-admin-export.php:257
+#: admin/import-export/activities-admin-export.php:265
 #: admin/location/activities-admin-location.php:50
 #: admin/plan/activities-admin-plan.php:50
 msgid "Name"
@@ -693,7 +692,7 @@ msgstr "Aktiver Aktiviteter"
 msgid "Delete Activities"
 msgstr "Slett Aktiviteter"
 
-#: admin/activity/activities-admin-archive.php:95
+#: admin/activity/activities-admin-archive.php:105
 #: admin/class-activities-admin.php:148
 msgid "Activities Archive"
 msgstr "Aktivitetsarkiv"
@@ -799,12 +798,13 @@ msgid "Import"
 msgstr "Importer"
 
 #: admin/class-activities-admin.php:140
-#: admin/import-export/activities-admin-export.php:132
+#: admin/import-export/activities-admin-export.php:136
 msgid "Activities Export"
 msgstr "Aktiviteter Eksport"
 
 #: admin/class-activities-admin.php:140
-#: admin/import-export/activities-admin-export.php:173
+#: admin/import-export/activities-admin-export.php:182
+#: includes/class-activities-activity-list-table.php:158
 #: includes/class-activities-activity-list-table.php:333
 #: includes/class-activities-activity-list-table.php:339
 msgid "Export"
@@ -931,116 +931,102 @@ msgstr "Vis kolonner"
 msgid "Results Per Page"
 msgstr "Resultater pr. side"
 
-#: admin/class-activities-admin.php:773
-msgid "Archived"
-msgstr "Arkivert"
-
-#: admin/class-activities-admin.php:775
-msgid "Active"
-msgstr "Aktiv"
-
-#: admin/class-activities-admin.php:792
-msgid "You have to login to join."
-msgstr "Du må logge inn for å delta."
-
-#: admin/class-activities-admin.php:795
-msgid "You can no longer join this activity."
-msgstr "Du kan ikke lenger bli med på denne aktiviteten."
-
-#: admin/class-activities-admin.php:807
-msgid "You are not allowed to join this activity."
-msgstr "Du har ikke tillatelse til å bli med på denne aktiviteten."
-
-#: admin/class-activities-admin.php:818 public/class-activities-public.php:77
-msgid "Join"
-msgstr "Meld deg på"
-
-#: admin/class-activities-admin.php:820 public/class-activities-public.php:74
-msgid "Unjoin"
-msgstr "Meld deg ut"
-
-#: admin/class-activities-admin.php:1042
+#: admin/class-activities-admin.php:901
 msgid "Plan updated!"
 msgstr "Plan oppdatert!"
 
-#: admin/class-activities-admin.php:1044 admin/class-activities-admin.php:1057
+#: admin/class-activities-admin.php:903 admin/class-activities-admin.php:916
 msgid "Error!"
 msgstr "Feil!"
 
-#: admin/class-activities-admin.php:1049
+#: admin/class-activities-admin.php:908
 #, php-format
 msgid "%s already exists!"
 msgstr "%s finnes allerede!"
 
-#: admin/class-activities-admin.php:1054
+#: admin/class-activities-admin.php:913
 msgid "Plan created!"
 msgstr "Plan opprettet!"
 
-#: admin/import-export/activities-admin-export.php:56
-msgid "Select an activity."
-msgstr "Velg en aktivitet."
+#: admin/import-export/activities-admin-export.php:52
+msgid "Select one or more activities."
+msgstr "Velg en eller flere aktiviteter"
 
-#: admin/import-export/activities-admin-export.php:58
+#: admin/import-export/activities-admin-export.php:54
 msgid "Select user data to export."
 msgstr "Velg brukerdata for eksport."
 
-#: admin/import-export/activities-admin-export.php:83
+#: admin/import-export/activities-admin-export.php:82
 #, php-format
 msgid "User data found for %s:"
 msgstr "Bruker data funnet for %s:"
 
-#: admin/import-export/activities-admin-export.php:84
+#: admin/import-export/activities-admin-export.php:83
 msgid "Copied!"
 msgstr "Kopiert!"
 
-#: admin/import-export/activities-admin-export.php:86
+#: admin/import-export/activities-admin-export.php:85
 msgid "No data found."
 msgstr "Ingen data funnet."
 
-#: admin/import-export/activities-admin-export.php:99
+#: admin/import-export/activities-admin-export.php:103
 msgid "Notice:"
 msgstr "Legge merke til:"
 
-#: admin/import-export/activities-admin-export.php:99
+#: admin/import-export/activities-admin-export.php:103
 #, php-format
 msgid "%d users missing data"
 msgstr "%d brukere mangler data"
 
-#: admin/import-export/activities-admin-export.php:127
+#: admin/import-export/activities-admin-export.php:131
 msgid "You are not allowed to export this activity."
 msgstr "Du har ikke lov til å eksportere denne aktiviteten."
 
-#: admin/import-export/activities-admin-export.php:137
-msgid "Export Activity Participant Data"
-msgstr "Eksporter Aktivitet Deltaker Data"
+#: admin/import-export/activities-admin-export.php:136
+msgid "Activities Archive Export"
+msgstr "Aktivitetsarkiv Eksport"
 
 #: admin/import-export/activities-admin-export.php:138
-msgid "Select Activity"
-msgstr "Velg Aktivitet"
+msgid "Active Activities"
+msgstr "Aktive Aktiviteter"
 
-#: admin/import-export/activities-admin-export.php:151
+#: admin/import-export/activities-admin-export.php:138
+msgid "Archived Activities"
+msgstr "Arkiverte Aktiviteter"
+
+#: admin/import-export/activities-admin-export.php:145
+msgid "Export Activities Participant Data"
+msgstr "Eksporter Aktivitets Deltaker Data"
+
+#: admin/import-export/activities-admin-export.php:146
+#: includes/class-activities-woocommerce.php:100
+#: includes/class-activities-woocommerce.php:102
+msgid "Select Activities"
+msgstr "Velg Aktiviteter"
+
+#: admin/import-export/activities-admin-export.php:160
 msgid "Select User Data"
 msgstr "Velg Bruker Data"
 
-#: admin/import-export/activities-admin-export.php:165
+#: admin/import-export/activities-admin-export.php:174
 msgid "Select Delimiter"
 msgstr "Velg Skilletegn"
 
-#: admin/import-export/activities-admin-export.php:255
+#: admin/import-export/activities-admin-export.php:263
 msgid "Email"
 msgstr "E-post"
 
-#: admin/import-export/activities-admin-export.php:263
+#: admin/import-export/activities-admin-export.php:271
 #, php-format
 msgid "Comma (%s)"
 msgstr "Komma (%s)"
 
-#: admin/import-export/activities-admin-export.php:264
+#: admin/import-export/activities-admin-export.php:272
 #, php-format
 msgid "Semicolon (%s)"
 msgstr "Semikolon (%s)"
 
-#: admin/import-export/activities-admin-export.php:265
+#: admin/import-export/activities-admin-export.php:273
 msgid "Newline"
 msgstr "Linjeskift"
 
@@ -1559,7 +1545,37 @@ msgstr "Slette Planer"
 msgid "Create new plan"
 msgstr "Opprett ny plan"
 
-#: includes/class-activities-activity-list-table.php:162
+#: includes/activities-shortcode.php:88
+msgid "Archived"
+msgstr "Arkivert"
+
+#: includes/activities-shortcode.php:90
+msgid "Active"
+msgstr "Aktiv"
+
+#: includes/activities-shortcode.php:125
+msgid "You have to login to join."
+msgstr "Du må logge inn for å delta."
+
+#: includes/activities-shortcode.php:128
+msgid "You can no longer join this activity."
+msgstr "Du kan ikke lenger bli med på denne aktiviteten."
+
+#: includes/activities-shortcode.php:140
+msgid "You are not allowed to join this activity."
+msgstr "Du har ikke tillatelse til å bli med på denne aktiviteten."
+
+#: includes/activities-shortcode.php:143
+#, php-format
+msgid "Join %s"
+msgstr "Meld deg på %s"
+
+#: includes/activities-shortcode.php:144
+#, php-format
+msgid "Leave %s"
+msgstr "Meld deg av %s"
+
+#: includes/class-activities-activity-list-table.php:163
 msgid "Change Responsible"
 msgstr "Endre ansvarlig"
 
@@ -1582,7 +1598,7 @@ msgstr "Vis"
 msgid "Duplicate"
 msgstr "Dupliser"
 
-#: includes/class-activities-activity.php:231
+#: includes/class-activities-activity.php:241
 msgid "Copy"
 msgstr "Kopi"
 
@@ -2586,11 +2602,6 @@ msgstr "Zambia"
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
-#: includes/class-activities-woocommerce.php:100
-#: includes/class-activities-woocommerce.php:102
-msgid "Select Activities"
-msgstr "Velg Aktiviteter"
-
 #: includes/class-activities-woocommerce.php:104
 msgid "Users who orders this product will be added to the selected activities."
 msgstr ""
@@ -2686,6 +2697,15 @@ msgstr "Mikal Naustdal"
 #. Author URI of the plugin/theme
 msgid "https://github.com/Loderian"
 msgstr "https://github.com/Loderian"
+
+#~ msgid "Unjoin"
+#~ msgstr "Meld deg ut"
+
+#~ msgid "Select an activity."
+#~ msgstr "Velg en aktivitet."
+
+#~ msgid "Select Activity"
+#~ msgstr "Velg Aktivitet"
 
 #, php-format
 #~ msgid "Report settings has been reset for %s."

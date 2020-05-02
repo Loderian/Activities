@@ -22,8 +22,7 @@
 }
 
 .acts-join-image[disabled="disabled"] img  {
-    opacity: 50%;
-    background-color: #6e6e6e;
+    opacity: 75%;
 }
 
 .acts-join-image img  {
@@ -33,8 +32,6 @@
 }
 
 .acts-join-image .acts-loader {
-    -webkit-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
     display: inline-block;
     position: absolute;
     top: 50%;

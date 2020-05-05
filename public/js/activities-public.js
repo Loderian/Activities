@@ -11,7 +11,6 @@
                     return !$button.is(this);
                 }
             );
-            console.log($other_buttons);
             if (!$button.attr('disabled')) {
                 acts_join_leave($button.parent('.acts-join-form'), $button, $other_buttons);
             }
@@ -44,8 +43,8 @@
                 if ($image === null) {
                     $button.html(data.joined ? $button.attr('acts_leave_text') : $button.attr('acts_join_text'));
                 } else {
-                    $image?.attr('src', data.joined ? $button.attr('acts_leave_text') : $button.attr('acts_join_text'));
-                    $image?.attr('alt', data.joined ? $button.attr('acts_alt_leave_text') : $button.attr('acts_atl_join_text'));
+                    $image.attr('src', data.joined ? $button.attr('acts_leave_text') : $button.attr('acts_join_text'));
+                    $image.attr('alt', data.joined ? $button.attr('acts_alt_leave_text') : $button.attr('acts_atl_join_text'));
                     $button.children('.acts-loader').remove();
                 }
                 $('.acts-member-count-' + data.id).each(function (index, element) {

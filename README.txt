@@ -160,6 +160,10 @@ List of data options
 
 == Changelog ==
 
+= 1.1.5 =
+
+* Fix: Removed use of Optional Chaining (?.) operator in js, its too modern for a lot of browsers
+
 = 1.1.4 =
 
 * Feature: Export participant data from multiple activities at once
@@ -237,6 +241,10 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.5 =
+
+Javascript compatibility
 
 = 1.1.4 =
 

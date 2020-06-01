@@ -24,7 +24,7 @@ function activities_admin_activities_page() {
     if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
         return acts_activity_management( esc_html__( 'Create New Activity', 'activities' ), 'create' );
     } elseif ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'edit' && isset( $_GET['item_id'] ) ) {
-        $activity = Activities_Activity::load( acts_validate_id( $_GET['item_id'] ) );
+        $activity = Activities_Activity::load( acts_validate_int( $_GET['item_id'] ) );
         if ( $activity !== null && $activity['archive'] == 0 ) {
             if ( Activities_Admin_Utility::can_access_act( 'edit', $activity['activity_id'] ) ) {
                 return acts_activity_management( esc_html__( 'Edit Activity', 'activities' ), 'edit', $activity );
@@ -33,7 +33,7 @@ function activities_admin_activities_page() {
             }
         }
     } elseif ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'view' && isset( $_GET['item_id'] ) ) {
-        $activity = Activities_Activity::load( acts_validate_id( $_GET['item_id'] ) );
+        $activity = Activities_Activity::load( acts_validate_int( $_GET['item_id'] ) );
         if ( $activity !== null && $activity['archive'] == 0 ) {
             if ( Activities_Admin_Utility::can_access_act( 'view', $activity['activity_id'] ) ) {
                 return acts_activity_nice_management( $activity, $current_url );
@@ -42,7 +42,7 @@ function activities_admin_activities_page() {
             }
         }
     } elseif ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'duplicate' && isset( $_GET['item_id'] ) ) {
-        $act_id = acts_validate_id( $_GET['item_id'] );
+        $act_id = acts_validate_int( $_GET['item_id'] );
         if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) && $act_id && wp_verify_nonce( $_GET['_wpnonce'], 'duplicate_act_' . $act_id ) ) {
             $new_act_id = Activities_Activity::duplicate( $act_id );
 
@@ -84,7 +84,7 @@ function activities_admin_activities_page() {
         if ( !wp_verify_nonce( $_POST[ ACTIVITIES_ACTIVITY_NONCE ], 'activities_activity' ) ) {
             wp_die( 'Access Denied' );
         }
-        $act     = new Activities_Activity( acts_validate_id( $_POST['item_id'] ) );
+        $act     = new Activities_Activity( acts_validate_int( $_POST['item_id'] ) );
         $act_map = Activities_Admin_Utility::get_activity_post_values();
         if ( $act_map['name'] === '' ) {
             Activities_Admin::add_error_message( esc_html__( 'The activity must have a name.', 'activities' ) );
@@ -165,7 +165,7 @@ function activities_admin_activities_page() {
                     $members = array();
                     if ( isset( $_POST['members'] ) && is_array( $_POST['members'] ) ) {
                         foreach ( $_POST['members'] as $id ) {
-                            if ( acts_validate_id( $id ) ) {
+                            if ( acts_validate_int( $id ) ) {
                                 $members[] = $id;
                             }
                         }

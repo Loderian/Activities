@@ -127,7 +127,8 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
     if ( $act->archive || ( $act->end != '0000-00-00 00:00:00' && $act->end !== null && date( 'U' ) > strtotime( $act->end ) ) ) {
         return '<i>' . esc_html__( 'You can no longer join this activity.', 'activities' ) . '</i>';
     }
-    $roles       = wp_get_current_user()->roles;
+    $current_user = wp_get_current_user();
+    $roles       = $current_user->roles;
     $member_list = Activities_Options::get_option( ACTIVITIES_CAN_BE_MEMBER_KEY );
     $can_join    = false;
     foreach ( $roles as $role ) {
@@ -138,6 +139,10 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
     }
     if ( !$can_join ) {
         return '<i>' . esc_html__( 'You are not allowed to join this activity.', 'activities' ) . '</i>';
+    }
+
+    if ( array_search( $current_user->ID, $act->members ) === false && count( $act->members ) >= $act->participants_limit ) {
+        return '<i>' . esc_html__( 'This activity is full.', 'activities' ) . '</i>';
     }
 
     $default_join_text = sprintf( __( 'Join %s', 'activities' ), $act->name );
@@ -170,8 +175,8 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
                         href="#"
                         acts_join_text="' . esc_attr( $join_text ) . '" 
                         acts_leave_text="' . esc_attr( $leave_text ) . '" 
-                        value="' . esc_attr( $act->ID ) . '"
-                        href="">' . esc_html( $text ) .
+                        value="' . esc_attr( $act->ID ) . '">' .
+                        esc_html( $text ) .
                     '</a>';
                 break;
 
@@ -231,7 +236,7 @@ function getActivity( $name = null ) {
     if ( $name ) {
         $act = Activities_Activity::load_by_name( sanitize_text_field( $name ) );
     } elseif ( isset( $_REQUEST['item_id'] ) ) {
-        $id = acts_validate_id( $_REQUEST['item_id'] );
+        $id = acts_validate_int( $_REQUEST['item_id'] );
         if ( $id ) {
             $act = new Activities_Activity( $id );
             if ( $act->ID === '' ) {

@@ -20,6 +20,7 @@ if ( !defined( 'WPINC' ) ) {
  * @property string archive
  * @property WP_User responsible
  * @property Activities_Location location
+ * @property int participants_limit
  * @property array nice_settings
  * @since      1.0.0
  * @package    Activities
@@ -174,6 +175,10 @@ class Activities_Activity {
                 Activities_Responsible::update_user_responsiblity( $act_map['responsible_id'] );
             }
 
+            if ( isset( $act_map['participants_limit'] ) && $act_map['participants_limit'] > 0 ) {
+                self::update_meta( $act, 'participants_limit', $act_map['participants_limit'], false);
+            }
+
             if ( isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
                 foreach ( $act_map['members'] as $u_id ) {
                     Activities_User_Activity::insert( $u_id, $act );
@@ -210,8 +215,14 @@ class Activities_Activity {
                 }
             }
 
+            if ( isset( $act_map['participants_limit'] ) && $act_map['participants_limit'] > 0 ) {
+                self::update_meta( $act_map['activity_id'], 'participants_limit', $act_map['participants_limit'], false);
+            } else {
+                self::delete_meta( $act_map['activity_id'], 'participants_limit' );
+            }
+
             if ( isset( $act_map['members'] ) && is_array( $act_map['members'] ) ) {
-                Activities_User_Activity::insert_delete( $act_map['members'], $act_map['activity_id'], 'activity_id' );
+                Activities_User_Activity::delete_insert( $act_map['members'], $act_map['activity_id'], 'activity_id' );
             }
 
             if ( isset( $act_map['categories'] ) && is_array( $act_map['categories'] ) ) {
@@ -275,24 +286,12 @@ class Activities_Activity {
      * @return  array|null  Associative array of activity info, or null if error
      */
     static function load( int $activity_id ) {
-        global $wpdb;
-
         $activity = Activities_Item::load( 'activity', $activity_id );
 
         if ( $activity !== null ) {
-            $user_activity = Activities::get_table_name( 'user_activity' );
-
-            $users = $wpdb->get_col( $wpdb->prepare(
-                "SELECT user_id
-        FROM $user_activity
-        WHERE activity_id = %d
-        ",
-                $activity_id
-            ) );
-
-            $activity['members'] = $users;
-
+            $activity['members'] = Activities_User_Activity::get_activity_users( $activity_id );
             $activity['categories'] = Activities_Category::get_act_categories( $activity_id );
+            $activity['meta'] = self::get_all_meta( $activity_id );
         }
 
         return $activity;

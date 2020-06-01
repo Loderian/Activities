@@ -71,7 +71,7 @@ class Activities_Pagination {
      */
     function get_pagenum() {
         if ( isset( $_REQUEST['paged'] ) ) {
-            $page = acts_validate_id( $_REQUEST['paged'] );
+            $page = acts_validate_int( $_REQUEST['paged'] );
             if ( $page < 1 ) {
                 return 1;
             } else if ( $page > $this->total_pages ) {

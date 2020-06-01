@@ -276,12 +276,12 @@ class Activities_Admin {
         $acts = array();
         if ( isset( $_POST['activities_selected'] ) && is_array( $_POST['activities_selected'] ) ) {
             foreach ( $_POST['activities_selected'] as $key => $id ) {
-                if ( acts_validate_id( $id ) ) {
+                if ( acts_validate_int( $id ) ) {
                     $acts[] = $id;
                 }
             }
         }
-        return Activities_User_Activity::insert_delete( $acts, $user_id, 'user_id' ) > 0;
+        return Activities_User_Activity::delete_insert( $acts, $user_id, 'user_id' ) > 0;
     }
 
     /**
@@ -376,7 +376,7 @@ class Activities_Admin {
         }
 
         //Custom col sanitation is done by acts_get_user_info
-        $id     = acts_validate_id( $_POST['item_id'] );
+        $id     = acts_validate_int( $_POST['item_id'] );
         $custom = array();
         if ( isset( $_POST['custom'] ) && is_array( $_POST['custom'] ) ) {
             $custom = $_POST['custom'];
@@ -413,7 +413,7 @@ class Activities_Admin {
             wp_send_json_error();
         }
 
-        $id = acts_validate_id( $_POST['uid'] );
+        $id = acts_validate_int( $_POST['uid'] );
 
         if ( $id ) {
             $data = acts_get_user_nice_info( $id );
@@ -617,7 +617,7 @@ class Activities_Admin {
             }
 
             if ( isset( $_POST['items_num'] ) ) {
-                $items_per_page = acts_validate_id( $_POST['items_num'] );
+                $items_per_page = acts_validate_int( $_POST['items_num'] );
                 if ( $items_per_page > 500 ) {
                     $items_per_page = 500;
                 } elseif ( $items_per_page <= 0 ) {
@@ -702,7 +702,7 @@ class Activities_Admin {
             return $admin_title;
         }
         if ( ( sanitize_key( $_GET['page'] ) === 'activities-admin' || sanitize_key( $_GET['page'] ) === 'activities-admin-archive' ) && sanitize_key( $_GET['action'] ) === 'view' ) {
-            $id = acts_validate_id( $_GET['item_id'] );
+            $id = acts_validate_int( $_GET['item_id'] );
             if ( $id ) {
                 $act = new Activities_Activity( $id );
                 if ( $act->name === '' ) {
@@ -726,7 +726,7 @@ class Activities_Admin {
             wp_send_json_error();
         }
 
-        $id = acts_validate_id( $_POST['uid'] );
+        $id = acts_validate_int( $_POST['uid'] );
         if ( !$id ) {
             wp_send_json_error();
         }
@@ -793,7 +793,7 @@ class Activities_Admin {
     public function ajax_insert_cat() {
         $name   = sanitize_text_field( $_POST['name'] );
         $slug   = sanitize_title_with_dashes( $_POST['name'] );
-        $parent = acts_validate_id( $_POST['parent'] );
+        $parent = acts_validate_int( $_POST['parent'] );
 
         if ( $name != '' && $slug != '' ) {
             $term = term_exists( $name, Activities_Category::taxonomy );
@@ -826,9 +826,9 @@ class Activities_Admin {
      * Ajax callback for updating category
      */
     public function ajax_update_cat() {
-        $id     = acts_validate_id( $_POST['category_id'] );
+        $id     = acts_validate_int( $_POST['category_id'] );
         $name   = sanitize_text_field( $_POST['category_name'] );
-        $parent = acts_validate_id( $_POST['category_parent'] );
+        $parent = acts_validate_int( $_POST['category_parent'] );
         $desc   = sanitize_textarea_field( $_POST['category_description'] );
 
         if ( $id <= 0 ) {
@@ -865,7 +865,7 @@ class Activities_Admin {
      * Ajax callback for deleting category
      */
     public function ajax_delete_cat() {
-        $id = acts_validate_id( $_POST['category_id'] );
+        $id = acts_validate_int( $_POST['category_id'] );
 
         if ( $id > 0 ) {
             $term = get_term( $id, Activities_Category::taxonomy );

@@ -274,19 +274,20 @@ class Activities_Activity_List_Table extends Activities_List_Table {
      * @return  string  The cell
      */
     protected function build_table_name_cell( $item ) {
-        global $wpdb;
-
         $id = $item['activity_id'];
 
-        $user_act_table = Activities::get_table_name( 'user_activity' );
-        $count          = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*)
-      FROM $user_act_table
-      WHERE activity_id = %d
-      ",
-            $id
-        ) );
-        $count_display  = '(' . $count . ')';
+        $count          = count( Activities_User_Activity::get_activity_users( $id ) );
+        $count_display  = '(' . $count;
+        $limit = Activities_Activity::get_meta( $id, 'participants_limit' );
+        if ( $limit !== null ) {
+            $limit = acts_validate_int( $limit );
+            $count_display .= '/' . esc_html( $limit ) . ')';
+            if ( $count > $limit ) {
+                $count_display .= ' <span class="dashicons dashicons-warning" title="' . esc_attr__( "More participants than limit" ) . '" ></span>';
+            }
+        } else {
+            $count_display .= ')';
+        }
 
         if ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) {
             $name_action = 'edit';

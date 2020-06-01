@@ -27,7 +27,7 @@ function activities_export_page() {
     } elseif ( isset( $_GET['acts'] ) ) {
         $act_ids = explode( ',', $_GET['acts'] );
     }
-    $act_ids = array_filter( $act_ids, "acts_validate_id" );
+    $act_ids = array_filter( $act_ids, "acts_validate_int" );
 
     $archive = isset( $_GET['archive'] ) && $_GET['archive'] == 1;
 

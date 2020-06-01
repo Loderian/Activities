@@ -52,11 +52,12 @@ class Activities_User_Activity {
      *
      * @param int $user_id User relation to insert
      * @param int $activity_id Activity relation to insert
-     * @param bool $override To override archive check, used by importers
+     * @param bool $override_archive To override archive check, used by importers
+     * @param bool $override_limit To override participant limit check, used by woocommerce integration (since users pay for participation)
      *
      * @return  int|bool  1 if success, false on error
      */
-    static function insert( $user_id, $activity_id, $override = false ) {
+    static function insert( $user_id, $activity_id, $override_archive = false, $override_limit = false ) {
         global $wpdb;
 
         $user_exists = $wpdb->get_var( $wpdb->prepare(
@@ -70,14 +71,26 @@ class Activities_User_Activity {
         if (
             $user_exists == 1
             && Activities_Activity::exists( $activity_id )
-            && ( !Activities_Activity::is_archived( $activity_id ) || $override )
+            && ( !Activities_Activity::is_archived( $activity_id ) || $override_archive )
             && !self::exists( $user_id, $activity_id )
         ) {
-            return $wpdb->insert(
-                Activities::get_table_name( 'user_activity' ),
-                array( 'user_id' => $user_id, 'activity_id' => $activity_id ),
-                array( '%d', '%d' )
-            );
+            $table_name = Activities::get_table_name( 'user_activity' );
+            if ( Activities_Activity::get_meta( $activity_id, 'participants_limit' ) !== null && !$override_limit ) {
+                $meta_table = Activities::get_table_name( 'activity_meta' );
+                return $wpdb->query( $wpdb->prepare(
+                    "INSERT INTO $table_name (user_id, activity_id) 
+                        SELECT %d, %d 
+                        FROM DUAL 
+                        WHERE (SELECT count(*) FROM $table_name WHERE activity_id = %d) <
+                              (SELECT meta_value FROM $meta_table WHERE activity_id = %d AND meta_key = 'participants_limit')"
+                    , array ( $user_id, $activity_id, $activity_id, $activity_id ) ) );
+            } else {
+                return $wpdb->insert(
+                    Activities::get_table_name( 'user_activity' ),
+                    array( 'user_id' => $user_id, 'activity_id' => $activity_id ),
+                    array( '%d', '%d' )
+                );
+            }
         } else {
             return false;
         }
@@ -115,7 +128,7 @@ class Activities_User_Activity {
      *
      * @return  int             Number of changes made
      */
-    static function insert_delete( $value, $static_id, $static_field ) {
+    static function delete_insert( $value, $static_id, $static_field ) {
         global $wpdb;
 
         if ( $static_field === 'user_id' ) {
@@ -146,24 +159,24 @@ class Activities_User_Activity {
         }
 
         $changes = 0;
-        foreach ( $entered_values as $enter_id ) {
-            $key = array_search( $enter_id, $present_values );
+        foreach ( $present_values as $del_id ) {
+            $key = array_search( $del_id, $entered_values );
             if ( $key === false ) {
                 if ( $static_field === 'user_id' ) {
-                    $changes += self::insert( $static_id, $enter_id );
+                    $changes += self::delete( $static_id, $del_id );
                 } elseif ( $static_field === 'activity_id' ) {
-                    $changes += self::insert( $enter_id, $static_id );
+                    $changes += self::delete( $del_id, $static_id );
                 }
             } else {
-                unset( $present_values[ $key ] );
+                unset( $entered_values[ $key ] );
             }
         }
 
-        foreach ( $present_values as $del_id ) {
+        foreach ( $entered_values as $enter_id ) {
             if ( $static_field === 'user_id' ) {
-                $changes += self::delete( $static_id, $del_id );
+                $changes += self::insert( $static_id, $enter_id );
             } elseif ( $static_field === 'activity_id' ) {
-                $changes += self::delete( $del_id, $static_id );
+                $changes += self::insert( $enter_id, $static_id );
             }
         }
 

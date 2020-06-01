@@ -623,7 +623,7 @@ function acts_get_member_info( $user_ids, $type, $custom_fields = array(), $sort
 
             $str = '<li>' . implode( ' ', $c_values ) . '</li>';
 
-            $col = acts_validate_id( $custom['col'] );
+            $col = acts_validate_int( $custom['col'] );
             if ( $col === 1 ) {
                 $col1 .= $str;
             } else if ( $col === 2 ) {

@@ -196,7 +196,7 @@ class Activities_WooCommerce {
 
         if ( is_array( $selected_acts ) ) {
             foreach ( $selected_acts as $a_id ) {
-                $a_id = acts_validate_id( $a_id );
+                $a_id = acts_validate_int( $a_id );
                 if ( $a_id ) {
                     $key = array_search( $a_id, $existing );
                     if ( $key === false && Activities_Activity::exists( $a_id ) ) {
@@ -232,7 +232,7 @@ class Activities_WooCommerce {
             $acts = $_POST[ self::selected_acts_key ];
         }
 
-        if ( isset( $_POST['acts_save'] ) && acts_validate_id( $_POST['acts_save'] ) == $post_id ) {
+        if ( isset( $_POST['acts_save'] ) && acts_validate_int( $_POST['acts_save'] ) == $post_id ) {
             self::product_save( $post_id, $acts );
         }
 
@@ -258,7 +258,7 @@ class Activities_WooCommerce {
             $acts = $_POST[ 'multi' . self::selected_acts_key ][ $index ];
         }
 
-        if ( isset( $_POST[ 'acts_save_' . $index ] ) && acts_validate_id( $_POST[ 'acts_save_' . $index ] ) == $variation_id ) {
+        if ( isset( $_POST[ 'acts_save_' . $index ] ) && acts_validate_int( $_POST['acts_save_' . $index ] ) == $variation_id ) {
             self::product_save( $variation_id, $acts );
         }
     }
@@ -336,7 +336,7 @@ class Activities_WooCommerce {
         if ( $user ) {
             $activities = self::get_order_activities( $order );
             foreach ( $activities as $activity_id ) {
-                Activities_User_Activity::insert( $user->ID, $activity_id );
+                Activities_User_Activity::insert( $user->ID, $activity_id, false, true );
             }
         } elseif ( Activities_Options::get_option( ACTIVITIES_WOOCOMMERCE_CONVERT_KEY ) ) {
             $email = $order->get_billing_email();
@@ -365,7 +365,7 @@ class Activities_WooCommerce {
 
         if ( !empty( $user_id ) ) {
             foreach ( $activities as $activity_id ) {
-                Activities_User_Activity::insert( $user_id, $activity_id );
+                Activities_User_Activity::insert( $user_id, $activity_id, false, true );
             }
         }
     }

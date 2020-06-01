@@ -796,6 +796,15 @@
     height: 7.8em;
 }
 
+#acts-limit-participants {
+    float: right;
+    margin-top: -5px;
+}
+
+#acts-limit-participants input[type=number] {
+    width: 75px;
+}
+
 /* Small devices (portrait tablets and large phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .acts-quick-edit-group,

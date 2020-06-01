@@ -368,6 +368,10 @@
             $(this).find('.dashicons').toggleClass('acts-filters-collapse');
             $('#activities-filter-wrap form').toggleClass('acts-filters-hidden');
         });
-    });
 
+        //Activity participant limit
+        $('#acts-limit-participants input[type="checkbox"]').change(function () {
+            $('#acts-limit-participants').find('input[type="number"]').attr("disabled", !$(this).is(":checked"))
+        });
+    });
 })(jQuery);

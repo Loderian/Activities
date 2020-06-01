@@ -32,16 +32,16 @@ class Activities_Admin_Utility {
                 die( esc_html__( 'Could not verify activity report data integrity.', 'activities' ) );
             }
 
-            $plan = Activities_Plan::load( acts_validate_id( $_POST['plan_id'] ) );
+            $plan = Activities_Plan::load( acts_validate_int( $_POST['plan_id'] ) );
 
             if ( isset( $_POST['time_slots'] ) ) {
-                $time_slots = acts_validate_id( $_POST['time_slots'] ); //Time slots uses the same properties as an id
+                $time_slots = acts_validate_int( $_POST['time_slots'] ); //Time slots uses the same properties as an id
                 if ( $time_slots >= 0 && ( $plan === null || $time_slots != $plan['sessions'] ) ) {
                     $nice_settings['time_slots'] = $time_slots;
                 }
             }
 
-            $id = acts_validate_id( $_POST['item_id'] );
+            $id = acts_validate_int( $_POST['item_id'] );
             if ( $id ) {
                 $nice_settings['activity_id'] = $id;
 
@@ -49,7 +49,7 @@ class Activities_Admin_Utility {
                 $attended = array();
                 if ( isset( $_POST['time'] ) && is_array( $_POST['time'] ) && isset( $time_slots ) ) {
                     foreach ( $_POST['time'] as $uid => $times ) {
-                        $uid = acts_validate_id( $uid );
+                        $uid = acts_validate_int( $uid );
                         if ( $uid ) {
                             //Stored as a string to make it easier to send to JavaScript and reduce size use when many boxes are checked
                             $attended[ $uid ] = '';
@@ -77,7 +77,7 @@ class Activities_Admin_Utility {
                     }
 
                     foreach ( $_POST['session_map'] as $session_id => $text ) {
-                        $session_id = acts_validate_id( $session_id );
+                        $session_id = acts_validate_int( $session_id );
                         $text       = sanitize_textarea_field( $text );
                         if ( $session_id === 0 ) {
                             continue;
@@ -91,7 +91,7 @@ class Activities_Admin_Utility {
             }
 
             if ( isset( $_POST['acts_nice_logo_id'] ) ) {
-                $nice_settings['logo'] = acts_validate_id( $_POST['acts_nice_logo_id'] );
+                $nice_settings['logo'] = acts_validate_int( $_POST['acts_nice_logo_id'] );
             }
 
             if ( isset( $_POST['header'] ) ) {
@@ -111,7 +111,7 @@ class Activities_Admin_Utility {
             $custom      = array();
             if ( isset( $_POST['nice_custom'] ) && is_array( $_POST['nice_custom'] ) ) {
                 foreach ( $_POST['nice_custom'] as $col => $texts ) {
-                    $col = acts_validate_id( $col );
+                    $col = acts_validate_int( $col );
                     if ( $col === 1 || $col === 2 ) {
                         foreach ( $texts as $text ) {
                             $name = self::filter_meta_key_input( $meta_fields, $text );
@@ -150,34 +150,34 @@ class Activities_Admin_Utility {
      * @return array Activity info
      */
     static function get_activity_post_values() {
-        $loc_id  = acts_validate_id( $_POST['location'] );
-        $res_id  = acts_validate_id( $_POST['responsible'] );
-        $plan_id = acts_validate_id( $_POST['plan'] );
+        $loc_id  = acts_validate_int( $_POST['location'] );
+        $res_id  = acts_validate_int( $_POST['responsible'] );
+        $plan_id = acts_validate_int( $_POST['plan'] );
         $members = array();
         if ( isset( $_POST['member_list'] ) && is_array( $_POST['member_list'] ) ) {
             foreach ( $_POST['member_list'] as $id ) {
-                if ( acts_validate_id( $id ) ) {
+                if ( acts_validate_int( $id ) ) {
                     $members[] = $id;
                 }
             }
         }
         $act_map = array(
-            'name'           => substr( sanitize_text_field( $_POST['name'] ), 0, 200 ),
-            'short_desc'     => substr( sanitize_text_field( $_POST['short_desc'] ), 0, 255 ),
-            'long_desc'      => substr( sanitize_textarea_field( $_POST['long_desc'] ), 0, 65535 ),
-            'start'          => self::validate_date( sanitize_text_field( $_POST['start'] ) ),
-            'end'            => self::validate_date( sanitize_text_field( $_POST['end'] ) ),
-            'location_id'    => ( $loc_id ? $loc_id : null ),
-            'responsible_id' => ( $res_id ? $res_id : null ),
-            'plan_id'        => ( $plan_id ? $plan_id : null ),
-            'members'        => $members
+            'name'               => substr( sanitize_text_field( $_POST['name'] ), 0, 200 ),
+            'short_desc'         => substr( sanitize_text_field( $_POST['short_desc'] ), 0, 255 ),
+            'long_desc'          => substr( sanitize_textarea_field( $_POST['long_desc'] ), 0, 65535 ),
+            'start'              => self::validate_date( sanitize_text_field( $_POST['start'] ) ),
+            'end'                => self::validate_date( sanitize_text_field( $_POST['end'] ) ),
+            'location_id'        => ( $loc_id ? $loc_id : null ),
+            'responsible_id'     => ( $res_id ? $res_id : null ),
+            'plan_id'            => ( $plan_id ? $plan_id : null ),
+            'members'            => $members
         );
         if ( isset( $_POST['item_id'] ) ) {
-            $act_map['activity_id'] = acts_validate_id( $_POST['item_id'] );
+            $act_map['activity_id'] = acts_validate_int( $_POST['item_id'] );
         }
         $act_map['categories'] = array();
         if ( isset( $_POST['primary_category'] ) ) {
-            $primary_cat = acts_validate_id( $_POST['primary_category'] );
+            $primary_cat = acts_validate_int( $_POST['primary_category'] );
             if ( Activities_Category::exists( $primary_cat ) ) {
                 $act_map['categories'][] = $primary_cat;
             }
@@ -185,11 +185,14 @@ class Activities_Admin_Utility {
 
         if ( isset( $_POST['additional_categories'] ) && is_array( $_POST['additional_categories'] ) ) {
             foreach ( $_POST['additional_categories'] as $cat_id ) {
-                $cat_id = acts_validate_id( $cat_id );
+                $cat_id = acts_validate_int( $cat_id );
                 if ( Activities_Category::exists( $cat_id ) && !in_array( $cat_id, $act_map['categories'] ) ) {
                     $act_map['categories'][] = $cat_id;
                 }
             }
+        }
+        if ( isset( $_POST['participants_limit'] ) ) {
+            $act_map['participants_limit'] = acts_validate_int( $_POST['participants_limit'] );
         }
 
         return $act_map;
@@ -215,7 +218,7 @@ class Activities_Admin_Utility {
         );
 
         if ( isset( $_POST['item_id'] ) ) {
-            $loc_map['location_id'] = acts_validate_id( $_POST['item_id'] );
+            $loc_map['location_id'] = acts_validate_int( $_POST['item_id'] );
         }
 
         return $loc_map;
@@ -227,7 +230,7 @@ class Activities_Admin_Utility {
      * @return array Plan info
      */
     static function get_plan_post_values() {
-        $sessions = acts_validate_id( $_POST['sessions'] );
+        $sessions = acts_validate_int( $_POST['sessions'] );
         $plan_map = array(
             'name'        => substr( sanitize_text_field( $_POST['name'] ), 0, 200 ),
             'description' => substr( sanitize_textarea_field( $_POST['description'] ), 0, 65535 ),
@@ -237,7 +240,7 @@ class Activities_Admin_Utility {
         $session_text = array();
         if ( isset( $_POST['session_map'] ) && is_array( $_POST['session_map'] ) ) {
             foreach ( $_POST['session_map'] as $session => $text ) {
-                $session = acts_validate_id( $session );
+                $session = acts_validate_int( $session );
                 if ( $session && $session <= $plan_map['sessions'] ) {
                     $session_text[ $session ] = sanitize_textarea_field( $text );
                 }
@@ -246,7 +249,7 @@ class Activities_Admin_Utility {
         $plan_map['session_map'] = $session_text;
 
         if ( isset( $_POST['item_id'] ) ) {
-            $plan_map['plan_id'] = acts_validate_id( $_POST['item_id'] );
+            $plan_map['plan_id'] = acts_validate_int( $_POST['item_id'] );
         }
 
         return $plan_map;
@@ -475,7 +478,7 @@ class Activities_Admin_Utility {
         $names = array();
         $ids   = array();
         foreach ( $items_ids as $id ) {
-            $id = acts_validate_id( $id );
+            $id = acts_validate_int( $id );
             if ( !$id ) {
                 continue;
             }
@@ -492,7 +495,7 @@ class Activities_Admin_Utility {
                     $item = new Activities_Plan( $id );
                     break;
             }
-            if ( isset( $item ) && acts_validate_id( $item->id ) === $id ) {
+            if ( isset( $item ) && acts_validate_int( $item->id ) === $id ) {
                 $names[] = esc_html( $item->name );
                 $ids[]   = $id;
             }

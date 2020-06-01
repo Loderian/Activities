@@ -149,7 +149,13 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
     $output .= '</ul></div>'; //acts-activity-form-columns
 
     $output .= '<div>';
-    $output .= '<p>' . esc_html__( 'Activity Participants', 'activities' ) . ' (<span id="member_count"></span>)' . ' </p>';
+    $output .= '<p>' . esc_html__( 'Activity Participants', 'activities' ) . ' (<span id="member_count"></span>)';
+    $output .= '<span id="acts-limit-participants">' . esc_html__("Limit number of participants") . ": ";
+    $has_participants_limit = isset( $map['meta']['participants_limit'] );
+    $output .= '<input type="checkbox" ' . esc_html(  $has_participants_limit ? 'checked="checked"' : '' ) . ' />';
+    $participants_limit = $has_participants_limit ? $map['meta']['participants_limit'] : 10;
+    $output .= '<input type="number" name="participants_limit" value="' . esc_attr($participants_limit) .
+                '" min="1" ' . esc_html( $has_participants_limit ? '' : 'disabled="disabled"' ) . '/></span></p>';
     $output .= acts_build_select_items(
         'members',
         array(
@@ -176,11 +182,11 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
     if ( $archive != 'archive' && ( current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) || Activities_Responsible::current_user_restricted_edit() ) ) {
         $output .= get_submit_button( $button, 'button-primary', ( $action . '_act' ), false );
     } else if ( $archive == 'archive' ) {
-        $output .= '<a href="' . esc_url( $current_url . '&action=activate&item_id=' . esc_attr( acts_validate_id( $_GET['item_id'] ) ) ) . '" class="button button-primary" >' . esc_html__( 'Activate', 'activities' ) . '</a>';
+        $output .= '<a href="' . esc_url( $current_url . '&action=activate&item_id=' . esc_attr( acts_validate_int( $_GET['item_id'] ) ) ) . '" class="button button-primary" >' . esc_html__( 'Activate', 'activities' ) . '</a>';
     }
     $output .= ' <a href="' . esc_url( $current_url ) . '" class="button" >' . esc_html__( 'Cancel', 'activities' ) . '</a>';
     if ( isset( $_GET['item_id'] ) || isset( $map['activity_id'] ) ) {
-        $activity_id = acts_validate_id( ( isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['activity_id'] ) );
+        $activity_id = acts_validate_int( ( isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['activity_id'] ) );
         $output      .= '<input type="hidden" name="item_id" value="' . esc_attr( $activity_id ) . '" />';
     }
     $output .= '</p>';

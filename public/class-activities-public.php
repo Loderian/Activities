@@ -65,7 +65,7 @@ class Activities_Public {
 
     public function ajax_join() {
         if ( isset( $_POST['item_id'] ) && is_user_logged_in() ) {
-            $id = acts_validate_id( $_POST['item_id'] );
+            $id = acts_validate_int( $_POST['item_id'] );
             if ( !$id ) {
                 wp_send_json_error();
             }

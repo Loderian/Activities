@@ -49,7 +49,7 @@ class Activities_Bulk_Action {
      * @param int $loc New location id for activities
      */
     public function change_locations( $acts, $loc ) {
-        $loc = acts_validate_id( $loc );
+        $loc = acts_validate_int( $loc );
         if ( !$loc ) {
             $loc = null;
         }
@@ -69,7 +69,7 @@ class Activities_Bulk_Action {
      * @param int $res New responsible user id user for activities
      */
     public function change_responsible_users( $acts, $res ) {
-        $res = acts_validate_id( $res );
+        $res = acts_validate_int( $res );
         if ( !$res ) {
             $res = null;
         }
@@ -93,7 +93,7 @@ class Activities_Bulk_Action {
         switch ( $method ) {
             case 'replace':
                 foreach ( $acts as $id ) {
-                    if ( Activities_User_Activity::insert_delete( $members, $id, 'activity_id' ) ) {
+                    if ( Activities_User_Activity::delete_insert( $members, $id, 'activity_id' ) ) {
                         $this->succ++;
                     }
                 }

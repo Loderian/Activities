@@ -30,7 +30,7 @@ function activities_admin_locations_page() {
     if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
         return acts_location_management( esc_html__( 'Create New Location', 'activities' ), 'create' );
     } else if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] == 'edit' ) && isset( $_GET['item_id'] ) ) {
-        $id = acts_validate_id( $_GET['item_id'] );
+        $id = acts_validate_int( $_GET['item_id'] );
         if ( $id ) {
             return acts_location_management( esc_html__( 'Edit Location', 'activities' ), 'edit', Activities_Location::load( $id ) );
         }
@@ -63,7 +63,7 @@ function activities_admin_locations_page() {
             }
             $loc_map = Activities_Admin_Utility::get_location_post_values();
             if ( $loc_map['name'] != '' ) {
-                $loc = new Activities_Location( acts_validate_id( $_POST['item_id'] ) );
+                $loc = new Activities_Location( acts_validate_int( $_POST['item_id'] ) );
                 if ( $loc->id === '' ) {
                     Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred updating location: %s', 'activities' ), $loc_map['name'] ) );
                 } elseif ( $loc->name === $loc_map['name'] || !Activities_Location::exists( $loc_map['name'], 'name' ) ) {
@@ -84,13 +84,13 @@ function activities_admin_locations_page() {
                 return acts_location_management( esc_html__( 'Edit Location', 'activities' ), 'edit', $loc_map );
             }
         } else if ( isset( $_GET['action'] ) && $_GET['action'] == 'delete' && isset( $_GET['item_id'] ) ) {
-            $loc = new Activities_Location( acts_validate_id( $_GET['item_id'] ) );
+            $loc = new Activities_Location( acts_validate_int( $_GET['item_id'] ) );
             if ( $loc->id != '' ) {
                 return acts_confirm_item_delete_page( esc_html__( 'Location', 'activities' ), $loc->id, $loc->name, $current_url );
             }
         } else if ( isset( $_POST['confirm_deletion'] ) && isset( $_POST['item_id'] ) && isset( $_POST[ ACTIVITIES_DELETE_ITEM_NONCE ] ) && isset( $_POST['item_name'] ) ) {
             if ( wp_verify_nonce( $_POST[ ACTIVITIES_DELETE_ITEM_NONCE ], 'activities_delete_item' ) ) {
-                $id = acts_validate_id( $_POST['item_id'] );
+                $id = acts_validate_int( $_POST['item_id'] );
                 if ( $id && Activities_Location::delete( $id ) ) {
                     Activities_Admin::add_delete_success_message( sanitize_text_field( $_POST['item_name'] ) );
                 }

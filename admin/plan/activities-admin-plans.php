@@ -24,7 +24,7 @@ function activities_admin_plans_page() {
     if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] ) == 'create' ) {
         return acts_plan_management( esc_html__( 'Create New Plan', 'activities' ), 'create' );
     } else if ( isset( $_GET['action'] ) && sanitize_key( $_GET['action'] == 'edit' ) && isset( $_GET['item_id'] ) ) {
-        $id = acts_validate_id( $_GET['item_id'] );
+        $id = acts_validate_int( $_GET['item_id'] );
         if ( $id ) {
             return acts_plan_management( esc_html__( 'Edit Plan', 'activities' ), 'edit', Activities_Plan::load( $id ) );
         }
@@ -55,7 +55,7 @@ function activities_admin_plans_page() {
         }
         $plan_map = Activities_Admin_Utility::get_plan_post_values();
         if ( $plan_map['name'] != '' ) {
-            $plan = new Activities_Plan( acts_validate_id( $_POST['item_id'] ) );
+            $plan = new Activities_Plan( acts_validate_int( $_POST['item_id'] ) );
             if ( $plan->id === '' ) {
                 Activities_Admin::add_error_message( sprintf( esc_html__( 'An error occurred updating plan: %s', 'activities' ), $plan_map['name'] ) );
             } elseif ( $plan->name === $plan_map['name'] || !Activities_Plan::exists( $plan_map['name'], 'name' ) ) {
@@ -76,13 +76,13 @@ function activities_admin_plans_page() {
             return acts_plan_management( esc_html__( 'Edit Plan', 'activities' ), 'edit', $plan_map );
         }
     } else if ( isset( $_GET['action'] ) && $_GET['action'] == 'delete' && isset( $_GET['item_id'] ) ) {
-        $plan = new Activities_Plan( acts_validate_id( $_GET['item_id'] ) );
+        $plan = new Activities_Plan( acts_validate_int( $_GET['item_id'] ) );
         if ( $plan->id != '' ) {
             return acts_confirm_item_delete_page( esc_html__( 'Plan', 'activities' ), $plan->id, $plan->name, $current_url );
         }
     } else if ( isset( $_POST['confirm_deletion'] ) && isset( $_POST['item_id'] ) && isset( $_POST[ ACTIVITIES_DELETE_ITEM_NONCE ] ) && isset( $_POST['item_name'] ) ) {
         if ( wp_verify_nonce( $_POST[ ACTIVITIES_DELETE_ITEM_NONCE ], 'activities_delete_item' ) ) {
-            $id = acts_validate_id( $_POST['item_id'] );
+            $id = acts_validate_int( $_POST['item_id'] );
             if ( $id && Activities_Plan::delete( $id ) ) {
                 Activities_Admin::add_delete_success_message( sanitize_text_field( $_POST['item_name'] ) );
             }

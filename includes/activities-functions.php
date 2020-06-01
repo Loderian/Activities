@@ -20,7 +20,7 @@ if ( !defined( 'WPINC' ) ) {
  *
  * @return  int $id if validated, otherwise 0
  */
-function acts_validate_id( $id ) {
+function acts_validate_int( $id ) {
     $id = sanitize_key( $id );
     if ( is_numeric( $id ) ) {
         $id = intval( $id );

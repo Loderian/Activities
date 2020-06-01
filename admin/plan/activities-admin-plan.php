@@ -89,7 +89,7 @@ function acts_plan_management( $title, $action, $map = null ) {
     $output .= get_submit_button( $button, 'button-primary', $action . '_plan', false );
     $output .= ' <a href="' . esc_url( $current_url ) . '" class="button" >' . esc_html__( 'Cancel', 'activities' ) . '</a>';
     if ( isset( $_GET['item_id'] ) || isset( $map['plan_id'] ) ) {
-        $plan_id = acts_validate_id( ( isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['plan_id'] ) );
+        $plan_id = acts_validate_int( ( isset( $_GET['item_id'] ) ? $_GET['item_id'] : $map['plan_id'] ) );
         $output  .= '<input type="hidden" name="item_id" value="' . esc_attr( $plan_id ) . '" />';
     }
     $output .= '</p>';

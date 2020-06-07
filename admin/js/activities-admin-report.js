@@ -34,30 +34,35 @@
             $('.acts-edit-types-options input').selectize(get_selectize_options());
         }
 
-        var show = true;
+        let showUser = new Set();
         $('.acts-nice-user-info').click(function () {
-            var size = $('html').width();
+            let size = $('html').width();
+            let user_id = $(this).find('.acts-user-quick-edit').attr('uid');
             if (size <= 600) {
-                if (show) {
+                if (!showUser.has(user_id)) {
                     $(this).find('span:first-child ul').show();
                     $(this).siblings('.acts-nice-col2').show();
                     $(this).find('.acts-nice-collapse').show();
                     $(this).find('.acts-nice-expand').hide();
+                    showUser.add(user_id);
                 } else {
-                    //Reset all styles to make browser css rules if the device is rotated
+                    //Reset all styles to make browser use css rules if the device is rotated
                     $(this).find('span:first-child ul').attr('style', '');
                     $(this).siblings('.acts-nice-col2').attr('style', '');
                     $(this).find('.acts-nice-collapse').attr('style', '');
                     $(this).find('.acts-nice-expand').attr('style', '');
+                    showUser.delete(user_id);
                 }
-                show = !show;
             }
         });
 
+        let $acts_nice_settings = $('#acts-nice-settings');
+
         //Activity nice logo control
-        if ($('#acts-nice-settings').length) {
-            if ($('#acts-nice-logo').attr('src') == '') {
-                $('#acts-nice-logo').hide();
+        if ($acts_nice_settings.length) {
+            let $acts_nice_logo = $('#acts-nice-logo');
+            if ($acts_nice_logo.attr('src') === '') {
+                $acts_nice_logo.hide();
             }
 
             function on_image_load() {
@@ -66,17 +71,17 @@
                 });
             }
 
-            var file_frame;
+            let file_frame;
 
             $('#acts_upload_nice_logo').on('click', function (event) {
                 event.preventDefault();
 
-                var selected = parseInt($('#acts_nice_logo_id').val());
+                let selected = parseInt($('#acts_nice_logo_id').val());
 
                 if (file_frame) {
                     file_frame.on('open', function () {
                         if (selected) {
-                            var selection = file_frame.state().get('selection');
+                            let selection = file_frame.state().get('selection');
                             selection.add(wp.media.attachment(selected));
                         }
                     });
@@ -94,17 +99,17 @@
 
                 file_frame.on('open', function () {
                     if (selected) {
-                        var selection = file_frame.state().get('selection');
+                        let selection = file_frame.state().get('selection');
                         selection.add(wp.media.attachment(selected));
                     }
                 });
 
                 file_frame.on('select', function () {
-                    var attachment = file_frame.state().get('selection').first().toJSON();
+                    let attachment = file_frame.state().get('selection').first().toJSON();
 
-                    $('#acts-nice-logo').attr('src', attachment.url);
+                    $acts_nice_logo.attr('src', attachment.url);
                     on_image_load();
-                    $('#acts-nice-logo').show();
+                    $acts_nice_logo.show();
                     $('#acts_nice_logo_id').val(attachment.id);
                 });
 
@@ -114,8 +119,8 @@
             $('#acts_remove_nice_logo').on('click', function (event) {
                 event.preventDefault();
 
-                $('#acts-nice-logo').attr('scr', '');
-                $('#acts-nice-logo').hide();
+                $acts_nice_logo.attr('scr', '');
+                $acts_nice_logo.hide();
                 $('#acts_nice_logo_id').val('');
                 $('#acts-nice-info').css('min-height', 0);
             });
@@ -125,7 +130,7 @@
             });
 
             //Activity nice info control
-            var activity_fields = ['start', 'end', 'short-desc', 'location', 'responsible', 'long-desc'];
+            let activity_fields = ['start', 'end', 'short-desc', 'location', 'responsible', 'long-desc'];
 
             function display_func(id) {
                 $('#acts-nice-' + id).toggle($('#' + id).prop('checked'));
@@ -137,16 +142,16 @@
             function display_handler(id) {
                 return function (event) {
                     display_func(id);
-                    if (id == 'start' || id == 'end') {
+                    if (id === 'start' || id === 'end') {
                         $('#acts_nice_start_spacing').toggle($('#start').prop('checked') && $('#end').prop('checked'));
-                    } else if (id == 'location' || id == 'responsible') {
+                    } else if (id === 'location' || id === 'responsible') {
                         $('#acts_nice_location_spacing').toggle($('#location').prop('checked') && $('#responsible').prop('checked'));
                     }
                 }
             }
 
-            for (var i = 0; i < activity_fields.length; i++) {
-                var id = activity_fields[i];
+            for (let i = 0; i < activity_fields.length; i++) {
+                let id = activity_fields[i];
                 display_func(id);
 
                 $('#' + id).on('change', display_handler(id));
@@ -157,26 +162,24 @@
         }
 
         //Activity nice members control
-        if ($('#acts-nice-settings').length) {
-            var prev_times;
-            var session_map = {};
+        if ($acts_nice_settings.length) {
+            let prev_times;
+            let session_map = {};
 
             $('.acts-nice-session').each(function (index, elem) {
-                var session = $(elem).attr('session');
-                var text = $(elem).find('div').html();
-
-                session_map[session] = text;
+                let session = $(elem).attr('session');
+                session_map[session] = $(elem).find('div').html();
             });
 
             function append_checkbox_html(start, end) {
                 $('div.acts-nice-user-time').each(function (index, elem) {
-                    var id = $(elem).attr('uid');
-                    var attended = '';
+                    let id = $(elem).attr('uid');
+                    let attended = '';
                     if (all_member_info.hasOwnProperty(id)) {
                         attended = all_member_info[id]['acts_attended'];
                     }
-                    for (var i = start; i < end; i++) {
-                        var checked = '';
+                    for (let i = start; i < end; i++) {
+                        let checked = '';
                         if (i < attended.length && attended.charAt(i) == '1') {
                             checked = 'checked="checked"';
                         }
@@ -184,13 +187,13 @@
                     }
                 });
 
-                var plan_box = $('.acts-nice-session-list');
-                for (var session = start + 1; session <= end; session++) {
+                let plan_box = $('.acts-nice-session-list');
+                for (let session = start + 1; session <= end; session++) {
                     if ($('.acts-nice-session[session=' + session + ']').length) {
                         continue;
                     }
                     $(plan_box).append($('.acts-nice-session[session=1]').clone());
-                    var new_session = $(plan_box).find('.acts-nice-session:last');
+                    let new_session = $(plan_box).find('.acts-nice-session:last');
                     $(new_session).attr('session', session);
                     $(new_session).find('b span:first').html(session);
                     $(new_session).find('.acts-nice-session-text').attr('name', 'session_map[' + session + ']');
@@ -203,9 +206,9 @@
             }
 
             function update_sessions() {
-                var times = parseInt($('#time-slots').val());
-                var max = parseInt($('#time-slots').attr('max'));
-                var exist = -1;
+                let times = parseInt($('#time-slots').val());
+                let max = parseInt($('#time-slots').attr('max'));
+                let exist = -1;
                 if ($('.acts-nice-user-time').length) {
                     exist = $('input[time]:last').attr('time');
                 } else {
@@ -226,14 +229,14 @@
                     return;
                 }
 
-                var last_time = parseInt($('[time]:last').attr('time')) + 1;
+                let last_time = parseInt($('[time]:last').attr('time')) + 1;
                 if (times > prev_times) {
                     append_checkbox_html(prev_times, times);
                 } else if (prev_times > times || last_time > times) {
                     if (isNaN(prev_times)) {
                         prev_times = last_time;
                     }
-                    for (var i = prev_times - 1; i >= times; i--) {
+                    for (let i = prev_times - 1; i >= times; i--) {
                         $('input[type="checkbox"][time=' + i + ']').remove();
                         if (i > 0) {
                             $('.acts-nice-session[session=' + (i + 1) + ']').remove();
@@ -252,7 +255,7 @@
             });
 
             function mark_session(mark) {
-                var time = parseInt($('#acts-time-mark').val());
+                let time = parseInt($('#acts-time-mark').val());
                 if (isNaN(time) || time < 1) {
                     time = 1;
                 }
@@ -281,7 +284,7 @@
             });
 
             function change_color(elem, color = '') {
-                var text = $(elem).closest('li').children('input[name="nice_color_key[]"]').val();
+                let text = $(elem).closest('li').children('input[name="nice_color_key[]"]').val();
                 if (color === '') {
                     color = $(elem).val();
                 }
@@ -306,7 +309,7 @@
             if ($('#acts-nice-color').length) {
                 $('#acts-nice-color input[name="nice_color_key[]"]').selectize(get_selectize_options());
 
-                var html_color = '<li class="acts-nice-custom-split"><input type="text" value="" name="nice_color[]" />';
+                let html_color = '<li class="acts-nice-custom-split"><input type="text" value="" name="nice_color[]" />';
                 html_color += '<input type="text" name="nice_color_key[]" value="" />';
                 html_color += ' <input type="submit" name="delete_color" value="-" class="delete-color button" />';
                 html_color += '</li>';
@@ -327,14 +330,14 @@
                     $('#acts-nice-color').append(html_color);
                     add_color_control();
 
-                    var elem = $('#acts-nice-color').children().last('li').children('input[name="nice_color_key[]"]');
+                    let elem = $('#acts-nice-color').children().last('li').children('input[name="nice_color_key[]"]');
 
                     $(elem).selectize(get_selectize_options());
                 });
 
                 $(document).on('click', 'input[type=submit][name=delete_color]', function (event) {
                     event.preventDefault();
-                    var text = $(this).siblings('input').val();
+                    let text = $(this).siblings('input').val();
                     if ($('.acts-nice-custom-' + text).length) {
                         $('.acts-nice-custom-' + text).css('background-color', '');
                     }
@@ -345,17 +348,17 @@
             if ($('#acts-nice-custom').length) {
                 $('.acts-nice-custom[col] input[type=text]').selectize(get_selectize_options());
 
-                var html_custom = '<li class="acts-nice-custom-split"><input type="text" name="nice_custom[][]" />';
+                let html_custom = '<li class="acts-nice-custom-split"><input type="text" name="nice_custom[][]" />';
                 html_custom += ' <input type="submit" name="delete_custom" value="-" class="delete-custom button" /></li>';
 
                 $('input[col]').on('click', function (event) {
                     event.preventDefault();
 
-                    var col = $(this).attr('col');
+                    let col = $(this).attr('col');
 
                     $('ul[col=' + col + ']').append(html_custom);
 
-                    var elem = $('ul[col=' + col + ']').children().last('li').children('input[name="nice_custom[][]"]');
+                    let elem = $('ul[col=' + col + ']').children().last('li').children('input[name="nice_custom[][]"]');
                     $(elem).attr('name', 'nice_custom[' + col + '][]');
 
                     $(elem).selectize(get_selectize_options());
@@ -368,51 +371,58 @@
                 });
             }
 
-            var link = $('#acts-nice-user-link').attr('href');
+            let link = $('#acts-nice-user-link').attr('href');
 
             $('.acts-user-quick-edit[uid]').click(function (event) {
                 event.preventDefault();
 
-                var id = $(this).attr('uid');
+                let id = $(this).attr('uid');
                 if (!all_member_info.hasOwnProperty(id)) {
                     return;
                 }
                 $('#acts-nice-user-link').attr('href', link + '?user_id=' + id);
-                var user_info = all_member_info[id];
+                let user_info = all_member_info[id];
 
                 $('input[name=uid]').val(id);
-                for (var key in user_info) {
-                    if (key == 'acts_full_name') {
+                for (let key in user_info) {
+                    let $acts_quick_key = $('#acts-quick-' + key);
+                    if (key === 'acts_full_name') {
                         continue;
-                    } else if (key == 'acts_user_avatar') {
-                        $('#acts-user-avatar').attr('src', '');
+                    } else if (key === 'acts_user_avatar') {
+                        let $acts_user_avatar = $('#acts-user-avatar');
+                        $acts_user_avatar.attr('src', '');
                         $('.acts-quick-img-wrap .acts-nice-loader').show();
-                        $('#acts-user-avatar').attr('src', user_info[key]);
+                        $acts_user_avatar.attr('src', user_info[key]);
                         imagesLoaded(document.querySelector('#acts-user-avatar'), function () {
                             $('.acts-quick-img-wrap .acts-nice-loader').hide();
                         });
-                    } else if ($('#acts-quick-' + key).length) {
-                        if ($('#acts-quick-' + key).is('select') && $('#acts-quick-' + key).attr('class') === 'selectized') {
-                            var sel = $('#acts-quick-' + key).eq(0).data('selectize');
+                    } else if ($acts_quick_key.length) {
+                        if ($acts_quick_key.is('select') && $acts_quick_key.attr('class') === 'selectized') {
+                            let sel = $acts_quick_key.eq(0).data('selectize');
                             if (sel) {
                                 sel.setValue(user_info[key], true);
                                 continue;
                             }
                         }
 
-                        $('#acts-quick-' + key).val(user_info[key]);
+                        $acts_quick_key.val(user_info[key]);
+                    } else if (key === 'roles') {
+                        $('.acts-quick-edit-roles').find('input[type=checkbox]').each(function () {
+                                $(this).attr("checked", user_info['roles'].includes($(this).attr('user_role')));
+                            }
+                        );
                     }
                 }
 
-                var h = window.innerHeight * 0.90;
-                var w = window.innerWidth * 0.90;
+                let h = window.innerHeight * 0.90;
+                let w = window.innerWidth * 0.90;
                 if (w > 650) {
                     w = 650;
                 }
 
                 tb_show(all_member_info[id].acts_full_name, "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-quick-user-edit");
 
-                var wh = $('.acts-quick-edit-box').height() + 20;
+                let wh = $('.acts-quick-edit-box').height() + 20;
                 if (wh < h) {
                     $('#TB_ajaxContent').height(wh);
                 }
@@ -420,11 +430,10 @@
 
             $('.acts-quick-edit-box').on('submit', function (event) {
                 event.preventDefault();
-
                 $.post($(this).attr('action'), $(this).serialize(), function (response) {
                     if (response.success) {
-                        var user_info = response.data;
-                        var id = user_info['ID'];
+                        let user_info = response.data;
+                        let id = user_info['ID'];
                         delete user_info['ID'];
                         update_user_info(id, user_info);
                         write_member_info(id);
@@ -435,16 +444,16 @@
                 }, 'json');
             });
 
-            var id = parseInt($('#item-id').val());
+            let id = parseInt($('#item-id').val());
 
-            var all_member_info = {};
+            let all_member_info = {};
 
             function load_custom_fields() {
                 if ($('ul[col]').length) {
-                    var custom_fields = [];
+                    let custom_fields = [];
 
                     $('ul[col]').each(function (index, elem) {
-                        var col = $(elem).attr('col');
+                        let col = $(elem).attr('col');
                         $(elem).find('input[name="nice_custom[' + col + '][]"]').each(function (text_index, text_elem) {
                             custom_fields.push({
                                 name: $(text_elem).val(),
@@ -478,14 +487,13 @@
                 if (!all_member_info.hasOwnProperty(id)) {
                     all_member_info[id] = {};
                 }
-                for (var key in new_info) {
+                for (let key in new_info) {
                     all_member_info[id][key] = new_info[key];
                 }
             }
 
             function load_member_info(write) {
                 disable_member_info_controls(true);
-                var info_type = $('input[name=member_info]:checked').val();
                 $.ajax({
                     url: ajaxurl,
                     type: 'POST',
@@ -500,7 +508,7 @@
                             console.error('Could not load user info');
                             return;
                         }
-                        for (var id in member_info.data) {
+                        for (let id in member_info.data) {
                             update_user_info(id, member_info.data[id]);
                         }
                         if (write) {
@@ -521,7 +529,7 @@
             load_member_info(false);
 
             //Column 1
-            var prepared_keys_1 = {
+            let prepared_keys_1 = {
                 wp: [],
                 bill: [
                     'billing_address_1',
@@ -538,7 +546,7 @@
             };
 
             //Column 2
-            var prepared_keys_2 = {
+            let prepared_keys_2 = {
                 wp: [],
                 bill: [
                     'billing_phone'
@@ -549,8 +557,8 @@
             function write_prep_col(user_info, col, list) {
                 col.html('');
 
-                for (var i in list) {
-                    var val = user_info[list[i]];
+                for (let i in list) {
+                    let val = user_info[list[i]];
                     switch (list[i]) {
                         case 'billing_city':
                         case 'shipping_city':
@@ -574,14 +582,14 @@
             function write_custom_col(user_info, col, custom_fields) {
                 col.html('');
 
-                for (var i in custom_fields) {
-                    var list = custom_fields[i];
-                    var display_list = [];
+                for (let i in custom_fields) {
+                    let list = custom_fields[i];
+                    let display_list = [];
 
-                    for (var r in list) {
-                        var key = list[r].trim();
+                    for (let r in list) {
+                        let key = list[r].trim();
                         if (user_info.hasOwnProperty(key)) {
-                            var val = user_info[key];
+                            let val = user_info[key];
                             if (val != '') {
                                 display_list.push('<span class="acts-nice-custom-' + key + '">' + val + '</span>');
                             }
@@ -593,30 +601,31 @@
                 }
             }
 
+            //User id 0 to write for all users
             function write_member_info(user) {
                 if (all_member_info.length == 0) {
                     return;
                 }
-                var type = $('input[name=member_info]:checked').val();
-                var custom_input = load_custom_fields();
-                var custom_fields = {
+                let type = $('input[name=member_info]:checked').val();
+                let custom_input = load_custom_fields();
+                let custom_fields = {
                     1: [],
                     2: []
-                }
-                for (var i in custom_input) {
+                };
+                for (let i in custom_input) {
                     if (custom_input.hasOwnProperty(i)) {
                         custom_fields[custom_input[i]['col']].push(custom_input[i]['name'].split(','));
                     }
                 }
 
-                for (var id in all_member_info) {
+                for (let id in all_member_info) {
                     if (user != 0 && user != id) {
                         continue;
                     }
                     if (all_member_info.hasOwnProperty(id)) {
-                        var col1 = $('#col1-id' + id);
-                        var col2 = $('#col2-id' + id);
-                        var user_info = all_member_info[id];
+                        let col1 = $('#col1-id' + id);
+                        let col2 = $('#col2-id' + id);
+                        let user_info = all_member_info[id];
 
                         col1.find('span[key=acts_full_name]').html(user_info.acts_full_name);
                         col2.find('span[key=user_email]').html(user_info.user_email);
@@ -635,7 +644,7 @@
             }
 
             $('input[type=radio][name=member_info]').on('change', function () {
-                var type = $('input[name=member_info]:checked').val();
+                let type = $('input[name=member_info]:checked').val();
                 if (all_member_info[type] === undefined) {
                     load_member_info(true);
                 } else {
@@ -664,7 +673,7 @@
         //Activity nice plans
         if ($('#acts-nice-preview-plan').length) {
             function expand_text(session, edit) {
-                var session_li = $('.acts-nice-session[session=' + session + ']');
+                let session_li = $('.acts-nice-session[session=' + session + ']');
                 if (edit) {
                     $(session_li).find('.acts-nice-session-text').toggleClass('acts-nice-session-hidden', false);
                     $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-down', false);
@@ -677,17 +686,17 @@
             }
 
             $(document).on('click', '.acts-nice-session-expand', function () {
-                var height = $('html').height();
+                let height = $('html').height();
                 expand_text($(this).parent().attr('session'), false);
             });
             $(document).on('click', '.acts-nice-session-edit', function () {
-                var textfield = $(this).parent().find('.acts-nice-session-text');
+                let textfield = $(this).parent().find('.acts-nice-session-text');
                 if ($(textfield).find('.acts-nice-session-empty').length) {
                     $(textfield).find('.acts-nice-session-empty').remove();
                 }
-                var name = $(textfield).attr('name');
-                var text = $(textfield).html();
-                var css = $(textfield).attr('class');
+                let name = $(textfield).attr('name');
+                let text = $(textfield).html();
+                let css = $(textfield).attr('class');
 
                 $(textfield).replaceWith(function () {
                     return $('<textarea />', {class: css, name: name}).append(text);
@@ -696,12 +705,12 @@
                 expand_text($(this).parent().attr('session'), true);
             });
 
-            var plan_name = '';
+            let plan_name = '';
             if ($('.acts-nice-plan-name').length) {
                 plan_name = $('.acts-nice-plan-name').html();
             }
             $('input[name=plan_name]').on('input', function (event) {
-                if ($(event.target).val() == plan_name) {
+                if ($(event.target).val() === plan_name) {
                     $('#create_plan').val(acts_i18n_nice.update_plan);
                 } else {
                     $('#create_plan').val(acts_i18n_nice.create_plan);
@@ -711,18 +720,18 @@
             $('#create_plan').click(function (event) {
                 event.preventDefault();
 
-                var name = $('input[name=plan_name]').val();
+                let name = $('input[name=plan_name]').val();
                 if (name === '') {
                     return;
                 }
-                var sessions = 0;
-                var session_map = {};
+                let sessions = 0;
+                let session_map = {};
                 $('.acts-nice-session[session]').each(function (index, elem) {
-                    var session = $(elem).attr('session');
+                    let session = $(elem).attr('session');
                     if ($(elem).find('.acts-nice-session-text .acts-nice-session-empty').length) {
                         $(elem).find('.acts-nice-session-text .acts-nice-session-empty').remove();
                     }
-                    var text = '';
+                    let text = '';
                     if ($(elem).find('div.acts-nice-session-text').length) {
                         text = $(elem).find('div.acts-nice-session-text').html();
                     } else {

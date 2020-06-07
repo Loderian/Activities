@@ -136,7 +136,8 @@ class Activities {
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-activity.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-activities.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-archive.php';
-            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-activity-nice.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity-report/activities-admin-activity-report.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity-report/activities-admin-report-quick-edit.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/options/activities-admin-options.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/location/activities-admin-location.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/location/activities-admin-locations.php';

@@ -86,11 +86,11 @@ class Activities_Admin {
             'session' => esc_html__( 'Session', 'activities' )
         ) );
 
-        wp_register_script( $this->plugin_name . '-admin-nice-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-nice.js', array(
+        wp_register_script( $this->plugin_name . '-admin-report-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-report.js', array(
             'jquery',
             'wp-color-picker'
         ), $this->version, false );
-        wp_localize_script( $this->plugin_name . '-admin-nice-js', 'acts_i18n_nice', array(
+        wp_localize_script( $this->plugin_name . '-admin-report-js', 'acts_i18n_nice', array(
             'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' ),
             'empty'            => esc_html__( 'Empty', 'activities' ),
             'create_plan'      => __( 'Create plan', 'activities' ),
@@ -108,7 +108,7 @@ class Activities_Admin {
      */
     public function enqueue_scripts() {
         wp_enqueue_script( $this->plugin_name . '-admin-js' );
-        wp_enqueue_script( $this->plugin_name . '-admin-nice-js' );
+        wp_enqueue_script( $this->plugin_name . '-admin-report-js' );
         wp_enqueue_script( 'imagesloaded' );
         wp_enqueue_script( 'wp-color-picker' );
     }
@@ -281,6 +281,7 @@ class Activities_Admin {
                 }
             }
         }
+
         return Activities_User_Activity::delete_insert( $acts, $user_id, 'user_id' ) > 0;
     }
 
@@ -394,11 +395,11 @@ class Activities_Admin {
         }
 
         foreach ( $user_ids as $uid ) {
-            $info[ $uid ] = acts_get_user_nice_info( $uid, $custom );
+            $info[$uid] = acts_get_user_nice_info( $uid, $custom );
             if ( array_key_exists( $uid, $attended ) ) {
-                $info[ $uid ]['acts_attended'] = $attended[ $uid ];
+                $info[$uid]['acts_attended'] = $attended[$uid];
             } else {
-                $info[ $uid ]['acts_attended'] = array();
+                $info[$uid]['acts_attended'] = array();
             }
         }
 
@@ -611,7 +612,7 @@ class Activities_Admin {
             if ( isset( $_POST['acts_columns'] ) && is_array( $_POST['acts_columns'] ) ) {
                 $columns = Activities_Options::get_user_option( $page, 'show_columns' );
                 foreach ( array_keys( $columns ) as $key ) {
-                    $columns[ $key ] = isset( $_POST['acts_columns'][ $key ] );
+                    $columns[$key] = isset( $_POST['acts_columns'][$key] );
                 }
                 Activities_Options::update_user_option( $page, 'show_columns', $columns );
             }
@@ -736,18 +737,37 @@ class Activities_Admin {
             'first_name' => stripslashes( sanitize_text_field( $_POST['first_name'] ) ),
             'last_name'  => stripslashes( sanitize_text_field( $_POST['last_name'] ) ),
         );
-
+        $roles     = array();
+        if ( isset( $_POST['roles'] ) && is_array( $_POST['roles'] ) ) {
+            foreach ( $_POST['roles'] as $role => $is_set ) {
+                $roles[] = sanitize_text_field( $role );
+            }
+        }
+        if ( count( $roles ) > 0 ) {
+            $user_data['role'] = $roles[0];
+        } else {
+            $user_data['role'] = '';
+        }
         $ret_id = wp_update_user( $user_data );
         if ( is_wp_error( $ret_id ) ) {
             wp_send_json_error();
         }
+        //Add after saving in with wp_update_user
         $user_data['acts_full_name'] = Activities_Utility::get_user_name( $id, false );
+        $user_data['roles']          = $roles;
+        if ( count( $roles ) > 0 ) {
+            unset( $roles[0] ); //First one is already added
+            $user = new WP_User( $id );
+            foreach ( $roles as $role ) {
+                $user->add_role( $role );
+            }
+        }
 
         foreach ( acts_get_woocommerce_nice_keys() as $key => $unused ) {
-            if ( isset( $_POST[ $key ] ) ) {
-                $value = stripslashes( sanitize_text_field( $_POST[ $key ] ) );
+            if ( isset( $_POST[$key] ) ) {
+                $value = stripslashes( sanitize_text_field( $_POST[$key] ) );
                 update_user_meta( $id, $key, $value );
-                $user_data[ $key ] = $value;
+                $user_data[$key] = $value;
             }
         }
 
@@ -757,8 +777,8 @@ class Activities_Admin {
                 $key = sanitize_key( $key );
 
                 $type = '';
-                if ( isset( $types[ $key ] ) ) {
-                    $type = $types[ $key ];
+                if ( isset( $types[$key] ) ) {
+                    $type = $types[$key];
                 }
                 switch ( $type ) {
                     case 'textarea':
@@ -779,7 +799,7 @@ class Activities_Admin {
                 }
                 if ( $key != '' ) {
                     update_user_meta( $id, $key, $value );
-                    $user_data[ $key ] = $value;
+                    $user_data[$key] = $value;
                 }
             }
         }

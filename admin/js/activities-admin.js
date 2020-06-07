@@ -64,14 +64,14 @@
         //Select all in list table
         if (!$('#activities-select-all').length) {
             $('#activities-select-all').on('change', function () {
-                var all_checked = $(this).prop('checked');
+                let all_checked = $(this).prop('checked');
                 $('input[name="selected_activities[]"]').each(function (index, element) {
                     $(element).prop('checked', all_checked);
                 });
             });
 
             $('input[name="selected_activities[]"]').on('change', function () {
-                var all_checked = true;
+                let all_checked = true;
                 $('input[name="selected_activities[]"]').each(function (index, element) {
                     all_checked = $(element).prop('checked');
                     return all_checked; //false = break, true = continue
@@ -82,7 +82,7 @@
 
         //Show/hide columns in list tables
         if ($('#acts_name').length) {
-            var columns = [];
+            let columns = [];
 
             $('.metabox-prefs [key]').each(function (index, elem) {
                 columns.push($(elem).attr('key'));
@@ -91,7 +91,7 @@
             function toggleColumn(column) {
                 return function () {
                     if ($('.colspanchange').length > 0) {
-                        var num = parseInt($('.colspanchange').attr('colspan'));
+                        let num = parseInt($('.colspanchange').attr('colspan'));
                         if ($('#acts_' + column).prop('checked')) {
                             num++;
                         } else {
@@ -107,7 +107,7 @@
                 }
             }
 
-            for (var column of columns) {
+            for (let column of columns) {
                 if ($('#acts_' + column).length > 0) {
 
                     $('#acts_' + column).on('change', toggleColumn(column));
@@ -118,10 +118,10 @@
         //One click select and copy export
         if ($('#acts-export-results').length) {
             $('#acts-export-results').click(function () {
-                var elem = document.getElementById('acts-export-results');
-                var range = document.createRange();
+                let elem = document.getElementById('acts-export-results');
+                let range = document.createRange();
                 range.selectNodeContents(elem);
-                var sel = window.getSelection();
+                let sel = window.getSelection();
                 sel.removeAllRanges();
                 sel.addRange(range);
                 document.execCommand('copy');
@@ -136,9 +136,9 @@
         });
 
         function add_to_table(selector, data) {
-            var table = $(selector);
+            let table = $(selector);
             table.find('tr:first').clone(true).appendTo(table);
-            var new_row = table.find('tr:last');
+            let new_row = table.find('tr:last');
             new_row.find('a').attr('tid', data.id);
             new_row.find('a span:first').html(data.name);
             new_row.find('input').val(data.id);
@@ -146,9 +146,9 @@
         }
 
         function add_to_select(selector, data) {
-            var select = $(selector);
+            let select = $(selector);
             select.find('option:first').clone(true).appendTo(select);
-            var new_option = select.find('option:last');
+            let new_option = select.find('option:last');
             new_option.val(data.id);
             new_option.html(data.name);
         }
@@ -156,8 +156,8 @@
         $('#create_category').click(function (event) {
             event.preventDefault();
 
-            var name = $('.acts-categories input[name=category_name]');
-            var parent = $('.acts-categories select[name=category_parent]');
+            let name = $('.acts-categories input[name=category_name]');
+            let parent = $('.acts-categories select[name=category_parent]');
 
             $('#category_form').toggle(false);
 
@@ -201,14 +201,14 @@
         $('.acts-category-name a').click(function (event) {
             event.preventDefault();
 
-            var h = window.innerHeight * 0.90;
-            var w = window.innerWidth * 0.90;
+            let h = window.innerHeight * 0.90;
+            let w = window.innerWidth * 0.90;
             if (w > 500) {
                 w = 500;
             }
 
-            var id = $(this).attr('tid');
-            var form = $('.acts-category-edit');
+            let id = $(this).attr('tid');
+            let form = $('.acts-category-edit');
             form.find('input[name=category_id]').val(id);
             form.find('input[name=category_name]').val(term_data[id].name);
             form.find('select[name=category_parent]').val(term_data[id].parent);
@@ -217,23 +217,23 @@
             window.scrollTo(0, 0);
             tb_show($(this).html(), "#TB_inline?height=" + h + "&amp;width=" + w + "&amp;inlineId=acts-category-edit");
 
-            var wh = form.height() + 20; //Offset some paddings
+            let wh = form.height() + 20; //Offset some paddings
             if (wh < h) {
                 $('#TB_ajaxContent').height(wh);
             }
         });
 
-        var prev_selected = $('input[name=primary_category]:checked').val();
+        let prev_selected = $('input[name=primary_category]:checked').val();
 
         $(document).on('click', 'input[name=primary_category]', function (event) {
-            var id = $(this).val();
+            let id = $(this).val();
 
             if (id != prev_selected) {
                 $('input[name=primary_category][value=' + prev_selected + ']').attr('checked', false);
             }
 
             $('.acts-categories input[name="additional_categories[]"]').each(function (index, elem) {
-                var elem_id = $(elem).val();
+                let elem_id = $(elem).val();
                 if (elem_id === id) {
                     $(elem).attr('checked', false);
                 } else if (elem_id === prev_selected) {
@@ -251,11 +251,11 @@
         $('#save_category').click(function (event) {
             event.preventDefault();
 
-            var form = $('.acts-category-edit');
+            let form = $('.acts-category-edit');
 
             $.post(form.attr('action'), form.serialize(), function (rep) {
                 if (rep.success) {
-                    var id = rep.data.id;
+                    let id = rep.data.id;
                     term_data[id].name = rep.data.name;
                     term_data[id].parent = rep.data.parent;
                     term_data[id].desc = rep.data.desc;
@@ -272,7 +272,7 @@
         $('#delete_category').click(function (event) {
             event.preventDefault();
 
-            var id = $('.acts-category-edit').find('input[name=category_id]').val();
+            let id = $('.acts-category-edit').find('input[name=category_id]').val();
 
             if (term_data[id].slug === 'uncategorized') {
                 return;
@@ -296,7 +296,7 @@
                     $('option[value=' + id + ']').remove();
                     $('a[tid=' + id + ']').parent('td').parent('tr').remove();
 
-                    for (var term_id in cat.data) {
+                    for (let term_id in cat.data) {
                         term_data[term_id].parent = cat.data[term_id];
                     }
                 },
@@ -306,20 +306,20 @@
             });
         });
 
-        var acts_min_sessions = 1;
-        var acts_max_sessions = 50;
+        let acts_min_sessions = 1;
+        let acts_max_sessions = 50;
 
-        var session_map = {};
+        let session_map = {};
         $('.acts-plan-textareas li').each(function (index, elem) {
-            var session = $(elem).attr('session');
-            var text = $(elem).find('textarea').html();
+            let session = $(elem).attr('session');
+            let text = $(elem).find('textarea').html();
 
             session_map[session] = text;
         });
 
         function update_sessions_textareas() {
-            var input = $('#plan_sessions');
-            var sessions = parseInt($(input).val());
+            let input = $('#plan_sessions');
+            let sessions = parseInt($(input).val());
 
             if (isNaN(sessions)) {
                 sessions = acts_min_sessions;
@@ -331,20 +331,20 @@
                 $(input).val(sessions);
             }
 
-            var last_session = parseInt($('.acts-plan-textareas li').last().attr('session'));
+            let last_session = parseInt($('.acts-plan-textareas li').last().attr('session'));
 
             if (isNaN(last_session)) {
                 return;
             }
 
             if (sessions > last_session) {
-                var html = $('.acts-plan-textareas li').last().html();
-                var list = $('.acts-plan-textareas');
-                for (var i = last_session + 1; i <= sessions; i++) {
+                let html = $('.acts-plan-textareas li').last().html();
+                let list = $('.acts-plan-textareas');
+                for (let i = last_session + 1; i <= sessions; i++) {
                     $(list).append('<li session="' + i + '">' + html + '</li>');
-                    var new_li = $('.acts-plan-textareas li[session=' + i + ']');
+                    let new_li = $('.acts-plan-textareas li[session=' + i + ']');
                     new_li.find('.acts-session-text-num').html(acts_i18n_admin.session + ' ' + i);
-                    var new_textarea = new_li.find('textarea');
+                    let new_textarea = new_li.find('textarea');
                     $(new_textarea).attr('name', 'session_map[' + i + ']');
                     if (session_map.hasOwnProperty(i)) {
                         $(new_textarea).html(session_map[i]);
@@ -353,7 +353,7 @@
                     }
                 }
             } else {
-                for (var i = last_session; i > sessions; i--) {
+                for (let i = last_session; i > sessions; i--) {
                     $('li[session=' + i + ']').remove();
                 }
             }

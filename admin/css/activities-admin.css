@@ -702,13 +702,20 @@
     padding: 5px 0px;
 }
 
-.acts-quick-edit-group input,
-.acts-quick-edit-group textarea {
+.acts-quick-edit-group input[type=text],
+.acts-quick-edit-group textarea,
+.acts-quick-edit-group table {
     width: 100%;
 }
 
 .acts-quick-edit-group textarea {
     height: 100px;
+}
+
+.acts-quick-edit-group table td input[type=checkbox] {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 .acts-quick-img-wrap {

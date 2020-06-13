@@ -53,7 +53,7 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 
     $disabled = '';
     if ( $archive == 'archive' || ( !current_user_can( ACTIVITIES_ADMINISTER_ACTIVITIES ) && !Activities_Responsible::current_user_restricted_edit() ) ) {
-        $disabled = 'disabled';
+        $disabled = 'disabled=""';
     }
     $output = '<h2 id="activities-title">' . $title . '</h2>';
 
@@ -152,10 +152,10 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
     $output .= '<p>' . esc_html__( 'Activity Participants', 'activities' ) . ' (<span id="member_count"></span>)';
     $output .= '<span id="acts-limit-participants">' . esc_html__("Limit number of participants") . ": ";
     $has_participants_limit = isset( $map['meta']['participants_limit'] );
-    $output .= '<input type="checkbox" ' . esc_html(  $has_participants_limit ? 'checked="checked"' : '' ) . ' />';
+    $output .= '<input type="checkbox" ' . esc_html(  $has_participants_limit ? 'checked="checked"' : '' ) . ' ' . $disabled . ' />';
     $participants_limit = $has_participants_limit ? $map['meta']['participants_limit'] : 10;
     $output .= '<input type="number" name="participants_limit" value="' . esc_attr($participants_limit) .
-                '" min="1" ' . esc_html( $has_participants_limit ? '' : 'disabled="disabled"' ) . '/></span></p>';
+                '" min="1" ' . esc_html( $has_participants_limit ? $disabled : 'disabled="disabled"' ) . '/></span></p>';
     $output .= acts_build_select_items(
         'members',
         array(
@@ -196,13 +196,13 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
 
     $output .= '<div class="acts-create-extra-wrap">';
     $output .= '<div class="acts-categories acts-create-extra acts-box-wrap acts-box-padding">';
-    $output .= '<h3>' . esc_html__( 'Categories', 'activities' ) . ' ' . get_submit_button( '+', 'button', 'show_category_form', false ) . '</h3>';
+    $output .= '<h3>' . esc_html__( 'Categories', 'activities' ) . ' ' . get_submit_button( '+', 'button', 'show_category_form', false, $disabled) . '</h3>';
     $output .= '<ul id="category_form" style="display: none;">';
     $output .= '<li><input type="text" name="category_name" placeholder="' . esc_attr__( 'Category Name', 'activities' ) . '" /><li>';
     $output .= '<li>';
     $output .= $parent_select;
     $output .= '</li>';
-    $output .= '<li>' . get_submit_button( esc_html__( 'Create Category', 'activities' ), 'button', 'create_category', false ) . '</li>';
+    $output .= '<li>' . get_submit_button( esc_html__( 'Create Category', 'activities' ), 'button', 'create_category', false, $disabled) . '</li>';
     $output .= '<li><hr/></li>';
     $output .= '</ul>';
 
@@ -232,9 +232,9 @@ function acts_activity_management( $title, $action, $map = null, $archive = '' )
             $a_checked = 'checked="checked"';
         }
         $output .= '<tr>';
-        $output .= '<td class="acts-category-name"><a href="" tid="' . esc_attr( $tid ) . '"><span>' . esc_html( $name ) . '</span><span class="dashicons"></span></a></td>';
-        $output .= '<td><input type="checkbox" name="primary_category" value="' . esc_attr( $tid ) . '" ' . $p_checked . ' /></td>';
-        $output .= '<td><input type="checkbox" name="additional_categories[]" value="' . esc_attr( $tid ) . '" ' . $a_checked . ' /></td>';
+        $output .= '<td class="acts-category-name"><a href="" tid="' . esc_attr( $tid ) . '" ' . $disabled . '><span>' . esc_html( $name ) . ' </span><span class="dashicons"></span></a></td>';
+        $output .= '<td><input type="checkbox" name="primary_category" value="' . esc_attr( $tid ) . '" ' . $p_checked . ' ' . $disabled . ' /></td>';
+        $output .= '<td><input type="checkbox" name="additional_categories[]" value="' . esc_attr( $tid ) . '" ' . $a_checked . ' ' . $disabled . ' /></td>';
         $output .= '</tr>';
     }
     $output .= '</tbody>';

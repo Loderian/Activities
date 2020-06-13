@@ -108,12 +108,47 @@ function handleActivity( Activities_Activity $act, string $get, array $shortcode
         case 'join_image':
             return handleActivityJoin( $act, $get, $shortcode_data );
 
+        case 'status_image':
+        case 'status_text':
+            return handleActivityStatus( $act, $get, $shortcode_data );
+
         default:
             if ( is_protected_meta( $get ) ) {
                 return '***';
             }
 
             return $act->$get;
+    }
+}
+
+function handleActivityStatus( Activities_Activity $act, string $get, array $shortcode_data ) {
+    if ( is_admin() ) {
+        return '';
+    }
+
+    $participating = false;
+    if ( is_user_logged_in() ) {
+        $current_user  = wp_get_current_user();
+        $participating = array_search( $current_user->ID, $act->members ) !== false;
+    }
+
+    $default_joined_text = sprintf( __( "Participating in %s", "activities" ), $act->name );
+    $default_not_joined_text = sprintf( __( "Not participating in %s", "activities" ), $act->name );
+
+    switch ( $get ) {
+        case 'status_image':
+            $image = $participating ? $shortcode_data['joined'] : $shortcode_data['not_joined'];
+            $alt   = $participating ? $default_joined_text : $default_not_joined_text;
+
+            return '<img class="acts-status-image"
+                         src="' . esc_attr( esc_url( $image ) ) . '"
+                         alt="' . esc_attr( $alt ) . '" />';
+
+        default:
+        case 'status_text':
+            $joined_text = isset( $shortcode_data['joined'] ) ? $shortcode_data['joined'] : $default_joined_text;
+            $not_joined_text = isset( $shortcode_data['not_joined'] ) ? $shortcode_data['not_joined'] : $default_not_joined_text;
+            return '<p class="acts-status-text">' . esc_html( $participating ? $joined_text : $not_joined_text ) . '</p>';
     }
 }
 
@@ -128,9 +163,9 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
         return '<i>' . esc_html__( 'You can no longer join this activity.', 'activities' ) . '</i>';
     }
     $current_user = wp_get_current_user();
-    $roles       = $current_user->roles;
-    $member_list = Activities_Options::get_option( ACTIVITIES_CAN_BE_MEMBER_KEY );
-    $can_join    = false;
+    $roles        = $current_user->roles;
+    $member_list  = Activities_Options::get_option( ACTIVITIES_CAN_BE_MEMBER_KEY );
+    $can_join     = false;
     foreach ( $roles as $role ) {
         if ( in_array( $role, $member_list ) ) {
             $can_join = true;
@@ -141,34 +176,37 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
         return '<i>' . esc_html__( 'You are not allowed to join this activity.', 'activities' ) . '</i>';
     }
 
-    if ( array_search( $current_user->ID, $act->members ) === false && count( $act->members ) >= $act->participants_limit ) {
+    $participant_limit = acts_validate_int( $act->participants_limit );
+    if ( array_search( $current_user->ID, $act->members ) === false
+         && $participant_limit !== 0
+         && count( $act->members ) >= $participant_limit ) {
         return '<i>' . esc_html__( 'This activity is full.', 'activities' ) . '</i>';
     }
 
-    $default_join_text = sprintf( __( 'Join %s', 'activities' ), $act->name );
+    $default_join_text  = sprintf( __( 'Join %s', 'activities' ), $act->name );
     $default_leave_text = sprintf( __( 'Leave %s', 'activities' ), $act->name );
-    $join_text = isset( $shortcode_data['join'] ) ? $shortcode_data['join'] : $default_join_text;
-    $leave_text = isset( $shortcode_data['leave'] ) ? $shortcode_data['leave'] : $default_leave_text;
-    $button_filter = apply_filters(
+    $join_text          = isset( $shortcode_data['join'] ) ? $shortcode_data['join'] : $default_join_text;
+    $leave_text         = isset( $shortcode_data['leave'] ) ? $shortcode_data['leave'] : $default_leave_text;
+    $button_filter      = apply_filters(
         'activities_' . $get,
         array(
             'allowed'            => true,
             'cant_join_response' => '',
-            'join'          => $join_text,
-            'leave'         => $leave_text
+            'join'               => $join_text,
+            'leave'              => $leave_text
         ),
         $act->ID
     );
     if ( $button_filter['allowed'] ) {
         if ( Activities_User_Activity::exists( get_current_user_id(), $act->ID ) ) {
-            $text = $button_filter['leave'];
+            $text     = $button_filter['leave'];
             $alt_text = $default_leave_text;
         } else {
-            $text = $button_filter['join'];
+            $text     = $button_filter['join'];
             $alt_text = $default_join_text;
         }
 
-        switch ($get) {
+        switch ( $get ) {
             case 'join_link':
                 $join_clickable =
                     '<a class="acts-join-link acts-join" 
@@ -176,7 +214,7 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
                         acts_join_text="' . esc_attr( $join_text ) . '" 
                         acts_leave_text="' . esc_attr( $leave_text ) . '" 
                         value="' . esc_attr( $act->ID ) . '">' .
-                        esc_html( $text ) .
+                    esc_html( $text ) .
                     '</a>';
                 break;
 
@@ -189,7 +227,7 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
                         acts_alt_join_text="' . esc_attr( $default_join_text ) . '" 
                         acts_alt_leave_text="' . esc_attr( $default_leave_text ) . '"
                         value="' . esc_attr( $act->ID ) . '">
-                       <img src="' . esc_attr( $text ) . '"     
+                       <img src="' . esc_attr( esc_url( $text ) ) . '"     
                             alt="' . esc_attr( $alt_text ) . '"/>
                     </a>';
                 break;
@@ -201,7 +239,7 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
                              acts_join_text="' . esc_attr( $join_text ) . '" 
                              acts_leave_text="' . esc_attr( $leave_text ) . '"
                              value="' . esc_attr( $act->ID ) . '">' .
-                        esc_html( $text ) .
+                    esc_html( $text ) .
                     '</button>';
                 break;
         }
@@ -209,7 +247,7 @@ function handleActivityJoin( Activities_Activity $act, string $get, array $short
         return '<form class="acts-join-form" action="' . admin_url( 'admin-ajax.php' ) . '" method="post">
                     <input type="hidden" name="item_id" value="' . esc_attr( $act->ID ) . '" />
                     <input type="hidden" name="action" value="acts_join" />' .
-                    $join_clickable .
+               $join_clickable .
                '</form>';
     } else {
         return '<i>' . esc_html( $button_filter['response'] ) . '</i>';

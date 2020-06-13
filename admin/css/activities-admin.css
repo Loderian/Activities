@@ -229,7 +229,7 @@
     visibility: hidden;
 }
 
-.acts-category-name a:hover .dashicons {
+.acts-category-name a:hover:not([disabled]) .dashicons {
     visibility: visible;
 }
 

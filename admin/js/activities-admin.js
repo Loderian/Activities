@@ -27,24 +27,68 @@
             $('#acts-activity-plan').selectize({});
         }
 
+        let $participant_list = $('#acts-activity-member-list');
+        let $participant_limit = $('#acts-limit-participants').find('input[type="number"]');
+        let $limit_participants = $('#acts-limit-participants input[type="checkbox"]');
+        let $participants_selectize = null;
         //Activity member options
-        if ($('#acts-activity-member-list').length) {
-            set_member_count();
+        if ($participant_list.length) {
+            set_participant_count_and_limit();
 
-            function set_member_count() {
-                if ($('#acts-activity-member-list').val() != null) {
-                    $('#member_count').html($('#acts-activity-member-list').val().length);
-                } else {
-                    $('#member_count').html('0');
-                }
-            }
-
-            $('#acts-activity-member-list').selectize({
+            $participants_selectize = $participant_list.selectize({
                 plugins: ['remove_button'],
                 onChange: function () {
-                    set_member_count()
+                    set_participant_count_and_limit()
                 }
             });
+        }
+
+        function set_participant_count_and_limit() {
+            let limit_print = "";
+            let warning = "";
+            let limit = 0;
+            if ($limit_participants.is(":checked")) {
+                limit_print = "/" + $participant_limit.attr("value");
+                limit = $participant_limit.attr("value");
+            }
+
+            if ($participant_list.val() != null) {
+                let participating_count = $participant_list.val().length;
+                if (limit > 0 && participating_count > limit) {
+                    warning = '&nbsp;<span class="dashicons dashicons-warning"></span>'
+                }
+                $('#member_count').html(participating_count + limit_print + warning);
+            } else {
+                $('#member_count').html('0' + limit_print);
+            }
+        }
+
+        if ($limit_participants.length) {
+            setMaxItemsOnParticipantsSelectize($limit_participants.is(":checked"));
+
+            //Activity participant limit
+            $limit_participants.change(function () {
+                let checked = $(this).is(":checked");
+                $participant_limit.attr("disabled", !checked);
+                setMaxItemsOnParticipantsSelectize(checked)
+                set_participant_count_and_limit()
+            });
+        }
+
+        if ($participant_limit.length) {
+            $participant_limit.change(function () {
+                set_participant_count_and_limit()
+            })
+        }
+
+        function setMaxItemsOnParticipantsSelectize(limited) {
+            if ($participants_selectize != null) {
+                if (limited) {
+                    $participants_selectize[0].selectize.settings.maxItems = $participant_limit.attr("value")
+                } else {
+                    $participants_selectize[0].selectize.settings.maxItems = null
+                }
+            }
         }
 
         //Activity export select activity
@@ -200,6 +244,10 @@
 
         $('.acts-category-name a').click(function (event) {
             event.preventDefault();
+
+            if ($(this).attr("disabled")) {
+                return
+            }
 
             let h = window.innerHeight * 0.90;
             let w = window.innerWidth * 0.90;
@@ -367,11 +415,6 @@
             $(this).find('.dashicons').toggleClass('acts-filters-expand');
             $(this).find('.dashicons').toggleClass('acts-filters-collapse');
             $('#activities-filter-wrap form').toggleClass('acts-filters-hidden');
-        });
-
-        //Activity participant limit
-        $('#acts-limit-participants input[type="checkbox"]').change(function () {
-            $('#acts-limit-participants').find('input[type="number"]').attr("disabled", !$(this).is(":checked"))
         });
     });
 })(jQuery);

@@ -44,7 +44,9 @@ For example it can be used to send emails to all participants by copying the ema
 ### Shortcodes ###
 
 A simple shortcode is provided to display activity information in blog-posts, products or other types of posts.
-Also comes with an option to display a join/unjoin button on posts. Check the FAQ on how to use it.
+Also comes with an option to display a join/unjoin button/link/image on posts.
+And status image to display different text/image whether user is participating or not.
+Check the FAQ on how to use it.
 
 ### Responsible Users ###
 
@@ -129,15 +131,12 @@ List of data options
   * `end` = End Date
   * `members` = How many users who are currently participating/listed
   * `archive` = 'Archived' if the activity is archived (users cannot join) or 'Active' if not (users can join)
-  * `join_button` = A join/leave button for activities. Lets users join an activity by simply clicking it.
-    - `join` = Text for joining in button
-    - `leave` = Text for leaving in button
-  * `join_link` = A join/leave link for activities.
-    - `join` = Link text for joining
-    - `leave` = Link text for leaving
-  * `join_image` = A join/leave image for activities.
-    - `join` = Image link for joining activity
-    - `leave` = Image link for leaving activity
+  * `join_button` = A join/leave button for activities. `join` = Text for joining on button. `leave` = Text for leaving on button.
+  * `join_link` = A join/leave link for activities. `join` = Link text for joining. `leave` = Link text for leaving.
+  * `join_image` = A join/leave image for activities. `join` = Image link for joining activity. `leave` = Image link for leaving activity.
+  * `status_text` = Displays either `joined` text when current user is participating in selected activity and `not_joined` text otherwise
+  * `status_image` = Displays either `joined` image when current user is participating in selected activity and `not_joined` image otherwise
+
 - Location:
   * `loc_name` or `loc` = Name
   * `loc_address` = Address
@@ -159,6 +158,12 @@ List of data options
 5. The Activities general options screen
 
 == Changelog ==
+
+= 1.1.6 =
+
+* Feature: Quick edit of user roles in activity report
+* Feature: Options for limiting number of participants on activities
+* Feature: Added shortcode option for activity status text and image
 
 = 1.1.5 =
 
@@ -241,6 +246,10 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.6 =
+
+Quick edit of user roles on activity report. Option for limiting number of participants on activities. Status image and text option added to shortcode.
 
 = 1.1.5 =
 

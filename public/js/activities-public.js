@@ -11,12 +11,13 @@
                     return !$button.is(this);
                 }
             );
+            let $status_displays = $('.acts-status[value="' + $button.attr('value') + '"]');
             if (!$button.attr('disabled')) {
-                acts_join_leave($button.parent('.acts-join-form'), $button, $other_buttons);
+                acts_join_leave($button.parent('.acts-join-form'), $button, $other_buttons, $status_displays);
             }
         });
 
-        function acts_join_leave($form, $button, $other_buttons) {
+        function acts_join_leave($form, $button, $other_buttons, $status_displays) {
             acts_toggle_button($button,true, false);
             $.each($other_buttons, function (i, val) {
                 acts_toggle_button($(val), true, false);
@@ -26,6 +27,9 @@
                     acts_toggle_button($button,false, response.data);
                     $.each($other_buttons, function (i, val) {
                         acts_toggle_button($(val), false, response.data);
+                    });
+                    $.each($status_displays, function (i, val) {
+                        acts_toggle_status_state($(val), response.data.joined);
                     });
                 }
             }, 'json');
@@ -57,6 +61,16 @@
                 } else {
                     $button.prepend('<div class="acts-loader"></div>');
                 }
+            }
+        }
+
+        function acts_toggle_status_state($status_display, joined) {
+            let is_image = $status_display.hasClass('acts-status-image');
+            if (is_image) {
+                $status_display.attr('src', joined ? $status_display.attr('acts_joined_text') : $status_display.attr('acts_not_joined_text'))
+                $status_display.attr('alt', joined ? $status_display.attr('acts_alt_joined_text') : $status_display.attr('acts_alt_not_joined_text'))
+            } else {
+                $status_display.html(joined ? $status_display.attr('acts_joined_text') : $status_display.attr('acts_not_joined_text'))
             }
         }
     });

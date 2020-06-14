@@ -132,7 +132,7 @@ function handleActivityStatus( Activities_Activity $act, string $get, array $sho
         $participating = array_search( $current_user->ID, $act->members ) !== false;
     }
 
-    $default_joined_text = sprintf( __( "Participating in %s", "activities" ), $act->name );
+    $default_joined_text     = sprintf( __( "Participating in %s", "activities" ), $act->name );
     $default_not_joined_text = sprintf( __( "Not participating in %s", "activities" ), $act->name );
 
     switch ( $get ) {
@@ -140,15 +140,24 @@ function handleActivityStatus( Activities_Activity $act, string $get, array $sho
             $image = $participating ? $shortcode_data['joined'] : $shortcode_data['not_joined'];
             $alt   = $participating ? $default_joined_text : $default_not_joined_text;
 
-            return '<img class="acts-status-image"
+            return '<img class="acts-status acts-status-image"
+                         value="' . esc_attr( $act->id ) . '"
+                         acts_joined_text="' . esc_attr( $shortcode_data['joined'] ) . '"
+                         acts_not_joined_text="' . esc_attr( $shortcode_data['not_joined'] ) . '"
+                         acts_alt_joined_text="' . esc_attr( $default_joined_text ) . '" 
+                         acts_alt_not_joined_text="' . esc_attr( $default_not_joined_text ) . '"
                          src="' . esc_attr( esc_url( $image ) ) . '"
-                         alt="' . esc_attr( $alt ) . '" />';
+                         alt="' . esc_attr( $alt ) . '"/>';
 
-        default:
         case 'status_text':
-            $joined_text = isset( $shortcode_data['joined'] ) ? $shortcode_data['joined'] : $default_joined_text;
+        default:
+            $joined_text     = isset( $shortcode_data['joined'] ) ? $shortcode_data['joined'] : $default_joined_text;
             $not_joined_text = isset( $shortcode_data['not_joined'] ) ? $shortcode_data['not_joined'] : $default_not_joined_text;
-            return '<p class="acts-status-text">' . esc_html( $participating ? $joined_text : $not_joined_text ) . '</p>';
+
+            return '<p class="acts-status acts-status-text"
+                       value="' . esc_attr( $act->id ) . '"
+                       acts_joined_text="' . esc_attr( $joined_text ) . '"
+                       acts_not_joined_text="' . esc_attr( $not_joined_text ) . '">' . esc_html( $participating ? $joined_text : $not_joined_text ) . '</p>';
     }
 }
 

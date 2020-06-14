@@ -64,24 +64,28 @@
         }
 
         if ($limit_participants.length) {
-            setMaxItemsOnParticipantsSelectize($limit_participants.is(":checked"));
+            set_max_items_on_participants_selectize($limit_participants.is(":checked"));
 
             //Activity participant limit
             $limit_participants.change(function () {
                 let checked = $(this).is(":checked");
                 $participant_limit.attr("disabled", !checked);
-                setMaxItemsOnParticipantsSelectize(checked)
+                set_max_items_on_participants_selectize(checked)
                 set_participant_count_and_limit()
             });
         }
 
         if ($participant_limit.length) {
             $participant_limit.change(function () {
+                if ($(this).attr("value") <= 0) {
+                    $(this).attr("value", 1);
+                }
+                set_max_items_on_participants_selectize($limit_participants.is(":checked"))
                 set_participant_count_and_limit()
             })
         }
 
-        function setMaxItemsOnParticipantsSelectize(limited) {
+        function set_max_items_on_participants_selectize(limited) {
             if ($participants_selectize != null) {
                 if (limited) {
                     $participants_selectize[0].selectize.settings.maxItems = $participant_limit.attr("value")

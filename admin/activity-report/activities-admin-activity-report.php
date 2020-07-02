@@ -617,6 +617,10 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
     $user = get_user_by( 'ID', $id );
 
     if ( $user ) {
+        $user_roles = array();
+        foreach ( $user->roles as $role ) {
+            $user_roles[] = $role; //Normalize to list for javascript
+        }
         $user_info = array(
             //Get first name and last name for quick edit
             'first_name'       => $user->first_name,
@@ -625,7 +629,7 @@ function acts_get_user_nice_info( $id, $custom_fields = array() ) {
             //Add acts as prefix to avoid any conflict with other meta keys
             'acts_full_name'   => Activities_Utility::get_user_name( $id, false ),
             'acts_user_avatar' => get_avatar_url( $id, array( 'size' => 128 ) ),
-            'roles'            => $user->roles
+            'roles'            => $user_roles
         );
         foreach ( acts_get_woocommerce_nice_keys() as $key => $name ) {
             $user_info[ $key ] = $user->$key;

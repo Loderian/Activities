@@ -159,6 +159,10 @@ List of data options
 
 == Changelog ==
 
+= 1.1.7 =
+
+* Fix: Some users could not be quick edited on activity report
+
 = 1.1.6 =
 
 * Feature: Quick edit of user roles in activity report
@@ -246,6 +250,10 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.7 =
+
+Fixed bug where some users could not be edited on activity report
 
 = 1.1.6 =
 

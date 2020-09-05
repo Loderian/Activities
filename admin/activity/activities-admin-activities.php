@@ -136,6 +136,7 @@ function activities_admin_activities_page() {
                 if ( wp_safe_redirect( $url ) ) {
                     exit;
                 }
+                break;
         }
 
         if ( isset( $header ) && is_array( $_POST['selected_activities'] ) ) {

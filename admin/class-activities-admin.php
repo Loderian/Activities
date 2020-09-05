@@ -456,8 +456,6 @@ class Activities_Admin {
 
     /**
      * Builds screen help for all pages
-     *
-     * @return    string            New screen options
      */
     public function show_help() {
         $screen = get_current_screen();
@@ -559,7 +557,7 @@ class Activities_Admin {
       <fieldset>
       <legend>' . esc_html__( 'Show Columns', 'activities' ) . '</legend>
       <div class="metabox-prefs">
-			<input type="hidden" name="wp_screen_options[option]" value="acts_page_settings" />
+			<input type="hidden" name="wp_screen_options[option]" value="acts_settings_for_page" />
       <input type="hidden" name="wp_screen_options[value]" value="' . esc_attr( $page ) . '" />
       <div>';
             $return  .= '<label for="acts_name"><input type="checkbox" name="acts_columns[]" id="acts_name" checked disabled />' . esc_html__( 'Name', 'activities' ) . '</label>';
@@ -579,7 +577,7 @@ class Activities_Admin {
             $return .= '</div>
       </fieldset>
       <br class="clear">'
-                       . get_submit_button( esc_html__( 'Save', 'activities' ), 'button', 'screen-options-apply', false );
+                       . get_submit_button( esc_html__( 'Apply', 'activities' ), 'button-primary', 'screen-options-apply', false );
         }
 
         return $return;
@@ -608,7 +606,7 @@ class Activities_Admin {
      * @return bool        False
      */
     public function set_screen_options( $status, $option, $page ) {
-        if ( $option === 'acts_page_settings' && isset( $_POST['acts_columns'] ) ) {
+        if ( $option === 'acts_settings_for_page' && isset( $_POST['acts_columns'] ) ) {
             if ( isset( $_POST['acts_columns'] ) && is_array( $_POST['acts_columns'] ) ) {
                 $columns = Activities_Options::get_user_option( $page, 'show_columns' );
                 foreach ( array_keys( $columns ) as $key ) {

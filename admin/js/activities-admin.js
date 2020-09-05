@@ -190,7 +190,7 @@
             new_row.find('a').attr('tid', data.id);
             new_row.find('a span:first').html(data.name);
             new_row.find('input').val(data.id);
-            new_row.find('input[type=checkbox]').attr('checked', false);
+            new_row.find('input[type=checkbox]').prop('checked', false);
         }
 
         function add_to_select(selector, data) {
@@ -281,15 +281,15 @@
             let id = $(this).val();
 
             if (id != prev_selected) {
-                $('input[name=primary_category][value=' + prev_selected + ']').attr('checked', false);
+                $('input[name=primary_category][value=' + prev_selected + ']').prop('checked', false);
             }
 
             $('.acts-categories input[name="additional_categories[]"]').each(function (index, elem) {
                 let elem_id = $(elem).val();
                 if (elem_id === id) {
-                    $(elem).attr('checked', false);
+                    $(elem).prop('checked', false);
                 } else if (elem_id === prev_selected) {
-                    $(elem).attr('checked', true);
+                    $(elem).prop('checked', true);
                 }
             });
 
@@ -297,7 +297,7 @@
         });
 
         $(document).on('click', 'input[name="additional_categories[]"]', function (event) {
-            $('input[name=primary_category][value=' + $(this).val() + ']').attr('checked', false);
+            $('input[name=primary_category][value=' + $(this).val() + ']').prop('checked', false);
         });
 
         $('#save_category').click(function (event) {

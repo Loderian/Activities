@@ -205,9 +205,10 @@
                 }
             }
 
+            let $timeSlots = $('#time-slots')
             function update_sessions() {
-                let times = parseInt($('#time-slots').val());
-                let max = parseInt($('#time-slots').attr('max'));
+                let times = parseInt($timeSlots.val());
+                let max = parseInt($timeSlots.attr('max'));
                 let exist = -1;
                 if ($('.acts-nice-user-time').length) {
                     exist = $('input[time]:last').attr('time');
@@ -219,13 +220,13 @@
                     times = 0;
                 } else if (times > max) {
                     times = max;
-                    $('#time-slots').val(times);
+                    $timeSlots.val(times);
                 } else if (times < 0) {
                     times = 0;
-                    $('#time-slots').val(times);
+                    $timeSlots.val(times);
                 }
 
-                if (prev_times == times || exist == times - 1) {
+                if (prev_times === times || exist === times - 1) {
                     return;
                 }
 
@@ -250,24 +251,26 @@
                 prev_times = times;
             }
 
-            $('#time-slots').on('input', function () {
+            $timeSlots.on('input', function () {
                 update_sessions();
             });
 
             function mark_session(mark) {
-                let time = parseInt($('#acts-time-mark').val());
+                let $timeMark = $('#acts-time-mark');
+                let time = parseInt($timeMark.val());
                 if (isNaN(time) || time < 1) {
                     time = 1;
                 }
 
-                $('input[time=' + (time - 1) + ']').attr('checked', mark);
+                let $sessionCheckboxes = $('input[time=' + (time - 1) + ']')
+                $sessionCheckboxes.prop('checked', mark);
                 if (mark) {
                     time++;
                 } else {
                     time--;
                 }
-                if ($('input[time=' + (time - 1) + ']').length) {
-                    $('#acts-time-mark').val(time);
+                if ($sessionCheckboxes.length) {
+                    $timeMark.val(time);
                 }
             }
 
@@ -306,7 +309,8 @@
                 });
             }
 
-            if ($('#acts-nice-color').length) {
+            let $colors = $('#acts-nice-color')
+            if ($colors.length) {
                 $('#acts-nice-color input[name="nice_color_key[]"]').selectize(get_selectize_options());
 
                 let html_color = '<li class="acts-nice-custom-split"><input type="text" value="" name="nice_color[]" />';
@@ -327,10 +331,11 @@
                 $('#add-color').on('click', function (event) {
                     event.preventDefault();
 
-                    $('#acts-nice-color').append(html_color);
+
+                    $colors.append(html_color);
                     add_color_control();
 
-                    let elem = $('#acts-nice-color').children().last('li').children('input[name="nice_color_key[]"]');
+                    let elem = $colors.children().last('li').children('input[name="nice_color_key[]"]');
 
                     $(elem).selectize(get_selectize_options());
                 });
@@ -338,8 +343,9 @@
                 $(document).on('click', 'input[type=submit][name=delete_color]', function (event) {
                     event.preventDefault();
                     let text = $(this).siblings('input').val();
-                    if ($('.acts-nice-custom-' + text).length) {
-                        $('.acts-nice-custom-' + text).css('background-color', '');
+                    let $customItem = $('.acts-nice-custom-' + text)
+                    if ($customItem.length) {
+                        $customItem.css('background-color', '');
                     }
                     $(this).parent('li').remove();
                 });
@@ -351,14 +357,17 @@
                 let html_custom = '<li class="acts-nice-custom-split"><input type="text" name="nice_custom[][]" />';
                 html_custom += ' <input type="submit" name="delete_custom" value="-" class="delete-custom button" /></li>';
 
+                //Add new custom row
                 $('input[col]').on('click', function (event) {
                     event.preventDefault();
 
                     let col = $(this).attr('col');
 
-                    $('ul[col=' + col + ']').append(html_custom);
+                    let $list = $('ul[col=' + col + ']');
 
-                    let elem = $('ul[col=' + col + ']').children().last('li').children('input[name="nice_custom[][]"]');
+                    $list.append(html_custom);
+
+                    let elem = $list.children().last('li').children('input[name="nice_custom[][]"]');
                     $(elem).attr('name', 'nice_custom[' + col + '][]');
 
                     $(elem).selectize(get_selectize_options());
@@ -373,7 +382,7 @@
 
             let link = $('#acts-nice-user-link').attr('href');
 
-            $('.acts-user-quick-edit[uid]').click(function (event) {
+            $('.acts-user-quick-edit[uid]').on('click', function (event) {
                 event.preventDefault();
 
                 let id = $(this).attr('uid');
@@ -408,7 +417,7 @@
                         $acts_quick_key.val(user_info[key]);
                     } else if (key === 'roles') {
                         $('.acts-quick-edit-roles').find('input[type=checkbox]').each(function () {
-                                $(this).attr("checked", user_info['roles'].includes($(this).attr('user_role')));
+                                $(this).prop('checked', user_info['roles'].includes($(this).attr('user_role')));
                             }
                         );
                     }
@@ -470,7 +479,7 @@
 
             function disable_member_info_controls(disable) {
                 $('#acts-reload-members').attr('disabled', disable);
-                $('#time-slots').attr('disabled', disable);
+                $timeSlots.attr('disabled', disable);
                 $('input[type=radio][name=member_info]').attr('disabled', disable);
                 $('#add-custom').attr('disabled', disable);
                 $('input[type=text][name="nice_custom[]"]').attr('disabled', disable);

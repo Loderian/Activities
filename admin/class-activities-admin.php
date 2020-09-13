@@ -60,6 +60,7 @@ class Activities_Admin {
      */
     public function register_styles() {
         wp_register_style( $this->plugin_name . '-admin-css', plugin_dir_url( __FILE__ ) . 'css/activities-admin.css', array(), $this->version, 'all' );
+        wp_register_style( $this->plugin_name . '-admin-report-css', plugin_dir_url( __FILE__ ) . 'css/report/activities-admin-report.css', array(), $this->version, 'all' );
 
         //Enqueue such that selectize works on WooCommerce pages
         wp_enqueue_style( $this->plugin_name . '-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize/selectize.css', array(), $this->version, 'all' );
@@ -72,6 +73,7 @@ class Activities_Admin {
      */
     public function enqueue_styles() {
         wp_enqueue_style( $this->plugin_name . '-admin-css' );
+        wp_enqueue_style( $this->plugin_name . '-admin-report-css' );
         wp_enqueue_style( 'wp-color-picker' );
     }
 
@@ -86,12 +88,16 @@ class Activities_Admin {
             'session' => esc_html__( 'Session', 'activities' )
         ) );
 
-        wp_register_script( $this->plugin_name . '-admin-report-js', plugin_dir_url( __FILE__ ) . 'js/activities-admin-report.js', array(
+        wp_register_script( $this->plugin_name . '-admin-report-js', plugin_dir_url( __FILE__ ) . 'js/report/activities-admin-report.js', array(
             'jquery',
             'wp-color-picker'
         ), $this->version, false );
         wp_localize_script( $this->plugin_name . '-admin-report-js', 'acts_i18n_nice', array(
-            'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' ),
+            'select_img_title' => esc_html__( 'Select a logo for the activity report', 'activities' )
+        ) );
+
+        wp_register_script( $this->plugin_name . '-admin-report-plan-js', plugin_dir_url( __FILE__ ) . 'js/report/activities-admin-report-plan.js', array( 'jquery' ), $this->version, false );
+        wp_localize_script( $this->plugin_name . '-admin-report-plan-js', 'acts_i18n_nice', array(
             'empty'            => esc_html__( 'Empty', 'activities' ),
             'create_plan'      => __( 'Create plan', 'activities' ),
             'update_plan'      => __( 'Update plan', 'activities' )
@@ -109,6 +115,7 @@ class Activities_Admin {
     public function enqueue_scripts() {
         wp_enqueue_script( $this->plugin_name . '-admin-js' );
         wp_enqueue_script( $this->plugin_name . '-admin-report-js' );
+        wp_enqueue_script( $this->plugin_name . '-admin-report-plan-js' );
         wp_enqueue_script( 'imagesloaded' );
         wp_enqueue_script( 'wp-color-picker' );
     }

@@ -131,6 +131,7 @@ class Activities {
 		if ( is_admin() ) {
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-generic.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activities-admin-access.php';
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin-ajax.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-activities-admin-utility.php';
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/activity/activities-admin-activity.php';
@@ -176,18 +177,20 @@ class Activities {
 	 */
 	private function define_admin_hooks() {
 		$plugin_admin = new Activities_Admin( $this->get_plugin_name(), $this->get_version() );
+		$admin_ajax = new Activities_Admin_Ajax();
 
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_styles' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_scripts' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'init_woocommerce' );
 
-		$this->loader->add_action( 'wp_ajax_acts_get_member_info', $plugin_admin, 'ajax_get_member_info' );
-		$this->loader->add_action( 'wp_ajax_acts_get_user_info', $plugin_admin, 'ajax_get_user_info' );
-        $this->loader->add_action( 'wp_ajax_acts_quick_save', $plugin_admin, 'ajax_acts_quick_save' );
-        $this->loader->add_action( 'wp_ajax_acts_create_plan', $plugin_admin, 'ajax_create_plan' );
-        $this->loader->add_action( 'wp_ajax_acts_insert_cat', $plugin_admin, 'ajax_insert_cat' );
-        $this->loader->add_action( 'wp_ajax_acts_update_cat', $plugin_admin, 'ajax_update_cat' );
-        $this->loader->add_action( 'wp_ajax_acts_delete_cat', $plugin_admin, 'ajax_delete_cat' );
+		$this->loader->add_action( 'wp_ajax_acts_get_member_info', $admin_ajax, 'ajax_get_member_info' );
+		$this->loader->add_action( 'wp_ajax_acts_get_user_info', $admin_ajax, 'ajax_get_user_info' );
+        $this->loader->add_action( 'wp_ajax_acts_quick_save', $admin_ajax, 'ajax_acts_quick_save' );
+        $this->loader->add_action( 'wp_ajax_acts_create_plan', $admin_ajax, 'ajax_create_plan' );
+        $this->loader->add_action( 'wp_ajax_acts_update_plan_session', $admin_ajax, 'ajax_update_plan_session' );
+        $this->loader->add_action( 'wp_ajax_acts_insert_cat', $admin_ajax, 'ajax_insert_cat' );
+        $this->loader->add_action( 'wp_ajax_acts_update_cat', $admin_ajax, 'ajax_update_cat' );
+        $this->loader->add_action( 'wp_ajax_acts_delete_cat', $admin_ajax, 'ajax_delete_cat' );
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'activities_admin_menu' );
 

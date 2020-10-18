@@ -113,10 +113,10 @@ function acts_build_session_box( $session_id, $text, $last_session ) {
 function acts_report_plan_session_edit_box() {
     $output = '<div id="acts-plan-session-edit" style="display: none">';
     $output .= '<form action="' . admin_url( 'admin-ajax.php' ) . '" class="acts-plan-session-edit-box acts-form" method="post">';
-    $output .= '<h3></h3>';
     $output .= '<h4></h4>';
     $output .= '<textarea></textarea>';
-    $output .= get_submit_button( esc_html__( 'Save', 'activities' ), 'button-primary', 'acts_save_plan_session', false );
+    $output .= '<input type="hidden" name="session_number" value="" />';
+    $output .= get_submit_button( esc_html__( 'Update session on report', 'activities' ), 'button-primary', 'acts_save_plan_session', false );
     $output .= '</form>';
     $output .= '</div>';
 

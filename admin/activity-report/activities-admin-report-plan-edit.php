@@ -23,8 +23,12 @@ if ( !defined( 'WPINC' ) ) {
  *
  * @return  string
  */
-function acts_build_plans_box( int $plan_id, array $session_map, int $time_slots, int $last_session ) {
-    $plan = Activities_Plan::load( $plan_id );
+function acts_build_plans_box( $plan_id, array $session_map, int $time_slots, int $last_session ) {
+    if ( $plan_id !== null ) {
+        $plan = Activities_Plan::load( $plan_id );
+    } else {
+        $plan = null;
+    }
 
     $plan_name = '';
     $plan_map  = array();

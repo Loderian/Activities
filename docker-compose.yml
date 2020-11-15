@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  phpMyAdmin:
+    image: phpmyadmin/phpmyadmin:4.9
+    depends_on:
+      - db
+    ports:
+      - "8001:80"
+    environment:
+      PMA_ARBITRARY: 1
+
+  wordpress:
+    image: wordpress:5.5.3-php7.4
+    depends_on:
+      - db
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - /etc/php/conf.d/:/usr/local/etc/php/conf.d
+      - .:/var/www/html/wp-content/plugins/Activities
+volumes:
+  db_data: {}

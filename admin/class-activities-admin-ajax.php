@@ -286,6 +286,7 @@ class Activities_Admin_Ajax {
         $insert = Activities_Plan::insert( $plan_map );
 
         if ( $insert ) {
+            //TODO Update activity with plan
             wp_send_json_success( esc_html__( 'Plan created', 'activities' ) );
         }
 
@@ -296,18 +297,21 @@ class Activities_Admin_Ajax {
      * Ajax callback for updated plan session, only on activity report
      */
     function ajax_update_plan_session() {
-        $plan_id = acts_validate_int( $_POST['item_id'] );
-        $plan_name = substr( sanitize_text_field( $_POST['name'] ), 0, 200 );
-        if ( $plan_id == 0 && !Activities_Plan::exists( $plan_name['name'], 'name' ) ) {
+        $act_id = acts_validate_int( $_POST['item_id'] );
+        if ( $act_id > 0 ) {
             $session_number = acts_validate_int( $_POST['session_number'] );
             $session_text = sanitize_textarea_field( $_POST['session_text'] );
 
             if ( $session_number > 0 ) {
-                //TODO Update report plan settings for activity
-                //Activities_Activity::get_nice_settings(  )
+                $report_settings = Activities_Activity::get_meta( $act_id, 'session_map' );
+                $report_settings[$session_number] = $session_text;
+                Activities_Activity::update_meta( $act_id, 'session_map', $report_settings, true );
+                wp_send_json( esc_html__('Updated session on activity', 'activities') );
             } else {
-                wp_send_json_error( esc_html__( 'Error', 'activities' ) );
+                wp_send_json_error( esc_html__( 'Invalid session number', 'activities' ) );
             }
+        } else {
+            wp_send_json_error( esc_html__( 'Invalid activity id', 'activities' ) );
         }
     }
 }

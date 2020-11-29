@@ -100,7 +100,7 @@ class Activities_Activity {
                 break;
 
             case 'nice_settings':
-                return self::get_nice_settings( $this->activity['activity_id'] );
+                return self::get_report_settings( $this->activity['activity_id'] );
                 break;
 
             default:
@@ -569,7 +569,7 @@ class Activities_Activity {
      *
      * @return  array|false    Nice Settings, or false if does not exist
      */
-    static function get_nice_settings( int $id ) {
+    static function get_report_settings( int $id ) {
         if ( $id <= 0 ) {
             return false;
         }

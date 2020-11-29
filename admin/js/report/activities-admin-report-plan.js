@@ -6,6 +6,17 @@
             let $input_plan_name = $('input[name=plan_name]')
             let $hidden_session_number = $('.acts-plan-session-edit-box input[name="session_number"]')
             let $edit_box_textarea = $('.acts-plan-session-edit-box textarea')
+            let plan_session_contents = new Map()
+            $('.acts-nice-session').each(function(index) {
+                let session = $(this)
+                let session_text = session.find('.acts-nice-session-text');
+                if (session_text.find('.acts-nice-session-empty').length === 0) {
+                    plan_session_contents.set(session.attr('session'), session_text.html())
+                } else {
+                    plan_session_contents.set(session.attr('session'), '')
+                }
+            })
+            console.log(plan_session_contents)
 
             function expand_text(session, edit) {
                 let session_li = $('.acts-nice-session[session=' + session + ']');
@@ -19,6 +30,18 @@
                     $(session_li).find('.acts-nice-session-expand .dashicons').toggleClass('dashicons-arrow-up');
                 }
             }
+
+            function update_plan_session_html() {
+                plan_session_contents.forEach((text, session, map) => {
+                    console.log(session + ': ' + text)
+                    if (text.length > 0) {
+                        $(`.acts-nice-session[session=${session}] .acts-nice-session-text`).html(text)
+                    } else {
+                        $(`.acts-nice-session[session=${session}] .acts-nice-session-text`).html('<div class="acts-nice-session-empty">Empty</div>')
+                    }
+                })
+            }
+
 
             $(document).on('click', '.acts-nice-session-expand', function () {
                 expand_text($(this).parent().attr('session'), false);
@@ -50,6 +73,8 @@
                     $edit_box_textarea.val($textfield.html())
                 }
 
+                expand_text($session_parent.attr('session'), true)
+
                 tb_show(plan_name, "#TB_inline?height=" + height + "&amp;width=" + width + "&amp;inlineId=acts-plan-session-edit");
 
                 let wh = $('.acts-plan-session-edit-box').height() + 20;
@@ -79,7 +104,7 @@
                     type: 'POST',
                     data: {
                         action: 'acts_update_plan_session',
-                        item_id: $('input[name=plan_id]').val(),
+                        item_id: $('input[name=item_id]').val(),
                         name: $input_plan_name.val(),
                         session_number: parseInt($hidden_session_number.val()),
                         session_text: $edit_box_textarea.val()
@@ -87,9 +112,21 @@
                     dataType: 'json',
                     success: function (resp) {
                         console.log(resp)
+                        plan_session_contents.set($hidden_session_number.val(), $edit_box_textarea.val())
+                        update_plan_session_html()
+                        tb_remove()
                     },
                     error: function (jqXHR, text, error) {
                         console.error(text);
+                    },
+                    complete: function (resp) {
+                        console.log(resp)
+                        let $new_plan_response = $('.acts-nice-new-response');
+                        //TODO text should stay green on multiple successes
+                        $new_plan_response.toggleClass('acts-response-success', resp.success);
+                        $new_plan_response.toggleClass('acts-response-error', !resp.success);
+
+                        $new_plan_response.html(resp.responseJSON);
                     }
                 });
             })
@@ -139,15 +176,16 @@
                         description: ''
                     },
                     dataType: 'json',
-                    success: function (resp) {
+                    success: function (resp) {},
+                    error: function (jqXHR, text, error) {
+                        console.log(text)
+                    },
+                    complete: function (resp) {
                         let $new_plan_response = $('.acts-nice-new-response');
                         $new_plan_response.toggleClass('acts-response-success', resp.success);
                         $new_plan_response.toggleClass('acts-response-error', !resp.success);
 
-                        $new_plan_response.html(resp.data);
-                    },
-                    error: function (jqXHR, text, error) {
-                        console.error(text);
+                        $new_plan_response.html(resp.data.responseJSON);
                     }
                 });
             });

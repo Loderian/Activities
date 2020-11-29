@@ -36,7 +36,7 @@ function acts_activity_nice_management( $activity, $current_url = null ) {
         }
     }
 
-    $nice_settings = Activities_Activity::get_nice_settings( $activity['activity_id'] );
+    $nice_settings = Activities_Activity::get_report_settings( $activity['activity_id'] );
     if ( !$nice_settings ) {
         $nice_settings = Activities_Options::get_option( ACTIVITIES_NICE_SETTINGS_KEY );
         if ( !is_array( $nice_settings ) ) {

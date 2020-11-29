@@ -448,7 +448,7 @@
                         write_member_info(id);
                         tb_remove();
                     } else {
-                        console.error('An error occured updating user.');
+                        console.error('An error occurred updating user.');
                     }
                 }, 'json');
             });

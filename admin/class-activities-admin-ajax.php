@@ -274,9 +274,12 @@ class Activities_Admin_Ajax {
             if ( $plan['name'] === $plan_map['name'] ) {
                 $update = Activities_Plan::update( $plan_map );
                 if ( $update ) {
-                    wp_send_json_success( esc_html__( 'Plan updated', 'activities' ) );
+                    wp_send_json_success( array(
+                        'plan_id' => $plan_map['plan_id'],
+                        'text' => esc_html__( 'Plan updated', 'activities' )
+                    ) );
                 } else {
-                    wp_send_json_error( esc_html__( 'Error', 'activities' ) );
+                    wp_send_json_error( esc_html__( 'Updating plan failed', 'activities' ) );
                 }
             }
         }
@@ -284,13 +287,23 @@ class Activities_Admin_Ajax {
             wp_send_json_error( sprintf( esc_html__( '%s already exists', 'activities' ), ( '<b>' . $plan_map['name'] . '</b>' ) ) );
         }
         $insert = Activities_Plan::insert( $plan_map );
-
-        if ( $insert ) {
-            //TODO Update activity with plan
-            wp_send_json_success( esc_html__( 'Plan created', 'activities' ) );
+        $act_id = acts_validate_int( $_POST['act_id'] );
+        if ( $act_id && acts_validate_int( $insert ) ) {
+            $update = Activities_Activity::update( array( 'activity_id' => $act_id, 'plan_id' => $insert ) );
+            if ( $update ) {
+                wp_send_json_success( array(
+                    'plan_id' => $insert,
+                    'text' => esc_html__( 'Plan created and activity updated', 'activities' )
+                ) );
+            } else {
+                wp_send_json_error( esc_html__( 'Could not update activity, but plan is created', 'activities' ) );
+            }
         }
-
-        wp_send_json_error( esc_html__( 'Error', 'activities' ) );
+        if ( !$insert ) {
+            wp_send_json_error( esc_html__( 'Could not create plan', 'activities' ) );
+        } else {
+            wp_send_json_error( esc_html__( "Plan created but invalid activity id", 'activities' ) );
+        }
     }
 
     /**
@@ -306,7 +319,7 @@ class Activities_Admin_Ajax {
                 $report_settings = Activities_Activity::get_meta( $act_id, 'session_map' );
                 $report_settings[$session_number] = $session_text;
                 Activities_Activity::update_meta( $act_id, 'session_map', $report_settings, true );
-                wp_send_json( esc_html__('Updated session on activity', 'activities') );
+                wp_send_json_success( esc_html__('Updated session on activity', 'activities') );
             } else {
                 wp_send_json_error( esc_html__( 'Invalid session number', 'activities' ) );
             }

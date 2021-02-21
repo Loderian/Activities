@@ -2,8 +2,8 @@
 Contributors: loderian
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4WWGL363GNRGQ&lc=NO&item_name=Activities%20WordPress%20Plugin&item_number=Development&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: activities, events, courses, classes, report
-Requires at least: 4.6
-Tested up to: 5.4.1
+Requires at least: 5.4
+Tested up to: 5.6.1
 Stable tag: trunk
 Requires PHP: 7.0.32
 License: GPLv3 or later
@@ -159,6 +159,11 @@ List of data options
 
 == Changelog ==
 
+= 1.1.8 =
+
+* Feature: Editing plan session on report has its own popup
+* Fix: Updated jquery
+
 = 1.1.7 =
 
 * Fix: Some users could not be quick edited on activity report
@@ -250,6 +255,10 @@ List of data options
 * Release
 
 == Upgrade Notice ==
+
+= 1.1.8 =
+
+Editing plan session on report has its own popup. Jquery fix
 
 = 1.1.7 =
 

@@ -21,7 +21,7 @@ services:
       PMA_ARBITRARY: 1
 
   wordpress:
-    image: wordpress:5.5.3-php7.4
+    image: wordpress:5.6.1-php7.4
     depends_on:
       - db
     ports:

@@ -16,7 +16,6 @@
                     plan_session_contents.set(session.attr('session'), '')
                 }
             })
-            console.log(plan_session_contents)
 
             function expand_text(session, edit) {
                 let session_li = $('.acts-nice-session[session=' + session + ']');
@@ -33,7 +32,6 @@
 
             function update_plan_session_html() {
                 plan_session_contents.forEach((text, session, map) => {
-                    console.log(session + ': ' + text)
                     if (text.length > 0) {
                         $(`.acts-nice-session[session=${session}] .acts-nice-session-text`).html(text)
                     } else {
@@ -58,15 +56,14 @@
                 }
 
                 width = width * 0.90;
-                let height = window.innerHeight * 0.90;
+                let height = window.innerHeight * 0.85;
                 if (width > 650) {
                     width = 650;
                 }
 
                 $('.acts-plan-session-edit-box h4').html('Session ' + $session_parent.attr('session'))
                 $hidden_session_number.val($session_parent.attr('session'))
-                $edit_box_textarea.height(height * 0.875);
-                console.log($textfield.find('.acts-nice-session-empty').length)
+                $edit_box_textarea.height(height - 110);
                 if ($textfield.find('.acts-nice-session-empty').length) {
                     $edit_box_textarea.val('');
                 } else {
@@ -81,19 +78,6 @@
                 if (wh < height) {
                     $('#TB_ajaxContent').height(height);
                 }
-
-         //    if ($($textfield).find('.acts-nice-session-empty').length) {
-         //        $($textfield).find('.acts-nice-session-empty').remove();
-         //    }
-         //    let name = $($textfield).attr('name');
-         //    let text = $($textfield).html();
-         //    let css = $($textfield).attr('class');
-         //
-         //    $($textfield).replaceWith(function () {
-         //        return $('<textarea />', {class: css, name: name}).append(text);
-         //    });
-         //
-         //    expand_text($session_parent.attr('session'), true);
             });
 
             $('#acts_save_plan_session').click(function (event) {
@@ -111,7 +95,6 @@
                     },
                     dataType: 'json',
                     success: function (resp) {
-                        console.log(resp)
                         plan_session_contents.set($hidden_session_number.val(), $edit_box_textarea.val())
                         update_plan_session_html()
                         tb_remove()
@@ -120,13 +103,11 @@
                         console.error(text);
                     },
                     complete: function (resp) {
-                        console.log(resp)
                         let $new_plan_response = $('.acts-nice-new-response');
-                        //TODO text should stay green on multiple successes
-                        $new_plan_response.toggleClass('acts-response-success', resp.success);
-                        $new_plan_response.toggleClass('acts-response-error', !resp.success);
+                        $new_plan_response.toggleClass('acts-response-success', resp.responseJSON.success);
+                        $new_plan_response.toggleClass('acts-response-error', !resp.responseJSON.success);
 
-                        $new_plan_response.html(resp.responseJSON);
+                        $new_plan_response.html(resp.responseJSON.data);
                     }
                 });
             })
@@ -150,14 +131,13 @@
                 let session_map = {};
                 $('.acts-nice-session[session]').each(function (index, elem) {
                     let session = $(elem).attr('session');
-                    if ($(elem).find('.acts-nice-session-text .acts-nice-session-empty').length) {
-                        $(elem).find('.acts-nice-session-text .acts-nice-session-empty').remove();
-                    }
                     let text = '';
-                    if ($(elem).find('div.acts-nice-session-text').length) {
-                        text = $(elem).find('div.acts-nice-session-text').html();
-                    } else {
-                        text = $(elem).find('textarea.acts-nice-session-text').val();
+                    if ($(elem).find('.acts-nice-session-text .acts-nice-session-empty').length === 0) {
+                        if ($(elem).find('div.acts-nice-session-text').length) {
+                            text = $(elem).find('div.acts-nice-session-text').html();
+                        } else {
+                            text = $(elem).find('textarea.acts-nice-session-text').val();
+                        }
                     }
 
                     session_map[session] = text;
@@ -170,6 +150,7 @@
                     data: {
                         action: 'acts_create_plan',
                         item_id: $('input[name=plan_id]').val(),
+                        act_id: $('input[name=item_id]').val(),
                         name: name,
                         session_map: session_map,
                         sessions: sessions,
@@ -182,10 +163,17 @@
                     },
                     complete: function (resp) {
                         let $new_plan_response = $('.acts-nice-new-response');
-                        $new_plan_response.toggleClass('acts-response-success', resp.success);
-                        $new_plan_response.toggleClass('acts-response-error', !resp.success);
+                        $new_plan_response.toggleClass('acts-response-success', resp.responseJSON.success);
+                        $new_plan_response.toggleClass('acts-response-error', !resp.responseJSON.success);
 
-                        $new_plan_response.html(resp.data.responseJSON);
+                        if (resp.responseJSON.success) {
+                            $new_plan_response.html(resp.responseJSON.data.text);
+                            $('input[name=plan_id]').val(resp.responseJSON.data.plan_id);
+                            $('.acts-nice-plan-name').html(name);
+                            $('#create_plan').val(acts_i18n_nice.update_plan);
+                        } else {
+                            $new_plan_response.html(resp.responseJSON.data);
+                        }
                     }
                 });
             });

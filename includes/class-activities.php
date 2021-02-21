@@ -56,7 +56,7 @@ class Activities {
 			$this->version = ACTIVITIES_VERSION;
 		}
 		else {
-			$this->version = '1.1.7';
+			$this->version = '1.1.8';
 		}
 		$this->plugin_name = 'activities';
 
@@ -227,6 +227,8 @@ class Activities {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'wp_ajax_acts_join', $plugin_public, 'ajax_join' );
+
+        add_shortcode( 'acts', 'acts_shortcode' );
 	}
 
 	/**
